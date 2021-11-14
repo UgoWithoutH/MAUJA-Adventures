@@ -6,7 +6,7 @@ import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
 public class Test_DeplaceurEntite {
 
     public static void main(String[] args){
-        PersonnageJouable pj = new PersonnageJouable(0,0,15);
+        PersonnageJouable pj = new PersonnageJouable(0,0,15,null);
         DeplaceurEntite dp = new DeplaceurEntite();
 
         System.out.println(pj);

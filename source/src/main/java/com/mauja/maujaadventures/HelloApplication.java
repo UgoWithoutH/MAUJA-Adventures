@@ -48,9 +48,10 @@ public class HelloApplication extends Application {
         fCarte.setTitle("Carte");
         fCarte.setScene(sceneCarte);
         fCarte.show();
-
+        URL imgURlP= getClass().getResource("link_epee.png");
+        Image img= new Image(imgURlP.toExternalForm());
         Group racine = new Group();
-        PersonnageJouable pj = new PersonnageJouable(0, 0, 15);
+        PersonnageJouable pj = new PersonnageJouable(0, 0, 15,img);
 
         ArrayList<String> input;
         Scene scene = new Scene(racine);

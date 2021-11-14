@@ -16,17 +16,18 @@ public class Jeu {
 
             public void handle(long currentNanoTime)
             {
-                //gc.clearRect(0, 0, x,y);
+                gc.clearRect(0, 0, x,y);
                 if (input.contains("LEFT"))
-                    de.deplaceur(e,e.getX()-1,e.getY());
+                    de.deplaceur(e,e.getX()-3,e.getY());
                 if (input.contains("RIGHT"))
-                    de.deplaceur(e,e.getX()+1,e.getY());
+                    de.deplaceur(e,e.getX()+3,e.getY());
                 if (input.contains("UP"))
-                    de.deplaceur(e,e.getX(),e.getY()+1);
+                    de.deplaceur(e,e.getX(),e.getY()-3);
                 if (input.contains("DOWN"))
-                    de.deplaceur(e,e.getX(),e.getY()-1);
-                System.out.println(e.toString());
-
+                    de.deplaceur(e,e.getX(),e.getY()+3);
+                //System.out.println(e.toString());
+                AfficheurEntite ae=new AfficheurEntite();
+                ae.afficheur(e, e.getX(), e.getY() , gc);
             }
 
         }.start();
