@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -34,17 +35,19 @@ public class HelloApplication extends Application {
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("carte2.fxml"));
         //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         //Scene scene = new Scene(root);
-        URL imgURl= getClass().getResource("carte2.png");
-        Image carte = new Image(imgURl.toExternalForm());
+        Stage fCarte = new Stage();
+        String imgURl= getClass().getResource("carte2.png").toString();
+        Image carte = new Image(imgURl);
         ImageView imageView= new ImageView(carte);
         //imageView.setX(500);
         imageView.setFitWidth(1600);
         imageView.setFitHeight(1600);
         Pane carteA = new Pane();
         carteA.getChildren().setAll(imageView);
-        Scene sceneCarte = new Scene(carteA, 320, 240);
-        stage.setTitle("Carte");
-        stage.setScene(sceneCarte);
+        Scene sceneCarte = new Scene(carteA);
+        fCarte.setTitle("Carte");
+        fCarte.setScene(sceneCarte);
+        fCarte.show();
 
         Group racine = new Group();
         PersonnageJouable pj = new PersonnageJouable(0, 0, 15);
