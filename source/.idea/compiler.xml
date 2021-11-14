@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="MAUJA-adventures" target="17" />
+      <module name="MAUJA-adventures" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>
