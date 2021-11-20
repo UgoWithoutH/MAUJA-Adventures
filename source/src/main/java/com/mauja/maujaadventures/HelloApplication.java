@@ -30,8 +30,8 @@ public class HelloApplication extends Application {
         //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         //Scene scene = new Scene(root);
         //Stage fCarte = new Stage();
-        String imgURl= getClass().getResource("carte2.png").toString();
-        Image carte = new Image(imgURl);
+        URL imgURl= getClass().getResource("carte2.png");
+        Image carte = new Image(imgURl.toExternalForm());
         ImageView imageView= new ImageView(carte);
         //imageView.setX(500);
         //imageView.setFitWidth(1600);
