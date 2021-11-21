@@ -5,3 +5,4 @@
 *.iws
 */.idea.encodings.xml
 **/libraries
+**/out
