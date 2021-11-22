@@ -6,11 +6,13 @@ public abstract class Entite {
     private int x;
     private int y;
     private Image image;
+    private Collision collision;
 
-    public Entite(int x, int y,Image image){
+    public Entite(int x, int y,Image image, Collision collision){
         this.x = x;
         this.y = y;
         this.image=image;
+        this.collision = collision;
     }
 
     public int getX(){
@@ -32,4 +34,12 @@ public abstract class Entite {
     public Image getImage() { return image; }
 
     protected void setImage() { this.image = image; }
+
+    public Collision getCollision() {
+        return collision;
+    }
+
+    public void setCollision(Collision collision) {
+        this.collision.setZoneCollision(collision.getZoneCollision());
+    }
 }

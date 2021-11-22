@@ -1,10 +1,12 @@
 package com.mauja.maujaadventures;
 
 import com.mauja.maujaadventures.modele.Boutons;
+import com.mauja.maujaadventures.modele.Collision;
 import com.mauja.maujaadventures.modele.Jeu;
 import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
 import javafx.application.Application;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,7 +47,7 @@ public class HelloApplication extends Application {
         URL imgURlP= getClass().getResource("link_epee.png");
         Image img= new Image(imgURlP.toExternalForm());
         Group racine = new Group();
-        PersonnageJouable pj = new PersonnageJouable(0, 0, 15,img);
+        PersonnageJouable pj = new PersonnageJouable(0, 0, 15,img,new Collision(new Rectangle2D(1,1,1,1)));
 
         ArrayList<String> input;
         VBox content = new VBox();
