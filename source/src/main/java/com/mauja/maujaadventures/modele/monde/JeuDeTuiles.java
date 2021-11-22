@@ -1,5 +1,5 @@
 package com.mauja.maujaadventures.modele.monde;
-//import javafx.scene.shape.*;
+
 
 import java.util.ArrayList;
 
@@ -9,7 +9,6 @@ public class JeuDeTuiles {
     private int largeur;
     private int hauteur;
     private ArrayList<Tuile> listeDeTuiles;
-    //private Rectangle lesCollisions; //Je ne vois pour l'instant pas l'utilité de cet attribut je laisse donc en commentaire
 
     public JeuDeTuiles(String image, int largeur, int hauteur){
         setImage(image);
@@ -47,11 +46,4 @@ public class JeuDeTuiles {
         this.image = image;
     }
 
-    /*public Rectangle getLesCollisions() {
-        return lesCollisions;
-    }
-
-    public void setLesCollisions(Rectangle lesCollisions) {
-        this.lesCollisions = lesCollisions;
-    }*/
 }

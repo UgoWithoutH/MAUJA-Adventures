@@ -1,9 +1,12 @@
 package com.mauja.maujaadventures.modele.monde;
 
+import java.util.ArrayList;
+
 public class Carte
 {
     private String nom;
     private String id;
+    private ArrayList<Calque> listeDeCalques;
     private int largeur;
     private int hauteur;
 
@@ -12,6 +15,7 @@ public class Carte
         this.setId(id);
         this.setHauteur(hauteur);
         this.setLargeur(largeur);
+        this.listeDeCalques= new ArrayList<Calque>();
     }
 
     public int getHauteur() {
@@ -30,19 +34,27 @@ public class Carte
         return nom;
     }
 
-    public void setHauteur(int hauteur) {
+    public ArrayList<Calque> getListeDeCalques() {
+        return listeDeCalques;
+    }
+
+    public void ajouterCalques(Calque c){
+        this.listeDeCalques.add(c);
+    }
+
+    private void setHauteur(int hauteur) {
         this.hauteur = hauteur;
     }
 
-    public void setId(String id) {
+    private void setId(String id) {
         this.id = id;
     }
 
-    public void setLargeur(int largeur) {
+    private void setLargeur(int largeur) {
         this.largeur = largeur;
     }
 
-    public void setNom(String nom) {
+    private void setNom(String nom) {
         this.nom = nom;
     }
 }
