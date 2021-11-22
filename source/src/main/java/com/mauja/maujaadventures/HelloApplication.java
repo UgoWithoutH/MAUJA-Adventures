@@ -25,23 +25,9 @@ import java.util.ArrayList;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-
-        //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("carte2.fxml"));
-        //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        //Scene scene = new Scene(root);
-        //Stage fCarte = new Stage();
         URL imgURl= getClass().getResource("carte2.png");
         Image carte = new Image(imgURl.toExternalForm());
         ImageView imageView= new ImageView(carte);
-        //imageView.setX(500);
-        //imageView.setFitWidth(1600);
-        //imageView.setFitHeight(1600);
-        //Pane carteA = new Pane();
-        //carteA.getChildren().setAll(imageView);
-        //Scene sceneCarte = new Scene(carteA);
-        //fCarte.setTitle("Carte");
-        //fCarte.setScene(sceneCarte);
-        //fCarte.show();
         URL imgURlP= getClass().getResource("link_epee.png");
         Image img= new Image(imgURlP.toExternalForm());
         Group racine = new Group();

@@ -3,30 +3,29 @@ package com.mauja.maujaadventures.modele;
 import javafx.scene.image.Image;
 
 public abstract class Entite {
-    private int x;
-    private int y;
+    private Position position;
     private Image image;
 
     public Entite(int x, int y,Image image){
-        this.x = x;
-        this.y = y;
+        this.position = position;
+        this.positionY = y;
         this.image=image;
     }
 
-    public int getX(){
-        return x;
+    public int getPositionX(){
+        return positionX;
     }
 
-    public void setX(int x){
-        this.x = x;
+    public void setPositionX(int positionX){
+        this.positionX = positionX;
     }
 
-    public int getY(){
-        return y;
+    public int getPositionY(){
+        return positionY;
     }
 
-    public void setY(int y){
-        this.y = y;
+    public void setPositionY(int y){
+        this.positionY = y;
     }
 
     public Image getImage() { return image; }

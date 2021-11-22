@@ -18,16 +18,16 @@ public class Jeu {
             {
                 gc.clearRect(0, 0, x,y);
                 if (input.contains("LEFT"))
-                    de.deplaceur(e,e.getX()-3,e.getY());
+                    de.deplaceur(e,e.getPositionX()-3,e.getY());
                 if (input.contains("RIGHT"))
-                    de.deplaceur(e,e.getX()+3,e.getY());
+                    de.deplaceur(e,e.getPositionX()+3,e.getY());
                 if (input.contains("UP"))
-                    de.deplaceur(e,e.getX(),e.getY()-3);
+                    de.deplaceur(e,e.getPositionX(),e.getY()-3);
                 if (input.contains("DOWN"))
-                    de.deplaceur(e,e.getX(),e.getY()+3);
+                    de.deplaceur(e, e.getPositionX(), e.getY()+3);
                 //System.out.println(e.toString());
-                AfficheurEntite ae=new AfficheurEntite();
-                ae.afficheur(e, e.getX(), e.getY() , gc);
+                AfficheurEntite ae = new AfficheurEntite();
+                ae.afficheur(e, e.getPositionX(), e.getY() , gc);
             }
 
         }.start();

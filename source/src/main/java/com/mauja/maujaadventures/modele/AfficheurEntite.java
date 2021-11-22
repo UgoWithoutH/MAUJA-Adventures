@@ -2,11 +2,13 @@ package com.mauja.maujaadventures.modele;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public class AfficheurEntite implements IAfficheur{
-
-
+public class AfficheurEntite implements Afficheur {
     @Override
-    public void afficheur(Entite e, int positionX, int positionY, GraphicsContext gc) {
-        gc.drawImage(e.getImage(),positionX,positionY);
+    public void affiche(Object obj, Position pos, ContexteGraphique contexteGraphique) {
+        if (!(obj instanceof Entite)) {
+            throw new IllegalArgumentException("L'objet " + obj.toString() + " passé en paramètre n'est pas une entité.");
+        }
+        Entite e = (Entite) obj;
+        contexteGraphique.dessiner(e.getImage(), e.getPositionX(), e.getPositionY());
     }
 }

@@ -15,7 +15,7 @@ public class PersonnageJouable extends Personnage {
     public String toString() {
         return "PersonnageJouable{" +
                 "attaque=" + attaque +
-                "Position= " + " x : " + getX() + " y : " + getY() +
+                "Position= " + " x : " + getPositionX() + " y : " + getY() +
                 '}';
     }
 }
