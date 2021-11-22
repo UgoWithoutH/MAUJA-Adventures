@@ -7,8 +7,14 @@ import java.util.ArrayList;
 
 public class Jeu {
 
+    private ContexteGraphique contexteGraphique;
 
-    public void boucle(GraphicsContext gc,int x,int y, ArrayList<String> input,Entite e){
+    public Jeu(GraphicsContext gc) {
+        contexteGraphique = new Caneva(gc);
+    }
+
+
+    public void boucle(int x, int y, ArrayList<String> input, Entite e){
         final long startNanoTime = System.nanoTime();
         DeplaceurEntite de=new DeplaceurEntite();
         new AnimationTimer()
@@ -16,24 +22,20 @@ public class Jeu {
 
             public void handle(long currentNanoTime)
             {
-                gc.clearRect(0, 0, x,y);
+                contexteGraphique.effacer(new Position(0, 0), new Dimension(x, y));
                 if (input.contains("LEFT"))
-                    de.deplaceur(e,e.getPositionX()-3,e.getY());
+                    de.deplaceur(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY());
                 if (input.contains("RIGHT"))
-                    de.deplaceur(e,e.getPositionX()+3,e.getY());
+                    de.deplaceur(e,e.getPosition().getPositionX() + 3, e.getPosition().getPositionY());
                 if (input.contains("UP"))
-                    de.deplaceur(e,e.getPositionX(),e.getY()-3);
+                    de.deplaceur(e, e.getPosition().getPositionX(),e.getPosition().getPositionY() - 3);
                 if (input.contains("DOWN"))
-                    de.deplaceur(e, e.getPositionX(), e.getY()+3);
+                    de.deplaceur(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3);
                 //System.out.println(e.toString());
                 AfficheurEntite ae = new AfficheurEntite();
-                ae.afficheur(e, e.getPositionX(), e.getY() , gc);
+                ae.affiche(e, e.getPosition(), contexteGraphique);
             }
 
         }.start();
-
-
     };
-
-
 }

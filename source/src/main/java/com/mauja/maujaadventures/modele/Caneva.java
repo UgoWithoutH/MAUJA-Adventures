@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.modele;
 
+import com.mauja.maujaadventures.modele.personnage.ImageSource;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.awt.*;
@@ -17,19 +18,19 @@ public class Caneva implements ContexteGraphique {
 
     @Override
     public void dessiner(ImageSource image, Position position, Dimension dimensions) {
-        dessiner(image.getImage(), position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur);
+        dessiner(image, position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
     }
 
     @Override
     public void dessiner(ImageSource image, int positionX, int positionY, Dimension dimensions) {
         verificationDimension(dimensions);
-        dessiner(image.getImage(), positionX, positionY, dimensions.getLargeur(), dimensions.getHauteur);
+        dessiner(image, positionX, positionY, dimensions.getLargeur(), dimensions.getHauteur());
     }
 
     @Override
     public void dessiner(ImageSource image, Position position, int largeur, int hauteur) {
         verificationPosition(position);
-        dessiner(image.getImage(), position.getPositionX(), position.getPositionY(), largeur, hauteur);
+        dessiner(image, position.getPositionX(), position.getPositionY(), largeur, hauteur);
     }
 
     @Override

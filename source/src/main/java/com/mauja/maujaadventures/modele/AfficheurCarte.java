@@ -1,5 +1,7 @@
 package com.mauja.maujaadventures.modele;
 
+import com.mauja.maujaadventures.modele.monde.Calque;
+import com.mauja.maujaadventures.modele.monde.Carte;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
@@ -14,9 +16,9 @@ public class AfficheurCarte implements Afficheur {
             throw new IllegalArgumentException("L'objet " + obj.toString() + " passé en paramètre n'est pas une carte.");
         }
         Carte carte = (Carte) obj;
-        ArrayList<Calque> lesCalques = carte.getCalques();
-        foreach(Calque c : lesCalques) {
-            afficheCalque(c, null, contexteGraphique);
+        ArrayList<Calque> lesCalques = carte.getListeDeCalques();
+        for (Calque c : lesCalques) {
+            affiche(c, null, contexteGraphique);
         }
     }
 }

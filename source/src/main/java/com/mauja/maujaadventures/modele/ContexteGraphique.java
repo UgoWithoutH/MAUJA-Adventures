@@ -1,5 +1,7 @@
 package com.mauja.maujaadventures.modele;
 
+import com.mauja.maujaadventures.modele.personnage.ImageSource;
+
 import java.awt.*;
 
 public interface ContexteGraphique {

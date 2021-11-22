@@ -1,10 +1,11 @@
 package com.mauja.maujaadventures;
 
-import com.mauja.maujaadventures.modele.Boutons;
-import com.mauja.maujaadventures.modele.Jeu;
+import com.mauja.maujaadventures.modele.*;
+import com.mauja.maujaadventures.modele.personnage.ImageSource;
 import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
 import javafx.application.Application;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,10 +29,13 @@ public class HelloApplication extends Application {
         URL imgURl= getClass().getResource("carte2.png");
         Image carte = new Image(imgURl.toExternalForm());
         ImageView imageView= new ImageView(carte);
-        URL imgURlP= getClass().getResource("link_epee.png");
-        Image img= new Image(imgURlP.toExternalForm());
+        String imgURlP = getClass().getResource("link_epee.png").toString();
+        ImageSource img= new ImageSource(imgURlP);
         Group racine = new Group();
-        PersonnageJouable pj = new PersonnageJouable(0, 0, 15,img);
+        PersonnageJouable pj = new PersonnageJouable(new Position(0, 0),
+                                                     new ImageSource(imgURlP),
+                                                     new Collision(new Rectangle2D(1,1,1,1)),
+                                                     10);
 
         ArrayList<String> input;
         VBox content = new VBox();
@@ -46,9 +50,9 @@ public class HelloApplication extends Application {
         Canvas canvas = new Canvas(800, 400);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         content.getChildren().add( canvas );
-        Jeu jeu=new Jeu();
+        Jeu jeu=new Jeu(gc);
         input=b.lecture(scene);
-        jeu.boucle(gc,800,400,input,pj);
+        jeu.boucle(800,400, input, pj);
 
         stage.show();
     }
