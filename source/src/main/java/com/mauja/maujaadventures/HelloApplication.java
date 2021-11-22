@@ -2,6 +2,7 @@ package com.mauja.maujaadventures;
 
 import com.mauja.maujaadventures.modele.Boutons;
 import com.mauja.maujaadventures.modele.Jeu;
+import com.mauja.maujaadventures.modele.personnage.ImageSource;
 import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
 import javafx.application.Application;
 
@@ -43,7 +44,7 @@ public class HelloApplication extends Application {
         //fCarte.setScene(sceneCarte);
         //fCarte.show();
         URL imgURlP= getClass().getResource("link_epee.png");
-        Image img= new Image(imgURlP.toExternalForm());
+        ImageSource img= new ImageSource(imgURlP.toExternalForm());
         Group racine = new Group();
         PersonnageJouable pj = new PersonnageJouable(0, 0, 15,img);
 

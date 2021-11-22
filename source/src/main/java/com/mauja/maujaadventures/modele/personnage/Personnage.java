@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 
 public abstract class Personnage extends Entite { //pour éventuellement des PNJ
 
-    public Personnage(int x, int y, Image image){
+    public Personnage(int x, int y, ImageSource image){
         super(x,y,image);
     }
 

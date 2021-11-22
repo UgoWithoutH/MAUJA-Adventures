@@ -1,13 +1,14 @@
 package com.mauja.maujaadventures.modele;
 
+import com.mauja.maujaadventures.modele.personnage.ImageSource;
 import javafx.scene.image.Image;
 
 public abstract class Entite {
     private int x;
     private int y;
-    private Image image;
+    private ImageSource image;
 
-    public Entite(int x, int y,Image image){
+    public Entite(int x, int y, ImageSource image){
         this.x = x;
         this.y = y;
         this.image=image;
@@ -29,7 +30,8 @@ public abstract class Entite {
         this.y = y;
     }
 
-    public Image getImage() { return image; }
+    public ImageSource getImage() { return image; }
 
-    protected void setImage() { this.image = image; }
+    protected void setImage() {
+    }
 }

@@ -6,7 +6,7 @@ public class PersonnageJouable extends Personnage {
 
     private int attaque;
 
-    public PersonnageJouable(int x, int y, int attaque, Image image){
+    public PersonnageJouable(int x, int y, int attaque, ImageSource image){
         super(x,y,image);
         this.attaque = attaque;
     }
