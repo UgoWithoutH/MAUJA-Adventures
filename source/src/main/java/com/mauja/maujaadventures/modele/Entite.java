@@ -1,29 +1,23 @@
 package com.mauja.maujaadventures.modele;
 
-import com.mauja.maujaadventures.modele.personnage.ImageSource;
-import javafx.scene.image.Image;
 
-public abstract class Entite {
+public abstract class Entite  extends Affichable{
 
     private Position position;
-    private ImageSource image;
     private Collision collision;
     private Dimension dimensions;
 
-    public Entite(Position position, ImageSource image, Collision collision){
+    public Entite(Position position, String image, Collision collision){
+        super(image);
         this.position = position;
-        this.image = image;
         this.collision = collision;
-        this.dimensions = new Dimension((int) image.getLongueur(), (int) image.getHauteur());
+        //this.dimensions = new Dimension((int) image.getLongueur(), (int) image.getHauteur());
+        this.dimensions= new Dimension(32, 32);
     }
 
     public Position getPosition() { return position; }
 
     public void setPosition(Position position) { this.position = position; }
-
-    public ImageSource getImage() { return image; }
-
-    protected void setImage(ImageSource image) { this.image = image; }
 
     public Collision getCollision() { return collision; }
 

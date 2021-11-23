@@ -1,8 +1,10 @@
 package com.mauja.maujaadventures.modele.monde;
 
+import com.mauja.maujaadventures.modele.Affichable;
+
 import java.util.ArrayList;
 
-public class Carte
+public class Carte extends Affichable
 {
     private String nom;
     private String id;
@@ -11,6 +13,7 @@ public class Carte
     private int hauteur;
 
     public Carte(String nom, String id, int largeur, int hauteur){
+        super(""); //A modifier
         this.setNom(nom);
         this.setId(id);
         this.setHauteur(hauteur);

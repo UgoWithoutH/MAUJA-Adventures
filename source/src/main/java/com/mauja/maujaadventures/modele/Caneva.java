@@ -1,9 +1,7 @@
 package com.mauja.maujaadventures.modele;
 
-import com.mauja.maujaadventures.modele.personnage.ImageSource;
+import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import javafx.scene.canvas.GraphicsContext;
-
-import java.awt.*;
 
 public class Caneva implements ContexteGraphique {
 
@@ -17,24 +15,24 @@ public class Caneva implements ContexteGraphique {
     }
 
     @Override
-    public void dessiner(ImageSource image, Position position, Dimension dimensions) {
+    public void dessiner(ProprietesImage image, Position position, Dimension dimensions) {
         dessiner(image, position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
     }
 
     @Override
-    public void dessiner(ImageSource image, int positionX, int positionY, Dimension dimensions) {
+    public void dessiner(ProprietesImage image, int positionX, int positionY, Dimension dimensions) {
         verificationDimension(dimensions);
         dessiner(image, positionX, positionY, dimensions.getLargeur(), dimensions.getHauteur());
     }
 
     @Override
-    public void dessiner(ImageSource image, Position position, int largeur, int hauteur) {
+    public void dessiner(ProprietesImage image, Position position, int largeur, int hauteur) {
         verificationPosition(position);
         dessiner(image, position.getPositionX(), position.getPositionY(), largeur, hauteur);
     }
 
     @Override
-    public void dessiner(ImageSource image, int positionX, int positionY, int largeur, int hauteur) {
+    public void dessiner(ProprietesImage image, int positionX, int positionY, int largeur, int hauteur) {
         verificationImage(image);
         gc.drawImage(image.getImage(), positionX, positionY, largeur, hauteur);
     }
@@ -46,7 +44,7 @@ public class Caneva implements ContexteGraphique {
         gc.clearRect(position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
     }
 
-    private void verificationImage(ImageSource image) {
+    private void verificationImage(ProprietesImage image) {
         if (image == null) {
             throw new IllegalArgumentException("L'image passée en paramètre qui doit être affichée est nulle.");
         }

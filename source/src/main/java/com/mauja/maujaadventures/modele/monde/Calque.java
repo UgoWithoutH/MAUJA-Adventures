@@ -1,8 +1,10 @@
 package com.mauja.maujaadventures.modele.monde;
 
+import com.mauja.maujaadventures.modele.Affichable;
+
 import java.util.ArrayList;
 
-public class Calque {
+public class Calque extends Affichable {
 
     private int hauteur;
     private int largeur;
@@ -10,6 +12,7 @@ public class Calque {
     private ArrayList<Tuile> listeDeTuiles;
 
     public Calque(int largeur, int hauteur) {
+        super(""); // A modifier
         this.setHauteur(hauteur);
         this.setLargeur(largeur);
         this.listeDeTuiles = new ArrayList<Tuile>();

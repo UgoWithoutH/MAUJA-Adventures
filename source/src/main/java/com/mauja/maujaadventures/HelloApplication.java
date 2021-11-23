@@ -1,7 +1,7 @@
 package com.mauja.maujaadventures;
 
 import com.mauja.maujaadventures.modele.*;
-import com.mauja.maujaadventures.modele.personnage.ImageSource;
+import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
 import javafx.application.Application;
 
@@ -30,10 +30,10 @@ public class HelloApplication extends Application {
         Image carte = new Image(imgURl.toExternalForm());
         ImageView imageView= new ImageView(carte);
         String imgURlP = getClass().getResource("link_epee.png").toString();
-        ImageSource img= new ImageSource(imgURlP);
+        ProprietesImage img= new ProprietesImage(imgURlP);
         Group racine = new Group();
         PersonnageJouable pj = new PersonnageJouable(new Position(0, 0),
-                                                     new ImageSource(imgURlP),
+                                                     imgURlP,
                                                      new Collision(new Rectangle2D(1,1,1,1)),
                                                      10);
 

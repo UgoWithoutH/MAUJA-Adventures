@@ -3,13 +3,13 @@ package com.mauja.maujaadventures.modele.personnage;
 
 import javafx.scene.image.Image;
 
-public class ImageSource {
+public class ProprietesImage {
     private String cheminImage;
     private double longueur;
     private double hauteur;
     private Image image;
 
-    public ImageSource(String cheminImage) {
+    public ProprietesImage(String cheminImage) {
         this.cheminImage = cheminImage;
         try {
             image = new Image(cheminImage);

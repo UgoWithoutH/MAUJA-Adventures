@@ -4,5 +4,5 @@ import javafx.scene.canvas.GraphicsContext;
 
 public interface Afficheur {
 
-    public void affiche(Object obj, Position pos, ContexteGraphique contexteGraphique);
+    public void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique);
 }
