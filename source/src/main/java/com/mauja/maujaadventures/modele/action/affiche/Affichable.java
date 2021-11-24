@@ -12,7 +12,7 @@ public abstract class Affichable {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public Affichable(String image) {
-        this.setCheminImage(image);
+        this.cheminImage = image;
     }
     /**
      * Getter du chemin de l'image

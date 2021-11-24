@@ -5,7 +5,7 @@ import javafx.geometry.Rectangle2D;
 
 import java.util.List;
 
-public class DeplaceurEntite implements IDeplaceur {
+public class DeplaceurEntite implements Deplaceur {
     /**
      * Méthode permettant le déplacement de l'entite en la modifiant avec son setter
      * @param e Correspond à l'entite que l'on va déplacer
@@ -14,16 +14,16 @@ public class DeplaceurEntite implements IDeplaceur {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void deplaceur(Entite e, int x, int y, List<Rectangle2D> l) {
-        Rectangle2D oldCollisions = e.getCollision().getZoneCollision();
+    public void deplace(Entite e, double x, double y, List<Rectangle2D> l) {
+        /*Rectangle2D oldCollisions = e.getCollision().getZoneCollision();
         Rectangle2D newCollisions = new Rectangle2D(x,y,oldCollisions.getWidth(),oldCollisions.getHeight());
         for (Rectangle2D zone : l){
             if(zone.intersects(newCollisions))
                 return;
-        }
+        }*/
 
         e.getPosition().setPositionX(x);
         e.getPosition().setPositionY(y);
-        e.getCollision().setZoneCollision(newCollisions);
+        //e.getCollision().setZoneCollision(newCollisions);
     }
 }

@@ -1,6 +1,7 @@
 package com.mauja.maujaadventures.modele;
 
 import com.mauja.maujaadventures.modele.action.affiche.AfficheurEntite;
+import com.mauja.maujaadventures.modele.action.deplace.Deplaceur;
 import com.mauja.maujaadventures.modele.action.deplace.DeplaceurEntite;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
@@ -12,6 +13,9 @@ import java.util.List;
 public class Jeu {
 
     private ContexteGraphique contexteGraphique;
+    private Deplaceur deplaceur;
+    private Collisionneur collisionneur;
+    //private Afficheur afficheur;
 
     /**
      * Constructeur de la classe Jeu
@@ -19,6 +23,8 @@ public class Jeu {
      */
     public Jeu(GraphicsContext gc) {
         contexteGraphique = new Caneva(gc);
+        deplaceur = new DeplaceurEntite();
+        collisionneur = new CollisionneurRectangulaire();
     }
 
     /**
@@ -30,8 +36,7 @@ public class Jeu {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public void boucle(int x, int y, ArrayList<String> input, Entite e, List<Rectangle2D> l){
-        final long startNanoTime = System.nanoTime();
-        DeplaceurEntite de=new DeplaceurEntite();
+        //final long startNanoTime = System.nanoTime();
         new AnimationTimer()
         {
             /**
@@ -44,17 +49,16 @@ public class Jeu {
             {
                 contexteGraphique.effacer(new Position(0, 0), new Dimension(x, y));
                 if (input.contains("LEFT"))
-                    de.deplaceur(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY(),l);
+                    deplaceur.deplace(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY(),l);
                 if (input.contains("RIGHT"))
-                    de.deplaceur(e, e.getPosition().getPositionX() + 3, e.getPosition().getPositionY(),l);
+                    deplaceur.deplace(e, e.getPosition().getPositionX() + 3, e.getPosition().getPositionY(),l);
                 if (input.contains("UP"))
-                    de.deplaceur(e, e.getPosition().getPositionX(),e.getPosition().getPositionY() - 3,l);
+                    deplaceur.deplace(e, e.getPosition().getPositionX(),e.getPosition().getPositionY() - 3,l);
                 if (input.contains("DOWN"))
-                    de.deplaceur(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3,l);
+                    deplaceur.deplace(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3,l);
                 //System.out.println(e.toString());
                 AfficheurEntite ae = new AfficheurEntite();
                 ae.affiche(e, e.getPosition(), contexteGraphique);
-                System.out.println("X : " + e.getCollision().getZoneCollision().getMinX() + " Y : " + e.getCollision().getZoneCollision().getMinY());
             }
 
         }.start();

@@ -33,10 +33,10 @@ public class HelloApplication extends Application {
         String imgURlP = getClass().getResource("link_epee.png").toString();
         ProprietesImage img= new ProprietesImage(imgURlP);
         Group racine = new Group();
-        PersonnageJouable pj = new PersonnageJouable(new Position(0, 0),
-                                                     imgURlP,
-                                                     new Collision(img),
-                                                     10);
+        Position position = new Position(0, 0);
+        CollisionRectangulaire collisionRectangulaire = new CollisionRectangulaire(position, 30, 26);
+        PersonnageJouable pj = new PersonnageJouable(position, imgURlP, collisionRectangulaire, 10);
+
         System.out.println(img.getImage().getWidth());
         ArrayList<String> input;
         VBox content = new VBox();

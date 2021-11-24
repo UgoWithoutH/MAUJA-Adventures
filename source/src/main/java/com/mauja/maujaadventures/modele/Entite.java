@@ -3,7 +3,7 @@ package com.mauja.maujaadventures.modele;
 
 import com.mauja.maujaadventures.modele.action.affiche.Affichable;
 
-public abstract class Entite  extends Affichable {
+public abstract class Entite extends Affichable {
 
     private Position position;
     private Collision collision;

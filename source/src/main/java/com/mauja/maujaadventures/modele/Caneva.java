@@ -3,7 +3,7 @@ package com.mauja.maujaadventures.modele;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import javafx.scene.canvas.GraphicsContext;
 
-public class Caneva implements ContexteGraphique {
+public class Caneva extends ContexteGraphique {
 
     private GraphicsContext gc;
     /**
@@ -39,7 +39,7 @@ public class Caneva implements ContexteGraphique {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void dessiner(ProprietesImage image, int positionX, int positionY, Dimension dimensions) {
+    public void dessiner(ProprietesImage image, double positionX, double positionY, Dimension dimensions) {
         verificationDimension(dimensions);
         dessiner(image, positionX, positionY, dimensions.getLargeur(), dimensions.getHauteur());
     }
@@ -53,7 +53,7 @@ public class Caneva implements ContexteGraphique {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void dessiner(ProprietesImage image, Position position, int largeur, int hauteur) {
+    public void dessiner(ProprietesImage image, Position position, double largeur, double hauteur) {
         verificationPosition(position);
         dessiner(image, position.getPositionX(), position.getPositionY(), largeur, hauteur);
     }
@@ -68,7 +68,7 @@ public class Caneva implements ContexteGraphique {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void dessiner(ProprietesImage image, int positionX, int positionY, int largeur, int hauteur) {
+    public void dessiner(ProprietesImage image, double positionX, double positionY, double largeur, double hauteur) {
         verificationImage(image);
         gc.drawImage(image.getImage(), positionX, positionY, largeur, hauteur);
     }

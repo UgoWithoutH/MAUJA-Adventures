@@ -2,7 +2,7 @@ package com.mauja.maujaadventures.modele;
 
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 
-public interface ContexteGraphique {
+public abstract class ContexteGraphique {
     /**
      * Structure de la méthode dessiné
      *
@@ -11,7 +11,7 @@ public interface ContexteGraphique {
      * @param dimensions Hauteur et largeur de l'image
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    void dessiner(ProprietesImage image, Position position, Dimension dimensions);
+    public abstract void dessiner(ProprietesImage image, Position position, Dimension dimensions);
     /**
      * Structure de la méthode dessiné
      * @param image Image que l'on souhaite affiché
@@ -20,7 +20,7 @@ public interface ContexteGraphique {
      * @param dimensions Hauteur et largeur de l'image
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    void dessiner(ProprietesImage image, int positionX, int positionY, Dimension dimensions);
+    public abstract void dessiner(ProprietesImage image, double positionX, double positionY, Dimension dimensions);
     /**
      * Structure de la méthode dessiné
      *
@@ -30,7 +30,7 @@ public interface ContexteGraphique {
      * @param hauteur Hauteur de l'image
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    void dessiner(ProprietesImage image, Position position, int largeur, int hauteur);
+    public abstract void dessiner(ProprietesImage image, Position position, double largeur, double hauteur);
     /**
      * Structure de la méthode dessiné
      *
@@ -41,7 +41,7 @@ public interface ContexteGraphique {
      * @param hauteur Hauteur de l'image
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    void dessiner(ProprietesImage image, int positionX, int positionY, int largeur, int hauteur);
+    public abstract void dessiner(ProprietesImage image, double positionX, double positionY, double largeur, double hauteur);
     /**
      * Structure de la méthode effacer
      *
@@ -49,5 +49,5 @@ public interface ContexteGraphique {
      * @param dimensions Hauteur et largeur de l'élément que l'on souhaite effacer
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void effacer(Position position, Dimension dimensions);
+    public abstract void effacer(Position position, Dimension dimensions);
 }
