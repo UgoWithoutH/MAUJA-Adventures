@@ -10,7 +10,7 @@ import javafx.geometry.Rectangle2D;
 public class Test_DeplaceurEntite {
 
     public static void main(String[] args){
-        PersonnageJouable pj = new PersonnageJouable(new Position(0, 0),
+        /*PersonnageJouable pj = new PersonnageJouable(new Position(0, 0),
                 "toto",
                 new Collision(new Rectangle2D(1,1,1,1)),
                 10);
@@ -29,6 +29,6 @@ public class Test_DeplaceurEntite {
 
         //cas position négative Y
         dp.deplaceur(pj,10,-1);
-        System.out.println(pj);
+        System.out.println(pj);*/
     }
 }

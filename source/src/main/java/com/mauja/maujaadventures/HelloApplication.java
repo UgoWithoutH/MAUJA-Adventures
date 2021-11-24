@@ -21,6 +21,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class HelloApplication extends Application {
@@ -34,9 +35,9 @@ public class HelloApplication extends Application {
         Group racine = new Group();
         PersonnageJouable pj = new PersonnageJouable(new Position(0, 0),
                                                      imgURlP,
-                                                     new Collision(new Rectangle2D(1,1,1,1)),
+                                                     new Collision(img),
                                                      10);
-
+        System.out.println(img.getImage().getWidth());
         ArrayList<String> input;
         VBox content = new VBox();
         content.setBackground(new Background(new BackgroundImage(carte,
@@ -52,7 +53,10 @@ public class HelloApplication extends Application {
         content.getChildren().add( canvas );
         Jeu jeu=new Jeu(gc);
         input=b.lecture(scene);
-        jeu.boucle(800,400, input, pj);
+        var l = new LinkedList<Rectangle2D>();
+        l.add(new Rectangle2D(205,231,85,1));
+
+        jeu.boucle(800,400, input, pj,l);
 
         stage.show();
     }
