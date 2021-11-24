@@ -24,7 +24,7 @@ public class Jeu {
     public Jeu(GraphicsContext gc) {
         contexteGraphique = new Caneva(gc);
         deplaceur = new DeplaceurEntite();
-        collisionneur = new CollisionneurRectangulaire();
+        collisionneur = new Collisionneur();
     }
 
     /**

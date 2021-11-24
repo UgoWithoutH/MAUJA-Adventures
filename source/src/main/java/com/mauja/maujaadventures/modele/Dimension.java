@@ -44,4 +44,28 @@ public class Dimension {
     private void setHauteur(int hauteur) {
         this.hauteur = hauteur;
     }
+
+    @Override
+    public String toString() {
+        return largeur + "x" + hauteur;
+    }
+
+    @Override
+    public int hashCode() {
+        return largeur + hauteur;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Dimension autre = (Dimension) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(Dimension m) {
+        boolean resultat = (m.getHauteur() == hauteur) && (m.getLargeur() == largeur);
+        return resultat;
+    }
 }

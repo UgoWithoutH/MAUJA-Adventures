@@ -37,4 +37,9 @@ public class Position {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public void setPositionY(double positionY) { this.positionY = positionY; }
+
+    @Override
+    public String toString() {
+        return "{" + positionX + "; " + positionY + "}";
+    }
 }

@@ -28,10 +28,7 @@ public class PersonnageJouable extends Personnage {
      */
     @Override
     public String toString() {
-        return "PersonnageJouable{" +
-                " attaque=" + attaque +
-                " Position= " + " x : " + getPosition().getPositionX() + " y : " + getPosition().getPositionY() +
-                " Collision=" + getCollision().getZoneCollision() +
-                '}';
+        return super.toString() + ", "
+                + "attaque = " + attaque + ", ";
     }
 }

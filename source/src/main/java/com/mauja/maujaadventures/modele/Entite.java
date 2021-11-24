@@ -1,6 +1,5 @@
 package com.mauja.maujaadventures.modele;
 
-
 import com.mauja.maujaadventures.modele.action.affiche.Affichable;
 
 public abstract class Entite extends Affichable {
@@ -8,6 +7,7 @@ public abstract class Entite extends Affichable {
     private Position position;
     private Collision collision;
     private Dimension dimensions;
+
     /**
      * Constructeur de la classe Abstraite
      * @param position Position de l'entite
@@ -58,4 +58,11 @@ public abstract class Entite extends Affichable {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public void setDimensions(Dimension dimensions) { this.dimensions = dimensions; }
+    
+    @Override
+    public String toString() {
+        return "Position : " + position.toString() + ", "
+                + "Dimensions : " + dimensions.toString() + ", "
+                + "Collision : " + collision.toString();
+    }
 }

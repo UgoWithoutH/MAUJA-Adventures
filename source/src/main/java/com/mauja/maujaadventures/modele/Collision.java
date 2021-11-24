@@ -1,6 +1,6 @@
 package com.mauja.maujaadventures.modele;
 
-public abstract class Collision {
+public class Collision {
     private double largeur;
     private double hauteur;
     private Position position;
@@ -23,5 +23,10 @@ public abstract class Collision {
 
     private void setPosition(Position position) { this.position = position; }
 
-    public abstract Object getZoneCollision();
+    @Override
+    public String toString() {
+        return "L : " + largeur
+                + ", H : " + hauteur
+                + ", Position : " + position.toString();
+    }
 }

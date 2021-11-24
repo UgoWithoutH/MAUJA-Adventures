@@ -17,6 +17,11 @@ public class Caneva extends ContexteGraphique {
         }
         this.gc = gc;
     }
+
+    public GraphicsContext getGc() { return gc; }
+
+    public void setGc(GraphicsContext gc) { this.gc = gc; }
+
     /**
      * Redéfinition d'une méthode dessiner de contexte graphique
      *
@@ -117,5 +122,23 @@ public class Caneva extends ContexteGraphique {
         if (dimensions == null) {
             throw new IllegalArgumentException("Les dimensions passées en paramètre sont nulles.");
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * gc.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Caneva autre = (Caneva) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(Caneva m) {
+        return gc.equals(m.getGc());
     }
 }
