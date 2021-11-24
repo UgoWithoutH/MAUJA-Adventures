@@ -1,7 +1,9 @@
-package com.mauja.maujaadventures.modele;
+package com.mauja.maujaadventures.modele.action.affiche;
 
+import com.mauja.maujaadventures.modele.ContexteGraphique;
+import com.mauja.maujaadventures.modele.Entite;
+import com.mauja.maujaadventures.modele.Position;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
-import javafx.geometry.Rectangle2D;
 
 public class AfficheurEntite implements Afficheur {
     @Override

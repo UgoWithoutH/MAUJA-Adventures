@@ -1,5 +1,7 @@
 package com.mauja.maujaadventures.modele;
 
+import com.mauja.maujaadventures.modele.action.affiche.AfficheurEntite;
+import com.mauja.maujaadventures.modele.action.deplace.DeplaceurEntite;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;

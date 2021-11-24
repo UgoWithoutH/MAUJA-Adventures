@@ -1,9 +1,8 @@
 package com.mauja.maujaadventures.modele.monde;
 
 
-import com.mauja.maujaadventures.modele.Affichable;
+import com.mauja.maujaadventures.modele.action.affiche.Affichable;
 import com.mauja.maujaadventures.modele.Dimension;
-import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 
 public abstract class Tuile extends Affichable {
     public static final int LARGEUR_TUILE = 32;

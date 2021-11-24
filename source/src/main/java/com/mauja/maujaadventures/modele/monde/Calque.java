@@ -1,6 +1,6 @@
 package com.mauja.maujaadventures.modele.monde;
 
-import com.mauja.maujaadventures.modele.Affichable;
+import com.mauja.maujaadventures.modele.action.affiche.Affichable;
 
 import java.util.ArrayList;
 

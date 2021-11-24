@@ -1,10 +1,9 @@
-package com.mauja.maujaadventures.modele;
+package com.mauja.maujaadventures.modele.action.affiche;
 
+import com.mauja.maujaadventures.modele.ContexteGraphique;
+import com.mauja.maujaadventures.modele.Position;
 import com.mauja.maujaadventures.modele.monde.Tuile;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
-import javafx.scene.canvas.GraphicsContext;
-
-import java.util.ArrayList;
 
 public class AfficheurTuile implements Afficheur {
 

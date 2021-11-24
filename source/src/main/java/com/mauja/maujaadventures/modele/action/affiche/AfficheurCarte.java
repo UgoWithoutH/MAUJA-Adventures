@@ -1,8 +1,9 @@
-package com.mauja.maujaadventures.modele;
+package com.mauja.maujaadventures.modele.action.affiche;
 
+import com.mauja.maujaadventures.modele.ContexteGraphique;
+import com.mauja.maujaadventures.modele.Position;
 import com.mauja.maujaadventures.modele.monde.Calque;
 import com.mauja.maujaadventures.modele.monde.Carte;
-import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 

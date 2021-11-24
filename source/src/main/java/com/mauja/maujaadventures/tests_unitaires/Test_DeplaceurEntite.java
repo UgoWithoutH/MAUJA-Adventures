@@ -1,12 +1,5 @@
 package com.mauja.maujaadventures.tests_unitaires;
 
-import com.mauja.maujaadventures.modele.Collision;
-import com.mauja.maujaadventures.modele.DeplaceurEntite;
-import com.mauja.maujaadventures.modele.Position;
-import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
-import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
-import javafx.geometry.Rectangle2D;
-
 public class Test_DeplaceurEntite {
 
     public static void main(String[] args){

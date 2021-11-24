@@ -1,4 +1,4 @@
-package com.mauja.maujaadventures.modele;
+package com.mauja.maujaadventures.modele.action.affiche;
 
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 

@@ -1,5 +1,6 @@
-package com.mauja.maujaadventures.modele;
+package com.mauja.maujaadventures.modele.action.deplace;
 
+import com.mauja.maujaadventures.modele.Entite;
 import javafx.geometry.Rectangle2D;
 
 import java.util.List;
