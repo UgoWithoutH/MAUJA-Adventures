@@ -13,17 +13,33 @@ public class Jeu {
 
     private ContexteGraphique contexteGraphique;
 
+    /**
+     * Constructeur de la classe Jeu
+     * @param gc Contexte graphique à afficher
+     */
     public Jeu(GraphicsContext gc) {
         contexteGraphique = new Caneva(gc);
     }
 
-
+    /**
+     * Méthode de la boucle de jeu du programme
+     * @param x Position X de l'entite
+     * @param y Position Y de l'entite
+     * @param input Correspond à une liste detouche taper par l'utilisateur
+     * @param e Entité que l'on fait bouger
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public void boucle(int x, int y, ArrayList<String> input, Entite e, List<Rectangle2D> l){
         final long startNanoTime = System.nanoTime();
         DeplaceurEntite de=new DeplaceurEntite();
         new AnimationTimer()
         {
-
+            /**
+             * Lorsque l'on appuie sur une touche cette méthode est appelé et on le, rajoute dans la liste
+             *
+             * @param currentNanoTime Correspond au temps passé
+             * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+             */
             public void handle(long currentNanoTime)
             {
                 contexteGraphique.effacer(new Position(0, 0), new Dimension(x, y));

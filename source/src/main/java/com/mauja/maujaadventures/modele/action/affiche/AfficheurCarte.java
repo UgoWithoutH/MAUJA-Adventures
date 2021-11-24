@@ -10,7 +10,14 @@ import java.util.ArrayList;
 public class AfficheurCarte implements Afficheur {
 
     AfficheurCalque afficheCalque = new AfficheurCalque();
-
+    /**
+     * Redéfinition de l'interface Afficheur, on rajoute le code permettant l'affichage de l'objet ici une carte
+     *
+     * @param obj Correspond à l'objet que l'on souhaite afficher
+     * @param pos Correspond à la position X et Y de l'objet
+     * @param contexteGraphique Correspond à l'interface ou sera affiché l'objet
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique) {
         if (!(obj instanceof Carte)) {
