@@ -1,6 +1,7 @@
 package com.mauja.maujaadventures.modele.personnage;
 
 
+import com.mauja.maujaadventures.modele.Camera;
 import javafx.scene.image.Image;
 
 public class ProprietesImage {
@@ -93,5 +94,25 @@ public class ProprietesImage {
      */
     public void setHauteur(double hauteur) {
         this.hauteur = hauteur;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int)(longueur+hauteur) +31*image.hashCode()+31*cheminImage.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        ProprietesImage autre = (ProprietesImage) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(ProprietesImage pi) {
+        boolean resultat=(pi.getHauteur()==hauteur) && (pi.getLongueur()==longueur) &&
+                (image.equals(pi.getImage())) && (cheminImage.equals(pi.getCheminImage()));
+        return resultat;
     }
 }

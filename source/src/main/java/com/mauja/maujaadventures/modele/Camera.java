@@ -59,4 +59,23 @@ public class Camera {
     public void setPositionCameraY(int positionCameraY) {
         this.positionCameraY = positionCameraY;
     }
+
+    @Override
+    public int hashCode() {
+        return positionCameraX+positionCameraY;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Camera autre = (Camera) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(Camera c) {
+        boolean resultat=(c.getPositionCameraX() == positionCameraX) && (c.getPositionCameraY() == positionCameraY);
+        return resultat;
+    }
 }

@@ -65,4 +65,23 @@ public abstract class Entite extends Affichable {
                 + "Dimensions : " + dimensions.toString() + ", "
                 + "Collision : " + collision.toString();
     }
+    @Override
+    public int hashCode() {
+        return 31*position.hashCode()+31*dimensions.hashCode()+31*collision.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Entite autre = (Entite) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(Entite e) {
+        boolean resultat = (position.equals(e.getPosition())) && (position.equals(e.getCollision())) &&
+                (dimensions.equals(e.getDimensions()));
+        return resultat;
+    }
 }

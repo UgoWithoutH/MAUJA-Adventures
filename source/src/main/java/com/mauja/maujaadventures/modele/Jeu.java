@@ -63,4 +63,45 @@ public class Jeu {
 
         }.start();
     };
+    public Collisionneur getCollisionneur() {
+        return collisionneur;
+    }
+
+    public void setCollisionneur(Collisionneur collisionneur) {
+        this.collisionneur = collisionneur;
+    }
+
+    public Deplaceur getDeplaceur() {
+        return deplaceur;
+    }
+
+    public void setDeplaceur(Deplaceur deplaceur) {
+        this.deplaceur = deplaceur;
+    }
+    public ContexteGraphique getContexteGraphique() {
+        return contexteGraphique;
+    }
+
+    public void setContexteGraphique(ContexteGraphique contexteGraphique) {
+        this.contexteGraphique = contexteGraphique;
+    }
+    @Override
+    public int hashCode() {
+        return 31*contexteGraphique.hashCode()+31*deplaceur.hashCode()+31*collisionneur.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Jeu autre = (Jeu) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(Jeu j) {
+        boolean resultat = (contexteGraphique.equals(j.getContexteGraphique())) && (deplaceur.equals(j.getDeplaceur())) &&
+                (collisionneur.equals(j.getCollisionneur()));
+        return resultat;
+    }
 }

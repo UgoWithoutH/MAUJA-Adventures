@@ -3,6 +3,7 @@ package com.mauja.maujaadventures.modele.monde;
 
 import com.mauja.maujaadventures.modele.action.affiche.Affichable;
 import com.mauja.maujaadventures.modele.Dimension;
+import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
 
 public abstract class Tuile extends Affichable {
     public static final int LARGEUR_TUILE = 32;
@@ -48,5 +49,22 @@ public abstract class Tuile extends Affichable {
      */
     private void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public int hashCode() { return id+31*dimensions.hashCode(); }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Tuile autre = (Tuile) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(Tuile t) {
+        boolean resultat=(t.getId()==id) && (dimensions.equals(t.getDimensions()));
+        return resultat;
     }
 }

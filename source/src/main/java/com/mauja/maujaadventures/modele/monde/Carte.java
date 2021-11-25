@@ -108,4 +108,22 @@ public class Carte extends Affichable
     private void setNom(String nom) {
         this.nom = nom;
     }
+
+    @Override
+    public int hashCode() { return largeur+hauteur+31*nom.hashCode()+31*id.hashCode()+31*listeDeCalques.hashCode(); }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Carte autre = (Carte) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(Carte c) {
+        boolean resultat=(c.getHauteur()==hauteur) && (c.getLargeur()==largeur) && (c.getNom()==nom) && (c.getId()==id) &&
+        (listeDeCalques.equals(c.getListeDeCalques()));
+        return resultat;
+    }
 }

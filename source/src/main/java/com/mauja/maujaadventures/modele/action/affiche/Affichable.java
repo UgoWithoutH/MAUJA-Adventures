@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.modele.action.affiche;
 
+import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 
 public abstract class Affichable {
@@ -29,5 +30,22 @@ public abstract class Affichable {
      */
     private void setCheminImage(String cheminImage) {
         this.cheminImage = cheminImage;
+    }
+
+    @Override
+    public int hashCode() { return 31*cheminImage.hashCode(); }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Affichable autre = (Affichable) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(Affichable a) {
+        boolean resultat=(cheminImage.equals(a.getCheminImage()));
+        return resultat;
     }
 }

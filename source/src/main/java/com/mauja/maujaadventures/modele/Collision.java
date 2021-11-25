@@ -29,4 +29,23 @@ public class Collision {
                 + ", H : " + hauteur
                 + ", Position : " + position.toString();
     }
+
+    @Override
+    public int hashCode() {
+        return (int)(hauteur+largeur)+ 31*position.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Collision autre = (Collision) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(Collision c) {
+        boolean resultat= (c.getHauteur() == hauteur) && (c.getLargeur() == largeur ) && ( position.equals(c.getPosition()));
+        return resultat ;
+    }
 }

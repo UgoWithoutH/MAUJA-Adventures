@@ -9,6 +9,7 @@ public class JeuDeTuiles {
     private int largeur;
     private int hauteur;
     private ArrayList<Tuile> listeDeTuiles;
+
     /**
      * Constructeur du jeu de tuiles
      * @param image Image de la tuile
@@ -80,4 +81,28 @@ public class JeuDeTuiles {
         this.image = image;
     }
 
+    public ArrayList<Tuile> getListeDeTuiles() {
+        return listeDeTuiles;
+    }
+
+    public void setListeDeTuiles(ArrayList<Tuile> listeDeTuiles) {
+        this.listeDeTuiles = listeDeTuiles;
+    }
+    @Override
+    public int hashCode() { return nombreTuiles+largeur+hauteur+31*image.hashCode()+31*listeDeTuiles.hashCode(); }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        JeuDeTuiles autre = (JeuDeTuiles) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(JeuDeTuiles jt) {
+        boolean resultat=(jt.getHauteur()==hauteur) && (jt.getLargeur()==largeur) && (jt.getNombreTuiles()==nombreTuiles) &&
+                (image.equals(jt.getImage())) && (listeDeTuiles.equals(jt.getListeDeTuiles()));
+        return resultat;
+    }
 }

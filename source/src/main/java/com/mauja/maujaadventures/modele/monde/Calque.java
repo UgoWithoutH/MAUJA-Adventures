@@ -67,4 +67,21 @@ public class Calque extends Affichable {
     public void ajouterTuile(Tuile t){
         this.listeDeTuiles.add(t);
     }
+
+    @Override
+    public int hashCode() { return hauteur+largeur; }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Calque autre = (Calque) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(Calque c) {
+        boolean resultat=(c.getHauteur()==hauteur) && (c.getLargeur() == largeur);
+        return resultat;
+    }
 }

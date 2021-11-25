@@ -1,9 +1,12 @@
 package com.mauja.maujaadventures.modele.personnage;
 
+import com.mauja.maujaadventures.modele.Camera;
 import com.mauja.maujaadventures.modele.Collision;
 import com.mauja.maujaadventures.modele.Position;
 
 public class PersonnageJouable extends Personnage {
+
+
 
     private int attaque;
     /**
@@ -20,6 +23,13 @@ public class PersonnageJouable extends Personnage {
         super(position, image, collision);
         this.attaque = attaque;
     }
+    public int getAttaque() {
+        return attaque;
+    }
+
+    public void setAttaque(int attaque) {
+        this.attaque = attaque;
+    }
     /**
      * Redéfinition du toString
      *
@@ -30,5 +40,21 @@ public class PersonnageJouable extends Personnage {
     public String toString() {
         return super.toString() + ", "
                 + "attaque = " + attaque + ", ";
+    }
+    @Override
+    public int hashCode() { return attaque; }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        PersonnageJouable autre = (PersonnageJouable) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(PersonnageJouable pj) {
+        boolean resultat=pj.getAttaque()==attaque;
+        return resultat;
     }
 }

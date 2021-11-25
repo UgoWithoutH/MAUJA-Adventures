@@ -42,4 +42,23 @@ public class Position {
     public String toString() {
         return "{" + positionX + "; " + positionY + "}";
     }
+
+    @Override
+    public int hashCode() {
+        return (int)(positionX + positionY);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Position autre = (Position) obj;
+        return equals(autre);
+    }
+
+    public boolean equals(Position p) {
+        boolean resultat = (p.getPositionX() == positionX ) && (p.getPositionY() == positionY);
+        return resultat;
+    }
 }
