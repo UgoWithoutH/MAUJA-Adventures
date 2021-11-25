@@ -5,6 +5,7 @@ import com.mauja.maujaadventures.modele.monde.Decoupeur;
 import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
+import com.mauja.maujaadventures.modele.utilitaires.recuperateurRessources;
 import javafx.application.Application;
 
 import javafx.geometry.Rectangle2D;
@@ -32,7 +33,7 @@ public class HelloApplication extends Application {
         URL imgURl= getClass().getResource("carte2.png");
         Image carte = new Image(imgURl.toExternalForm());
         ImageView imageView= new ImageView(carte);
-        String imgURlP = getClass().getResource("link_epee.png").toString();
+        String imgURlP = recuperateurRessources.getRessource("link_epee.png", getClass());
         ProprietesImage img= new ProprietesImage(imgURlP);
         Group racine = new Group();
         Position position = new Position(0, 0);
@@ -55,6 +56,10 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(content);
         stage.setScene(scene);
         scene.setFill(Color.BLACK);
+
+        for(String file : recuperateurRessources.getRessourcesString()){
+            System.out.println(file);
+        }
 
         Boutons b=new Boutons();
         Canvas canvas = new Canvas(800, 400);

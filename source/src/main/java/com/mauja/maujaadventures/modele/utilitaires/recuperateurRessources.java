@@ -14,4 +14,9 @@ public class recuperateurRessources {
         return new ArrayList<String>(Arrays.asList(f.list()));
     }
 
+    public static String getRessource(String nom, Class c){
+
+        return c.getResource(nom).toString();
+    }
+
 }
