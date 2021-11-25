@@ -7,6 +7,7 @@ import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.modele.monde.Tuile;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
+import com.mauja.maujaadventures.modele.utilitaires.recuperateurRessources;
 import javafx.application.Application;
 
 import javafx.geometry.Rectangle2D;
@@ -33,8 +34,10 @@ public class HelloApplication extends Application {
         URL imgURl= getClass().getResource("carte2.png");
         Image carte = new Image(imgURl.toExternalForm());
         ImageView imageView= new ImageView(carte);
-        String imgURlP = getClass().getResource("link_epee.png").toString();
-        ProprietesImage img = new ProprietesImage(imgURlP);
+
+        String imgURlP = recuperateurRessources.getRessource("link_epee.png", getClass());
+        ProprietesImage img= new ProprietesImage(imgURlP);
+
         Position position = new Position(0, 0);
         Collision collision = new Collision(position, 30, 26);
         PersonnageJouable pj = new PersonnageJouable(position, imgURlP, collision, 10);
@@ -69,7 +72,11 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         scene.setFill(Color.BLACK);
 
-        Boutons b = new Boutons();
+        /*for(String file : recuperateurRessources.getRessourcesString()){
+            System.out.println(file);
+        }*/
+
+        Boutons b=new Boutons();
         Canvas canvas = new Canvas(800, 400);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         content.getChildren().add( canvas );
