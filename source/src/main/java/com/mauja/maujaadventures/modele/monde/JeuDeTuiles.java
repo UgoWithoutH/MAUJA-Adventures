@@ -1,61 +1,31 @@
 package com.mauja.maujaadventures.modele.monde;
 
 
+import com.mauja.maujaadventures.modele.Dimension;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class JeuDeTuiles {
-    private String image;
     private int nombreTuiles;
-    private int largeur;
-    private int hauteur;
-    private ArrayList<Tuile> listeDeTuiles;
+    private Dimension dimension;
+    private List<Tuile> listeDeTuiles;
+    private String identifiant;
 
     /**
      * Constructeur du jeu de tuiles
-     * @param image Image de la tuile
-     * @param largeur Largeur de la tuile
-     * @param hauteur Hauteur de la tuile
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public JeuDeTuiles(String image, int largeur, int hauteur){
-        setImage(image);
-        setLargeur(largeur);
-        setHauteur(hauteur);
-        listeDeTuiles= new ArrayList<Tuile>();
-        nombreTuiles=listeDeTuiles.size();
+    public JeuDeTuiles(Dimension dimension, String identifiant, List<Tuile> lesTuiles){
+        this.dimension = dimension;
+        this.identifiant = identifiant;
+        listeDeTuiles = new ArrayList<Tuile>();
+        if (lesTuiles != null) {
+            listeDeTuiles = lesTuiles;
+            nombreTuiles = listeDeTuiles.size();
+        }
     }
-    /**
-     * Getter de la largeur
-     * @return Largeur de l'élément
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public int getLargeur() {
-        return largeur;
-    }
-    /**
-     * Setter de la largeur
-     * @param largeur Nouvelle largeur que va comporter l'élément
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public void setLargeur(int largeur) {
-        this.largeur = largeur;
-    }
-    /**
-     * Getter de l'hauteur
-     * @return L'hauteur de l'élément
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public int getHauteur() {
-        return hauteur;
-    }
-    /**
-     * Setter de l'hauteur
-     * @param hauteur Nouvelle hauteur de l'élément
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public void setHauteur(int hauteur) {
-        this.hauteur = hauteur;
-    }
+
     /**
      * Getter du nombre de tuile
      * @return Le nombre de Tuile
@@ -64,32 +34,39 @@ public class JeuDeTuiles {
     public int getNombreTuiles() {
         return nombreTuiles;
     }
-    /**
-     * Getter de l'image
-     * @return l'image de la Tuile
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public String getImage() {
-        return image;
-    }
-    /**
-     * Setter de l'image
-     * @param image Nouvelle image de la tuile
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public void setImage(String image) {
-        this.image = image;
-    }
 
-    public ArrayList<Tuile> getListeDeTuiles() {
+    private void setNombreTuiles(int nombreTuiles) { this.nombreTuiles = nombreTuiles; }
+
+    public List<Tuile> getListeDeTuiles() {
         return listeDeTuiles;
     }
 
-    public void setListeDeTuiles(ArrayList<Tuile> listeDeTuiles) {
+    private void setListeDeTuiles(List<Tuile> listeDeTuiles) {
         this.listeDeTuiles = listeDeTuiles;
+        nombreTuiles = listeDeTuiles.size();
     }
+
+    public Dimension getDimension() {
+        return dimension;
+    }
+
+    private void setDimension(Dimension dimension) {
+        this.dimension = dimension;
+    }
+
+    public String getIdentifiant() {
+        return identifiant;
+    }
+
+    private void setIdentifiant(String identifiant) {
+        this.identifiant = identifiant;
+    }
+
     @Override
-    public int hashCode() { return nombreTuiles+largeur+hauteur+31*image.hashCode()+31*listeDeTuiles.hashCode(); }
+    public int hashCode() {
+        return nombreTuiles + 32 * dimension.hashCode()
+                + 31 * listeDeTuiles.hashCode();
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -101,8 +78,7 @@ public class JeuDeTuiles {
     }
 
     public boolean equals(JeuDeTuiles jt) {
-        boolean resultat=(jt.getHauteur()==hauteur) && (jt.getLargeur()==largeur) && (jt.getNombreTuiles()==nombreTuiles) &&
-                (image.equals(jt.getImage())) && (listeDeTuiles.equals(jt.getListeDeTuiles()));
+        boolean resultat = listeDeTuiles.equals(jt.getListeDeTuiles());
         return resultat;
     }
 }

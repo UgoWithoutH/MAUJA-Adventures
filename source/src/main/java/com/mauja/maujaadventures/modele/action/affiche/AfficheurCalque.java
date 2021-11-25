@@ -5,6 +5,7 @@ import com.mauja.maujaadventures.modele.Position;
 import com.mauja.maujaadventures.modele.monde.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AfficheurCalque implements Afficheur {
 
@@ -24,7 +25,7 @@ public class AfficheurCalque implements Afficheur {
             throw new IllegalArgumentException("L'objet " + obj.toString() + " passé en paramètre n'est pas un calque.");
         }
         Calque c = (Calque) obj;
-        ArrayList<Tuile> lesTuiles = c.getListeDeTuiles();
+        List<Tuile> lesTuiles = c.getListeDeTuiles();
         for (Tuile t : lesTuiles) {
             // a changer
             p = null;

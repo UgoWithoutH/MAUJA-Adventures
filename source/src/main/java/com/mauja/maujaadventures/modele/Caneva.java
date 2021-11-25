@@ -2,6 +2,7 @@ package com.mauja.maujaadventures.modele;
 
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public class Caneva extends ContexteGraphique {
 
@@ -33,6 +34,11 @@ public class Caneva extends ContexteGraphique {
     @Override
     public void dessiner(ProprietesImage image, Position position, Dimension dimensions) {
         dessiner(image, position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
+    }
+
+
+    public void dessiner(Image image, Position position, Dimension dimensions) {
+        gc.drawImage(image, position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
     }
     /**
      * Redéfinition d'une méthode dessiner de contexte graphique

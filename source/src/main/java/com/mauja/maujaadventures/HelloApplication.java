@@ -1,8 +1,10 @@
 package com.mauja.maujaadventures;
 
 import com.mauja.maujaadventures.modele.*;
+import com.mauja.maujaadventures.modele.monde.Carte;
 import com.mauja.maujaadventures.modele.monde.Decoupeur;
 import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
+import com.mauja.maujaadventures.modele.monde.Tuile;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
 import javafx.application.Application;
@@ -22,8 +24,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 
 
 public class HelloApplication extends Application {
@@ -33,20 +34,32 @@ public class HelloApplication extends Application {
         Image carte = new Image(imgURl.toExternalForm());
         ImageView imageView= new ImageView(carte);
         String imgURlP = getClass().getResource("link_epee.png").toString();
-        ProprietesImage img= new ProprietesImage(imgURlP);
-        Group racine = new Group();
+        ProprietesImage img = new ProprietesImage(imgURlP);
         Position position = new Position(0, 0);
         Collision collision = new Collision(position, 30, 26);
         PersonnageJouable pj = new PersonnageJouable(position, imgURlP, collision, 10);
 
-
-        JeuDeTuiles jdt = new JeuDeTuiles(getClass().getResource("carte2.png").toString(),(int)carte.getWidth(),(int)carte.getHeight());
         Decoupeur d = new Decoupeur();
-        ArrayList<ProprietesImage> images = new ArrayList<ProprietesImage>();
-        images = d.decoupe(jdt,32,32);
-        //System.out.println(images.toString());
+        ArrayList<Image> images;
+        images = d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-3.png",32,32);
+        RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
+        Carte carte2 = recuperateurDeCartes.recupereCarte("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
+        List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
+        List<Tuile> lesTuiles = new ArrayList<Tuile>();
+        for (JeuDeTuiles jeuDeTuiles : lesJeuxDeTuiles) {
+            for (Tuile tuile : jeuDeTuiles.getListeDeTuiles()) {
+                lesTuiles.add(tuile);
+            }
+        }
+        System.out.println(lesTuiles.size());
 
-        System.out.println(img.getImage().getWidth());
+        Map<Tuile, Image> lesTuilesImagees = new HashMap<Tuile, Image>();
+        Iterator<Map.Entry<Tuile, Image>> it = lesTuilesImagees.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry<Tuile, Image> a = it.next();
+            lesTuilesImagees.put(a.getKey(),a.getValue());
+        }
+
         ArrayList<String> input;
         VBox content = new VBox();
         content.setBackground(new Background(new BackgroundImage(carte,
@@ -56,11 +69,11 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         scene.setFill(Color.BLACK);
 
-        Boutons b=new Boutons();
+        Boutons b = new Boutons();
         Canvas canvas = new Canvas(800, 400);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         content.getChildren().add( canvas );
-        Jeu jeu=new Jeu(gc);
+        Jeu jeu = new Jeu(gc, images);
         input=b.lecture(scene);
         var l = new LinkedList<Rectangle2D>();
         l.add(new Rectangle2D(205,231,85,1));

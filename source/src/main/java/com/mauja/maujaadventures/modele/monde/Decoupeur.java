@@ -1,6 +1,5 @@
 package com.mauja.maujaadventures.modele.monde;
 
-import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
@@ -10,48 +9,44 @@ import java.util.ArrayList;
 
 public class Decoupeur {
 
+    private ProprietesImage proprietesImage;
+    private ArrayList<Image> listeDeTuiles = new ArrayList<Image>();
 
-
-    private ProprietesImage pi;
-    private ArrayList<ProprietesImage> listeDeTuiles = new ArrayList<ProprietesImage>();
-
-    public ArrayList<ProprietesImage> decoupe(JeuDeTuiles jdt,int largeur, int hauteur){
-        for (int i = 0; i < jdt.getLargeur()/largeur;i++){
-            for (int j = 0; j < jdt.getHauteur()/largeur;j++) {
-                WritableImage imageTuile = new WritableImage((pi = new ProprietesImage(jdt.getImage())).getImage().getPixelReader(),
-                i*largeur, j*hauteur, largeur, hauteur);
-                pi.setImage(imageTuile);
-                listeDeTuiles.add(pi);
-
-
-
-
+    public ArrayList<Image> decoupe(String chemin, int largeurTuile, int hauteurTuile) {
+        Image image = new Image(chemin);
+        double largeurImage = image.getWidth() / largeurTuile;
+        double hauteurImage = image.getHeight() / hauteurTuile;
+        for (int i = 0; i < largeurImage; i++){
+            for (int j = 0; j < hauteurImage; j++) {
+                proprietesImage = new ProprietesImage(image.getUrl());
+                WritableImage imageTuile = new WritableImage((proprietesImage).getImage().getPixelReader(),
+                i * largeurTuile, j * hauteurTuile, largeurTuile, hauteurTuile);
+                //proprietesImage.setImage(imageTuile);
+                listeDeTuiles.add(imageTuile);
             }
         }
-
-        
         return listeDeTuiles;
     }
 
-    public ProprietesImage getPi() {
-        return pi;
+    public ProprietesImage getProprietesImage() {
+        return proprietesImage;
     }
 
-    public void setPi(ProprietesImage pi) {
-        this.pi = pi;
+    public void setProprietesImage(ProprietesImage proprietesImage) {
+        this.proprietesImage = proprietesImage;
     }
 
-    public ArrayList<ProprietesImage> getListeDeTuiles() {
+    public ArrayList<Image> getListeDeTuiles() {
         return listeDeTuiles;
     }
 
-    public void setListeDeTuiles(ArrayList<ProprietesImage> listeDeTuiles) {
+    public void setListeDeTuiles(ArrayList<Image> listeDeTuiles) {
         this.listeDeTuiles = listeDeTuiles;
     }
 
     @Override
     public int hashCode() {
-        return  31*pi.hashCode()+31*listeDeTuiles.hashCode();
+        return  31* proprietesImage.hashCode()+31*listeDeTuiles.hashCode();
     }
 
     @Override
@@ -64,7 +59,7 @@ public class Decoupeur {
     }
 
     public boolean equals(Decoupeur d) {
-        boolean resultat=(pi.equals(d.getPi())) && (listeDeTuiles.equals(d.getListeDeTuiles()));
+        boolean resultat=(proprietesImage.equals(d.getProprietesImage())) && (listeDeTuiles.equals(d.getListeDeTuiles()));
         return resultat;
     }
 }

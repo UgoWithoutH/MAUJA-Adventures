@@ -1,107 +1,71 @@
 package com.mauja.maujaadventures.modele.monde;
 
+import com.mauja.maujaadventures.modele.Dimension;
 import com.mauja.maujaadventures.modele.action.affiche.Affichable;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-public class Carte extends Affichable
-{
+public class Carte extends Affichable {
+    public static int nombreIdentifiants = 0;
     private String nom;
-    private String id;
-    private ArrayList<Calque> listeDeCalques;
-    private int largeur;
-    private int hauteur;
+    private int id;
+    private List<Calque> listeDeCalques;
+    private Dimension dimension;
+
     /**
      * Constructeur de Carte
+     *
      * @param nom Nom de la carte
-     * @param id Id de la carte
-     * @param largeur Largeur de la carte
-     * @param hauteur hauteur de la carte
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Carte(String nom, String id, int largeur, int hauteur){
+    public Carte(String nom, Dimension dimension, List<Calque> lesCalques) {
+
         super(""); //A modifier
-        this.setNom(nom);
-        this.setId(id);
-        this.setHauteur(hauteur);
-        this.setLargeur(largeur);
-        this.listeDeCalques= new ArrayList<Calque>();
+        this.nom = nom;
+        this.id = nombreIdentifiants;
+        this.dimension = dimension;
+        this.listeDeCalques = new ArrayList<>();
+        if (lesCalques != null) {
+            listeDeCalques = lesCalques;
+        }
+        nombreIdentifiants++;
     }
-    /**
-     * Getter de l'hauteur
-     * @return L'hauteur de la Carte
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public int getHauteur() {
-        return hauteur;
-    }
-    /**
-     * Getter de la largeur
-     * @return Largeur de la Carte
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public int getLargeur() {
-        return largeur;
-    }
+
     /**
      * Getter de l'id de la Carte
+     *
      * @return L'Id de la Carte
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
+
+    /**
+     * Setter de l'id de la carte
+     *
+     * @param id Nouvelle id de la tuile
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    private void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * Getter du nom de la Carte
+     *
      * @return Renvoie le nom de la Carte
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public String getNom() {
         return nom;
     }
-    /**
-     * Getter de la liste de calques
-     * @return La liste des calques
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public ArrayList<Calque> getListeDeCalques() {
-        return listeDeCalques;
-    }
 
     /**
-     * Ajouter un nouveau calque
-     * @param c Calque que l'on veut rajouter
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public void ajouterCalques(Calque c){
-        this.listeDeCalques.add(c);
-    }
-    /**
-     * Setter de l'hauteur
-     * @param hauteur Nouvelle hauteur de la Carte
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void setHauteur(int hauteur) {
-        this.hauteur = hauteur;
-    }
-    /**
-     * Setter de l'id de la carte
-     * @param id Nouvelle id de la tuile
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void setId(String id) {
-        this.id = id;
-    }
-    /**
-     * Setter de la largeur de la carte
-     * @param largeur Nouvelle largeur que va comporter l'élément
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void setLargeur(int largeur) {
-        this.largeur = largeur;
-    }
-    /**
      * Setter du nom de la carte
+     *
      * @param nom Nouveau nom de la Carte
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
@@ -109,21 +73,53 @@ public class Carte extends Affichable
         this.nom = nom;
     }
 
+    /**
+     * Getter de la liste de calques
+     *
+     * @return La liste des calques
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    public List<Calque> getListeDeCalques() {
+        return listeDeCalques;
+    }
+
+    /**
+     * Ajouter un nouveau calque
+     *
+     * @param c Calque que l'on veut rajouter
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    public void ajouterCalques(Calque c) {
+        this.listeDeCalques.add(c);
+    }
+
+    public Dimension getDimension() {
+        return dimension;
+    }
+
+    private void setDimension(Dimension dimension) {
+        this.dimension = dimension;
+    }
+
     @Override
-    public int hashCode() { return largeur+hauteur+31*nom.hashCode()+31*id.hashCode()+31*listeDeCalques.hashCode(); }
+    public int hashCode() {
+        return dimension.hashCode() + 31 * nom.hashCode() + id
+                + 31 * listeDeCalques.hashCode();
+    }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null) return false;
-        if(this == obj) return true;
+        if (obj == null) return false;
+        if (this == obj) return true;
         if (getClass() != obj.getClass()) return false;
         Carte autre = (Carte) obj;
         return equals(autre);
     }
 
     public boolean equals(Carte c) {
-        boolean resultat=(c.getHauteur()==hauteur) && (c.getLargeur()==largeur) && (c.getNom()==nom) && (c.getId()==id) &&
-        (listeDeCalques.equals(c.getListeDeCalques()));
+        boolean resultat = (dimension.equals(c.getDimension()))
+                && (Objects.equals(c.getNom(), nom)) && (c.getId() == id)
+                && (listeDeCalques.equals(c.getListeDeCalques()));
         return resultat;
     }
 }

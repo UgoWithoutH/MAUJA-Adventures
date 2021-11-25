@@ -3,9 +3,11 @@ package com.mauja.maujaadventures.modele;
 import com.mauja.maujaadventures.modele.action.affiche.AfficheurEntite;
 import com.mauja.maujaadventures.modele.action.deplace.Deplaceur;
 import com.mauja.maujaadventures.modele.action.deplace.DeplaceurEntite;
+import com.mauja.maujaadventures.modele.monde.Tuile;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +17,18 @@ public class Jeu {
     private ContexteGraphique contexteGraphique;
     private Deplaceur deplaceur;
     private Collisionneur collisionneur;
+    private List<Image> lesImages;
     //private Afficheur afficheur;
 
     /**
      * Constructeur de la classe Jeu
      * @param gc Contexte graphique à afficher
      */
-    public Jeu(GraphicsContext gc) {
+    public Jeu(GraphicsContext gc, List<Image> lesImages) {
         contexteGraphique = new Caneva(gc);
         deplaceur = new DeplaceurEntite();
         collisionneur = new Collisionneur();
+        this.lesImages = lesImages;
     }
 
     /**
@@ -48,6 +52,13 @@ public class Jeu {
             public void handle(long currentNanoTime)
             {
                 contexteGraphique.effacer(new Position(0, 0), new Dimension(x, y));
+                for (int i = 0; i < 40; i++) {
+                    for (int j = 0; j < 40; j++) {
+                        contexteGraphique.dessiner(lesImages.get(400 -(i * 2 + j * 2)),
+                                new Position(i * 32, j * 32),
+                                new Dimension(32, 32));
+                    }
+                }
                 if (input.contains("LEFT"))
                     deplaceur.deplace(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY(),l);
                 if (input.contains("RIGHT"))

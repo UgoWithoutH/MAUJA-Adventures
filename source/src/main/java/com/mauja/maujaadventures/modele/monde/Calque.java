@@ -1,62 +1,32 @@
 package com.mauja.maujaadventures.modele.monde;
 
+import com.mauja.maujaadventures.modele.Dimension;
 import com.mauja.maujaadventures.modele.action.affiche.Affichable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Calque extends Affichable {
 
-    private int hauteur;
-    private int largeur;
+    private Dimension dimension;
 
-    private ArrayList<Tuile> listeDeTuiles;
+    private List<Tuile> listeDeTuiles;
     /**
      * Constructeur de Calque
-     * @param largeur Largeur du calque
-     * @param hauteur Hauteur du calque
+
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Calque(int largeur, int hauteur) {
+    public Calque(Dimension dimension, List<Tuile> lesTuiles) {
         super(""); // A modifier
-        this.setHauteur(hauteur);
-        this.setLargeur(largeur);
+        this.dimension = dimension;
         this.listeDeTuiles = new ArrayList<Tuile>();
+        if (lesTuiles != null) {
+            listeDeTuiles = lesTuiles;
+        }
     }
 
-    public ArrayList<Tuile> getListeDeTuiles() {
+    public List<Tuile> getListeDeTuiles() {
         return listeDeTuiles;
-    }
-    /**
-     * Getter de l'hauteur
-     * @return L'hauteur de l'élément
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public int getHauteur() {
-        return hauteur;
-    }
-    /**
-     * Setter de l'hauteur
-     * @param hauteur Nouvelle hauteur de l'élément
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public void setHauteur(int hauteur) {
-        this.hauteur = hauteur;
-    }
-    /**
-     * Getter de la largeur
-     * @return Largeur de l'élément
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public int getLargeur() {
-        return largeur;
-    }
-    /**
-     * Setter de la largeur
-     * @param largeur Nouvelle largeur que va comporter l'élément
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public void setLargeur(int largeur) {
-        this.largeur = largeur;
     }
 
     /**
@@ -68,8 +38,18 @@ public class Calque extends Affichable {
         this.listeDeTuiles.add(t);
     }
 
+    public Dimension getDimension() {
+        return dimension;
+    }
+
+    private void setDimension(Dimension dimension) {
+        this.dimension = dimension;
+    }
+
     @Override
-    public int hashCode() { return hauteur+largeur; }
+    public int hashCode() {
+        return dimension.hashCode() + 31 * listeDeTuiles.hashCode();
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -81,7 +61,8 @@ public class Calque extends Affichable {
     }
 
     public boolean equals(Calque c) {
-        boolean resultat=(c.getHauteur()==hauteur) && (c.getLargeur() == largeur);
+        boolean resultat = (dimension.equals(c.getDimension())
+                && listeDeTuiles.equals(c.getListeDeTuiles()));
         return resultat;
     }
 }

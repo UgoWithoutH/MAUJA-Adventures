@@ -6,6 +6,7 @@ import com.mauja.maujaadventures.modele.monde.Calque;
 import com.mauja.maujaadventures.modele.monde.Carte;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AfficheurCarte implements Afficheur {
 
@@ -24,7 +25,7 @@ public class AfficheurCarte implements Afficheur {
             throw new IllegalArgumentException("L'objet " + obj.toString() + " passé en paramètre n'est pas une carte.");
         }
         Carte carte = (Carte) obj;
-        ArrayList<Calque> lesCalques = carte.getListeDeCalques();
+        List<Calque> lesCalques = carte.getListeDeCalques();
         for (Calque c : lesCalques) {
             affiche(c, null, contexteGraphique);
         }
