@@ -1,21 +1,33 @@
 package com.mauja.maujaadventures.modele.monde;
 
-import com.mauja.maujaadventures.modele.personnage.ImageSource;
+import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 
 import java.util.ArrayList;
 
+
 public class Decoupeur {
 
-    public ArrayList<TuileSimple> decoupe(ImageSource tileset){
-        ArrayList<TuileSimple> Tuiles.add(tileset);
-        TuileSimple t=new TuileSimple(4,"a");
-        return t;
+    private ProprietesImage pi;
+    private ArrayList<ProprietesImage> listeDeTuiles = new ArrayList<ProprietesImage>();
 
-        //Image image = new Image("a",20,20,true,false,false);
-        WritableImage croppedImage = new WritableImage(image.getPixelReader(), 0, 0, 20, 20);
+    public ArrayList<ProprietesImage> decoupe(JeuDeTuiles jdt,int largeur, int hauteur){
+        for (int i = 0; i < jdt.getLargeur()/largeur;i++){
+            for (int j = 0; j < jdt.getHauteur()/largeur;j++) {
+                WritableImage imageTuile = new WritableImage((pi = new ProprietesImage(jdt.getImage())).getImage().getPixelReader(),
+                i*largeur, j*hauteur, largeur, hauteur);
+                pi.setImage(imageTuile);
+                listeDeTuiles.add(pi);
 
+
+
+
+            }
+        }
+
+        
+        return listeDeTuiles;
     }
 
 

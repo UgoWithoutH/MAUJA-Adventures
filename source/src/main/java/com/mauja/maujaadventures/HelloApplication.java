@@ -1,6 +1,8 @@
 package com.mauja.maujaadventures;
 
 import com.mauja.maujaadventures.modele.*;
+import com.mauja.maujaadventures.modele.monde.Decoupeur;
+import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
 import javafx.application.Application;
@@ -37,6 +39,13 @@ public class HelloApplication extends Application {
         Collision collision = new Collision(position, 30, 26);
         PersonnageJouable pj = new PersonnageJouable(position, imgURlP, collision, 10);
 
+
+        JeuDeTuiles jdt = new JeuDeTuiles(getClass().getResource("carte2.png").toString(),(int)carte.getWidth(),(int)carte.getHeight());
+        Decoupeur d = new Decoupeur();
+        ArrayList<ProprietesImage> images = new ArrayList<ProprietesImage>();
+        images = d.decoupe(jdt,32,32);
+        //System.out.println(images.toString());
+
         System.out.println(img.getImage().getWidth());
         ArrayList<String> input;
         VBox content = new VBox();
@@ -55,6 +64,8 @@ public class HelloApplication extends Application {
         input=b.lecture(scene);
         var l = new LinkedList<Rectangle2D>();
         l.add(new Rectangle2D(205,231,85,1));
+
+
 
         jeu.boucle(800,400, input, pj,l);
 
