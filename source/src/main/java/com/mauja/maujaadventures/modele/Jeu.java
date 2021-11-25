@@ -18,6 +18,7 @@ public class Jeu {
     private Deplaceur deplaceur;
     private Collisionneur collisionneur;
     private List<Image> lesImages;
+    private Camera camera;
     //private Afficheur afficheur;
 
     /**
@@ -41,6 +42,8 @@ public class Jeu {
      */
     public void boucle(int x, int y, ArrayList<String> input, Entite e, List<Rectangle2D> l){
         //final long startNanoTime = System.nanoTime();
+        Camera camera = new Camera(this.contexteGraphique ,e.getPosition().getPositionX(),e.getPosition().getPositionY());
+
         new AnimationTimer()
         {
             /**
@@ -55,18 +58,29 @@ public class Jeu {
                 for (int i = 0; i < 40; i++) {
                     for (int j = 0; j < 40; j++) {
                         contexteGraphique.dessiner(lesImages.get(400 -(i * 2 + j * 2)),
-                                new Position(i * 32, j * 32),
+                                new Position(i * 32 - camera.getPositionCameraX(),
+                                        j * 32 - camera.getPositionCameraY()),
                                 new Dimension(32, 32));
                     }
                 }
-                if (input.contains("LEFT"))
-                    deplaceur.deplace(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY(),l);
-                if (input.contains("RIGHT"))
-                    deplaceur.deplace(e, e.getPosition().getPositionX() + 3, e.getPosition().getPositionY(),l);
-                if (input.contains("UP"))
-                    deplaceur.deplace(e, e.getPosition().getPositionX(),e.getPosition().getPositionY() - 3,l);
-                if (input.contains("DOWN"))
-                    deplaceur.deplace(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3,l);
+
+                System.out.println(camera.getPositionCameraX());
+                if (input.contains("LEFT")) {
+                    deplaceur.deplace(e, e.getPosition().getPositionX() - 3, e.getPosition().getPositionY(), l);
+                    camera.deplacementCamera(-3, 0);
+                }
+                if (input.contains("RIGHT")) {
+                    deplaceur.deplace(e, e.getPosition().getPositionX() + 3, e.getPosition().getPositionY(), l);
+                    camera.deplacementCamera(3, 0);
+                }
+                if (input.contains("UP")) {
+                    deplaceur.deplace(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() - 3, l);
+                    camera.deplacementCamera(0, -3);
+                }
+                if (input.contains("DOWN")) {
+                    deplaceur.deplace(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3, l);
+                    camera.deplacementCamera(0, 3);
+                }
                 //System.out.println(e.toString());
                 AfficheurEntite ae = new AfficheurEntite();
                 ae.affiche(e, e.getPosition(), contexteGraphique);

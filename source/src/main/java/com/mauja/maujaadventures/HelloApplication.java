@@ -32,6 +32,8 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         URL imgURl= getClass().getResource("carte2.png");
+        //URL imgURlhypto= getClass().getResource("hyptosis_tile-art-batch-5.tsx");
+        //URL imgURltest= getClass().getResource("carteTest.tmx");
         Image carte = new Image(imgURl.toExternalForm());
         ImageView imageView= new ImageView(carte);
 
@@ -44,10 +46,10 @@ public class HelloApplication extends Application {
 
         Decoupeur d = new Decoupeur();
         ArrayList<Image> images;
-        images = d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-3.png",32,32);
+        images = d.decoupe("C:\\PROJET\\Ressources\\hyptosis_tile-art-batch-3.png",32,32);
         RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
-        Carte carte2 = recuperateurDeCartes.recupereCarte("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
-        List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
+        Carte carte2 = recuperateurDeCartes.recupereCarte("C:\\PROJET\\Ressources\\carteTest.tmx");
+        List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles("C:\\PROJET\\Ressources\\carteTest.tmx");
         List<Tuile> lesTuiles = new ArrayList<Tuile>();
         for (JeuDeTuiles jeuDeTuiles : lesJeuxDeTuiles) {
             for (Tuile tuile : jeuDeTuiles.getListeDeTuiles()) {
@@ -65,9 +67,9 @@ public class HelloApplication extends Application {
 
         ArrayList<String> input;
         VBox content = new VBox();
-        content.setBackground(new Background(new BackgroundImage(carte,
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT)));
+        //content.setBackground(new Background(new BackgroundImage(carte,
+        //        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        //        BackgroundSize.DEFAULT)));
         Scene scene = new Scene(content);
         stage.setScene(scene);
         scene.setFill(Color.BLACK);
