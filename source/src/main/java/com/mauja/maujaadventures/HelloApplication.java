@@ -32,6 +32,8 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         URL imgURl= getClass().getResource("carte2.png");
+        //URL imgURlhypto= getClass().getResource("hyptosis_tile-art-batch-5.tsx");
+        //URL imgURltest= getClass().getResource("carteTest.tmx");
         Image carte = new Image(imgURl.toExternalForm());
         ImageView imageView= new ImageView(carte);
 
@@ -47,6 +49,7 @@ public class HelloApplication extends Application {
         /*content.setBackground(new Background(new BackgroundImage(carte,
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT)));*/
+
         Scene scene = new Scene(content);
         stage.setScene(scene);
         scene.setFill(Color.BLACK);

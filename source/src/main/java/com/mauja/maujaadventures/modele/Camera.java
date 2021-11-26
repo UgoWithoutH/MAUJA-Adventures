@@ -1,8 +1,12 @@
 package com.mauja.maujaadventures.modele;
 
+import javafx.scene.canvas.GraphicsContext;
+
 public class Camera {
-    private int positionCameraX;
-    private int positionCameraY;
+    private double positionCameraX;
+    private double positionCameraY;
+    private ContexteGraphique c;
+    private GraphicsContext gc;
 
     //private Entite cible;
     /**
@@ -12,7 +16,8 @@ public class Camera {
      * @param positionCameraY Correspond aux coordonnée Y de la caméra
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Camera(int positionCameraX,int positionCameraY){
+    public Camera(ContexteGraphique c, double positionCameraX, double positionCameraY){
+        this.gc = gc;
         this.positionCameraX=positionCameraX;
         this.positionCameraY=positionCameraY;
     }
@@ -23,16 +28,28 @@ public class Camera {
      * @param deplaceY Valeur du déplacement de la caméra en coordonnée Y
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void deplacementCamera(int deplaceX,int deplaceY){
-        positionCameraX+=deplaceX;
-        positionCameraY+=deplaceY;
+    public void deplacementCamera(double deplaceX,double deplaceY){
+
+            positionCameraX+=deplaceX;
+
+
+            positionCameraY+=deplaceY;
+
+
+    }
+
+    public void centrerSurEntite(Entite e){
+        positionCameraX = e.getPosition().getPositionX() - gc.getCanvas().getWidth()/2 + e.getDimensions().getLargeur() / 2;
+        positionCameraY = e.getPosition().getPositionY() - gc.getCanvas().getHeight() / 2 + e.getDimensions().getHauteur() / 2;
+
+
     }
     /**
      * Getter de la position Camera X
      * @return la valeur de la position X
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public int getPositionCameraX() {
+    public double getPositionCameraX() {
         return positionCameraX;
     }
     /**
@@ -40,7 +57,7 @@ public class Camera {
      * @param positionCameraX Nouvelle valeur de X
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setPositionCameraX(int positionCameraX) {
+    public void setPositionCameraX(double positionCameraX) {
         this.positionCameraX = positionCameraX;
     }
     /**
@@ -48,7 +65,7 @@ public class Camera {
      * @return la valeur de la position Y
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public int getPositionCameraY() {
+    public double getPositionCameraY() {
         return positionCameraY;
     }
     /**
@@ -56,26 +73,7 @@ public class Camera {
      * @param positionCameraY Nouvelle valeur de Y
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setPositionCameraY(int positionCameraY) {
+    public void setPositionCameraY(double positionCameraY) {
         this.positionCameraY = positionCameraY;
-    }
-
-    @Override
-    public int hashCode() {
-        return positionCameraX+positionCameraY;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == null) return false;
-        if(this == obj) return true;
-        if (getClass() != obj.getClass()) return false;
-        Camera autre = (Camera) obj;
-        return equals(autre);
-    }
-
-    public boolean equals(Camera c) {
-        boolean resultat=(c.getPositionCameraX() == positionCameraX) && (c.getPositionCameraY() == positionCameraY);
-        return resultat;
     }
 }

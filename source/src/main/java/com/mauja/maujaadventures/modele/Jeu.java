@@ -31,6 +31,7 @@ public class Jeu {
     private List<Tuile> lesTuiles;
     private Carte carte;
     private List<Image> lesImages;
+    private Camera camera;
     //private Afficheur afficheur;
 
     /**
@@ -75,6 +76,8 @@ public class Jeu {
     public void boucle(ArrayList<String> input, Entite e){
         //final long startNanoTime = System.nanoTime();
         int nombreCalques = carte.getListeDeCalques().size();
+        Camera camera = new Camera(this.contexteGraphique, e.getPosition().getPositionX(), e.getPosition().getPositionY());
+
         new AnimationTimer()
         {
             /**
@@ -103,17 +106,26 @@ public class Jeu {
                         carte.getListeDeCalques().get(2).getListeDeTuiles().get((int) ((e.getPosition().getPositionY() / 32) * 30 + (e.getPosition().getPositionX() % 32))).getId() != 258) {
                     System.out.println(carte.getListeDeCalques().get(1).getListeDeTuiles().get((int) ((e.getPosition().getPositionX() / 32) * 30 + (e.getPosition().getPositionX() % 32 - 1))).getId());
                     deplaceur.deplace(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY());
+                    camera.deplacementCamera(-3, 0);
                 }
 
                 if (input.contains("RIGHT") &&
-                        carte.getListeDeCalques().get(2).getListeDeTuiles().get((int) ((e.getPosition().getPositionY() / 32) * 30 + (e.getPosition().getPositionX() % 32 + 1))).getId() != 258)
+                        carte.getListeDeCalques().get(2).getListeDeTuiles().get((int) ((e.getPosition().getPositionY() / 32) * 30 + (e.getPosition().getPositionX() % 32 + 1))).getId() != 258) {
                     deplaceur.deplace(e, e.getPosition().getPositionX() + 3, e.getPosition().getPositionY());
+                    camera.deplacementCamera(3, 0);
+                }
+
                 if (input.contains("UP") &&
-                        carte.getListeDeCalques().get(2).getListeDeTuiles().get((int) ((e.getPosition().getPositionY() / 32 - 1) * 30 + (e.getPosition().getPositionX() % 32))).getId() != 258)
+                        carte.getListeDeCalques().get(2).getListeDeTuiles().get((int) ((e.getPosition().getPositionY() / 32 - 1) * 30 + (e.getPosition().getPositionX() % 32))).getId() != 258) {
                     deplaceur.deplace(e, e.getPosition().getPositionX(),e.getPosition().getPositionY() - 3);
+                    camera.deplacementCamera(0, -3);
+                }
                 if (input.contains("DOWN") &&
-                        carte.getListeDeCalques().get(2).getListeDeTuiles().get((int) ((e.getPosition().getPositionY() / 32 + 1) * 30 + (e.getPosition().getPositionX() % 32))).getId() != 258)
+                        carte.getListeDeCalques().get(2).getListeDeTuiles().get((int) ((e.getPosition().getPositionY() / 32 + 1) * 30 + (e.getPosition().getPositionX() % 32))).getId() != 258) {
                     deplaceur.deplace(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3);
+                    camera.deplacementCamera(0, 3);
+                }
+
                 //System.out.println(e.toString());
                 AfficheurEntite ae = new AfficheurEntite();
                 ae.affiche(e, e.getPosition(), contexteGraphique);
