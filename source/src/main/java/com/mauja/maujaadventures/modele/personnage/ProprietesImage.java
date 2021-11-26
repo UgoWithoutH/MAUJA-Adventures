@@ -26,6 +26,17 @@ public class ProprietesImage {
             System.out.println("L'image n'a pas été trouvée. Chemin: " + getCheminImage());
         }
     }
+
+    public ProprietesImage(Image image) {
+        try {
+            this.image = image;
+            hauteur = image.getHeight();
+            longueur = image.getWidth();
+        }
+        catch(IllegalArgumentException i){
+            System.out.println("L'image n'a pas été trouvée. Chemin: " + getCheminImage());
+        }
+    }
     /**
      * Getter de l'image permettant de la récupérer plus tard
      * @return Image que l'on souhaite récupérer

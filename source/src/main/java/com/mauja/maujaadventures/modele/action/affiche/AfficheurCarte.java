@@ -4,6 +4,7 @@ import com.mauja.maujaadventures.modele.ContexteGraphique;
 import com.mauja.maujaadventures.modele.Position;
 import com.mauja.maujaadventures.modele.monde.Calque;
 import com.mauja.maujaadventures.modele.monde.Carte;
+import com.mauja.maujaadventures.modele.monde.Tuile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,11 @@ public class AfficheurCarte implements Afficheur {
         }
         Carte carte = (Carte) obj;
         List<Calque> lesCalques = carte.getListeDeCalques();
-        for (Calque c : lesCalques) {
-            affiche(c, null, contexteGraphique);
+        for (Calque calque : lesCalques) {
+            var lesTuiles = calque.getListeDeTuiles();
+            for (Tuile tuile : lesTuiles) {
+
+            }
         }
     }
 }

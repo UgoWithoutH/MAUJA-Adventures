@@ -39,35 +39,14 @@ public class HelloApplication extends Application {
         ProprietesImage img= new ProprietesImage(imgURlP);
 
         Position position = new Position(0, 0);
-        Collision collision = new Collision(position, 30, 26);
+        Collision collision = new Collision(position, 0, 0);
         PersonnageJouable pj = new PersonnageJouable(position, imgURlP, collision, 10);
-
-        Decoupeur d = new Decoupeur();
-        ArrayList<Image> images;
-        images = d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-3.png",32,32);
-        RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
-        Carte carte2 = recuperateurDeCartes.recupereCarte("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
-        List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
-        List<Tuile> lesTuiles = new ArrayList<Tuile>();
-        for (JeuDeTuiles jeuDeTuiles : lesJeuxDeTuiles) {
-            for (Tuile tuile : jeuDeTuiles.getListeDeTuiles()) {
-                lesTuiles.add(tuile);
-            }
-        }
-        System.out.println(lesTuiles.size());
-
-        Map<Tuile, Image> lesTuilesImagees = new HashMap<Tuile, Image>();
-        Iterator<Map.Entry<Tuile, Image>> it = lesTuilesImagees.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry<Tuile, Image> a = it.next();
-            lesTuilesImagees.put(a.getKey(),a.getValue());
-        }
 
         ArrayList<String> input;
         VBox content = new VBox();
-        content.setBackground(new Background(new BackgroundImage(carte,
+        /*content.setBackground(new Background(new BackgroundImage(carte,
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT)));
+                BackgroundSize.DEFAULT)));*/
         Scene scene = new Scene(content);
         stage.setScene(scene);
         scene.setFill(Color.BLACK);
@@ -76,18 +55,18 @@ public class HelloApplication extends Application {
             System.out.println(file);
         }*/
 
-        Boutons b=new Boutons();
-        Canvas canvas = new Canvas(800, 400);
+        Boutons b = new Boutons();
+        Canvas canvas = new Canvas(1400, 800);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         content.getChildren().add( canvas );
-        Jeu jeu = new Jeu(gc, images);
-        input=b.lecture(scene);
-        var l = new LinkedList<Rectangle2D>();
-        l.add(new Rectangle2D(205,231,85,1));
+        Jeu jeu = new Jeu(gc);
+        input = b.lecture(scene);
+        //var l = new LinkedList<Rectangle2D>();
+        //l.add(new Rectangle2D(205,231,85,1));
 
 
 
-        jeu.boucle(800,400, input, pj,l);
+        jeu.boucle(input, pj);
 
         stage.show();
     }

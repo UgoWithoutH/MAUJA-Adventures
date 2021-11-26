@@ -20,7 +20,7 @@ public class Decoupeur {
             for (int j = 0; j < hauteurImage; j++) {
                 proprietesImage = new ProprietesImage(image.getUrl());
                 WritableImage imageTuile = new WritableImage((proprietesImage).getImage().getPixelReader(),
-                i * largeurTuile, j * hauteurTuile, largeurTuile, hauteurTuile);
+                j * largeurTuile, i * hauteurTuile, largeurTuile, hauteurTuile);
                 //proprietesImage.setImage(imageTuile);
                 listeDeTuiles.add(imageTuile);
             }
@@ -59,7 +59,7 @@ public class Decoupeur {
     }
 
     public boolean equals(Decoupeur d) {
-        boolean resultat=(proprietesImage.equals(d.getProprietesImage())) && (listeDeTuiles.equals(d.getListeDeTuiles()));
+        boolean resultat = (proprietesImage.equals(d.getProprietesImage())) && (listeDeTuiles.equals(d.getListeDeTuiles()));
         return resultat;
     }
 }

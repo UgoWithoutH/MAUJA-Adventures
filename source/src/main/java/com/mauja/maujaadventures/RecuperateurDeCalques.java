@@ -30,14 +30,14 @@ public class RecuperateurDeCalques {
 
         TiledTileLayer calqueCourant;
         for (int i = 0; i < lesCalquesTiled.size(); i++) {
-            if (lesCalquesTiled.get(i) instanceof HashTileLayer) {
+            /*if ( instanceof HashTileLayer) {
                 calqueCourant = (HashTileLayer) lesCalquesTiled.get(i);
             }
             else {
                 calqueCourant = (ArrayTileLayer) lesCalquesTiled.get(i);
-            }
+            }*/
 
-            List<Tuile> lesTuiles = recuperateurDeTuiles.recupere(chargeurCarte, calqueCourant);
+            List<Tuile> lesTuiles = recuperateurDeTuiles.recupere(chargeurCarte, (TiledTileLayer) lesCalquesTiled.get(i));
 
             if (lesTuiles != null) {
                 Dimension dimension = new Dimension(chargeurCarte.getWidth(), chargeurCarte.getHeight());

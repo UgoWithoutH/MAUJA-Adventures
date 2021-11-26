@@ -16,6 +16,7 @@ public class RecuperateurDeTuiles {
     }
 
     public List<Tuile> recupere(TiledMap chargeurCarte, TiledTileLayer calque) {
+        int compte = 0;
         List<Tuile> lesTuiles = new ArrayList<>();
         double largeurCarte = chargeurCarte.getWidth();
         double hauteurCarte = chargeurCarte.getHeight();
@@ -24,15 +25,19 @@ public class RecuperateurDeTuiles {
             for (int k = 0; k < largeurCarte; k++) {
                 //System.out.print(" (" + k + ", " + j + " " + i + ") ");
                 TiledTile tuileTiled = calque.getTile(k, j);
-                if (tuileTiled != null) {
+                if (tuileTiled == null) {
+                    Tuile tuile = new Tuile(0, null, null, null);
+                    lesTuiles.add(tuile);
+                }
+                else {
                     String identifiantJeuDeTuile = tuileTiled.getTileset().getName();
                     int identifiant = tuileTiled.getID();
                     for (JeuDeTuiles jeuDeTuile : lesJeuxDeTuiles) {
+                        System.out.println("Tuile numéro " + compte);
+                        compte++;
                         if (jeuDeTuile.getIdentifiant().equals(identifiantJeuDeTuile)) {
                             Tuile tuile = jeuDeTuile.getListeDeTuiles().get(identifiant);
-                            if (tuile != null) {
-                                lesTuiles.add(tuile);
-                            }
+                            lesTuiles.add(tuile);
                             break;
                         }
                     }

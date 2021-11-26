@@ -13,5 +13,5 @@ public interface Deplaceur {
      * @param y Correspond à la position Y de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void deplace(Entite e, double x, double y, List<Rectangle2D> l);
+    public void deplace(Entite e, double x, double y);
 }

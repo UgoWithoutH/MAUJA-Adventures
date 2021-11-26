@@ -33,7 +33,7 @@ public abstract class Affichable {
     }
 
     @Override
-    public int hashCode() { return 31*cheminImage.hashCode(); }
+    public int hashCode() { return 31 * cheminImage.hashCode(); }
 
     @Override
     public boolean equals(Object obj) {

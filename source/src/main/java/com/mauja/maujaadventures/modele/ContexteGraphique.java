@@ -12,9 +12,11 @@ public abstract class ContexteGraphique {
      * @param dimensions Hauteur et largeur de l'image
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public abstract void dessiner(ProprietesImage image, Position position, Dimension dimensions);
 
     public abstract void dessiner(Image image, Position position, Dimension dimensions);
+
+    public abstract void dessiner(ProprietesImage image, Position position, Dimension dimensions);
+
     /**
      * Structure de la méthode dessiné
      * @param image Image que l'on souhaite affiché

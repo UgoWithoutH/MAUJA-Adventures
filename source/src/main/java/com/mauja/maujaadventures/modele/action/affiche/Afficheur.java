@@ -12,5 +12,5 @@ public interface Afficheur {
      * @param contexteGraphique Correspond à l'interface ou sera affiché l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique);
+    void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique);
 }

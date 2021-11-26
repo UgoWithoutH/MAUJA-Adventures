@@ -14,7 +14,7 @@ public class DeplaceurEntite implements Deplaceur {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void deplace(Entite e, double x, double y, List<Rectangle2D> l) {
+    public void deplace(Entite e, double x, double y) {
         /*Rectangle2D oldCollisions = e.getCollision().getZoneCollision();
         Rectangle2D newCollisions = new Rectangle2D(x,y,oldCollisions.getWidth(),oldCollisions.getHeight());
         for (Rectangle2D zone : l){

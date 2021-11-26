@@ -23,6 +23,11 @@ public class Caneva extends ContexteGraphique {
 
     public void setGc(GraphicsContext gc) { this.gc = gc; }
 
+    @Override
+    public void dessiner(Image image, Position position, Dimension dimensions) {
+        gc.drawImage(image, position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
+    }
+
     /**
      * Redéfinition d'une méthode dessiner de contexte graphique
      *
@@ -36,10 +41,6 @@ public class Caneva extends ContexteGraphique {
         dessiner(image, position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
     }
 
-
-    public void dessiner(Image image, Position position, Dimension dimensions) {
-        gc.drawImage(image, position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
-    }
     /**
      * Redéfinition d'une méthode dessiner de contexte graphique
      *
@@ -81,6 +82,7 @@ public class Caneva extends ContexteGraphique {
     @Override
     public void dessiner(ProprietesImage image, double positionX, double positionY, double largeur, double hauteur) {
         verificationImage(image);
+        //System.out.println(positionX + " " + positionY + " " + largeur + " " + hauteur);
         gc.drawImage(image.getImage(), positionX, positionY, largeur, hauteur);
     }
     /**
