@@ -1,12 +1,11 @@
-*.iws
-*.iml
 *.DS_STORE
 *.bak
 *.thumbs
+*.db
 
-**/.idea
 **/target
-**/libraries
 **/out
 **/bin
 **/debug
+
+*/.idea/workspace.xml
