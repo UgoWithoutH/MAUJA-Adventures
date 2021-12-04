@@ -75,10 +75,11 @@ public class Tuile extends Affichable {
      * @return Valeur de l'hachage des attributs de Tuile
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
+/*
     @Override
     public int hashCode() { return id+31* dimension.hashCode()+31*collision.hashCode()
             +31*identifiantJeuDeTuile.hashCode(); }
-
+*/
     /**
      * Redéfinition du equals
      * @param obj Objet que l'on veut comparer

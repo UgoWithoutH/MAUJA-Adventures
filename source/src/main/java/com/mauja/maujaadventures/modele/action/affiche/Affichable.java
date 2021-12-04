@@ -37,9 +37,10 @@ public abstract class Affichable {
      * @return Entier de l'hachage des attributs de Affichable
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
+    /*
     @Override
     public int hashCode() { return 31 * cheminImage.hashCode(); }
-
+*/
     /**
      * Redéfinition du equals
      * @param obj Objet que l'on veut comparer
