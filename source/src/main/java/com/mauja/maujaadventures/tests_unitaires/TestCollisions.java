@@ -1,4 +1,4 @@
-package com.mauja.maujaadventures.tests_unitaires;
+/*package com.mauja.maujaadventures.tests_unitaires;
 
 import com.mauja.maujaadventures.modele.Collision;
 import com.mauja.maujaadventures.modele.Position;
@@ -12,3 +12,5 @@ public class TestCollisions {
         var collision = new Collision(new Position(0, 0), 20, 20);
     }
 }
+
+ */

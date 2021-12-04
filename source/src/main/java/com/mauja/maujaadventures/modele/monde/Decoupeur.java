@@ -2,6 +2,7 @@ package com.mauja.maujaadventures.modele.monde;
 
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 
 import java.util.ArrayList;
@@ -12,14 +13,17 @@ public class Decoupeur {
     private ProprietesImage proprietesImage;
     private ArrayList<Image> listeDeTuiles = new ArrayList<Image>();
 
+
     public ArrayList<Image> decoupe(String chemin, int largeurTuile, int hauteurTuile) {
         Image image = new Image(chemin);
+        proprietesImage = new ProprietesImage(image.getUrl());
+        PixelReader lecteur = (proprietesImage).getImage().getPixelReader();
         double largeurImage = image.getWidth() / largeurTuile;
         double hauteurImage = image.getHeight() / hauteurTuile;
         for (int i = 0; i < largeurImage; i++){
             for (int j = 0; j < hauteurImage; j++) {
-                proprietesImage = new ProprietesImage(image.getUrl());
-                WritableImage imageTuile = new WritableImage((proprietesImage).getImage().getPixelReader(),
+
+                WritableImage imageTuile = new WritableImage(lecteur,
                 j * largeurTuile, i * hauteurTuile, largeurTuile, hauteurTuile);
                 //proprietesImage.setImage(imageTuile);
                 listeDeTuiles.add(imageTuile);

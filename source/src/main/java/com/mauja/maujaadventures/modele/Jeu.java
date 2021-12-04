@@ -47,11 +47,11 @@ public class Jeu {
 
     public void initialiser() throws FileNotFoundException {
         Decoupeur d = new Decoupeur();
-        lesImages = d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-3.png",32,32);
+        lesImages = d.decoupe("C:\\PROJET\\Ressources\\hyptosis_tile-art-batch-3.png",32,32);
         //images.addAll(d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-5.png", 32, 32));
         RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
-        carte = recuperateurDeCartes.recupereCarte("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
-        List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
+        carte = recuperateurDeCartes.recupereCarte("C:\\Projet\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
+        List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles("C:\\Projet\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
         System.out.println(lesImages.size());
         lesTuiles = new ArrayList<Tuile>();
 
