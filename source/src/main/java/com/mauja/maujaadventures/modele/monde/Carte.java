@@ -15,11 +15,15 @@ public class Carte extends Affichable {
     private Dimension dimension;
 
     /**
-     * Constructeur de Carte
+     * Constructeur de la classe Carte
      *
-     * @param nom Nom de la carte
+     * @param nom nom Nom de la carte
+     * @param dimension Longueur et Hauteur de la carte
+     * @param lesCalques Liste des calques appartenant à la Carte
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
+
+
     public Carte(String nom, Dimension dimension, List<Calque> lesCalques) {
 
         super(""); //A modifier
@@ -85,7 +89,6 @@ public class Carte extends Affichable {
 
     /**
      * Ajouter un nouveau calque
-     *
      * @param c Calque que l'on veut rajouter
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
@@ -93,20 +96,40 @@ public class Carte extends Affichable {
         this.listeDeCalques.add(c);
     }
 
+    /**
+     * Getter de la dimension
+     * @return Les valeurs de la dimension
+     */
     public Dimension getDimension() {
         return dimension;
     }
 
+    /**
+     * Setter de la dimension
+     * @param dimension Nouveau valeur de la dimension
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     private void setDimension(Dimension dimension) {
         this.dimension = dimension;
     }
 
+    /**
+     * Redéfinition du Hash Code permet d'avoir une valeurs unique par Carte
+     * @return entier de l'Hachage des attributs de Carte
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public int hashCode() {
         return dimension.hashCode() + 31 * nom.hashCode() + id
                 + 31 * listeDeCalques.hashCode();
     }
 
+    /**
+     * Redéfinition du Equals
+     * @param obj Objet permettant de faire l'égalité
+     * @return Un booléen pour savoir si égalité ou non
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
@@ -116,10 +139,40 @@ public class Carte extends Affichable {
         return equals(autre);
     }
 
+    /**
+     * Nouvelle fonction equals
+     * @param c Correspond à la carte
+     * @return Le résultat de l'égalité
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+
     public boolean equals(Carte c) {
         boolean resultat = (dimension.equals(c.getDimension()))
                 && (Objects.equals(c.getNom(), nom)) && (c.getId() == id)
                 && (listeDeCalques.equals(c.getListeDeCalques()));
         return resultat;
     }
+
+    /**
+     * Redéfinition du ToString
+     * @return la chaîne de caractère que l'on veut afficher dans la console
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return "Carte{" +
+                "nom='" + nom + ", id=" + id +
+                ", listeDeCalques=" + listeDeCalques.toString() +
+                ", dimension=" + dimension.toString() +
+                " nombre Identifiant: " + nombreIdentifiants +
+                '}';
+    }
+
+//    public int compareTo(Carte c, String nom){
+//        int cmp=c.getNom().compareTo(nom);
+//        if (cmp!=0){
+//            return cmp;
+//        }
+//        return 0;
+//    }
 }

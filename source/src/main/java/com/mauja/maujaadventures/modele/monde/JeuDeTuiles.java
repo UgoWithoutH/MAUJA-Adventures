@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JeuDeTuiles {
+
+
     private int nombreTuiles;
     private Dimension dimension;
     private List<Tuile> listeDeTuiles;
@@ -35,39 +37,38 @@ public class JeuDeTuiles {
         return nombreTuiles;
     }
 
-    private void setNombreTuiles(int nombreTuiles) { this.nombreTuiles = nombreTuiles; }
 
     public List<Tuile> getListeDeTuiles() {
         return listeDeTuiles;
     }
 
-    private void setListeDeTuiles(List<Tuile> listeDeTuiles) {
-        this.listeDeTuiles = listeDeTuiles;
-        nombreTuiles = listeDeTuiles.size();
-    }
 
     public Dimension getDimension() {
         return dimension;
     }
 
-    private void setDimension(Dimension dimension) {
-        this.dimension = dimension;
-    }
 
     public String getIdentifiant() {
         return identifiant;
     }
 
-    private void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
-    }
-
+    /**
+     * Redéfinition du HashCode
+     * @return Valeurs de l'Hachage des attributs de jeu de tuiles
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public int hashCode() {
-        return nombreTuiles + 32 * dimension.hashCode()
-                + 31 * listeDeTuiles.hashCode();
+        return nombreTuiles + 31 * dimension.hashCode()
+                + 31 * listeDeTuiles.hashCode()+ 31 * identifiant.hashCode();
     }
 
+    /**
+     * Redéfinition du equals
+     * @param obj Objet que l'on veut comparer
+     * @return True si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) return false;
@@ -77,8 +78,31 @@ public class JeuDeTuiles {
         return equals(autre);
     }
 
+    /**
+     * Méthode equals
+     * @param jt Jeu de Tuile que l'on veut comparer
+     * @return True si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public boolean equals(JeuDeTuiles jt) {
-        boolean resultat = listeDeTuiles.equals(jt.getListeDeTuiles());
+        boolean resultat = (listeDeTuiles.equals(jt.getListeDeTuiles())) && (jt.getNombreTuiles()==nombreTuiles)
+                && (dimension.equals(jt.getDimension())) && (jt.getIdentifiant()==identifiant);
         return resultat;
     }
+
+    /**
+     * Redéfinition du toString
+     * @return Chaîne que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return "JeuDeTuiles{" +
+                "nombreTuiles=" + nombreTuiles +
+                ", dimension=" + dimension.toString() +
+                ", listeDeTuiles=" + listeDeTuiles +
+                ", identifiant='" + identifiant + '\'' +
+                '}';
+    }
+
 }

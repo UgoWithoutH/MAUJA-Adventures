@@ -10,7 +10,6 @@ import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.modele.monde.Tuile;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -35,8 +34,10 @@ public class Jeu {
     //private Afficheur afficheur;
 
     /**
-     * Constructeur de la classe Jeu
-     * @param gc Contexte graphique à afficher
+     * Constructeur de Jeu
+     * @param gc Contexte Graphique du Jeu
+     * @throws FileNotFoundException Exception déclencher si le fichier n'est pas trouvé
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public Jeu(GraphicsContext gc) throws FileNotFoundException {
         contexteGraphique = new Caneva(gc);
@@ -45,6 +46,11 @@ public class Jeu {
         initialiser();
     }
 
+    /**
+     * Fonction d'initialisation du jeu
+     * @throws FileNotFoundException Exception si le fichier de l'image n'est pas trouvé
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public void initialiser() throws FileNotFoundException {
         Decoupeur d = new Decoupeur();
         lesImages = d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-3.png",32,32);
@@ -137,29 +143,30 @@ public class Jeu {
         return collisionneur;
     }
 
-    public void setCollisionneur(Collisionneur collisionneur) {
-        this.collisionneur = collisionneur;
-    }
-
     public Deplaceur getDeplaceur() {
         return deplaceur;
     }
 
-    public void setDeplaceur(Deplaceur deplaceur) {
-        this.deplaceur = deplaceur;
-    }
     public ContexteGraphique getContexteGraphique() {
         return contexteGraphique;
     }
 
-    public void setContexteGraphique(ContexteGraphique contexteGraphique) {
-        this.contexteGraphique = contexteGraphique;
-    }
+    /**
+     * Redéfintion du HashCode
+     * @return Hachage des attributs de la classe Jeu
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public int hashCode() {
         return 31*contexteGraphique.hashCode()+31*deplaceur.hashCode()+31*collisionneur.hashCode();
     }
 
+    /**
+     * Redéfinition du equals
+     * @param obj Objet que l'on veut comparer
+     * @return True si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) return false;
@@ -169,9 +176,34 @@ public class Jeu {
         return equals(autre);
     }
 
+    /**
+     * Méthode equals
+     * @param j Jeu que l'on veut comparer
+     * @return True si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public boolean equals(Jeu j) {
         boolean resultat = (contexteGraphique.equals(j.getContexteGraphique())) && (deplaceur.equals(j.getDeplaceur())) &&
                 (collisionneur.equals(j.getCollisionneur()));
         return resultat;
+    }
+
+    /**
+     * Redéfinition du toString
+     * @return Chaîne que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return "Jeu{" +
+                "contexteGraphique=" + contexteGraphique.toString() +
+                ", deplaceur=" + deplaceur.toString() +
+                ", collisionneur=" + collisionneur.toString() +
+                ", lesTuilesImagees=" + lesTuilesImagees.toString() +
+                ", lesTuiles=" + lesTuiles.toString() +
+                ", carte=" + carte.toString() +
+                ", lesImages=" + lesImages.toString() +
+                ", camera=" + camera.toString() +
+                '}';
     }
 }

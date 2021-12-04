@@ -32,9 +32,20 @@ public abstract class Affichable {
         this.cheminImage = cheminImage;
     }
 
+    /**
+     * Redéfinition du HashCode
+     * @return Entier de l'hachage des attributs de Affichable
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public int hashCode() { return 31 * cheminImage.hashCode(); }
 
+    /**
+     * Redéfinition du equals
+     * @param obj Objet que l'on veut comparer
+     * @return True si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) return false;
@@ -44,8 +55,24 @@ public abstract class Affichable {
         return equals(autre);
     }
 
+    /**
+     * Méthode equals
+     * @param a Affichage que l'on veut voir si égalité
+     * @return treue si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public boolean equals(Affichable a) {
         boolean resultat=(cheminImage.equals(a.getCheminImage()));
         return resultat;
+    }
+
+    /**
+     * Redéfinition du toString
+     * @return Chaîne de caractère que l'on veut afficher ici chemin de l'image
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return "cheminImage= " + cheminImage;
     }
 }

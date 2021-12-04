@@ -76,4 +76,72 @@ public class Camera {
     public void setPositionCameraY(double positionCameraY) {
         this.positionCameraY = positionCameraY;
     }
+
+    public ContexteGraphique getC() {
+        return c;
+    }
+
+    public void setC(ContexteGraphique c) {
+        this.c = c;
+    }
+
+    public GraphicsContext getGc() {
+        return gc;
+    }
+
+    public void setGc(GraphicsContext gc) {
+        this.gc = gc;
+    }
+
+    /**
+     * Redéfinition du hashCode
+     * @return Entier de l'hachage des attributs de Camera
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public int hashCode() {
+        return (int)(positionCameraX+positionCameraY);
+    }
+
+    /**
+     * Redéfinition du equals
+     * @param obj Objet que l'on veut comparer
+     * @return true si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Camera autre = (Camera) obj;
+        return equals(autre);
+    }
+
+    /**
+     * Méthode equals
+     * @param cam Objet que l'on veut comparer
+     * @return true si vrai sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    public boolean equals(Camera cam) {
+        boolean resultat=(cam.getPositionCameraX() == positionCameraX) && (cam.getPositionCameraY() == positionCameraY) &&
+                (c.equals(cam.getC())) && (c.equals(cam.getGc()));
+        return resultat;
+    }
+
+    /**
+     * Redéfinition du toString
+     * @return Chaîne de caractère que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return "Camera{" +
+                "positionCameraX=" + positionCameraX +
+                ", positionCameraY=" + positionCameraY +
+                ", c=" + c.toString() +
+                ", gc=" + gc.toString() +
+                '}';
+    }
 }

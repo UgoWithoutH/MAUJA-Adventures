@@ -38,16 +38,32 @@ public class Position {
      */
     public void setPositionY(double positionY) { this.positionY = positionY; }
 
+    /**
+     * Redéfinition du toString
+     * @return Chaîne que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public String toString() {
         return "{" + positionX + "; " + positionY + "}";
     }
 
+    /**
+     * Redéfinition du hashCode
+     * @return Hachage des attributs de Positions
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public int hashCode() {
         return (int)(positionX + positionY);
     }
 
+    /**
+     * Redéfinition du equals
+     * @param obj Objet que l'on veut comparer
+     * @return True si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) return false;
@@ -57,6 +73,12 @@ public class Position {
         return equals(autre);
     }
 
+    /**
+     * Méthode equals
+     * @param p Position que l'on veut comparer
+     * @return True si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public boolean equals(Position p) {
         boolean resultat = (p.getPositionX() == positionX ) && (p.getPositionY() == positionY);
         return resultat;

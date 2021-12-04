@@ -9,6 +9,7 @@ import java.util.List;
 
 public class AfficheurCalque implements Afficheur {
 
+
     AfficheurTuile afficheTuile = new AfficheurTuile();
     /**
      * Redéfinition de l'interface Afficheur, on rajoute le code permettant l'affichage de l'objet ici un calque
@@ -31,5 +32,17 @@ public class AfficheurCalque implements Afficheur {
             p = null;
             afficheTuile.affiche(t, pos, contexteGraphique);
         }
+    }
+
+    /**
+     * Redéfinition du toString
+     * @return Chaîne de caractère que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return "AfficheurCalque{" +
+                "afficheTuile=" + afficheTuile.toString() +
+                '}';
     }
 }
