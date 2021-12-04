@@ -15,7 +15,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class RecuperateurDeJeuDeTuiles {
-
+    /**
+     * Méthode de récupération du Jeu de TUile
+     * @param chargeurCarte Carte où on veut récupérer le jeu de Tuile
+     * @return Liste de Tuile de la Carte
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public List<JeuDeTuiles> recupere(TiledMap chargeurCarte) {
         List<JeuDeTuiles> lesJeuxDeTuiles = new ArrayList<>();
         List<TiledTileset> lesJeuxDeTuilesTiled = chargeurCarte.getTilesets();

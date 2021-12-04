@@ -58,18 +58,35 @@ public abstract class Entite extends Affichable {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public void setDimensions(Dimension dimensions) { this.dimensions = dimensions; }
-    
+
+    /**
+     * Redéfinition du toString
+     * @return chaîne que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public String toString() {
         return "Position : " + position.toString() + ", "
                 + "Dimensions : " + dimensions.toString() + ", "
                 + "Collision : " + collision.toString();
     }
+
+    /**
+     * Redéfinition du hashCode
+     * @return Hachage des attributs de Entite
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public int hashCode() {
         return 31*position.hashCode()+31*dimensions.hashCode()+31*collision.hashCode();
     }
 
+    /**
+     * Redéfinition du equals
+     * @param obj Objet que l'on veut comparer
+     * @return true si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) return false;
@@ -78,7 +95,12 @@ public abstract class Entite extends Affichable {
         Entite autre = (Entite) obj;
         return equals(autre);
     }
-
+    /**
+     * Méthode equals
+     * @param e Entité que l'on veut comparer
+     * @return true si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public boolean equals(Entite e) {
         boolean resultat = (position.equals(e.getPosition())) && (position.equals(e.getCollision())) &&
                 (dimensions.equals(e.getDimensions()));

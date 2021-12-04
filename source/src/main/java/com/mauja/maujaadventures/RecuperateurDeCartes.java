@@ -45,4 +45,12 @@ public class RecuperateurDeCartes {
         List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeJeuDeTuiles.recupere(chargeurCarte);
         return lesJeuxDeTuiles;
     }
+    @Override
+    public String toString() {
+        return "RecuperateurDeCartes{" +
+                "recuperateurDeCalques=" + recuperateurDeCalques.toString() +
+                ", recuperateurDeJeuDeTuiles=" + recuperateurDeJeuDeTuiles.toString() +
+                '}';
+    }
+
 }

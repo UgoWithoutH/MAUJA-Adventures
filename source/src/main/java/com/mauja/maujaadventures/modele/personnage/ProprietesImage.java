@@ -107,11 +107,22 @@ public class ProprietesImage {
         this.hauteur = hauteur;
     }
 
+    /**
+     * Redéfinition du HashCode
+     * @return Entier de l'Hachage des attributs de ProprietesImages
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public int hashCode() {
         return (int)(longueur+hauteur) +31*image.hashCode()+31*cheminImage.hashCode();
     }
 
+    /**
+     * Redéfinition du equals
+     * @param obj Objet que l'on veut comparer
+     * @return True si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) return false;
@@ -121,9 +132,29 @@ public class ProprietesImage {
         return equals(autre);
     }
 
+    /**
+     * Méthode equals
+     * @param pi Attributs de la classe que l'on veut comparer
+     * @return True si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public boolean equals(ProprietesImage pi) {
         boolean resultat=(pi.getHauteur()==hauteur) && (pi.getLongueur()==longueur) &&
                 (image.equals(pi.getImage())) && (cheminImage.equals(pi.getCheminImage()));
         return resultat;
+    }
+
+    /**
+     * Redéfinition du toString
+     * @return chaîne de caractère a afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return "ProprietesImage : " +
+                "cheminImage='" + cheminImage +
+                ", longueur=" + longueur +
+                ", hauteur=" + hauteur +
+                ", image=" + image.toString() ;
     }
 }

@@ -18,6 +18,9 @@ public class Tuile extends Affichable {
      * Constructeur de la classe abstraite Tuile
      * @param id Id de la tuile
      * @param chemin Chemin de l'image de la tuile
+     * @param collision Rectangle collision de la Tuile
+     * @param chemin Chemin de l'image
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public Tuile(int id, String identifiantJeuDeTuile, Collision collision, String chemin) {
         super(chemin);
@@ -44,16 +47,9 @@ public class Tuile extends Affichable {
         return identifiantJeuDeTuile;
     }
 
-    private void setIdentifiantJeuDeTuile(String identifiantJeuDeTuile) {
-        this.identifiantJeuDeTuile = identifiantJeuDeTuile;
-    }
 
     public Collision getCollision() {
         return collision;
-    }
-
-    private void setCollision(Collision collision) {
-        this.collision = collision;
     }
 
     /**
@@ -74,9 +70,21 @@ public class Tuile extends Affichable {
         this.id = id;
     }
 
+    /**
+     * Redéfinition du HashCode
+     * @return Valeur de l'hachage des attributs de Tuile
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
-    public int hashCode() { return id+31* dimension.hashCode(); }
+    public int hashCode() { return id+31* dimension.hashCode()+31*collision.hashCode()
+            +31*identifiantJeuDeTuile.hashCode(); }
 
+    /**
+     * Redéfinition du equals
+     * @param obj Objet que l'on veut comparer
+     * @return true si vrai sinon faux
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) return false;
@@ -86,9 +94,28 @@ public class Tuile extends Affichable {
         return equals(autre);
     }
 
+    /**
+     * Méthode equals
+     * @param t Tuile que l'on veut comparer
+     * @return True si vrai sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public boolean equals(Tuile t) {
         boolean resultat = (t.getId() == id)
-                && (dimension.equals(t.getDimensions()));
+                && (dimension.equals(t.getDimensions())) && (collision.equals(t.getCollision())) &&
+                (identifiantJeuDeTuile.equals(t.getIdentifiantJeuDeTuile()));
         return resultat;
+    }
+
+    /**
+     * Redéfinition du toString
+     * @return Chaîne de caractère que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return super.toString() + ", Id :" + id
+                + ", dimension :  " + dimension.toString() +
+                "collision : " + collision.toString() + "Id de la tuile "+ identifiantJeuDeTuile;
     }
 }

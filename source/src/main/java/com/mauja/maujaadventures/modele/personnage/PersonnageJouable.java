@@ -41,9 +41,21 @@ public class PersonnageJouable extends Personnage {
         return super.toString() + ", "
                 + "attaque = " + attaque + ", ";
     }
+
+    /**
+     * Redéfinition du HashCode
+     * @return Entier de l'hachage des attributs de PersonnageJouable
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public int hashCode() { return attaque; }
 
+    /**
+     * Redéfinition du equals
+     * @param obj Objet que l'on veut comparer
+     * @return True si vrai sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) return false;
@@ -53,6 +65,12 @@ public class PersonnageJouable extends Personnage {
         return equals(autre);
     }
 
+    /**
+     * Méthode equals
+     * @param pj PersonnableJouable que l'on veut comparer
+     * @return true si vrai sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public boolean equals(PersonnageJouable pj) {
         boolean resultat=pj.getAttaque()==attaque;
         return resultat;

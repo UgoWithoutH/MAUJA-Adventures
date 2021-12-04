@@ -132,11 +132,22 @@ public class Caneva extends ContexteGraphique {
         }
     }
 
+    /**
+     * Redéfintion du hashCode
+     * @return Entier de l'hachage des attributs de Caneva
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public int hashCode() {
         return 31 * gc.hashCode();
     }
 
+    /**
+     * Redéfinition du equals
+     * @param obj Objet que l'on veut comparer
+     * @return true si vrai sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) return false;
@@ -146,7 +157,23 @@ public class Caneva extends ContexteGraphique {
         return equals(autre);
     }
 
+    /**
+     * Méthode equals
+     * @param m Caneva que l'on veut comparer
+     * @return true si vrai sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public boolean equals(Caneva m) {
         return gc.equals(m.getGc());
+    }
+
+    /**
+     * Redéfinition du toString
+     * @return chaîne que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return "gc=" + gc.toString();
     }
 }

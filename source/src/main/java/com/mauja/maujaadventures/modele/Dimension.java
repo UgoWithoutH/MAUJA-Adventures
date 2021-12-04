@@ -45,16 +45,32 @@ public class Dimension {
         this.hauteur = hauteur;
     }
 
+    /**
+     * Redéfinition du toString
+     * @return chaîne que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public String toString() {
         return largeur + "x" + hauteur;
     }
 
+    /**
+     * Redéfinition du hashCode
+     * @return Hachage des attributs de dimension
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public int hashCode() {
         return largeur + hauteur;
     }
 
+    /**
+     * Redéfinition du equals
+     * @param obj Objet que l'on veut comparer
+     * @return true si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) return false;
@@ -64,6 +80,12 @@ public class Dimension {
         return equals(autre);
     }
 
+    /**
+     * Méthode equals
+     * @param m Dimension que l'on veut comparer
+     * @return true si égalité sinon false
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public boolean equals(Dimension m) {
         boolean resultat = (m.getHauteur() == hauteur) && (m.getLargeur() == largeur);
         return resultat;

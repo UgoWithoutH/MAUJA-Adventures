@@ -11,10 +11,22 @@ public class RecuperateurDeTuiles {
 
     private List<JeuDeTuiles> lesJeuxDeTuiles;
 
+    /**
+     * Constructeur de RecuperateurDeTuiles
+     * @param lesJeuxDeTuiles Tuiles
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public RecuperateurDeTuiles(List<JeuDeTuiles> lesJeuxDeTuiles) {
         this.lesJeuxDeTuiles = lesJeuxDeTuiles;
     }
 
+    /**
+     * Permet de récupérer les tuiles à partir de la carte et du calque
+     * @param chargeurCarte Carte à récupérer les tuiles
+     * @param calque Calque contenant les Tuiles
+     * @return Une liste de tuile
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public List<Tuile> recupere(TiledMap chargeurCarte, TiledTileLayer calque) {
         int compte = 0;
         List<Tuile> lesTuiles = new ArrayList<>();
@@ -45,5 +57,17 @@ public class RecuperateurDeTuiles {
             }
         }
         return lesTuiles;
+    }
+
+    /**
+     * Redéfinition du toString
+     * @return Chaîne de caractère à afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return "RecuperateurDeTuiles{" +
+                "lesJeuxDeTuiles=" + lesJeuxDeTuiles.toString() +
+                '}';
     }
 }
