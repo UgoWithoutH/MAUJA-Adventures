@@ -1,6 +1,7 @@
 package com.mauja.maujaadventures.modele.action.affiche;
 
 import com.mauja.maujaadventures.modele.ContexteGraphique;
+import com.mauja.maujaadventures.modele.Jeu;
 import com.mauja.maujaadventures.modele.Position;
 import com.mauja.maujaadventures.modele.monde.*;
 
@@ -20,7 +21,7 @@ public class AfficheurCalque implements Afficheur {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique) {
+    public void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique, Jeu jeu) {
         Position p;
         if (!(obj instanceof Calque)) {
             throw new IllegalArgumentException("L'objet " + obj.toString() + " passé en paramètre n'est pas un calque.");
@@ -30,7 +31,7 @@ public class AfficheurCalque implements Afficheur {
         for (Tuile t : lesTuiles) {
             // a changer
             p = null;
-            afficheTuile.affiche(t, pos, contexteGraphique);
+            afficheTuile.affiche(t, pos, contexteGraphique, jeu);
         }
     }
 

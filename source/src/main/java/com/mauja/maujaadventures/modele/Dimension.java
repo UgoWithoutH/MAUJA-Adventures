@@ -1,8 +1,8 @@
 package com.mauja.maujaadventures.modele;
 
 public class Dimension {
-    private int largeur;
-    private int hauteur;
+    private double largeur;
+    private double hauteur;
 
     /**
      * Constructeur de la classe
@@ -10,7 +10,7 @@ public class Dimension {
      * @param hauteur Hauteur de l'élément
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Dimension(int largeur, int hauteur) {
+    public Dimension(double largeur, double hauteur) {
         this.setHauteur(hauteur);
         this.setLargeur(largeur);
     }
@@ -19,13 +19,13 @@ public class Dimension {
      * @return Largeur de l'élément
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public int getLargeur() { return largeur; }
+    public double getLargeur() { return largeur; }
     /**
      * Setter de la largeur
      * @param largeur Nouvelle largeur que va comporter l'élément
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    private void setLargeur(int largeur) {
+    private void setLargeur(double largeur) {
         this.largeur = largeur;
     }
     /**
@@ -33,7 +33,7 @@ public class Dimension {
      * @return L'hauteur de l'élément
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public int getHauteur() {
+    public double getHauteur() {
         return hauteur;
     }
     /**
@@ -41,7 +41,7 @@ public class Dimension {
      * @param hauteur Nouvelle hauteur de l'élément
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    private void setHauteur(int hauteur) {
+    private void setHauteur(double hauteur) {
         this.hauteur = hauteur;
     }
 
@@ -62,7 +62,7 @@ public class Dimension {
      */
     @Override
     public int hashCode() {
-        return largeur + hauteur;
+        return (int) (largeur + hauteur);
     }
 
     /**

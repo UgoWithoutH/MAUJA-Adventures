@@ -1,6 +1,7 @@
 package com.mauja.maujaadventures.modele.action.affiche;
 
 import com.mauja.maujaadventures.modele.ContexteGraphique;
+import com.mauja.maujaadventures.modele.Jeu;
 import com.mauja.maujaadventures.modele.Position;
 
 public interface Afficheur {
@@ -12,5 +13,5 @@ public interface Afficheur {
      * @param contexteGraphique Correspond à l'interface ou sera affiché l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique);
+    void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique, Jeu jeu);
 }

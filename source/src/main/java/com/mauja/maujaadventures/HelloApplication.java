@@ -40,7 +40,7 @@ public class HelloApplication extends Application {
         String imgURlP = recuperateurRessources.getRessource("link_epee.png", getClass());
         ProprietesImage img= new ProprietesImage(imgURlP);
 
-        Position position = new Position(0, 0);
+        Position position = new Position(482, 400);
         Collision collision = new Collision(position, 0, 0);
         PersonnageJouable pj = new PersonnageJouable(position, imgURlP, collision, 10);
 
@@ -59,8 +59,10 @@ public class HelloApplication extends Application {
         }*/
 
         Boutons b = new Boutons();
-        Canvas canvas = new Canvas(1400, 800);
+        Canvas canvas = new Canvas(964, 800);
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        System.out.println(gc.getCanvas().getWidth());
+        System.out.println(gc.getCanvas().getHeight());
         content.getChildren().add( canvas );
         Jeu jeu = new Jeu(gc);
         input = b.lecture(scene);

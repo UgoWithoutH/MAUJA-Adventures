@@ -131,7 +131,15 @@ public class Caneva extends ContexteGraphique {
             throw new IllegalArgumentException("Les dimensions passées en paramètre sont nulles.");
         }
     }
+/*
+    public double getLargeur(){
+        return dimension.getLargeur();
+    }
 
+    public double getHauteur(){
+        return dimension.getHauteur();
+    }
+*/
     /**
      * Redéfintion du hashCode
      * @return Entier de l'hachage des attributs de Caneva

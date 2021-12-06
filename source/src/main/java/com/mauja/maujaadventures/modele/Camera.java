@@ -7,6 +7,7 @@ public class Camera {
     private double positionCameraY;
     private ContexteGraphique c;
     private GraphicsContext gc;
+    private Jeu jeu;
 
     //private Entite cible;
     /**
@@ -16,8 +17,8 @@ public class Camera {
      * @param positionCameraY Correspond aux coordonnée Y de la caméra
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Camera(ContexteGraphique c, double positionCameraX, double positionCameraY){
-        this.gc = gc;
+    public Camera(Jeu jeu, double positionCameraX, double positionCameraY){
+        this.jeu = jeu;
         this.positionCameraX=positionCameraX;
         this.positionCameraY=positionCameraY;
     }
@@ -31,16 +32,13 @@ public class Camera {
     public void deplacementCamera(double deplaceX,double deplaceY){
 
             positionCameraX+=deplaceX;
-
-
             positionCameraY+=deplaceY;
-
-
     }
 
     public void centrerSurEntite(Entite e){
-        positionCameraX = e.getPosition().getPositionX() - gc.getCanvas().getWidth()/2 + e.getDimensions().getLargeur() / 2;
-        positionCameraY = e.getPosition().getPositionY() - gc.getCanvas().getHeight() / 2 + e.getDimensions().getHauteur() / 2;
+        positionCameraX = ((e.getPosition().getPositionX()) - (jeu.getGraphicsContext().getCanvas().getWidth()) / 2) + (e.getDimensions().getLargeur() / 2);
+        positionCameraY = ((e.getPosition().getPositionY()) - (jeu.getGraphicsContext().getCanvas().getHeight()) / 2) + (e.getDimensions().getHauteur() / 2);
+
 
 
     }

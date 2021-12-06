@@ -1,6 +1,7 @@
 package com.mauja.maujaadventures.modele.action.affiche;
 
 import com.mauja.maujaadventures.modele.ContexteGraphique;
+import com.mauja.maujaadventures.modele.Jeu;
 import com.mauja.maujaadventures.modele.Position;
 import com.mauja.maujaadventures.modele.monde.Tuile;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
@@ -15,7 +16,7 @@ public class AfficheurTuile implements Afficheur {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique) {
+    public void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique, Jeu jeu) {
         if (!(obj instanceof Tuile)) {
             throw new IllegalArgumentException("L'objet " + obj.toString() + " passé en paramètre n'est pas une tuile.");
         }
