@@ -1,4 +1,4 @@
-package com.mauja.maujaadventures.tests_unitaires;
+package tests_unitaires;
 
 import com.mauja.maujaadventures.modele.Collision;
 import com.mauja.maujaadventures.modele.Position;

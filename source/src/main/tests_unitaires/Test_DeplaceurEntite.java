@@ -1,4 +1,4 @@
-package com.mauja.maujaadventures.tests_unitaires;
+package tests_unitaires;
 
 public class Test_DeplaceurEntite {
 
