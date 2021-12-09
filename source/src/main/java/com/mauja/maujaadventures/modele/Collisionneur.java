@@ -8,15 +8,13 @@ public class Collisionneur {
      * @return true si il y a une collision sinon false
      * @throws IllegalArgumentException
      */
-    boolean collision(Rectangle rectangle1, Rectangle rectangle2) throws IllegalArgumentException {
+    public boolean collision(Rectangle rectangle1, Rectangle rectangle2) throws IllegalArgumentException {
         double gauche, droite, haut, bas;
-        verificationRectangle(rectangle1);
-        verificationRectangle(rectangle2);
+        if (rectangle1 == null ||rectangle2 == null) {
+            return false;
+        }
         Position position1 = rectangle1.getPosition();
         Position position2 = rectangle2.getPosition();
-
-        verificationPosition(position1);
-        verificationPosition(position2);
 
         gauche = Math.max(position1.getPositionX(), position2.getPositionX());
         droite = Math.min(position1.getPositionX() + rectangle1.getDimension().getLargeur(),

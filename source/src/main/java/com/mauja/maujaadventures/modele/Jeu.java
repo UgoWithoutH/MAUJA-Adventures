@@ -9,6 +9,7 @@ import com.mauja.maujaadventures.modele.personnage.Entite;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -91,6 +92,9 @@ public class Jeu {
         int nombreCalques = carte.getListeDeCalques().size();
 
         List<Tuile> lesTuilesCourantes = carte.getListeDeCalques().get(1).getListeDeTuiles();
+        double largeurCarte = carte.getDimension().getLargeur();
+        double longueurCarte = carte.getDimension().getLargeur();
+
 
         System.out.println(lesTuilesCourantes.size());
         //exit(0);
@@ -115,33 +119,45 @@ public class Jeu {
                                         lesImages.get(tuile.getId()),
                                         new Position((j * 32) - camera.getPositionCameraX(), i * 32 - camera.getPositionCameraY()),
                                         new Dimension(32, 32));
+                            }
                         }
                     }
                 }
-            }
-                if (input.contains("LEFT") && lesTuilesCourantes.get((int) ((int) ((e.getPosition().getPositionY() / 32)) * 30 +
-                        (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
-                            System.out.println(carte.getListeDeCalques().get(1).getListeDeTuiles().get((int) ((e.getPosition().getPositionX() / 32) * 30 + (e.getPosition().getPositionX() % 32 - 1))).getId());
-                            deplaceur.deplace(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY());
-                    //camera.deplacementCamera(-3*10, 0);
-                    //camera.centrerSurEntite(e);
+                Rectangle positionPerso, caseSuivante;
+
+                int positionY = (int) ((e.getPosition().getPositionY()
+                        + e.getCollision().getPosition().getPositionY()) / 32);
+                int positionX = (int) ((e.getPosition().getPositionX()
+                        + e.getCollision().getPosition().getPositionX()) / 32);
+
+                positionPerso = lesTuilesCourantes.get((int) (positionY * largeurCarte + positionX)).getCollision();
+
+                if (input.contains("LEFT")) {
+                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
+                            (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
+                        deplaceur.deplace(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY());
+                    }
                 }
 
-                if (input.contains("RIGHT") && lesTuilesCourantes.get((int) ((int) ((e.getPosition().getPositionY() / 32)) * 30 +
-                        (e.getPosition().getPositionX() / 32) + 1)).getCollision() == null) {
-                    deplaceur.deplace(e, e.getPosition().getPositionX() + 3, e.getPosition().getPositionY());
-                    //camera.deplacementCamera(3*10, 0);
+                if (input.contains("RIGHT")) {
+                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
+                            (e.getPosition().getPositionX() / 32) + 1)).getCollision() == null) {
+                        deplaceur.deplace(e, e.getPosition().getPositionX() + 3, e.getPosition().getPositionY());
+                    }
                 }
 
-                if (input.contains("UP") && lesTuilesCourantes.get((int) ((int) ((e.getPosition().getPositionY() / 32)) * 30 +
-                        (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
-                    deplaceur.deplace(e, e.getPosition().getPositionX(),e.getPosition().getPositionY() - 3);
-                    //camera.deplacementCamera(0, -3*10);
+                if (input.contains("UP")) {
+                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
+                            (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
+                        deplaceur.deplace(e, e.getPosition().getPositionX(),e.getPosition().getPositionY() - 3);
+                    }
                 }
-                if (input.contains("DOWN") && lesTuilesCourantes.get((int) ((int) ((e.getPosition().getPositionY() / 32) + 1) * 30 +
-                        (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
-                    deplaceur.deplace(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3);
-                    //camera.deplacementCamera(0, 3*10);
+
+                if (input.contains("DOWN")) {
+                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32) + 1) * 30 +
+                            (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
+                        deplaceur.deplace(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3);
+                    }
                 }
 
                 //System.out.println(e.toString());

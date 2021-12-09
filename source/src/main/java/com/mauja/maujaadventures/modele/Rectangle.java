@@ -68,4 +68,12 @@ public class Rectangle {
     public boolean equals(Rectangle c) {
         return dimension.equals(c.getDimension()) && position.equals(c.getPosition());
     }
+
+    public void setDimension(Dimension dimension) {
+        this.dimension = dimension;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 }
