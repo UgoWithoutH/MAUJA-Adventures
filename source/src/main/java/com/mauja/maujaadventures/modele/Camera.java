@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.modele;
 
+import com.mauja.maujaadventures.modele.personnage.Entite;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Camera {
@@ -36,8 +37,8 @@ public class Camera {
     }
 
     public void centrerSurEntite(Entite e){
-        positionCameraX = ((e.getPosition().getPositionX()) - (jeu.getGraphicsContext().getCanvas().getWidth()) / 2) + (e.getDimensions().getLargeur() / 2);
-        positionCameraY = ((e.getPosition().getPositionY()) - (jeu.getGraphicsContext().getCanvas().getHeight()) / 2) + (e.getDimensions().getHauteur() / 2);
+        positionCameraX = ((e.getPosition().getPositionX()) - (jeu.getGraphicsContext().getCanvas().getWidth()) / 2) + (e.getDimension().getLargeur() / 2);
+        positionCameraY = ((e.getPosition().getPositionY()) - (jeu.getGraphicsContext().getCanvas().getHeight()) / 2) + (e.getDimension().getHauteur() / 2);
 
 
 

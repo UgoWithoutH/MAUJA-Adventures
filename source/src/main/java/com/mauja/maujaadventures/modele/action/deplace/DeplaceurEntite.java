@@ -1,9 +1,6 @@
 package com.mauja.maujaadventures.modele.action.deplace;
 
-import com.mauja.maujaadventures.modele.Entite;
-import javafx.geometry.Rectangle2D;
-
-import java.util.List;
+import com.mauja.maujaadventures.modele.personnage.Entite;
 
 public class DeplaceurEntite implements Deplaceur {
     /**
@@ -15,15 +12,7 @@ public class DeplaceurEntite implements Deplaceur {
      */
     @Override
     public void deplace(Entite e, double x, double y) {
-        /*Rectangle2D oldCollisions = e.getCollision().getZoneCollision();
-        Rectangle2D newCollisions = new Rectangle2D(x,y,oldCollisions.getWidth(),oldCollisions.getHeight());
-        for (Rectangle2D zone : l){
-            if(zone.intersects(newCollisions))
-                return;
-        }*/
-
         e.getPosition().setPositionX(x);
         e.getPosition().setPositionY(y);
-        //e.getCollision().setZoneCollision(newCollisions);
     }
 }

@@ -4,6 +4,7 @@ import com.mauja.maujaadventures.modele.Dimension;
 import com.mauja.maujaadventures.modele.monde.Calque;
 import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.modele.monde.Tuile;
+import com.mauja.maujaadventures.modele.monde.TuileFX;
 import javafx.scene.control.ListCell;
 import org.tiledreader.*;
 
@@ -41,13 +42,6 @@ public class RecuperateurDeCalques {
 
         TiledTileLayer calqueCourant;
         for (int i = 0; i < lesCalquesTiled.size(); i++) {
-            /*if ( instanceof HashTileLayer) {
-                calqueCourant = (HashTileLayer) lesCalquesTiled.get(i);
-            }
-            else {
-                calqueCourant = (ArrayTileLayer) lesCalquesTiled.get(i);
-            }*/
-
             List<Tuile> lesTuiles = recuperateurDeTuiles.recupere(chargeurCarte, (TiledTileLayer) lesCalquesTiled.get(i));
 
             if (lesTuiles != null) {

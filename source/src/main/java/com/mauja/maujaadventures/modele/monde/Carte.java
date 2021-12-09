@@ -1,13 +1,12 @@
 package com.mauja.maujaadventures.modele.monde;
 
 import com.mauja.maujaadventures.modele.Dimension;
-import com.mauja.maujaadventures.modele.action.affiche.Affichable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Carte extends Affichable {
+public class Carte {
     public static int nombreIdentifiants = 0;
     private String nom;
     private int id;
@@ -25,8 +24,6 @@ public class Carte extends Affichable {
 
 
     public Carte(String nom, Dimension dimension, List<Calque> lesCalques) {
-
-        super(""); //A modifier
         this.nom = nom;
         this.id = nombreIdentifiants;
         this.dimension = dimension;
@@ -167,12 +164,4 @@ public class Carte extends Affichable {
                 " nombre Identifiant: " + nombreIdentifiants +
                 '}';
     }
-
-//    public int compareTo(Carte c, String nom){
-//        int cmp=c.getNom().compareTo(nom);
-//        if (cmp!=0){
-//            return cmp;
-//        }
-//        return 0;
-//    }
 }

@@ -2,6 +2,8 @@ package com.mauja.maujaadventures;
 
 import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.modele.monde.Tuile;
+import com.mauja.maujaadventures.modele.monde.TuileFX;
+import com.mauja.maujaadventures.modele.monde.TuileSimple;
 import org.tiledreader.*;
 
 import java.util.ArrayList;
@@ -38,14 +40,13 @@ public class RecuperateurDeTuiles {
                 //System.out.print(" (" + k + ", " + j + " " + i + ") ");
                 TiledTile tuileTiled = calque.getTile(k, j);
                 if (tuileTiled == null) {
-                    Tuile tuile = new Tuile(0, null, null, null);
+                    Tuile tuile = new TuileSimple(0, null, null);
                     lesTuiles.add(tuile);
                 }
                 else {
                     String identifiantJeuDeTuile = tuileTiled.getTileset().getName();
                     int identifiant = tuileTiled.getID();
                     for (JeuDeTuiles jeuDeTuile : lesJeuxDeTuiles) {
-                        System.out.println("Tuile numéro " + compte);
                         compte++;
                         if (jeuDeTuile.getIdentifiant().equals(identifiantJeuDeTuile)) {
                             Tuile tuile = jeuDeTuile.getListeDeTuiles().get(identifiant);

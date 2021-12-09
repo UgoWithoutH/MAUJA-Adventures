@@ -1,15 +1,14 @@
 package com.mauja.maujaadventures.modele.monde;
 
 import com.mauja.maujaadventures.modele.Dimension;
-import com.mauja.maujaadventures.modele.action.affiche.Affichable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Calque extends Affichable {
-
+public class Calque {
     private Dimension dimension;
     private List<Tuile> listeDeTuiles;
+
     /**
      * Constructeur de Calque
      * @param dimension Dimension du Calque (Hauteur Largeur)
@@ -17,7 +16,6 @@ public class Calque extends Affichable {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public Calque(Dimension dimension, List<Tuile> lesTuiles) {
-        super(""); // A modifier
         this.dimension = dimension;
         this.listeDeTuiles = new ArrayList<Tuile>();
         if (lesTuiles != null) {
@@ -39,7 +37,7 @@ public class Calque extends Affichable {
      * @param t Tuile que l'on va rajouter à la liste de tuile
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void ajouterTuile(Tuile t){
+    private void ajouterTuile(Tuile t){
         this.listeDeTuiles.add(t);
     }
 

@@ -1,7 +1,7 @@
 package com.mauja.maujaadventures;
 
 import com.mauja.maujaadventures.modele.*;
-import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
+import com.mauja.maujaadventures.modele.personnage.PersonnageJouableFX;
 import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
 import com.mauja.maujaadventures.modele.utilitaires.recuperateurRessources;
 import javafx.application.Application;
@@ -25,32 +25,24 @@ import java.util.*;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        URL imgURl= getClass().getResource("images/carte2.png");
+        URL imgURl= getClass().getResource("/images/carte2.png");
         //URL imgURlhypto= getClass().getResource("hyptosis_tile-art-batch-5.tsx");
         //URL imgURltest= getClass().getResource("carteTest.tmx");
         Image carte = new Image(imgURl.toExternalForm());
         ImageView imageView= new ImageView(carte);
 
-        String imgURlP = recuperateurRessources.getRessource("images/tilesets/entites/link_epee.png", getClass());
-        ProprietesImage img= new ProprietesImage(imgURlP);
+        String imgURlP = recuperateurRessources.getRessource("/images/tilesets/entites/link_epee.png", getClass());
 
         Position position = new Position(482, 400);
-        Collision collision = new Collision(position, 0, 0);
-        PersonnageJouable pj = new PersonnageJouable(position, imgURlP, collision, 10);
+        Rectangle rectangle = new Rectangle(position, new Dimension(0, 0));
+        PersonnageJouable pj = new PersonnageJouableFX(position, rectangle, 10, imgURlP);
 
         ArrayList<String> input;
         VBox content = new VBox();
-        /*content.setBackground(new Background(new BackgroundImage(carte,
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT)));*/
 
         Scene scene = new Scene(content);
         stage.setScene(scene);
         scene.setFill(Color.BLACK);
-
-        /*for(String file : recuperateurRessources.getRessourcesString()){
-            System.out.println(file);
-        }*/
 
         Boutons b = new Boutons();
         Canvas canvas = new Canvas(964, 800);
@@ -60,10 +52,6 @@ public class HelloApplication extends Application {
         content.getChildren().add( canvas );
         Jeu jeu = new Jeu(gc);
         input = b.lecture(scene);
-        //var l = new LinkedList<Rectangle2D>();
-        //l.add(new Rectangle2D(205,231,85,1));
-
-
 
         jeu.boucle(input, pj);
 

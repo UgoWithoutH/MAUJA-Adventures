@@ -1,6 +1,6 @@
 package com.mauja.maujaadventures.modele;
 
-import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
+
 import javafx.scene.image.Image;
 
 public abstract class ContexteGraphique {
@@ -15,8 +15,6 @@ public abstract class ContexteGraphique {
 
     public abstract void dessiner(Image image, Position position, Dimension dimensions);
 
-    public abstract void dessiner(ProprietesImage image, Position position, Dimension dimensions);
-
     /**
      * Structure de la méthode dessiné
      * @param image Image que l'on souhaite affiché
@@ -25,7 +23,7 @@ public abstract class ContexteGraphique {
      * @param dimensions Hauteur et largeur de l'image
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public abstract void dessiner(ProprietesImage image, double positionX, double positionY, Dimension dimensions);
+    public abstract void dessiner(Image image, double positionX, double positionY, Dimension dimensions);
     /**
      * Structure de la méthode dessiné
      *
@@ -35,7 +33,7 @@ public abstract class ContexteGraphique {
      * @param hauteur Hauteur de l'image
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public abstract void dessiner(ProprietesImage image, Position position, double largeur, double hauteur);
+    public abstract void dessiner(Image image, Position position, double largeur, double hauteur);
     /**
      * Structure de la méthode dessiné
      *
@@ -46,7 +44,7 @@ public abstract class ContexteGraphique {
      * @param hauteur Hauteur de l'image
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public abstract void dessiner(ProprietesImage image, double positionX, double positionY, double largeur, double hauteur);
+    public abstract void dessiner(Image image, double positionX, double positionY, double largeur, double hauteur);
     /**
      * Structure de la méthode effacer
      *

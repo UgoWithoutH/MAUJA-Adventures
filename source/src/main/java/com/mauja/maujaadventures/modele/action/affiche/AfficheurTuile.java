@@ -4,7 +4,7 @@ import com.mauja.maujaadventures.modele.ContexteGraphique;
 import com.mauja.maujaadventures.modele.Jeu;
 import com.mauja.maujaadventures.modele.Position;
 import com.mauja.maujaadventures.modele.monde.Tuile;
-import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
+import com.mauja.maujaadventures.modele.monde.TuileFX;
 
 public class AfficheurTuile implements Afficheur {
     /**
@@ -16,12 +16,13 @@ public class AfficheurTuile implements Afficheur {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique, Jeu jeu) {
-        if (!(obj instanceof Tuile)) {
+    public void affiche(Object obj, Position pos, ContexteGraphique contexteGraphique, Jeu jeu) {
+        if (!(obj instanceof TuileFX)) {
             throw new IllegalArgumentException("L'objet " + obj.toString() + " passé en paramètre n'est pas une tuile.");
         }
-        Tuile tuile = (Tuile) obj;
-        ProprietesImage image = new ProprietesImage(tuile.getCheminImage());
-        contexteGraphique.dessiner(image, null, tuile.getDimensions());
+        TuileFX tuile = (TuileFX) obj;
+        contexteGraphique.dessiner(tuile.getImage(), null,
+                tuile.getTuile().getDimension().getLargeur(),
+                tuile.getTuile().getDimension().getHauteur());
     }
 }

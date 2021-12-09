@@ -7,12 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JeuDeTuiles {
-
-
     private int nombreTuiles;
     private Dimension dimension;
     private List<Tuile> listeDeTuiles;
-    private String identifiant;
+    private final String identifiant;
 
     /**
      * Constructeur du jeu de tuiles

@@ -21,7 +21,7 @@ public class AfficheurCalque implements Afficheur {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void affiche(Affichable obj, Position pos, ContexteGraphique contexteGraphique, Jeu jeu) {
+    public void affiche(Object obj, Position pos, ContexteGraphique contexteGraphique, Jeu jeu) {
         Position p;
         if (!(obj instanceof Calque)) {
             throw new IllegalArgumentException("L'objet " + obj.toString() + " passé en paramètre n'est pas un calque.");

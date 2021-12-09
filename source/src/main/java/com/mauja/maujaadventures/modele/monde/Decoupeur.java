@@ -1,18 +1,15 @@
 package com.mauja.maujaadventures.modele.monde;
 
-import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Decoupeur {
-
-    private ProprietesImage proprietesImage;
-    private ArrayList<Image> listeDeTuiles = new ArrayList<Image>();
-
+    private List<Image> listeDeTuiles = new ArrayList<Image>();
 
     /**
      * Fonction de découpage des Tuiles
@@ -22,18 +19,17 @@ public class Decoupeur {
      * @return La liste des Tuiles découpé en format Image
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public ArrayList<Image> decoupe(String chemin, int largeurTuile, int hauteurTuile) {
+    public List<Image> decoupe(String chemin, int largeurTuile, int hauteurTuile) {
         Image image = new Image(chemin);
-        proprietesImage = new ProprietesImage(image.getUrl());
-        PixelReader lecteur = (proprietesImage).getImage().getPixelReader();
+        PixelReader lecteur = image.getPixelReader();
         double largeurImage = image.getWidth() / largeurTuile;
         double hauteurImage = image.getHeight() / hauteurTuile;
+
         for (int i = 0; i < largeurImage; i++){
             for (int j = 0; j < hauteurImage; j++) {
-
+                System.out.println("toto");
                 WritableImage imageTuile = new WritableImage(lecteur,
                 j * largeurTuile, i * hauteurTuile, largeurTuile, hauteurTuile);
-                //proprietesImage.setImage(imageTuile);
                 listeDeTuiles.add(imageTuile);
             }
         }
@@ -41,20 +37,11 @@ public class Decoupeur {
     }
 
     /**
-     * Getter de la Propriété de l'image
-     * @return les attributs de la propriété de l'image
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public ProprietesImage getProprietesImage() {
-        return proprietesImage;
-    }
-
-    /**
      * Getter Liste de Tuiles
      * @return La liste Des Tuiles
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public ArrayList<Image> getListeDeTuiles() {
+    public List<Image> getListeDeTuiles() {
         return listeDeTuiles;
     }
 
@@ -74,7 +61,7 @@ public class Decoupeur {
      */
     @Override
     public int hashCode() {
-        return  31* proprietesImage.hashCode()+31*listeDeTuiles.hashCode();
+        return 31 * listeDeTuiles.hashCode();
     }
 
     /**
@@ -99,8 +86,7 @@ public class Decoupeur {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public boolean equals(Decoupeur d) {
-        boolean resultat = (proprietesImage.equals(d.getProprietesImage())) && (listeDeTuiles.equals(d.getListeDeTuiles()));
-        return resultat;
+        return listeDeTuiles.equals(d.getListeDeTuiles());
     }
 
     /**
@@ -111,9 +97,7 @@ public class Decoupeur {
     @Override
     public String toString() {
         return "Decoupeur{" +
-                "proprietesImage=" + proprietesImage.toString() +
                 ", listeDeTuiles=" + listeDeTuiles.toString() +
                 '}';
     }
-
 }

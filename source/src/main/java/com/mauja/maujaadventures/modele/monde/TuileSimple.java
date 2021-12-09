@@ -1,13 +1,13 @@
 package com.mauja.maujaadventures.modele.monde;
 
-import com.mauja.maujaadventures.modele.Collision;
+import com.mauja.maujaadventures.modele.Rectangle;
 
 public class TuileSimple extends Tuile{
     /**
      * Constructeur de la classe TuileSimple, appelle sa classe mère Tuile
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public TuileSimple(int id, String identifiantJeuDeTuile, Collision collision, String chemin) {
-        super(id, identifiantJeuDeTuile, collision, chemin);
+    public TuileSimple(int id, String identifiantJeuDeTuile, Rectangle collision) {
+        super(id, identifiantJeuDeTuile, collision);
     }
 }

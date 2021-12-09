@@ -1,6 +1,5 @@
 package com.mauja.maujaadventures.modele;
 
-import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -23,10 +22,10 @@ public class Caneva extends ContexteGraphique {
 
     public void setGc(GraphicsContext gc) { this.gc = gc; }
 
-    @Override
+    /*@Override
     public void dessiner(Image image, Position position, Dimension dimensions) {
         gc.drawImage(image, position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
-    }
+    }*/
 
     /**
      * Redéfinition d'une méthode dessiner de contexte graphique
@@ -37,7 +36,7 @@ public class Caneva extends ContexteGraphique {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void dessiner(ProprietesImage image, Position position, Dimension dimensions) {
+    public void dessiner(Image image, Position position, Dimension dimensions) {
         dessiner(image, position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
     }
 
@@ -51,7 +50,7 @@ public class Caneva extends ContexteGraphique {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void dessiner(ProprietesImage image, double positionX, double positionY, Dimension dimensions) {
+    public void dessiner(Image image, double positionX, double positionY, Dimension dimensions) {
         verificationDimension(dimensions);
         dessiner(image, positionX, positionY, dimensions.getLargeur(), dimensions.getHauteur());
     }
@@ -65,7 +64,7 @@ public class Caneva extends ContexteGraphique {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void dessiner(ProprietesImage image, Position position, double largeur, double hauteur) {
+    public void dessiner(Image image, Position position, double largeur, double hauteur) {
         verificationPosition(position);
         dessiner(image, position.getPositionX(), position.getPositionY(), largeur, hauteur);
     }
@@ -80,10 +79,10 @@ public class Caneva extends ContexteGraphique {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void dessiner(ProprietesImage image, double positionX, double positionY, double largeur, double hauteur) {
+    public void dessiner(Image image, double positionX, double positionY, double largeur, double hauteur) {
         verificationImage(image);
         //System.out.println(positionX + " " + positionY + " " + largeur + " " + hauteur);
-        gc.drawImage(image.getImage(), positionX, positionY, largeur, hauteur);
+        gc.drawImage(image, positionX, positionY, largeur, hauteur);
     }
     /**
      * Redéfiniton de la méthode effacer de contexteGraphique
@@ -104,7 +103,7 @@ public class Caneva extends ContexteGraphique {
      * @param image Image que l'on souhaite vérifié
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    private void verificationImage(ProprietesImage image) {
+    private void verificationImage(Image image) {
         if (image == null) {
             throw new IllegalArgumentException("L'image passée en paramètre qui doit être affichée est nulle.");
         }
@@ -131,15 +130,7 @@ public class Caneva extends ContexteGraphique {
             throw new IllegalArgumentException("Les dimensions passées en paramètre sont nulles.");
         }
     }
-/*
-    public double getLargeur(){
-        return dimension.getLargeur();
-    }
 
-    public double getHauteur(){
-        return dimension.getHauteur();
-    }
-*/
     /**
      * Redéfintion du hashCode
      * @return Entier de l'hachage des attributs de Caneva

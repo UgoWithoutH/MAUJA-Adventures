@@ -1,9 +1,6 @@
 package com.mauja.maujaadventures.modele.action.deplace;
 
-import com.mauja.maujaadventures.modele.Entite;
-import javafx.geometry.Rectangle2D;
-
-import java.util.List;
+import com.mauja.maujaadventures.modele.personnage.Entite;
 
 public interface Deplaceur {
     /**

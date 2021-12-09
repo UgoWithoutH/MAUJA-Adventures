@@ -1,10 +1,12 @@
 package com.mauja.maujaadventures;
 
-import com.mauja.maujaadventures.modele.Collision;
+import com.mauja.maujaadventures.modele.Rectangle;
 import com.mauja.maujaadventures.modele.Dimension;
 import com.mauja.maujaadventures.modele.Position;
 import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.modele.monde.Tuile;
+import com.mauja.maujaadventures.modele.monde.TuileFX;
+import com.mauja.maujaadventures.modele.monde.TuileSimple;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledObject;
 import org.tiledreader.TiledTile;
@@ -32,15 +34,19 @@ public class RecuperateurDeJeuDeTuiles {
 
             for (TiledTile tuileTiled : lesTuilesTiled) {
                 List<TiledObject> lesCollisions = tuileTiled.getCollisionObjects();
-                Collision collision = null;
+                Rectangle rectangle;
                 if (lesCollisions.size() != 0) {
+                    //System.out.println(tuileTiled.getID());
                     TiledObject collisionTiled = lesCollisions.get(0);
 
                     Position position = new Position(collisionTiled.getX(), collisionTiled.getY());
-                    collision = new Collision(position, collisionTiled.getWidth(),
-                            collisionTiled.getHeight());
+                    rectangle = new Rectangle(position, new Dimension(collisionTiled.getWidth(),
+                            collisionTiled.getHeight()));
                 }
-                Tuile tuile = new Tuile(tuileTiled.getID(), nomJeuDeTuile, collision, null);
+                else {
+                    rectangle = null;
+                }
+                Tuile tuile = new TuileSimple(tuileTiled.getID(), nomJeuDeTuile, rectangle);
                 lesTuiles.add(tuile);
             }
             Dimension dimension = new Dimension(jeuDeTuileTiled.getWidth(), jeuDeTuileTiled.getHeight());

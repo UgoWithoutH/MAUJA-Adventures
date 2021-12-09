@@ -1,35 +1,17 @@
 package com.mauja.maujaadventures.modele;
 
-public class Collision {
-    private double largeur;
-    private double hauteur;
+public class Rectangle {
+    private Dimension dimension;
     private Position position;
 
     /**
      * Constructeur de collision
      * @param position Position de la collision
-     * @param largeur Largeur de la collision
-     * @param hauteur Hauteur de la collision
      */
-    public Collision(Position position, double largeur, double hauteur){
+    public Rectangle(Position position, Dimension dimension){
         this.position = position;
-        this.hauteur = hauteur;
-        this.largeur = largeur;
+        this.dimension = dimension;
     }
-
-    /**
-     * Getter de Largeur
-     * @return Largeur de la collision
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public double getLargeur() { return largeur; }
-
-    /**
-     * Getter de Hauteur
-     * @return Hauteur de la collision
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adriens
-     */
-    public double getHauteur() { return hauteur; }
 
     /**
      * Getter de la posion
@@ -38,6 +20,10 @@ public class Collision {
      */
     public Position getPosition() { return position; }
 
+    public Dimension getDimension() {
+        return dimension;
+    }
+
     /**
      * Redéfinition du toString
      * @return chaîne que l'on veut afficher
@@ -45,9 +31,7 @@ public class Collision {
      */
     @Override
     public String toString() {
-        return "Largeur : " + largeur
-                + ", Hauteur : " + hauteur
-                + ", Position : " + position.toString();
+        return dimension.toString() + " " + position.toString();
     }
 
     /**
@@ -57,7 +41,7 @@ public class Collision {
      */
     @Override
     public int hashCode() {
-        return (int)(hauteur+largeur)+ 31*position.hashCode();
+        return dimension.hashCode() + 31 * position.hashCode();
     }
 
     /**
@@ -71,7 +55,7 @@ public class Collision {
         if(obj == null) return false;
         if(this == obj) return true;
         if (getClass() != obj.getClass()) return false;
-        Collision autre = (Collision) obj;
+        Rectangle autre = (Rectangle) obj;
         return equals(autre);
     }
 
@@ -81,9 +65,7 @@ public class Collision {
      * @return true si vrai sinon false
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public boolean equals(Collision c) {
-        boolean resultat= (c.getHauteur() == hauteur) && (c.getLargeur() == largeur ) && ( position.equals(c.getPosition()));
-        return resultat ;
+    public boolean equals(Rectangle c) {
+        return dimension.equals(c.getDimension()) && position.equals(c.getPosition());
     }
-
 }

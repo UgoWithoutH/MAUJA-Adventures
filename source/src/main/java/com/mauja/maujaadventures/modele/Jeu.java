@@ -4,20 +4,16 @@ import com.mauja.maujaadventures.RecuperateurDeCartes;
 import com.mauja.maujaadventures.modele.action.affiche.AfficheurEntite;
 import com.mauja.maujaadventures.modele.action.deplace.Deplaceur;
 import com.mauja.maujaadventures.modele.action.deplace.DeplaceurEntite;
-import com.mauja.maujaadventures.modele.monde.Carte;
-import com.mauja.maujaadventures.modele.monde.Decoupeur;
-import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
-import com.mauja.maujaadventures.modele.monde.Tuile;
-import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
+import com.mauja.maujaadventures.modele.monde.*;
+import com.mauja.maujaadventures.modele.personnage.Entite;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.lang.System.exit;
 
 public class Jeu {
     public static final int NOMBRE_TUILES_SUR_LARGEUR_ECRAN = 5;
@@ -56,11 +52,11 @@ public class Jeu {
      */
     public void initialiser() throws FileNotFoundException {
         Decoupeur d = new Decoupeur();
-        lesImages = d.decoupe("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\hyptosis_tile-art-batch-3.png",32,32);
+        lesImages = d.decoupe("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\resources\\images\\tilesets\\hyptosis_tile-art-batch-3.png",32,32);
         //images.addAll(d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-5.png", 32, 32));
         RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
-        carte = recuperateurDeCartes.recupereCarte("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
-        List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\src\\main\\resources\\com\\mauja\\maujaadventures\\carteTest.tmx");
+        carte = recuperateurDeCartes.recupereCarte("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\resources\\cartes\\carteTest.tmx");
+        List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\resources\\cartes\\carteTest.tmx");
         System.out.println(lesImages.size());
         lesTuiles = new ArrayList<Tuile>();
 
@@ -68,11 +64,19 @@ public class Jeu {
             lesTuiles.addAll(jeuDeTuiles.getListeDeTuiles());
         }
 
+        System.out.println("Tuiles : " + lesTuiles.size());
+        System.out.println("Images : " + lesImages.size());
+
         lesTuilesImagees = new HashMap<Tuile, Image>();
         for (int i = 0 ; i < lesTuiles.size(); i++) {
             lesTuilesImagees.put(lesTuiles.get(i), lesImages.get(i));
         }
         System.out.println(lesTuilesImagees.size());
+
+//        for (int i = 0; i < lesTuilesImagees.size(); i++) {
+//            System.out.println(lesTuilesImagees.get(lesTuiles.get(i)).getHeight());
+//        }
+        //exit(0);
     }
 
     /**
@@ -85,6 +89,12 @@ public class Jeu {
     public void boucle(ArrayList<String> input, Entite e){
         //final long startNanoTime = System.nanoTime();
         int nombreCalques = carte.getListeDeCalques().size();
+
+        List<Tuile> lesTuilesCourantes = carte.getListeDeCalques().get(1).getListeDeTuiles();
+
+        System.out.println(lesTuilesCourantes.size());
+        //exit(0);
+
         new AnimationTimer()
         {
             /**
@@ -100,36 +110,36 @@ public class Jeu {
                     for (int i = 0; i < 30; i++) {
                         for (int j = 0; j < 30; j++) {
                             Tuile tuile = carte.getListeDeCalques().get(k).getListeDeTuiles().get(i * 30 + j);
-                            if (tuile.getId() > 1) {
+                            if (tuile.getId() >= 1) {
                                 contexteGraphique.dessiner(
-                                        new ProprietesImage(lesImages.get(tuile.getId())),
+                                        lesImages.get(tuile.getId()),
                                         new Position((j * 32) - camera.getPositionCameraX(), i * 32 - camera.getPositionCameraY()),
                                         new Dimension(32, 32));
                         }
                     }
                 }
             }
-                if (input.contains("LEFT") &&
-                        carte.getListeDeCalques().get(2).getListeDeTuiles().get((int) ((e.getPosition().getPositionY() / 32) * 30 + (e.getPosition().getPositionX() % 32))).getId() != 258) {
-                    System.out.println(carte.getListeDeCalques().get(1).getListeDeTuiles().get((int) ((e.getPosition().getPositionX() / 32) * 30 + (e.getPosition().getPositionX() % 32 - 1))).getId());
-                    deplaceur.deplace(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY());
+                if (input.contains("LEFT") && lesTuilesCourantes.get((int) ((int) ((e.getPosition().getPositionY() / 32)) * 30 +
+                        (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
+                            System.out.println(carte.getListeDeCalques().get(1).getListeDeTuiles().get((int) ((e.getPosition().getPositionX() / 32) * 30 + (e.getPosition().getPositionX() % 32 - 1))).getId());
+                            deplaceur.deplace(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY());
                     //camera.deplacementCamera(-3*10, 0);
                     //camera.centrerSurEntite(e);
                 }
 
-                if (input.contains("RIGHT") &&
-                        carte.getListeDeCalques().get(2).getListeDeTuiles().get((int) ((e.getPosition().getPositionY() / 32) * 30 + (e.getPosition().getPositionX() % 32 + 1))).getId() != 258) {
+                if (input.contains("RIGHT") && lesTuilesCourantes.get((int) ((int) ((e.getPosition().getPositionY() / 32)) * 30 +
+                        (e.getPosition().getPositionX() / 32) + 1)).getCollision() == null) {
                     deplaceur.deplace(e, e.getPosition().getPositionX() + 3, e.getPosition().getPositionY());
                     //camera.deplacementCamera(3*10, 0);
                 }
 
-                if (input.contains("UP") &&
-                        carte.getListeDeCalques().get(2).getListeDeTuiles().get((int) ((e.getPosition().getPositionY() / 32 - 1) * 30 + (e.getPosition().getPositionX() % 32))).getId() != 258) {
+                if (input.contains("UP") && lesTuilesCourantes.get((int) ((int) ((e.getPosition().getPositionY() / 32)) * 30 +
+                        (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
                     deplaceur.deplace(e, e.getPosition().getPositionX(),e.getPosition().getPositionY() - 3);
                     //camera.deplacementCamera(0, -3*10);
                 }
-                if (input.contains("DOWN") &&
-                        carte.getListeDeCalques().get(2).getListeDeTuiles().get((int) ((e.getPosition().getPositionY() / 32 + 1) * 30 + (e.getPosition().getPositionX() % 32))).getId() != 258) {
+                if (input.contains("DOWN") && lesTuilesCourantes.get((int) ((int) ((e.getPosition().getPositionY() / 32) + 1) * 30 +
+                        (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
                     deplaceur.deplace(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3);
                     //camera.deplacementCamera(0, 3*10);
                 }

@@ -1,26 +1,24 @@
-package com.mauja.maujaadventures.modele;
+package com.mauja.maujaadventures.modele.personnage;
 
-import com.mauja.maujaadventures.modele.action.affiche.Affichable;
+import com.mauja.maujaadventures.modele.Dimension;
+import com.mauja.maujaadventures.modele.Position;
+import com.mauja.maujaadventures.modele.Rectangle;
 
-public abstract class Entite extends Affichable {
-
+public abstract class Entite {
     private Position position;
-    private Collision collision;
-    private Dimension dimensions;
+    private Rectangle rectangle;
+    private Dimension dimension;
 
     /**
      * Constructeur de la classe Abstraite
      * @param position Position de l'entite
-     * @param image Image que va posséder l'entite
-     * @param collision Collision que l'entite va posséder
+     * @param rectangle Collision que l'entite va posséder
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Entite(Position position, String image, Collision collision){
-        super(image);
+    public Entite(Position position, Rectangle rectangle){
         this.position = position;
-        this.collision = collision;
-        //this.dimensions = new Dimension((int) image.getLongueur(), (int) image.getHauteur());
-        this.dimensions= new Dimension(32, 32);
+        this.rectangle = rectangle;
+        this.dimension = new Dimension(32, 32);
     }
     /**
      * Getter de la position
@@ -39,25 +37,25 @@ public abstract class Entite extends Affichable {
      * @return La zone de collision de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Collision getCollision() { return collision; }
+    public Rectangle getCollision() { return rectangle; }
     /**
      * Setter de la collision
-     * @param collision Nouvelle collision de l'entite
+     * @param rectangle Nouvelle collision de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setCollision(Collision collision) { this.collision = collision; }
+    public void setCollision(Rectangle rectangle) { this.rectangle = rectangle; }
     /**
      * Getter de la dimension
      * @return La dimension (Hauteur et Largeur) de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Dimension getDimensions() { return dimensions;}
+    public Dimension getDimension() { return dimension;}
     /**
      * Setter de la dimension
-     * @param dimensions Nouvelle dimension (Hauteur et Largeur) de l'entite
+     * @param dimension Nouvelle dimension (Hauteur et Largeur) de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setDimensions(Dimension dimensions) { this.dimensions = dimensions; }
+    public void setDimension(Dimension dimension) { this.dimension = dimension; }
 
     /**
      * Redéfinition du toString
@@ -67,8 +65,8 @@ public abstract class Entite extends Affichable {
     @Override
     public String toString() {
         return "Position : " + position.toString() + ", "
-                + "Dimensions : " + dimensions.toString() + ", "
-                + "Collision : " + collision.toString();
+                + "Dimensions : " + dimension.toString() + ", "
+                + "Collision : " + rectangle.toString();
     }
 
     /**
@@ -78,7 +76,7 @@ public abstract class Entite extends Affichable {
      */
     @Override
     public int hashCode() {
-        return 31*position.hashCode()+31*dimensions.hashCode()+31*collision.hashCode();
+        return 31*position.hashCode()+31* dimension.hashCode()+31* rectangle.hashCode();
     }
 
     /**
@@ -103,7 +101,7 @@ public abstract class Entite extends Affichable {
      */
     public boolean equals(Entite e) {
         boolean resultat = (position.equals(e.getPosition())) && (position.equals(e.getCollision())) &&
-                (dimensions.equals(e.getDimensions()));
+                (dimension.equals(e.getDimension()));
         return resultat;
     }
 }

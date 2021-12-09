@@ -30,11 +30,9 @@ public class Boutons {
                     public void handle(KeyEvent e)
                     {
                         String code = e.getCode().toString();
-                        System.out.println(code);
 
                         if ( !input.contains(code))
                             input.add(code);
-                            System.out.println(input);
                     }
                 });
 

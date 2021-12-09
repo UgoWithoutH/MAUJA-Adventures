@@ -1,16 +1,10 @@
 <component name="libraryTable">
   <library name="lib">
     <CLASSES>
-      <root url="file:///usr/share/openjfx/lib" />
+      <root url="file://C:/libs/javafx-sdk-17.0.1/lib" />
     </CLASSES>
     <JAVADOC />
-    <NATIVE>
-      <root url="file:///usr/share/openjfx/lib" />
-    </NATIVE>
-    <SOURCES>
-      <root url="file:///usr/share/openjfx/lib" />
-    </SOURCES>
-    <jarDirectory url="file:///usr/share/openjfx/lib" recursive="false" />
-    <jarDirectory url="file:///usr/share/openjfx/lib" recursive="false" type="SOURCES" />
+    <SOURCES />
+    <jarDirectory url="file://C:/libs/javafx-sdk-17.0.1/lib" recursive="false" />
   </library>
 </component>

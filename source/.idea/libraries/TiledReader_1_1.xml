@@ -1,14 +1,14 @@
 <component name="libraryTable">
   <library name="TiledReader-1.1">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../../TiledReader-1.1.0" />
+      <root url="file://C:/libs/TiledReader-1.1.0" />
     </CLASSES>
     <JAVADOC>
-      <root url="file://$PROJECT_DIR$/../../TiledReader-1.1.0/javadoc" />
+      <root url="file://C:/libs/TiledReader-1.1.0/javadoc" />
     </JAVADOC>
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/../../TiledReader-1.1.0/src" />
+      <root url="file://C:/libs/TiledReader-1.1.0/src" />
     </SOURCES>
-    <jarDirectory url="file://$PROJECT_DIR$/../../TiledReader-1.1.0" recursive="false" />
+    <jarDirectory url="file://C:/libs/TiledReader-1.1.0" recursive="false" />
   </library>
 </component>

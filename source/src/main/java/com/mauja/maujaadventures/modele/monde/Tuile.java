@@ -1,31 +1,26 @@
 package com.mauja.maujaadventures.modele.monde;
 
 
-import com.mauja.maujaadventures.modele.Collision;
-import com.mauja.maujaadventures.modele.action.affiche.Affichable;
+import com.mauja.maujaadventures.modele.Rectangle;
 import com.mauja.maujaadventures.modele.Dimension;
 
-public class Tuile extends Affichable {
-    public static final int LARGEUR_TUILE = 32;
-    public static final int HAUTEUR_TUILE = 32;
+import java.util.Objects;
 
+public abstract class Tuile {
     private int id;
-    private String identifiantJeuDeTuile;
-    private Collision collision;
+    private final String identifiantJeuDeTuile;
+    private Rectangle collision;
     protected static Dimension dimension;
 
     /**
      * Constructeur de la classe abstraite Tuile
      * @param id Id de la tuile
-     * @param chemin Chemin de l'image de la tuile
-     * @param collision Rectangle collision de la Tuile
-     * @param chemin Chemin de l'image
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Tuile(int id, String identifiantJeuDeTuile, Collision collision, String chemin) {
-        super(chemin);
-        dimension = new Dimension(LARGEUR_TUILE, HAUTEUR_TUILE);
+    public Tuile(int id, String identifiantJeuDeTuile, Rectangle collision) {
+        dimension = new Dimension(32, 32);
         this.id = id;
+        this.collision = collision;
         this.identifiantJeuDeTuile = identifiantJeuDeTuile;
     }
 
@@ -34,21 +29,21 @@ public class Tuile extends Affichable {
      * @return Dimension de la tuile (Hauteur, Largeur)
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Dimension getDimensions() { return dimension; }
+    public Dimension getDimension() { return dimension; }
 
     /**
      * Setter de la dimension de la tuile
      * @param dimensions Nouvelle dimensions de la tuile
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setDimensions(Dimension dimensions) { Tuile.dimension = dimensions; }
+    public void setDimension(Dimension dimensions) { Tuile.dimension = dimensions; }
 
     public String getIdentifiantJeuDeTuile() {
         return identifiantJeuDeTuile;
     }
 
 
-    public Collision getCollision() {
+    public Rectangle getCollision() {
         return collision;
     }
 
@@ -61,25 +56,6 @@ public class Tuile extends Affichable {
         return id;
     }
 
-    /**
-     * Setter de l'id de la tuile
-     * @param id Nouvelle id de la tuile
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Redéfinition du HashCode
-     * @return Valeur de l'hachage des attributs de Tuile
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-/*
-    @Override
-    public int hashCode() { return id+31* dimension.hashCode()+31*collision.hashCode()
-            +31*identifiantJeuDeTuile.hashCode(); }
-*/
     /**
      * Redéfinition du equals
      * @param obj Objet que l'on veut comparer
@@ -102,10 +78,7 @@ public class Tuile extends Affichable {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public boolean equals(Tuile t) {
-        boolean resultat = (t.getId() == id)
-                && (dimension.equals(t.getDimensions())) && (collision.equals(t.getCollision())) &&
-                (identifiantJeuDeTuile.equals(t.getIdentifiantJeuDeTuile()));
-        return resultat;
+        return t.getId() == id && Objects.equals(t.getIdentifiantJeuDeTuile(), identifiantJeuDeTuile);
     }
 
     /**
@@ -117,6 +90,6 @@ public class Tuile extends Affichable {
     public String toString() {
         return super.toString() + ", Id :" + id
                 + ", dimension :  " + dimension.toString() +
-                "collision : " + collision.toString() + "Id de la tuile "+ identifiantJeuDeTuile;
+                "collision : " + "Id de la tuile "+ identifiantJeuDeTuile;
     }
 }
