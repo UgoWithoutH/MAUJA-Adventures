@@ -2,7 +2,7 @@ import com.mauja.maujaadventures.modele.Collisionneur;
 import com.mauja.maujaadventures.modele.Dimension;
 import com.mauja.maujaadventures.modele.Rectangle;
 import com.mauja.maujaadventures.modele.Position;
-
+/*
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -42,5 +42,5 @@ public class TestCollisions {
         );
     }
 }
-
+*/
 

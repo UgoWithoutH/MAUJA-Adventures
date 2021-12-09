@@ -1,14 +1,10 @@
 package com.mauja.maujaadventures.modele;
 
-import com.mauja.maujaadventures.modele.personnage.Entite;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Camera {
     private double positionCameraX;
     private double positionCameraY;
-    private ContexteGraphique c;
-    private GraphicsContext gc;
-    private Jeu jeu;
 
     //private Entite cible;
     /**
@@ -18,8 +14,7 @@ public class Camera {
      * @param positionCameraY Correspond aux coordonnée Y de la caméra
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Camera(Jeu jeu, double positionCameraX, double positionCameraY){
-        this.jeu = jeu;
+    public Camera(double positionCameraX, double positionCameraY){
         this.positionCameraX=positionCameraX;
         this.positionCameraY=positionCameraY;
     }
@@ -31,18 +26,15 @@ public class Camera {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public void deplacementCamera(double deplaceX,double deplaceY){
-
-            positionCameraX+=deplaceX;
-            positionCameraY+=deplaceY;
+        positionCameraX+=deplaceX;
+        positionCameraY+=deplaceY;
     }
-
+/*
     public void centrerSurEntite(Entite e){
         positionCameraX = ((e.getPosition().getPositionX()) - (jeu.getGraphicsContext().getCanvas().getWidth()) / 2) + (e.getDimension().getLargeur() / 2);
-        positionCameraY = ((e.getPosition().getPositionY()) - (jeu.getGraphicsContext().getCanvas().getHeight()) / 2) + (e.getDimension().getHauteur() / 2);
+        positionCameraY = ((e.getPosition().getPositionY()) - (jeu.getGraphicsContext().getCanvas().getHeight()) / 2) + (e.getDimens
+*/
 
-
-
-    }
     /**
      * Getter de la position Camera X
      * @return la valeur de la position X
@@ -76,21 +68,7 @@ public class Camera {
         this.positionCameraY = positionCameraY;
     }
 
-    public ContexteGraphique getC() {
-        return c;
-    }
 
-    public void setC(ContexteGraphique c) {
-        this.c = c;
-    }
-
-    public GraphicsContext getGc() {
-        return gc;
-    }
-
-    public void setGc(GraphicsContext gc) {
-        this.gc = gc;
-    }
 
     /**
      * Redéfinition du hashCode
@@ -123,6 +101,7 @@ public class Camera {
      * @return true si vrai sinon false
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
+    /*
     public boolean equals(Camera cam) {
         boolean resultat=(cam.getPositionCameraX() == positionCameraX) && (cam.getPositionCameraY() == positionCameraY) &&
                 (c.equals(cam.getC())) && (c.equals(cam.getGc()));
@@ -134,6 +113,7 @@ public class Camera {
      * @return Chaîne de caractère que l'on veut afficher
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
+    /*
     @Override
     public String toString() {
         return "Camera{" +
@@ -143,4 +123,5 @@ public class Camera {
                 ", gc=" + gc.toString() +
                 '}';
     }
+    */
 }

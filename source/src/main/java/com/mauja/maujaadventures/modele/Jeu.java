@@ -45,7 +45,7 @@ public class Jeu {
         contexteGraphique = new Caneva(gc);
         deplaceur = new DeplaceurEntite();
         collisionneur = new Collisionneur();
-        camera = new Camera(this, 0, 0);
+        camera = new Camera( 0, 0);
         initialiser();
     }
 
@@ -56,7 +56,7 @@ public class Jeu {
      */
     public void initialiser() throws FileNotFoundException {
         Decoupeur d = new Decoupeur();
-        File f = new File("/images/tilesets/hyptosis_tile-art-batch-3.png");
+        File f = new File("resources/images/tilesets/hyptosis_tile-art-batch-3.png");
         lesImages = d.decoupe(f.getAbsolutePath(),32,32);
         //images.addAll(d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-5.png", 32, 32));
         RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
@@ -144,6 +144,10 @@ public class Jeu {
                     if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
                             (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
                         deplaceur.deplace(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY());
+                        if (0 + e.getPosition().getPositionY() > 100) {
+                        //if (!(camera.getPositionCameraX()<=0)){
+                            camera.deplacementCamera(-3, 0);
+                        }
                     }
                 }
 
@@ -151,6 +155,10 @@ public class Jeu {
                     if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
                             (e.getPosition().getPositionX() / 32) + 1)).getCollision() == null) {
                         deplaceur.deplace(e, e.getPosition().getPositionX() + 3, e.getPosition().getPositionY());
+                        if ((carte.getDimension().getLargeur()*30) - (e.getPosition().getPositionX()) > 100) {
+
+                            camera.deplacementCamera(3, 0);
+                        }
                     }
                 }
 
@@ -158,6 +166,9 @@ public class Jeu {
                     if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
                             (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
                         deplaceur.deplace(e, e.getPosition().getPositionX(),e.getPosition().getPositionY() - 3);
+                        if (0 + e.getPosition().getPositionY() > 100) {
+                            camera.deplacementCamera(0, -3);
+                        }
                     }
                 }
 
@@ -165,12 +176,16 @@ public class Jeu {
                     if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32) + 1) * 30 +
                             (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
                         deplaceur.deplace(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3);
+                        if ((carte.getDimension().getLargeur()*30) - (e.getPosition().getPositionY()) > 100) {
+
+                            camera.deplacementCamera(0, 3);
+                        }
                     }
                 }
 
                 //System.out.println(e.toString());
                 AfficheurEntite ae = new AfficheurEntite();
-                camera.centrerSurEntite(e);
+                //camera.centrerSurEntite(e);
                 ae.affiche(e, new Position(e.getPosition().getPositionX() - camera.getPositionCameraX(),
                                 e.getPosition().getPositionY() - camera.getPositionCameraY()), contexteGraphique,
                         Jeu.this);
