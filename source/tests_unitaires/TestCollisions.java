@@ -1,5 +1,3 @@
-package tests_unitaires;
-
 import com.mauja.maujaadventures.modele.Collision;
 import com.mauja.maujaadventures.modele.Position;
 //import org.junit.jupiter.api.BeforeEach;

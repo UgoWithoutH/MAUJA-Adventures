@@ -1,5 +1,3 @@
-package tests_unitaires;
-
 public class Test_Personnage {
 
     public static void main(String[] args) {

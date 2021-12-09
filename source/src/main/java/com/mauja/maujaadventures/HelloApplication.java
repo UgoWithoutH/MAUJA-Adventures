@@ -1,16 +1,11 @@
 package com.mauja.maujaadventures;
 
 import com.mauja.maujaadventures.modele.*;
-import com.mauja.maujaadventures.modele.monde.Carte;
-import com.mauja.maujaadventures.modele.monde.Decoupeur;
-import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
-import com.mauja.maujaadventures.modele.monde.Tuile;
 import com.mauja.maujaadventures.modele.personnage.ProprietesImage;
 import com.mauja.maujaadventures.modele.personnage.PersonnageJouable;
 import com.mauja.maujaadventures.modele.utilitaires.recuperateurRessources;
 import javafx.application.Application;
 
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,7 +16,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
-import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -31,13 +25,13 @@ import java.util.*;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        URL imgURl= getClass().getResource("carte2.png");
+        URL imgURl= getClass().getResource("images/carte2.png");
         //URL imgURlhypto= getClass().getResource("hyptosis_tile-art-batch-5.tsx");
         //URL imgURltest= getClass().getResource("carteTest.tmx");
         Image carte = new Image(imgURl.toExternalForm());
         ImageView imageView= new ImageView(carte);
 
-        String imgURlP = recuperateurRessources.getRessource("link_epee.png", getClass());
+        String imgURlP = recuperateurRessources.getRessource("images/tilesets/entites/link_epee.png", getClass());
         ProprietesImage img= new ProprietesImage(imgURlP);
 
         Position position = new Position(482, 400);
