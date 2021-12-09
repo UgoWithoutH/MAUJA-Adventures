@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.4" tiledversion="1.4.3" name="mountain_landscape" tilewidth="32" tileheight="32" tilecount="256" columns="16">
- <image source="../../../../map/tilesets/2d loast garden zelda style tiles resized/mountain_landscape.png" width="512" height="512"/>
+ <image source="../images/tilesets/mountain_landscape.png" width="512" height="512"/>
  <tile id="0">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0.333333" y="0" width="32" height="32"/>
