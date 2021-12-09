@@ -11,7 +11,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 import static java.lang.System.exit;
@@ -53,11 +56,16 @@ public class Jeu {
      */
     public void initialiser() throws FileNotFoundException {
         Decoupeur d = new Decoupeur();
-        lesImages = d.decoupe("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\resources\\images\\tilesets\\hyptosis_tile-art-batch-3.png",32,32);
+        File f = new File("/images/tilesets/hyptosis_tile-art-batch-3.png");
+        lesImages = d.decoupe(f.getAbsolutePath(),32,32);
         //images.addAll(d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-5.png", 32, 32));
         RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
-        carte = recuperateurDeCartes.recupereCarte("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\resources\\cartes\\carteTest.tmx");
-        List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\resources\\cartes\\carteTest.tmx");
+        f = new File("resources/cartes/carteTest.tmx");
+        String chemin = f.getAbsolutePath();
+        //carte = recuperateurDeCartes.recupereCarte("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\resources\\cartes\\carteTest.tmx");
+        carte = recuperateurDeCartes.recupereCarte(f.getAbsolutePath());
+        //List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\resources\\cartes\\carteTest.tmx");
+        List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles(f.getAbsolutePath());
         System.out.println(lesImages.size());
         lesTuiles = new ArrayList<Tuile>();
 
