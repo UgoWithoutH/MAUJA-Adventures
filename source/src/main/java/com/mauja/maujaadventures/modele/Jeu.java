@@ -60,7 +60,7 @@ public class Jeu {
         lesImages = d.decoupe(f.getAbsolutePath(),32,32);
         //images.addAll(d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-5.png", 32, 32));
         RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
-        f = new File("resources/cartes/carteTest.tmx");
+        f = new File("resources/cartes/carteTest2.tmx");
         String chemin = f.getAbsolutePath();
         //carte = recuperateurDeCartes.recupereCarte("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\resources\\cartes\\carteTest.tmx");
         carte = recuperateurDeCartes.recupereCarte(f.getAbsolutePath());
@@ -99,9 +99,9 @@ public class Jeu {
         //final long startNanoTime = System.nanoTime();
         int nombreCalques = carte.getListeDeCalques().size();
 
-        List<Tuile> lesTuilesCourantes = carte.getListeDeCalques().get(1).getListeDeTuiles();
+        List<Tuile> lesTuilesCourantes = carte.getListeDeCalques().get(0).getListeDeTuiles();
         double largeurCarte = carte.getDimension().getLargeur();
-        double longueurCarte = carte.getDimension().getLargeur();
+        double hauteurCarte = carte.getDimension().getHauteur();
 
 
         System.out.println(lesTuilesCourantes.size());
@@ -119,9 +119,9 @@ public class Jeu {
             {
                 contexteGraphique.effacer(new Position(0, 0), new Dimension(1000, 1000));
                 for (int k = 0; k < nombreCalques; k++) {
-                    for (int i = 0; i < 30; i++) {
-                        for (int j = 0; j < 30; j++) {
-                            Tuile tuile = carte.getListeDeCalques().get(k).getListeDeTuiles().get(i * 30 + j);
+                    for (int i = 0; i < 80; i++) {
+                        for (int j = 0; j < 80; j++) {
+                            Tuile tuile = carte.getListeDeCalques().get(k).getListeDeTuiles().get(i * 80 + j);
                             if (tuile.getId() >= 1) {
                                 contexteGraphique.dessiner(
                                         lesImages.get(tuile.getId()),
@@ -141,48 +141,53 @@ public class Jeu {
                 positionPerso = lesTuilesCourantes.get((int) (positionY * largeurCarte + positionX)).getCollision();
 
                 if (input.contains("LEFT")) {
-                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
+                    if (carte.getListeDeCalques().get(0).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 80 +
                             (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
                         deplaceur.deplace(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY());
                         //if (0 + e.getPosition().getPositionY() > 100) {
-                        if (!(camera.getPositionCameraX()<=0)){
+                        if (!(camera.getPositionCameraX()<=0) &&
+                                (e.getPosition().getPositionX() <= carte.getDimension().getLargeur()*20 +
+                                        Jeu.this.getGraphicsContext().getCanvas().getWidth() / 2)){
                             camera.deplacementCamera(-3, 0);
                         }
                     }
                 }
 
                 if (input.contains("RIGHT")) {
-                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
+                    if (carte.getListeDeCalques().get(0).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 80 +
                             (e.getPosition().getPositionX() / 32) + 1)).getCollision() == null) {
                         deplaceur.deplace(e, e.getPosition().getPositionX() + 3, e.getPosition().getPositionY());
-                        //if ((carte.getDimension().getLargeur()*30) - (e.getPosition().getPositionX()) > 100){
-                        if ((carte.getDimension().getLargeur()*30) - (e.getPosition().getPositionX()) > 100 &&
-                        camera.getPositionCameraX() - e.getPosition().getPositionX() > carte.getDimension().getLargeur() / 2) {
+                        //if ((carte.getDimension().getLargeur()*80) - (e.getPosition().getPositionX()) > 100){
+                        if (((camera.getPositionCameraX() <= carte.getDimension().getLargeur()*20)) &&
+                                (e.getPosition().getPositionX() >= Jeu.this.getGraphicsContext().getCanvas().getWidth() / 2)) {
 
                             camera.deplacementCamera(3, 0);
+                            System.out.println("camx: " + camera.getPositionCameraX());
+                            System.out.println("dimx: " + carte.getDimension().getLargeur()*20);
                         }
                     }
                 }
 
                 if (input.contains("UP")) {
-                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
+                    if (carte.getListeDeCalques().get(0).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 80 +
                             (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
                         deplaceur.deplace(e, e.getPosition().getPositionX(),e.getPosition().getPositionY() - 3);
-                        //if (0 + e.getPosition().getPositionY() > 100) {
-                        if (!(camera.getPositionCameraY()<=0) && !(e.getPosition().getPositionY() > Jeu.this.getGraphicsContext()
-                                .getCanvas().getHeight() / 2)) {
+                        if (!(camera.getPositionCameraY()<=0) &&
+                                (e.getPosition().getPositionY() <= carte.getDimension().getHauteur()*20 + 5*32 +
+                                        Jeu.this.getGraphicsContext().getCanvas().getHeight() / 2)) {
                             camera.deplacementCamera(0, -3);
-                        }
+                            System.out.println(camera.getPositionCameraY());
+                       }
                     }
                 }
 
                 if (input.contains("DOWN")) {
-                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32) + 1) * 30 +
+                    if (carte.getListeDeCalques().get(0).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32) + 1) * 80 +
                             (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
                         deplaceur.deplace(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3);
-                        if ((carte.getDimension().getLargeur()*30) - (e.getPosition().getPositionY()) > 100 &&
-                        (camera.getPositionCameraY() /* - 4*32*/ <= carte.getDimension().getHauteur() &&
-                                (e.getPosition().getPositionY() >= Jeu.this.getGraphicsContext().getCanvas().getWidth() / 2))) {
+                        if ((carte.getDimension().getLargeur()*80) - (e.getPosition().getPositionY()) > 100 &&
+                        (camera.getPositionCameraY() <= carte.getDimension().getHauteur()*20 + 5*32 &&
+                                (e.getPosition().getPositionY() >= Jeu.this.getGraphicsContext().getCanvas().getHeight() / 2))) {
                             camera.deplacementCamera(0, 3);
                         }
                     }
