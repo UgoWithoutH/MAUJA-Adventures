@@ -57,11 +57,18 @@ public class Jeu {
     public void initialiser() throws FileNotFoundException {
         Decoupeur d = new Decoupeur();
         File f = new File("resources/images/tilesets/hyptosis_tile-art-batch-3.png");
-        lesImages = d.decoupe(f.getAbsolutePath(),32,32);
+        String chemin = null;
+        try {
+            chemin = f.toURI().toURL().toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        lesImages = d.decoupe(chemin,32,32);
         //images.addAll(d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-5.png", 32, 32));
         RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
         f = new File("resources/cartes/carteTest.tmx");
-        String chemin = f.getAbsolutePath();
+        chemin = f.getAbsolutePath();
+        System.out.println(chemin);
         //carte = recuperateurDeCartes.recupereCarte("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\resources\\cartes\\carteTest.tmx");
         carte = recuperateurDeCartes.recupereCarte(f.getAbsolutePath());
         //List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles("D:\\Cours\\2021-2022\\Projet\\Repository\\mauja-adventures\\source\\resources\\cartes\\carteTest.tmx");
