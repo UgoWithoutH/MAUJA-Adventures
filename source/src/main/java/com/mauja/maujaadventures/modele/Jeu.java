@@ -57,6 +57,7 @@ public class Jeu {
     public void initialiser() throws FileNotFoundException {
         Decoupeur d = new Decoupeur();
         File f = new File("resources/images/tilesets/hyptosis_tile-art-batch-3.png");
+        System.out.println(f.getAbsolutePath());
         lesImages = d.decoupe(f.getAbsolutePath(),32,32);
         //images.addAll(d.decoupe("C:\\Users\\jtrem\\Downloads\\images\\hyptosis_tile-art-batch-5.png", 32, 32));
         RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
@@ -81,11 +82,6 @@ public class Jeu {
             lesTuilesImagees.put(lesTuiles.get(i), lesImages.get(i));
         }
         System.out.println(lesTuilesImagees.size());
-
-//        for (int i = 0; i < lesTuilesImagees.size(); i++) {
-//            System.out.println(lesTuilesImagees.get(lesTuiles.get(i)).getHeight());
-//        }
-        //exit(0);
     }
 
     /**
@@ -131,40 +127,118 @@ public class Jeu {
                         }
                     }
                 }
-                Rectangle positionPerso, caseSuivante;
+                Rectangle positionPerso;
 
-                int positionY = (int) ((e.getPosition().getPositionY()
+                /*int positionY = (int) ((e.getPosition().getPositionY()
                         + e.getCollision().getPosition().getPositionY()) / 32);
                 int positionX = (int) ((e.getPosition().getPositionX()
                         + e.getCollision().getPosition().getPositionX()) / 32);
 
-                positionPerso = lesTuilesCourantes.get((int) (positionY * largeurCarte + positionX)).getCollision();
+
+
+
+                System.out.println(e.getCollision().getPosition().getPositionY());
+                System.out.println(((int) (e.getPosition().getPositionY() /32)) * 32);
+
+                caseSuivante = lesTuilesCourantes.get(positionY * 30 + positionX).getCollision();
+                if (caseSuivante == null) {
+                    caseSuivante2 = null;
+                }
+                else {
+                    caseSuivante2 = new Rectangle(new Position(((int) (e.getPosition().getPositionX() / 32)) * 32 +
+                            caseSuivante.getPosition().getPositionX(), ((int) (e.getPosition().getPositionX() / 32)) * 32
+                            + caseSuivante.getPosition().getPositionY()), caseSuivante.getDimension());
+                    System.out.println("Position perso : " + e.getPosition().getPositionY() + " " + caseSuivante2 + " Perso :" + positionPerso);
+                }*/
+
+                boolean collisionnage = false;
 
                 if (input.contains("LEFT")) {
-                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
-                            (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
+                    positionPerso = new Rectangle(new Position(e.getPosition().getPositionX() +
+                            e.getCollision().getPosition().getPositionX() - 3, e.getPosition().getPositionY()
+                            + e.getCollision().getPosition().getPositionY() - 20), e.getCollision().getDimension());
+
+                    for (int i = 0; i < 30; i++) {
+                        for (int j = 0; j < 30; j++) {
+                            Tuile tuile = carte.getListeDeCalques().get(1).getListeDeTuiles().get(i * 30 + j);
+                            if (tuile.getId() >= 1 && tuile.getCollision() != null) {
+                                Rectangle collision = new Rectangle(new Position(
+                                        tuile.getCollision().getPosition().getPositionX() + j * 32,
+                                        tuile.getCollision().getPosition().getPositionY() + i * 32),
+                                        tuile.getCollision().getDimension());
+                                //System.out.println(collision + " " + e.getPosition());
+                                if (collisionneur.collision(positionPerso, collision)) {
+                                    System.out.println(collision + " Position perso :" + positionPerso + " " + e.getPosition() + " " + e.getCollision());
+
+                                    collisionnage = true;
+                                }
+                            }
+                        }
+                    }
+                    if (!collisionnage) {
+                        System.out.println(" Position perso :" + positionPerso);
                         deplaceur.deplace(e,e.getPosition().getPositionX() - 3, e.getPosition().getPositionY());
                         if (0 + e.getPosition().getPositionY() > 100) {
-                        //if (!(camera.getPositionCameraX()<=0)){
+                            //if (!(camera.getPositionCameraX()<=0)){
                             camera.deplacementCamera(-3, 0);
                         }
                     }
                 }
 
                 if (input.contains("RIGHT")) {
-                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
-                            (e.getPosition().getPositionX() / 32) + 1)).getCollision() == null) {
+                    positionPerso = new Rectangle(new Position(e.getPosition().getPositionX() +
+                            e.getCollision().getPosition().getPositionX() + 3, e.getPosition().getPositionY()
+                            + e.getCollision().getPosition().getPositionY() - 20), e.getCollision().getDimension());
+
+                    for (int i = 0; i < 30; i++) {
+                        for (int j = 0; j < 30; j++) {
+                            Tuile tuile = carte.getListeDeCalques().get(1).getListeDeTuiles().get(i * 30 + j);
+                            if (tuile.getId() >= 1 && tuile.getCollision() != null) {
+                                Rectangle collision = new Rectangle(new Position(
+                                        tuile.getCollision().getPosition().getPositionX() + j * 32,
+                                        tuile.getCollision().getPosition().getPositionY() + i * 32),
+                                        tuile.getCollision().getDimension());
+                                //System.out.println(collision + " " + e.getPosition());
+                                if (collisionneur.collision(positionPerso, collision)) {
+                                    System.out.println(collision + " Position perso :" + positionPerso + " " + e.getPosition() + " " + e.getCollision());
+
+                                    collisionnage = true;
+                                }
+                            }
+                        }
+                    }
+                    if (!collisionnage) {
+                        System.out.println(" Position perso :" + positionPerso);
                         deplaceur.deplace(e, e.getPosition().getPositionX() + 3, e.getPosition().getPositionY());
                         if ((carte.getDimension().getLargeur()*30) - (e.getPosition().getPositionX()) > 100) {
-
                             camera.deplacementCamera(3, 0);
                         }
                     }
                 }
 
                 if (input.contains("UP")) {
-                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32)) * 30 +
-                            (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
+                    positionPerso = new Rectangle(new Position(e.getPosition().getPositionX() +
+                            e.getCollision().getPosition().getPositionX(), e.getPosition().getPositionY()
+                            + e.getCollision().getPosition().getPositionY() - 23), e.getCollision().getDimension());
+                    for (int i = 0; i < 30; i++) {
+                        for (int j = 0; j < 30; j++) {
+                            Tuile tuile = carte.getListeDeCalques().get(1).getListeDeTuiles().get(i * 30 + j);
+                            if (tuile.getId() >= 1 && tuile.getCollision() != null) {
+                                Rectangle collision = new Rectangle(new Position(
+                                        tuile.getCollision().getPosition().getPositionX() + j * 32,
+                                        tuile.getCollision().getPosition().getPositionY() + i * 32),
+                                        tuile.getCollision().getDimension());
+                                //System.out.println(collision + " " + e.getPosition());
+                                if (collisionneur.collision(positionPerso, collision)) {
+                                    System.out.println(collision + " Position perso :" + positionPerso + " " + e.getPosition() + " " + e.getCollision());
+
+                                    collisionnage = true;
+                                }
+                            }
+                        }
+                    }
+                    if (!collisionnage) {
+                        System.out.println(" Position perso :" + positionPerso);
                         deplaceur.deplace(e, e.getPosition().getPositionX(),e.getPosition().getPositionY() - 3);
                         if (0 + e.getPosition().getPositionY() > 100) {
                             camera.deplacementCamera(0, -3);
@@ -173,8 +247,29 @@ public class Jeu {
                 }
 
                 if (input.contains("DOWN")) {
-                    if (carte.getListeDeCalques().get(1).getListeDeTuiles().get((int)((int)((e.getPosition().getPositionY() / 32) + 1) * 30 +
-                            (e.getPosition().getPositionX() / 32) + 0)).getCollision() == null) {
+                    positionPerso = new Rectangle(new Position(e.getPosition().getPositionX() +
+                            e.getCollision().getPosition().getPositionX(), e.getPosition().getPositionY()
+                            + e.getCollision().getPosition().getPositionY() - 16), e.getCollision().getDimension());
+
+                    for (int i = 0; i < 30; i++) {
+                        for (int j = 0; j < 30; j++) {
+                            Tuile tuile = carte.getListeDeCalques().get(1).getListeDeTuiles().get(i * 30 + j);
+                            if (tuile.getId() >= 1 && tuile.getCollision() != null) {
+                                Rectangle collision = new Rectangle(new Position(
+                                        tuile.getCollision().getPosition().getPositionX() + j * 32,
+                                        tuile.getCollision().getPosition().getPositionY() + i * 32),
+                                        tuile.getCollision().getDimension());
+                                //System.out.println(collision + " " + e.getPosition());
+                                if (collisionneur.collision(positionPerso, collision)) {
+                                    System.out.println(collision + " Position perso :" + positionPerso + " " + e.getPosition() + " " + e.getCollision());
+
+                                    collisionnage = true;
+                                }
+                            }
+                        }
+                    }
+                    if (!collisionnage) {
+                        System.out.println(" Position perso :" + positionPerso);
                         deplaceur.deplace(e, e.getPosition().getPositionX(), e.getPosition().getPositionY() + 3);
                         if ((carte.getDimension().getLargeur()*30) - (e.getPosition().getPositionY()) > 100) {
 

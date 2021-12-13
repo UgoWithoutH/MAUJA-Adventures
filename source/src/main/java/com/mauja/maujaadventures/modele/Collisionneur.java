@@ -10,7 +10,7 @@ public class Collisionneur {
      */
     public boolean collision(Rectangle rectangle1, Rectangle rectangle2) throws IllegalArgumentException {
         double gauche, droite, haut, bas;
-        if (rectangle1 == null ||rectangle2 == null) {
+        if (rectangle1 == null || rectangle2 == null) {
             return false;
         }
         Position position1 = rectangle1.getPosition();

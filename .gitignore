@@ -7,5 +7,6 @@
 **/out
 **/bin
 **/debug
+**/libraries
 
 */.idea/workspace.xml

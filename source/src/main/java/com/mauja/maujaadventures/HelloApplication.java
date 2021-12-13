@@ -34,7 +34,7 @@ public class HelloApplication extends Application {
         String imgURlP = recuperateurRessources.getRessource("/images/tilesets/entites/link_epee.png", getClass());
 
         Position position = new Position(482, 400);
-        Rectangle rectangle = new Rectangle(new Position(2, 26), new Dimension(32, 32));
+        Rectangle rectangle = new Rectangle(new Position(3, 46), new Dimension(27, 1));
         PersonnageJouable pj = new PersonnageJouableFX(position, rectangle, 10, imgURlP);
 
         ArrayList<String> input;

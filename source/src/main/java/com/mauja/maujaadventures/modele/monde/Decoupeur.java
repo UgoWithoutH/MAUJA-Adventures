@@ -20,6 +20,7 @@ public class Decoupeur {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public List<Image> decoupe(String chemin, int largeurTuile, int hauteurTuile) {
+        System.out.println(chemin);
         Image image = new Image(chemin);
         PixelReader lecteur = image.getPixelReader();
         double largeurImage = image.getWidth() / largeurTuile;
