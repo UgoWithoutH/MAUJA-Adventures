@@ -12,7 +12,7 @@ public class DeplaceurEntite implements Deplaceur {
      */
     @Override
     public void deplace(Entite e, double x, double y) {
-        e.getPosition().setPositionX(x);
-        e.getPosition().setPositionY(y);
+        e.getPosition().setX(x);
+        e.getPosition().setY(y);
     }
 }

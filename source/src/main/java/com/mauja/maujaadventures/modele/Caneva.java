@@ -37,7 +37,7 @@ public class Caneva extends ContexteGraphique {
      */
     @Override
     public void dessiner(Image image, Position position, Dimension dimensions) {
-        dessiner(image, position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
+        dessiner(image, position.getX(), position.getY(), dimensions.getLargeur(), dimensions.getHauteur());
     }
 
     /**
@@ -66,7 +66,7 @@ public class Caneva extends ContexteGraphique {
     @Override
     public void dessiner(Image image, Position position, double largeur, double hauteur) {
         verificationPosition(position);
-        dessiner(image, position.getPositionX(), position.getPositionY(), largeur, hauteur);
+        dessiner(image, position.getX(), position.getY(), largeur, hauteur);
     }
     /**
      * Redéfinition d'une méthode dessiner de contexte graphique
@@ -95,7 +95,7 @@ public class Caneva extends ContexteGraphique {
     public void effacer(Position position, Dimension dimensions) {
         verificationDimension(dimensions);
         verificationPosition(position);
-        gc.clearRect(position.getPositionX(), position.getPositionY(), dimensions.getLargeur(), dimensions.getHauteur());
+        gc.clearRect(position.getX(), position.getY(), dimensions.getLargeur(), dimensions.getHauteur());
     }
     /**
      * Méthode permettant de vérifier si une image est présente

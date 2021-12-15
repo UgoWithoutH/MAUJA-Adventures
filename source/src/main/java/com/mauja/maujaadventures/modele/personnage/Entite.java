@@ -8,6 +8,7 @@ public abstract class Entite {
     private Position position;
     private Rectangle rectangle;
     private Dimension dimension;
+    private Velocite velocite;
 
     /**
      * Constructeur de la classe Abstraite
@@ -19,7 +20,16 @@ public abstract class Entite {
         this.position = position;
         this.rectangle = rectangle;
         this.dimension = new Dimension(32, 32);
+        this.velocite = new Velocite();
     }
+
+    public Entite(Position position, Rectangle rectangle, Dimension dimension, Velocite velocite) {
+        this.position = position;
+        this.rectangle = rectangle;
+        this.dimension = dimension;
+        this.velocite = velocite;
+    }
+
     /**
      * Getter de la position
      * @return Position de l'entite
@@ -56,6 +66,14 @@ public abstract class Entite {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public void setDimension(Dimension dimension) { this.dimension = dimension; }
+
+    public Velocite getVelocite() {
+        return velocite;
+    }
+
+    private void setVelocite(Velocite velocite) {
+        this.velocite = velocite;
+    }
 
     /**
      * Redéfinition du toString
@@ -104,4 +122,5 @@ public abstract class Entite {
                 (dimension.equals(e.getDimension()));
         return resultat;
     }
+
 }

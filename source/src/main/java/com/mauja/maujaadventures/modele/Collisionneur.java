@@ -16,12 +16,12 @@ public class Collisionneur {
         Position position1 = rectangle1.getPosition();
         Position position2 = rectangle2.getPosition();
 
-        gauche = Math.max(position1.getPositionX(), position2.getPositionX());
-        droite = Math.min(position1.getPositionX() + rectangle1.getDimension().getLargeur(),
-                position2.getPositionX() + rectangle2.getDimension().getLargeur());
-        haut = Math.max(position1.getPositionY(), position2.getPositionY());
-        bas = Math.min(position1.getPositionY() + rectangle1.getDimension().getHauteur(),
-                position2.getPositionY() + rectangle2.getDimension().getHauteur());
+        gauche = Math.max(position1.getX(), position2.getX());
+        droite = Math.min(position1.getX() + rectangle1.getDimension().getLargeur(),
+                position2.getX() + rectangle2.getDimension().getLargeur());
+        haut = Math.max(position1.getY(), position2.getY());
+        bas = Math.min(position1.getY() + rectangle1.getDimension().getHauteur(),
+                position2.getY() + rectangle2.getDimension().getHauteur());
 
         return (gauche < droite) && (haut < bas);
     }

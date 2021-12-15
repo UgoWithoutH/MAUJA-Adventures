@@ -90,6 +90,7 @@ public abstract class Tuile {
     public String toString() {
         return super.toString() + ", Id :" + id
                 + ", dimension :  " + dimension.toString() +
-                "collision : " + "Id de la tuile "+ identifiantJeuDeTuile;
+                "collision : " + collision.toString()
+                + "Id du jeu de tuile " + identifiantJeuDeTuile;
     }
 }

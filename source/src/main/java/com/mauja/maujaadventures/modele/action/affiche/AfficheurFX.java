@@ -6,6 +6,6 @@ import javafx.scene.image.Image;
 
 public class AfficheurFX  {
     public void affiche(Image image, Position pos, GraphicsContext contexteGraphique) {
-        contexteGraphique.drawImage(image, pos.getPositionX(), pos.getPositionY());
+        contexteGraphique.drawImage(image, pos.getX(), pos.getY());
     }
 }

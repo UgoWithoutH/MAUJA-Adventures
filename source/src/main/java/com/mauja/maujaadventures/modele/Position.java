@@ -1,42 +1,42 @@
 package com.mauja.maujaadventures.modele;
 
 public class Position {
-    private double positionX;
-    private double positionY;
+    private double x;
+    private double y;
     /**
      * Constructeur de la classe Position
-     * @param positionX Position de l'objet en X
-     * @param positionY Position de l'obejt en Y
+     * @param x Position de l'objet en X
+     * @param y Position de l'obejt en Y
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Position(double positionX, double positionY) {
-        this.positionX = positionX;
-        this.positionY = positionY;
+    public Position(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
     /**
      * Getter position X
      * @return La position X de l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public double getPositionX() { return positionX; }
+    public double getX() { return x; }
     /**
      * Setter de la position X
-     * @param positionX Nouvelle position X de l'objet
+     * @param x Nouvelle position X de l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setPositionX(double positionX) { this.positionX = positionX; }
+    public void setX(double x) { this.x = x; }
     /**
      * Getter de position Y
      * @return Position Y de l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public double getPositionY() { return positionY; }
+    public double getY() { return y; }
     /**
      * Setter de la position Y
-     * @param positionY Nouvelle position Y de l'objet
+     * @param y Nouvelle position Y de l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setPositionY(double positionY) { this.positionY = positionY; }
+    public void setY(double y) { this.y = y; }
 
     /**
      * Redéfinition du toString
@@ -45,7 +45,7 @@ public class Position {
      */
     @Override
     public String toString() {
-        return "{" + positionX + "; " + positionY + "}";
+        return "{" + x + "; " + y + "}";
     }
 
     /**
@@ -55,7 +55,7 @@ public class Position {
      */
     @Override
     public int hashCode() {
-        return (int)(positionX + positionY);
+        return (int)(x + y);
     }
 
     /**
@@ -80,7 +80,7 @@ public class Position {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public boolean equals(Position p) {
-        boolean resultat = (p.getPositionX() == positionX ) && (p.getPositionY() == positionY);
+        boolean resultat = (p.getX() == x) && (p.getY() == y);
         return resultat;
     }
 }

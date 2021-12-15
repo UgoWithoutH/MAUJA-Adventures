@@ -2,9 +2,7 @@ package com.mauja.maujaadventures.modele.action.affiche;
 
 import com.mauja.maujaadventures.modele.*;
 import com.mauja.maujaadventures.modele.personnage.Entite;
-import com.mauja.maujaadventures.modele.personnage.EntiteFX;
 import com.mauja.maujaadventures.modele.personnage.PersonnageJouableFX;
-import javafx.scene.image.Image;
 
 
 public class AfficheurEntite implements Afficheur {
@@ -22,7 +20,7 @@ public class AfficheurEntite implements Afficheur {
             throw new IllegalArgumentException("L'objet " + obj.toString() + " passé en paramètre n'est pas une entité.");
         }
         PersonnageJouableFX e = (PersonnageJouableFX) obj;
-        contexteGraphique.dessiner(e.getImage(), new Position(e.getPosition().getPositionX() - jeu.getCamera().getPositionCameraX(),
-                e.getPosition().getPositionY() - jeu.getCamera().getPositionCameraY()), e.getDimension());
+        contexteGraphique.dessiner(e.getImage(), new Position(e.getPosition().getX() - jeu.getCamera().getPositionCameraX(),
+                e.getPosition().getY() - jeu.getCamera().getPositionCameraY()), e.getDimension());
     }
 }
