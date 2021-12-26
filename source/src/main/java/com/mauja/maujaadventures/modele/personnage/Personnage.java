@@ -11,8 +11,8 @@ public abstract class Personnage extends Entite { //pour éventuellement des PNJ
      * @param rectangle Elément permettant de distinguer la collision du personnage
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Personnage(Position position, Rectangle rectangle){
-        super(position, rectangle);
+    public Personnage(Position position, Rectangle rectangle, int vie){
+        super(position, rectangle, vie);
     }
 
 }

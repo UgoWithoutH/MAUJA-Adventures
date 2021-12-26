@@ -25,11 +25,11 @@ import java.util.*;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        URL imgURl= getClass().getResource("/images/carte2.png");
+        /*URL imgURl= getClass().getResource("/images/carte2.png");
         //URL imgURlhypto= getClass().getResource("hyptosis_tile-art-batch-5.tsx");
         //URL imgURltest= getClass().getResource("carteTest.tmx");
         Image carte = new Image(imgURl.toExternalForm());
-        ImageView imageView= new ImageView(carte);
+        ImageView imageView= new ImageView(carte);*/
 
         String imgURlP = recuperateurRessources.getRessource("/images/tilesets/entites/link_epee.png", getClass());
 

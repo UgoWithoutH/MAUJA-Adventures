@@ -5,6 +5,7 @@ import com.mauja.maujaadventures.modele.Position;
 
 public class PersonnageJouable extends Personnage {
     private int attaque;
+    private boolean protection;
     /**
      * Constructeur de la classe PersonnageJouable qui instancie attaque et appelle sa classe mère Personnage pour les autres
      * paramètre
@@ -15,7 +16,7 @@ public class PersonnageJouable extends Personnage {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public PersonnageJouable(Position position, Rectangle rectangle, int attaque){
-        super(position, rectangle);
+        super(position, rectangle, 20);
         this.attaque = attaque;
     }
 
@@ -26,6 +27,12 @@ public class PersonnageJouable extends Personnage {
     public void setAttaque(int attaque) {
         this.attaque = attaque;
     }
+
+    public boolean isProtection() {
+        return protection;
+    }
+
+
     /**
      * Redéfinition du toString
      *
@@ -71,4 +78,12 @@ public class PersonnageJouable extends Personnage {
         boolean resultat=pj.getAttaque()==attaque;
         return resultat;
     }
+
+    public void seProteger(){
+        protection = true;
+    }
+    public void enleverLeProtection(){
+        protection = false;
+    }
+
 }

@@ -8,7 +8,7 @@ public abstract class EntiteFX extends Entite {
     private Image image;
 
     public EntiteFX(Position position, Rectangle rectangle, String chemin) throws IllegalArgumentException {
-        super(position, rectangle);
+        super(position, rectangle, 20);
         if (chemin == null) {
             throw new IllegalArgumentException("Le chemin donné en paramètre pour l'image est null.");
         }

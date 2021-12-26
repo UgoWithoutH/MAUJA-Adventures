@@ -9,6 +9,7 @@ public abstract class Entite {
     private Rectangle rectangle;
     private Dimension dimension;
     private Velocite velocite;
+    private int vie;
 
     /**
      * Constructeur de la classe Abstraite
@@ -16,18 +17,20 @@ public abstract class Entite {
      * @param rectangle Collision que l'entite va posséder
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Entite(Position position, Rectangle rectangle){
+    public Entite(Position position, Rectangle rectangle, int vie){
         this.position = position;
         this.rectangle = rectangle;
         this.dimension = new Dimension(32, 32);
         this.velocite = new Velocite();
+        this.vie = vie;
     }
 
-    public Entite(Position position, Rectangle rectangle, Dimension dimension, Velocite velocite) {
+    public Entite(Position position, Rectangle rectangle, Dimension dimension, Velocite velocite, int vie) {
         this.position = position;
         this.rectangle = rectangle;
         this.dimension = dimension;
         this.velocite = velocite;
+        this.vie = vie;
     }
 
     /**
@@ -73,6 +76,14 @@ public abstract class Entite {
 
     private void setVelocite(Velocite velocite) {
         this.velocite = velocite;
+    }
+
+    public int getVie() {
+        return vie;
+    }
+
+    public void setVie(int vie) {
+        this.vie = vie;
     }
 
     /**
