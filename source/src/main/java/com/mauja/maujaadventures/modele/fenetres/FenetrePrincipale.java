@@ -1,6 +1,5 @@
 package com.mauja.maujaadventures.modele.fenetres;
 
-import com.mauja.maujaadventures.modele.entites.PersonnageJouableFX;
 import com.mauja.maujaadventures.modele.entites.PersonnageJouable;
 import com.mauja.maujaadventures.modele.entrees.Boutons;
 import com.mauja.maujaadventures.modele.jeu.Jeu;
@@ -26,18 +25,6 @@ import java.util.*;
 public class FenetrePrincipale extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        /*URL imgURl= getClass().getResource("/images/carte2.png");
-        //URL imgURlhypto= getClass().getResource("hyptosis_tile-art-batch-5.tsx");
-        //URL imgURltest= getClass().getResource("carteTest.tmx");
-        Image carte = new Image(imgURl.toExternalForm());
-        ImageView imageView= new ImageView(carte);*/
-
-        String imgURlP = RecuperateurRessources.getRessource("/images/tilesets/entites/link_epee.png", getClass());
-
-        Position position = new Position(482, 400);
-        Rectangle rectangle = new Rectangle(new Position(3, 46), new Dimension(27, 1));
-        PersonnageJouable pj = new PersonnageJouableFX(position, rectangle, 10, imgURlP);
-
         ArrayList<String> input;
         VBox content = new VBox();
 
@@ -48,13 +35,11 @@ public class FenetrePrincipale extends Application {
         Boutons b = new Boutons();
         Canvas canvas = new Canvas(964, 800);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        System.out.println(gc.getCanvas().getWidth());
-        System.out.println(gc.getCanvas().getHeight());
-        content.getChildren().add( canvas );
+        content.getChildren().add(canvas);
         Jeu jeu = new Jeu(gc);
         input = b.lecture(scene);
 
-        jeu.boucle(input, pj);
+        jeu.boucle(input);
 
         stage.show();
     }

@@ -7,31 +7,28 @@ import com.mauja.maujaadventures.modele.logique.Velocite;
 
 public abstract class Entite {
     private Position position;
-    private Rectangle rectangle;
     private Dimension dimension;
+    private Rectangle collision;
     private Velocite velocite;
-    private int vie;
 
     /**
      * Constructeur de la classe Abstraite
      * @param position Position de l'entite
-     * @param rectangle Collision que l'entite va posséder
+     * @param collision Collision que l'entite va posséder
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Entite(Position position, Rectangle rectangle, int vie){
-        this.position = position;
-        this.rectangle = rectangle;
-        this.dimension = new Dimension(32, 32);
-        this.velocite = new Velocite();
-        this.vie = vie;
-    }
+    public Entite(Position position, Dimension dimension, Rectangle collision, Velocite velocite)
+            throws IllegalArgumentException {
+        verificationParametre(position, "position");
+        verificationParametre(dimension, "dimension");
 
-    public Entite(Position position, Rectangle rectangle, Dimension dimension, Velocite velocite, int vie) {
+        if (velocite == null) {
+            velocite = new Velocite();
+        }
         this.position = position;
-        this.rectangle = rectangle;
+        this.collision = collision;
         this.dimension = dimension;
         this.velocite = velocite;
-        this.vie = vie;
     }
 
     /**
@@ -39,37 +36,52 @@ public abstract class Entite {
      * @return Position de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Position getPosition() { return position; }
+    public Position getPosition() {
+        return position;
+    }
+
     /**
      * Setter de la position
      * @param position Nouvelle position de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setPosition(Position position) { this.position = position; }
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     /**
      * Getter de la collision
      * @return La zone de collision de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Rectangle getCollision() { return rectangle; }
+    public Rectangle getCollision() {
+        return collision;
+    }
+
     /**
      * Setter de la collision
      * @param rectangle Nouvelle collision de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setCollision(Rectangle rectangle) { this.rectangle = rectangle; }
+    private void setCollision(Rectangle rectangle) {
+        this.collision = rectangle;
+    }
+
     /**
      * Getter de la dimension
      * @return La dimension (Hauteur et Largeur) de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Dimension getDimension() { return dimension;}
+    public Dimension getDimension() {
+        return dimension;
+    }
+
     /**
      * Setter de la dimension
      * @param dimension Nouvelle dimension (Hauteur et Largeur) de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setDimension(Dimension dimension) { this.dimension = dimension; }
+    private void setDimension(Dimension dimension) { this.dimension = dimension; }
 
     public Velocite getVelocite() {
         return velocite;
@@ -79,26 +91,6 @@ public abstract class Entite {
         this.velocite = velocite;
     }
 
-    public int getVie() {
-        return vie;
-    }
-
-    public void setVie(int vie) {
-        this.vie = vie;
-    }
-
-    /**
-     * Redéfinition du toString
-     * @return chaîne que l'on veut afficher
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    @Override
-    public String toString() {
-        return "Position : " + position.toString() + ", "
-                + "Dimensions : " + dimension.toString() + ", "
-                + "Collision : " + rectangle.toString();
-    }
-
     /**
      * Redéfinition du hashCode
      * @return Hachage des attributs de Entite
@@ -106,7 +98,9 @@ public abstract class Entite {
      */
     @Override
     public int hashCode() {
-        return 31*position.hashCode()+31* dimension.hashCode()+31* rectangle.hashCode();
+        return 7 * (position.hashCode()
+                + dimension.hashCode()
+                + collision.hashCode());
     }
 
     /**
@@ -120,19 +114,40 @@ public abstract class Entite {
         if(obj == null) return false;
         if(this == obj) return true;
         if (getClass() != obj.getClass()) return false;
-        Entite autre = (Entite) obj;
-        return equals(autre);
+        Entite entite = (Entite) obj;
+        return equals(entite);
     }
+
     /**
      * Méthode equals
-     * @param e Entité que l'on veut comparer
+     * @param entite Entité que l'on veut comparer
      * @return true si égalité sinon false
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public boolean equals(Entite e) {
-        boolean resultat = (position.equals(e.getPosition())) && (position.equals(e.getCollision())) &&
-                (dimension.equals(e.getDimension()));
-        return resultat;
+    public boolean equals(Entite entite) {
+        return position.equals(entite.getPosition())
+                && dimension.equals(entite.getDimension())
+                && collision.equals(entite.getCollision())
+                && velocite.equals(entite.getVelocite());
     }
 
+    /**
+     * Redéfinition du toString
+     * @return chaîne que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return "[" + this.getClass() + "] : " + position.toString()
+                + "\nDimensions : " + dimension.toString()
+                + "\nCollision : " + collision.toString()
+                + "\nVelocite : " + velocite;
+    }
+
+    private void verificationParametre(Object obj, String nom) throws IllegalArgumentException {
+        if (obj == null) {
+            throw new IllegalArgumentException("Le paramètre " + nom + " donnée à l'entité lors de sa création "
+                    + "ne peut pas être null.");
+        }
+    }
 }

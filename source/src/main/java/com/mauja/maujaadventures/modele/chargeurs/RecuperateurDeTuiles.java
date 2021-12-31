@@ -1,8 +1,8 @@
 package com.mauja.maujaadventures.modele.chargeurs;
 
+import com.mauja.maujaadventures.modele.logique.Dimension;
 import com.mauja.maujaadventures.modele.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.modele.monde.Tuile;
-import com.mauja.maujaadventures.modele.monde.TuileFX;
 import com.mauja.maujaadventures.modele.monde.TuileSimple;
 import org.tiledreader.*;
 
@@ -40,7 +40,7 @@ public class RecuperateurDeTuiles {
                 //System.out.print(" (" + k + ", " + j + " " + i + ") ");
                 TiledTile tuileTiled = calque.getTile(k, j);
                 if (tuileTiled == null) {
-                    Tuile tuile = new TuileSimple(0, null, null);
+                    Tuile tuile = new TuileSimple(0, null, null, new Dimension(32, 32));
                     lesTuiles.add(tuile);
                 }
                 else {

@@ -45,7 +45,7 @@ public class RecuperateurDeJeuDeTuiles {
                 else {
                     rectangle = null;
                 }
-                Tuile tuile = new TuileSimple(tuileTiled.getID(), nomJeuDeTuile, rectangle);
+                Tuile tuile = new TuileSimple(tuileTiled.getID(), nomJeuDeTuile, rectangle, new Dimension(32, 32));
                 lesTuiles.add(tuile);
             }
             Dimension dimension = new Dimension(jeuDeTuileTiled.getWidth(), jeuDeTuileTiled.getHeight());

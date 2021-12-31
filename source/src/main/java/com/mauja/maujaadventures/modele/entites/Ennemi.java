@@ -1,34 +1,39 @@
 package com.mauja.maujaadventures.modele.entites;
 
-import com.mauja.maujaadventures.modele.logique.Dimension;
-import com.mauja.maujaadventures.modele.logique.Position;
-import com.mauja.maujaadventures.modele.logique.Rectangle;
-import com.mauja.maujaadventures.modele.logique.Velocite;
+import com.mauja.maujaadventures.modele.logique.*;
 
-public abstract class Ennemi extends Entite {
+public abstract class Ennemi extends Vivant {
 
-    private int attaque;
-
-    public Ennemi(Position position, Rectangle rectangle, int attaque, int vie) {
-        super(position, rectangle, vie);
-        this.attaque = attaque;
+    public Ennemi(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
+                  Attaque attaque, int pointsDeVie) throws IllegalArgumentException {
+        super(position, dimension, collision, velocite, attaque, pointsDeVie);
     }
 
-    public Ennemi(Position position, Rectangle rectangle, Dimension dimension, Velocite velocite, int attaque, int vie) {
-        super(position, rectangle, dimension, velocite, vie);
-        this.attaque = attaque;
+    public Ennemi(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
+                  Attaque attaque) throws IllegalArgumentException {
+        super(position, dimension, collision, velocite, attaque);
     }
 
-    public int getAttaque() {
-        return attaque;
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
-    private void setAttaque(int attaque) {
-        this.attaque = attaque;
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
+        Ennemi ennemi = (Ennemi) obj;
+        return equals(ennemi);
     }
 
-    public boolean attaquer(Personnage personnage){
-        personnage.setVie(personnage.getVie() - attaque);
-        return personnage.getVie() < 0;
+    public boolean equals(Ennemi ennemi) {
+        return super.equals(ennemi);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

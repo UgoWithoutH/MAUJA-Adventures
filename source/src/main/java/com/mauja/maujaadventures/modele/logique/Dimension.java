@@ -1,5 +1,7 @@
 package com.mauja.maujaadventures.modele.logique;
 
+import java.util.Objects;
+
 public class Dimension {
     private double largeur;
     private double hauteur;
@@ -19,7 +21,10 @@ public class Dimension {
      * @return Largeur de l'élément
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public double getLargeur() { return largeur; }
+    public double getLargeur() {
+        return largeur;
+    }
+
     /**
      * Setter de la largeur
      * @param largeur Nouvelle largeur que va comporter l'élément
@@ -28,6 +33,7 @@ public class Dimension {
     private void setLargeur(double largeur) {
         this.largeur = largeur;
     }
+
     /**
      * Getter de l'hauteur
      * @return L'hauteur de l'élément
@@ -36,6 +42,7 @@ public class Dimension {
     public double getHauteur() {
         return hauteur;
     }
+
     /**
      * Setter de l'hauteur
      * @param hauteur Nouvelle hauteur de l'élément
@@ -46,23 +53,13 @@ public class Dimension {
     }
 
     /**
-     * Redéfinition du toString
-     * @return chaîne que l'on veut afficher
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    @Override
-    public String toString() {
-        return largeur + "x" + hauteur;
-    }
-
-    /**
      * Redéfinition du hashCode
      * @return Hachage des attributs de dimension
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
     public int hashCode() {
-        return (int) (largeur + hauteur);
+        return Objects.hash(largeur, hauteur);
     }
 
     /**
@@ -76,18 +73,28 @@ public class Dimension {
         if(obj == null) return false;
         if(this == obj) return true;
         if (getClass() != obj.getClass()) return false;
-        Dimension autre = (Dimension) obj;
-        return equals(autre);
+        Dimension dimension = (Dimension) obj;
+        return equals(dimension);
     }
 
     /**
      * Méthode equals
-     * @param m Dimension que l'on veut comparer
+     * @param dimension Dimension que l'on veut comparer
      * @return true si égalité sinon false
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public boolean equals(Dimension m) {
-        boolean resultat = (m.getHauteur() == hauteur) && (m.getLargeur() == largeur);
-        return resultat;
+    public boolean equals(Dimension dimension) {
+        return dimension.getHauteur() == hauteur
+                && dimension.getLargeur() == largeur;
+    }
+
+    /**
+     * Redéfinition du toString
+     * @return chaîne que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return largeur + "x" + hauteur;
     }
 }

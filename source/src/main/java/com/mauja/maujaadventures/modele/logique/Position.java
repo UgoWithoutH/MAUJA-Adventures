@@ -1,5 +1,7 @@
 package com.mauja.maujaadventures.modele.logique;
 
+import java.util.Objects;
+
 public class Position {
     private double x;
     private double y;
@@ -13,39 +15,41 @@ public class Position {
         this.x = x;
         this.y = y;
     }
+
     /**
      * Getter position X
      * @return La position X de l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public double getX() { return x; }
+    public double getX() {
+        return x;
+    }
+
     /**
      * Setter de la position X
      * @param x Nouvelle position X de l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setX(double x) { this.x = x; }
+    public void setX(double x) {
+        this.x = x;
+    }
+
     /**
      * Getter de position Y
      * @return Position Y de l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public double getY() { return y; }
+    public double getY() {
+        return y;
+    }
+
     /**
      * Setter de la position Y
      * @param y Nouvelle position Y de l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setY(double y) { this.y = y; }
-
-    /**
-     * Redéfinition du toString
-     * @return Chaîne que l'on veut afficher
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    @Override
-    public String toString() {
-        return "{" + x + "; " + y + "}";
+    public void setY(double y) {
+        this.y = y;
     }
 
     /**
@@ -55,7 +59,7 @@ public class Position {
      */
     @Override
     public int hashCode() {
-        return (int)(x + y);
+        return Objects.hash(x, y);
     }
 
     /**
@@ -69,18 +73,28 @@ public class Position {
         if(obj == null) return false;
         if(this == obj) return true;
         if (getClass() != obj.getClass()) return false;
-        Position autre = (Position) obj;
-        return equals(autre);
+        Position position = (Position) obj;
+        return equals(position);
     }
 
     /**
      * Méthode equals
-     * @param p Position que l'on veut comparer
+     * @param position Position que l'on veut comparer
      * @return True si égalité sinon false
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public boolean equals(Position p) {
-        boolean resultat = (p.getX() == x) && (p.getY() == y);
-        return resultat;
+    public boolean equals(Position position) {
+        return position.getX() == x
+                && position.getY() == y;
+    }
+
+    /**
+     * Redéfinition du toString
+     * @return Chaîne que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return "{" + x + "; " + y + "}";
     }
 }

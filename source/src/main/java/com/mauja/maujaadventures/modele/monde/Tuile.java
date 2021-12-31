@@ -7,21 +7,26 @@ import com.mauja.maujaadventures.modele.logique.Dimension;
 import java.util.Objects;
 
 public abstract class Tuile {
-    private int id;
+    private static int nombreTuiles = 0;
+    private final int id;
     private final String identifiantJeuDeTuile;
     private Rectangle collision;
     protected static Dimension dimension;
 
     /**
      * Constructeur de la classe abstraite Tuile
-     * @param id Id de la tuile
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Tuile(int id, String identifiantJeuDeTuile, Rectangle collision) {
-        dimension = new Dimension(32, 32);
-        this.id = id;
+    public Tuile(int id, String identifiantJeuDeTuile, Rectangle collision, Dimension dimension)
+            throws IllegalArgumentException {
+        if (dimension == null || dimension.getHauteur() <= 0 || dimension.getLargeur() <= 0) {
+            throw new IllegalArgumentException("La dimension de la tuile ne peut pas être nulle ou inférieure "
+                    + "ou égale à zéro. Donné : " + dimension);
+        }
         this.collision = collision;
         this.identifiantJeuDeTuile = identifiantJeuDeTuile;
+        this.id = id;
+        nombreTuiles++;
     }
 
     /**
@@ -42,7 +47,6 @@ public abstract class Tuile {
         return identifiantJeuDeTuile;
     }
 
-
     public Rectangle getCollision() {
         return collision;
     }
@@ -56,6 +60,15 @@ public abstract class Tuile {
         return id;
     }
 
+    public static int getNombreTuiles() {
+        return nombreTuiles;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
     /**
      * Redéfinition du equals
      * @param obj Objet que l'on veut comparer
@@ -67,18 +80,18 @@ public abstract class Tuile {
         if(obj == null) return false;
         if(this == obj) return true;
         if (getClass() != obj.getClass()) return false;
-        Tuile autre = (Tuile) obj;
-        return equals(autre);
+        Tuile tuile = (Tuile) obj;
+        return equals(tuile);
     }
 
     /**
      * Méthode equals
-     * @param t Tuile que l'on veut comparer
+     * @param tuile Tuile que l'on veut comparer
      * @return True si vrai sinon false
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public boolean equals(Tuile t) {
-        return t.getId() == id && Objects.equals(t.getIdentifiantJeuDeTuile(), identifiantJeuDeTuile);
+    public boolean equals(Tuile tuile) {
+        return tuile.getId() == id;
     }
 
     /**

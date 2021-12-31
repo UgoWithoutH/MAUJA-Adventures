@@ -19,9 +19,7 @@ public class RecuperateurDeCartes {
     public Carte recupereCarte(String nomCarte) throws FileNotFoundException {
         System.out.println(nomCarte);
         TiledReader chargeur = new FileSystemTiledReader();
-        //Path chemin = Paths.get(nomCarte);
-        //System.out.println(chemin.toAbsolutePath());
-        //System.out.println("titi");
+        System.out.println(nomCarte);
 
         TiledMap chargeurCarte = chargeur.getMap(nomCarte);
         List<JeuDeTuiles> lesJeuxDeTuiles = recupereJeuxDeTuiles(nomCarte);
@@ -40,6 +38,7 @@ public class RecuperateurDeCartes {
     public List<JeuDeTuiles> recupereJeuxDeTuiles(String nomCarte) throws FileNotFoundException {
         TiledReader chargeur = new FileSystemTiledReader();
         Path chemin = Paths.get(nomCarte);
+        System.out.println(nomCarte);
         TiledMap chargeurCarte = chargeur.getMap(chemin.toAbsolutePath().toString());
 
         List<JeuDeTuiles> lesJeuxDeTuiles = recuperateurDeJeuDeTuiles.recupere(chargeurCarte);

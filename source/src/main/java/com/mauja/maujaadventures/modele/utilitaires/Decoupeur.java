@@ -28,7 +28,6 @@ public class Decoupeur {
 
         for (int i = 0; i < largeurImage; i++){
             for (int j = 0; j < hauteurImage; j++) {
-                System.out.println("toto");
                 WritableImage imageTuile = new WritableImage(lecteur,
                 j * largeurTuile, i * hauteurTuile, largeurTuile, hauteurTuile);
                 listeDeTuiles.add(imageTuile);

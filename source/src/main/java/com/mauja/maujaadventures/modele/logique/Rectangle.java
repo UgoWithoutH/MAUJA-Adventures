@@ -18,20 +18,20 @@ public class Rectangle {
      * @return Position de la collision
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Position getPosition() { return position; }
+    public Position getPosition() {
+        return position;
+    }
 
     public Dimension getDimension() {
         return dimension;
     }
 
-    /**
-     * Redéfinition du toString
-     * @return chaîne que l'on veut afficher
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    @Override
-    public String toString() {
-        return dimension.toString() + " " + position.toString();
+    private void setDimension(Dimension dimension) {
+        this.dimension = dimension;
+    }
+
+    private void setPosition(Position position) {
+        this.position = position;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Rectangle {
      */
     @Override
     public int hashCode() {
-        return dimension.hashCode() + 31 * position.hashCode();
+        return dimension.hashCode() + 7 * position.hashCode();
     }
 
     /**
@@ -55,25 +55,28 @@ public class Rectangle {
         if(obj == null) return false;
         if(this == obj) return true;
         if (getClass() != obj.getClass()) return false;
-        Rectangle autre = (Rectangle) obj;
-        return equals(autre);
+        Rectangle rectangle = (Rectangle) obj;
+        return equals(rectangle);
     }
 
     /**
      * Méthode equals
-     * @param c Collision que l'on veut comparer
+     * @param rectangle Collision que l'on veut comparer
      * @return true si vrai sinon false
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public boolean equals(Rectangle c) {
-        return dimension.equals(c.getDimension()) && position.equals(c.getPosition());
+    public boolean equals(Rectangle rectangle) {
+        return dimension.equals(rectangle.getDimension())
+                && position.equals(rectangle.getPosition());
     }
 
-    public void setDimension(Dimension dimension) {
-        this.dimension = dimension;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
+    /**
+     * Redéfinition du toString
+     * @return chaîne que l'on veut afficher
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    @Override
+    public String toString() {
+        return position.toString() + " " + dimension.toString();
     }
 }
