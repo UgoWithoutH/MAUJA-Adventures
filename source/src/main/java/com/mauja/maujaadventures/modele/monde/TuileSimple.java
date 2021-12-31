@@ -1,6 +1,6 @@
 package com.mauja.maujaadventures.modele.monde;
 
-import com.mauja.maujaadventures.modele.Rectangle;
+import com.mauja.maujaadventures.modele.logique.Rectangle;
 
 public class TuileSimple extends Tuile{
     /**

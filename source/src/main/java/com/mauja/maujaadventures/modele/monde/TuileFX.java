@@ -1,6 +1,5 @@
 package com.mauja.maujaadventures.modele.monde;
 
-import com.mauja.maujaadventures.modele.Rectangle;
 import javafx.scene.image.Image;
 
 public class TuileFX {

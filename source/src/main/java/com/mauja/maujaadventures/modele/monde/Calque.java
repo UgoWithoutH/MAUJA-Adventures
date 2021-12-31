@@ -1,6 +1,6 @@
 package com.mauja.maujaadventures.modele.monde;
 
-import com.mauja.maujaadventures.modele.Dimension;
+import com.mauja.maujaadventures.modele.logique.Dimension;
 
 import java.util.ArrayList;
 import java.util.List;
