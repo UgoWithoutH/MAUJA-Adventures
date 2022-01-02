@@ -30,7 +30,7 @@ public abstract class Vivant extends Entite {
         return attaque;
     }
 
-    private void setAttaque(Attaque attaque) {
+    public void setAttaque(Attaque attaque) {
         this.attaque = attaque;
     }
 
@@ -38,7 +38,7 @@ public abstract class Vivant extends Entite {
         return pointsDeVie;
     }
 
-    private void setPointsDeVie(int pointsDeVie) {
+    public void setPointsDeVie(int pointsDeVie) {
         this.pointsDeVie = pointsDeVie;
     }
 

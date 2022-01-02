@@ -18,13 +18,14 @@ public class DeplaceurEntite {
         carteCourante = carte;
         collisionneurCarte = new CollisionneurCarte();
     }
+
     /**
      * Méthode permettant le déplacement de l'entite en la modifiant avec son setter
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public boolean deplace(Entite entite, float temps, Direction direction) {
-        Position positionEntite = null;
-        Rectangle collisionEntite = null;
+        Position positionEntite;
+        Rectangle collisionEntite;
 
         if (direction == Direction.DROITE) {
             positionEntite = new Position(entite.getPosition().getX() + entite.getVelocite().getX(),
@@ -41,7 +42,6 @@ public class DeplaceurEntite {
         else if (direction == Direction.HAUT) {
             positionEntite = new Position(entite.getPosition().getX(),
                     entite.getPosition().getY() - entite.getVelocite().getY());
-
         }
         else {
             return false;
@@ -54,6 +54,7 @@ public class DeplaceurEntite {
 
         if (!collisionneurCarte.collisionne(collisionEntite, carteCourante)) {
             entite.setPosition(positionEntite);
+            entite.setDirection(direction);
             return true;
         }
         return false;

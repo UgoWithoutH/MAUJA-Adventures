@@ -4,7 +4,7 @@ import com.mauja.maujaadventures.comportements.Comportement;
 import com.mauja.maujaadventures.comportements.ComportementNull;
 import com.mauja.maujaadventures.logique.*;
 
-public abstract class Ennemi extends Vivant {
+public class Ennemi extends Vivant {
     private Comportement comportement;
 
     public Ennemi(Position position, Dimension dimension, Rectangle collision, Velocite velocite,

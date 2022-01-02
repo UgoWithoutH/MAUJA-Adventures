@@ -9,16 +9,14 @@ import java.util.Objects;
 
 public class Projectile extends Entite {
     private int degats;
-    private Direction direction;
 
-    public Projectile(Position position, Dimension dimension, Rectangle collision, Velocite velocite, int degats,
-                      Direction direction) throws IllegalArgumentException {
+    public Projectile(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
+                      int degats) throws IllegalArgumentException {
         super(position, dimension, collision, velocite);
         if (degats < 0) {
             degats = 0;
         }
         this.degats = degats;
-        this.direction = direction;
     }
 
     public int getDegats() {
@@ -29,17 +27,9 @@ public class Projectile extends Entite {
         this.degats = degats;
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
-    private void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
     @Override
     public int hashCode() {
-        return super.hashCode() + Objects.hash(direction, degats);
+        return super.hashCode() + Objects.hash(degats);
     }
 
     @Override
@@ -53,14 +43,12 @@ public class Projectile extends Entite {
 
     public boolean equals(Projectile projectile) {
         return super.equals(projectile)
-                && direction.equals(projectile.getDirection())
                 && degats == projectile.getDegats();
     }
 
     @Override
     public String toString() {
         return super.toString()
-                + "\nDegats : " + degats + "\u2665"
-                + "\nDirection : " + direction;
+                + "\nDegats : " + degats + "\u2665";
     }
 }

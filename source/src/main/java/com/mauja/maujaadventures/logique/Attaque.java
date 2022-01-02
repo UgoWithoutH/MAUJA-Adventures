@@ -27,7 +27,7 @@ public class Attaque {
         return collision;
     }
 
-    private void setCollision(Rectangle collision) {
+    public void setCollision(Rectangle collision) {
         this.collision = collision;
     }
 

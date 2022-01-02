@@ -21,7 +21,7 @@ public class PersonnageJouable extends Vivant {
         return etatAction;
     }
 
-    private void setEtatAction(EtatAction etatAction) {
+    public void setEtatAction(EtatAction etatAction) {
         this.etatAction = etatAction;
     }
 

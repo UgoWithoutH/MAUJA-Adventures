@@ -31,7 +31,8 @@ public class Ressources {
     private static final List<String> lesImagesEntites = new ArrayList<>();
     static {
         try {
-            lesImagesEntites.add(new File("/images/entites/link_epee.png").toURI().toURL().toString());
+            lesImagesEntites.add(new File("images/entites/link_epee.png").toURI().toURL().toExternalForm());
+            lesImagesEntites.add(new File("images/entites/projectile.png").toURI().toURL().toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

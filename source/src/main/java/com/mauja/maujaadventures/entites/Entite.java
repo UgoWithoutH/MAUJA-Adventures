@@ -10,6 +10,7 @@ public abstract class Entite {
     private Dimension dimension;
     private Rectangle collision;
     private Velocite velocite;
+    private Direction direction;
 
     /**
      * Constructeur de la classe Abstraite
@@ -29,6 +30,7 @@ public abstract class Entite {
         this.collision = collision;
         this.dimension = dimension;
         this.velocite = velocite;
+        direction = Direction.BAS;
     }
 
     /**
@@ -91,6 +93,14 @@ public abstract class Entite {
         this.velocite = velocite;
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
     /**
      * Redéfinition du hashCode
      * @return Hachage des attributs de Entite
@@ -100,7 +110,8 @@ public abstract class Entite {
     public int hashCode() {
         return 7 * (position.hashCode()
                 + dimension.hashCode()
-                + collision.hashCode());
+                + collision.hashCode()
+                + direction.hashCode());
     }
 
     /**
@@ -128,7 +139,8 @@ public abstract class Entite {
         return position.equals(entite.getPosition())
                 && dimension.equals(entite.getDimension())
                 && collision.equals(entite.getCollision())
-                && velocite.equals(entite.getVelocite());
+                && velocite.equals(entite.getVelocite())
+                && direction.equals(entite.getDirection());
     }
 
     /**
@@ -141,7 +153,8 @@ public abstract class Entite {
         return "[" + this.getClass() + "] : " + position.toString()
                 + "\nDimensions : " + dimension.toString()
                 + "\nCollision : " + collision.toString()
-                + "\nVelocite : " + velocite;
+                + "\nVelocite : " + velocite
+                + "\nDirection : " + direction;
     }
 
     private void verificationParametre(Object obj, String nom) throws IllegalArgumentException {
