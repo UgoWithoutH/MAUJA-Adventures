@@ -6,10 +6,7 @@ public class Rectangle {
 
     public Rectangle(double positionX, double positionY, double largeur, double hauteur)
             throws IllegalArgumentException {
-        if (largeur < 0 || hauteur < 0) {
-            throw new IllegalArgumentException("La largeur ou la hauteur d'un rectangle ne peut pas être négative. "
-                    + "Donné : " + largeur + "x" + hauteur + ".");
-        }
+        verificationDimensions(largeur, hauteur);
         dimension = new Dimension(largeur, hauteur);
         position = new Position(positionX, positionY);
     }
@@ -23,8 +20,17 @@ public class Rectangle {
             throw new IllegalArgumentException("La position ou la dimension donnée en paramètre ne peuvent "
                     + "pas être nulles. Position : " + position + ", dimension : " + dimension);
         }
+        verificationDimensions(dimension.getLargeur(), dimension.getHauteur());
         this.position = position;
         this.dimension = dimension;
+    }
+
+    public Rectangle(Position position, double largeur, double hauteur) throws IllegalArgumentException {
+        this(position, new Dimension(largeur, hauteur));
+    }
+
+    public Rectangle(double positionX, double positionY, Dimension dimension) throws IllegalArgumentException {
+        this(new Position(positionX, positionY), dimension);
     }
 
     /**
@@ -92,5 +98,12 @@ public class Rectangle {
     @Override
     public String toString() {
         return position.toString() + " " + dimension.toString();
+    }
+
+    private void verificationDimensions(double largeur, double hauteur) throws IllegalArgumentException {
+        if (largeur < 0 || hauteur < 0) {
+            throw new IllegalArgumentException("La largeur ou la hauteur d'un rectangle ne peut pas être négative. "
+                    + "Donné : " + largeur + "x" + hauteur + ".");
+        }
     }
 }

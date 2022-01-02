@@ -1,18 +1,61 @@
 package com.mauja.maujaadventures.deplaceurs;
 
+import com.mauja.maujaadventures.collisionneurs.CollisionneurCarte;
+import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
+import com.mauja.maujaadventures.logique.Position;
+import com.mauja.maujaadventures.logique.Rectangle;
+import com.mauja.maujaadventures.monde.Carte;
 
-public class DeplaceurEntite implements Deplaceur {
+public class DeplaceurEntite {
+    private Carte carteCourante;
+    private CollisionneurCarte collisionneurCarte;
+
+    public DeplaceurEntite(Carte carte) {
+        if (carte == null) {
+            throw new IllegalArgumentException("La carte passée en paramètre du déplaceur ne peut pas être nulle.");
+        }
+        carteCourante = carte;
+        collisionneurCarte = new CollisionneurCarte();
+    }
     /**
      * Méthode permettant le déplacement de l'entite en la modifiant avec son setter
-     * @param e Correspond à l'entite que l'on va déplacer
-     * @param x Correspond à la position X de l'entite
-     * @param y Correspond à la position Y de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    @Override
-    public void deplace(Entite e, double x, double y) {
-        e.getPosition().setX(x);
-        e.getPosition().setY(y);
+    public boolean deplace(Entite entite, float temps, Direction direction) {
+        Position positionEntite = null;
+        Rectangle collisionEntite = null;
+
+        if (direction == Direction.DROITE) {
+            positionEntite = new Position(entite.getPosition().getX() + entite.getVelocite().getX(),
+                    entite.getPosition().getY());
+        }
+        else if (direction == Direction.GAUCHE) {
+            positionEntite = new Position(entite.getPosition().getX() - entite.getVelocite().getX(),
+                    entite.getPosition().getY());
+        }
+        else if (direction == Direction.BAS) {
+            positionEntite = new Position(entite.getPosition().getX(),
+                    entite.getPosition().getY() + entite.getVelocite().getY());
+        }
+        else if (direction == Direction.HAUT) {
+            positionEntite = new Position(entite.getPosition().getX(),
+                    entite.getPosition().getY() - entite.getVelocite().getY());
+
+        }
+        else {
+            return false;
+        }
+
+        collisionEntite = new Rectangle(
+                new Position(entite.getCollision().getPosition().getX() + positionEntite.getX(),
+                        positionEntite.getY() + entite.getCollision().getPosition().getY()),
+                entite.getCollision().getDimension());
+
+        if (!collisionneurCarte.collisionne(collisionEntite, carteCourante)) {
+            entite.setPosition(positionEntite);
+            return true;
+        }
+        return false;
     }
 }

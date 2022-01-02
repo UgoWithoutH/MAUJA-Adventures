@@ -16,17 +16,17 @@ public class CollisionneurCarte {
         int coinInferieur = (int) ((collision.getPosition().getY() + collision.getDimension().getLargeur())
                 / 32);
 
-        Rectangle collisionTuile;
+        Rectangle collisionTuileRelative, collisionTuileAbsolue;
 
         for(int x = coinGauche; x <= coinDroite; x++) {
             for(int y = coinSuperieur; y <= coinInferieur; y++) {
-                collisionTuile = carte.getListeDeCalques().get(1).getTuile(y, x).getCollision();
-                if (collisionTuile != null) {
-                    Rectangle collisionTuile2 = new Rectangle(collisionTuile.getPosition().getX() + x * 32,
-                            collisionTuile.getPosition().getY() + y * 32,
-                            collisionTuile.getDimension().getLargeur(),
-                            collisionTuile.getDimension().getHauteur());
-                    if (CollisionneurAABB.collision(collision, collisionTuile2))
+                collisionTuileRelative = carte.getListeDeCalques().get(1).getTuile(y, x).getCollision();
+                if (collisionTuileRelative != null) {
+                    collisionTuileAbsolue = new Rectangle(collisionTuileRelative.getPosition().getX() + x * 32,
+                            collisionTuileRelative.getPosition().getY() + y * 32,
+                            collisionTuileRelative.getDimension().getLargeur(),
+                            collisionTuileRelative.getDimension().getHauteur());
+                    if (CollisionneurAABB.collision(collision, collisionTuileAbsolue))
                         return true;
                 }
             }

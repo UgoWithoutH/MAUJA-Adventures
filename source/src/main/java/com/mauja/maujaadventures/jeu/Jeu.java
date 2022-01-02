@@ -1,13 +1,13 @@
 package com.mauja.maujaadventures.jeu;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurCarte;
+import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.chargeurs.RecuperateurDeCartes;
-import com.mauja.maujaadventures.deplaceurs.Deplaceur;
 import com.mauja.maujaadventures.deplaceurs.DeplaceurEntite;
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.monde.*;
@@ -25,7 +25,7 @@ public class Jeu {
     public static final int NOMBRE_TUILES_SUR_HAUTEUR_ECRAN = 5;
 
     private GraphicsContext gc;
-    private Deplaceur deplaceur;
+    private DeplaceurEntite deplaceur;
     private CollisionneurAABB collisionneur;
     private Map<Tuile, Image> lesTuilesImagees;
     private List<Tuile> lesTuiles;
@@ -34,7 +34,7 @@ public class Jeu {
     private Camera camera;
     private PersonnageJouable joueur;
     private Image imagePersonnage;
-    //private Afficheur afficheur;
+    private int nombreCalques;
 
     /**
      * Constructeur de Jeu
@@ -44,7 +44,6 @@ public class Jeu {
      */
     public Jeu(GraphicsContext gc) throws FileNotFoundException {
         this.gc = gc;
-        deplaceur = new DeplaceurEntite();
         collisionneur = new CollisionneurAABB();
         camera = new Camera( 0, 0);
         initialiser();
@@ -96,7 +95,10 @@ public class Jeu {
         joueur = new PersonnageJouable(position, new Dimension(33, 47),
                 rectangle, null, null);
         imagePersonnage = new Image(RecuperateurRessources.getRessource("/images/entites/link_epee.png", getClass()));
-        System.out.println(lesTuilesImagees.size());
+
+        deplaceur = new DeplaceurEntite(carte);
+        nombreCalques = carte.getListeDeCalques().size();
+
     }
 
     /**
@@ -106,16 +108,6 @@ public class Jeu {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public void boucle(ArrayList<String> input){
-        //final long startNanoTime = System.nanoTime();
-        int nombreCalques = carte.getListeDeCalques().size();
-
-        List<Tuile> lesTuilesCourantes = carte.getListeDeCalques().get(0).getListeDeTuiles();
-        double largeurCarte = carte.getDimension().getLargeur();
-        double hauteurCarte = carte.getDimension().getHauteur();
-
-
-        System.out.println(lesTuilesCourantes.size());
-        //exit(0);
 
         new AnimationTimer()
         {
@@ -127,101 +119,66 @@ public class Jeu {
              */
             public void handle(long currentNanoTime)
             {
-                gc.clearRect(0, 0, 1000, 1000);
-                for (int k = 0; k < nombreCalques; k++) {
-                    for (int i = 0; i < carte.getDimension().getLargeur(); i++) {
-                        for (int j = 0; j < carte.getDimension().getHauteur(); j++) {
-                            Tuile tuile = carte.getListeDeCalques().get(k).getListeDeTuiles().get(i * (int)carte.getDimension().getLargeur() + j);
-                            if (tuile.getId() >= 1) {
-                                gc.drawImage(lesImages.get(tuile.getId()),
-                                        j * 32 - camera.getPositionCameraX(), i * 32 - camera.getPositionCameraY(),
-                                        32, 32);
-                            }
-                        }
-                    }
-                }
-                Rectangle positionPerso;
-
-                boolean collisionnage = false;
-                CollisionneurCarte collisionneurCarte = new CollisionneurCarte();
-
                 if (input.contains("LEFT")) {
-                    positionPerso = new Rectangle(new Position(joueur.getPosition().getX() +
-                            joueur.getCollision().getPosition().getX() - 1, joueur.getPosition().getY()
-                            + joueur.getCollision().getPosition().getY()), joueur.getCollision().getDimension());
-
-                    collisionnage = collisionneurCarte.collisionne(positionPerso, carte);
-
-                    if (!collisionnage) {
-                        deplaceur.deplace(joueur, joueur.getPosition().getX() - 1, joueur.getPosition().getY());
-                        if (0 + joueur.getPosition().getY() > 100) {
-                            if (!(camera.getPositionCameraX() <= 0) &&
-                                    (joueur.getPosition().getX() <= carte.getDimension().getLargeur() * 20 +
-                                            gc.getCanvas().getWidth() / 2)) {
-                                camera.deplacementCamera(-1, 0);
-                            }
+                    boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.GAUCHE);
+                    if (estDeplace && 0 + joueur.getPosition().getY() > 100) {
+                        if (!(camera.getPositionCameraX() <= 0) &&
+                                (joueur.getPosition().getX() <= carte.getDimension().getLargeur() * 20 +
+                                        gc.getCanvas().getWidth() / 2)) {
+                            camera.deplacementCamera(-joueur.getVelocite().getX(), 0);
                         }
                     }
                 }
 
                 if (input.contains("RIGHT")) {
-                    positionPerso = new Rectangle(new Position(joueur.getPosition().getX() +
-                            joueur.getCollision().getPosition().getX() + 1, joueur.getPosition().getY()
-                            + joueur.getCollision().getPosition().getY()), joueur.getCollision().getDimension());
-
-                    collisionnage = collisionneurCarte.collisionne(positionPerso, carte);
-                    if (!collisionnage) {
-                        deplaceur.deplace(joueur, joueur.getPosition().getX() + 1, joueur.getPosition().getY());
-                        if ((carte.getDimension().getLargeur() * 30) - (joueur.getPosition().getX()) > 100) {
-                            if (((camera.getPositionCameraX() <= carte.getDimension().getLargeur() * 20)) &&
-                                    (joueur.getPosition().getX() >= gc.getCanvas().getWidth() / 2)) {
-                                camera.deplacementCamera(1, 0);
-                            }
+                    boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.DROITE);
+                    if (estDeplace && (carte.getDimension().getLargeur() * 30) - (joueur.getPosition().getX()) > 100) {
+                        if (((camera.getPositionCameraX() <= carte.getDimension().getLargeur() * 20)) &&
+                                (joueur.getPosition().getX() >= gc.getCanvas().getWidth() / 2)) {
+                            camera.deplacementCamera(joueur.getVelocite().getX(), 0);
                         }
                     }
                 }
 
                 if (input.contains("UP")) {
-                    positionPerso = new Rectangle(new Position(joueur.getPosition().getX() +
-                            joueur.getCollision().getPosition().getX(), joueur.getPosition().getY()
-                            + joueur.getCollision().getPosition().getY() - 1), joueur.getCollision().getDimension());
-
-                    collisionnage = collisionneurCarte.collisionne(positionPerso, carte);
-                    if (!collisionnage) {
-                        deplaceur.deplace(joueur, joueur.getPosition().getX(), joueur.getPosition().getY() - 1);
-                        if (!(camera.getPositionCameraY() <= 0) &&
-                                (joueur.getPosition().getY() <= carte.getDimension().getHauteur() * 22 +
-                                        gc.getCanvas().getHeight() / 2)) {
-                            camera.deplacementCamera(0, -1);
-                            System.out.println(camera.getPositionCameraY());
-                        }
+                    boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.HAUT);
+                    if (estDeplace && !(camera.getPositionCameraY() <= 0) &&
+                            (joueur.getPosition().getY() <= carte.getDimension().getHauteur() * 22 +
+                                    gc.getCanvas().getHeight() / 2)) {
+                        camera.deplacementCamera(0, -joueur.getVelocite().getY());
                     }
                 }
 
                 if (input.contains("DOWN")) {
-                    positionPerso = new Rectangle(new Position(joueur.getPosition().getX() +
-                            joueur.getCollision().getPosition().getX(), joueur.getPosition().getY()
-                            + joueur.getCollision().getPosition().getY() + 1), joueur.getCollision().getDimension());
-
-                    collisionnage = collisionneurCarte.collisionne(positionPerso, carte);
-                    if (!collisionnage) {
-                        deplaceur.deplace(joueur, joueur.getPosition().getX(), joueur.getPosition().getY() + 1);
-                        if ((carte.getDimension().getLargeur() * carte.getDimension().getLargeur()) - (joueur.getPosition().getY()) > 100 &&
-                                (camera.getPositionCameraY() <= carte.getDimension().getHauteur() * 22 &&
-                                        (joueur.getPosition().getY() >= gc.getCanvas().getHeight() / 2))) {
-                            camera.deplacementCamera(0, 1);
-                        }
+                    boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.BAS);
+                    if (estDeplace && (carte.getDimension().getLargeur() * carte.getDimension().getLargeur()) - (joueur.getPosition().getY()) > 100 &&
+                            (camera.getPositionCameraY() <= carte.getDimension().getHauteur() * 22 &&
+                                    (joueur.getPosition().getY() >= gc.getCanvas().getHeight() / 2))) {
+                        camera.deplacementCamera(0, joueur.getVelocite().getY());
                     }
                 }
 
-                gc.drawImage(imagePersonnage, joueur.getPosition().getX() - camera.getPositionCameraX(),
-                        joueur.getPosition().getY() - camera.getPositionCameraY());
+                affichage();
             }
 
         }.start();
     };
 
-    public Camera getCamera(){
-        return camera;
+    public void affichage() {
+        gc.clearRect(0, 0, 1000, 1000);
+        for (int k = 0; k < nombreCalques; k++) {
+            for (int i = 0; i < carte.getDimension().getLargeur(); i++) {
+                for (int j = 0; j < carte.getDimension().getHauteur(); j++) {
+                    Tuile tuile = carte.getListeDeCalques().get(k).getListeDeTuiles().get(i * (int)carte.getDimension().getLargeur() + j);
+                    if (tuile.getId() >= 1) {
+                        gc.drawImage(lesImages.get(tuile.getId()),
+                                j * 32 - camera.getPositionCameraX(), i * 32 - camera.getPositionCameraY(),
+                                32, 32);
+                    }
+                }
+            }
+        }
+        gc.drawImage(imagePersonnage, joueur.getPosition().getX() - camera.getPositionCameraX(),
+                joueur.getPosition().getY() - camera.getPositionCameraY());
     }
 }
