@@ -2,13 +2,10 @@ package com.mauja.maujaadventures.jeu;
 
 
 import com.mauja.maujaadventures.comportements.Comportement;
-import com.mauja.maujaadventures.comportements.ComportementNull;
+import com.mauja.maujaadventures.comportements.ComportementOctorockTireur;
 import com.mauja.maujaadventures.entites.*;
-import com.mauja.maujaadventures.logique.Attaque;
-import com.mauja.maujaadventures.logique.Position;
+import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.chargeurs.Ressources;
-import com.mauja.maujaadventures.logique.Dimension;
-import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.chargeurs.RecuperateurDeCartes;
 import com.mauja.maujaadventures.deplaceurs.DeplaceurEntite;
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
@@ -16,32 +13,32 @@ import com.mauja.maujaadventures.monde.*;
 import com.mauja.maujaadventures.utilitaires.DecoupeurImage;
 import com.mauja.maujaadventures.utilitaires.RecuperateurRessources;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 
 import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Jeu {
-    public static final int NOMBRE_TUILES_SUR_LARGEUR_ECRAN = 5;
-    public static final int NOMBRE_TUILES_SUR_HAUTEUR_ECRAN = 5;
-
-    private GraphicsContext gc;
     private DeplaceurEntite deplaceur;
-    private CollisionneurAABB collisionneur;
-    private Map<Tuile, Image> lesTuilesImagees;
     private List<Tuile> lesTuiles;
-    private Carte carte;
-    private List<Image> lesImages;
-    private List<Entite> lesEntites;
+    private List<Carte> lesCartes;
+    private Carte carteCourante;
     private Camera camera;
     private PersonnageJouable joueur;
     private Rectangle attaqueJoueur;
+    private int nombreCalques;
+    private int tempsAttaque = 0, tempsDefense = 0;
+
+    private GraphicsContext gc;
     private Image imagePersonnage;
     private Image imageProjectile;
     private Image imageEnnemi;
-    private int nombreCalques;
-    private int tempsAttaque = 0, tempsDefense = 0;
+    private Map<Tuile, Image> lesTuilesImagees;
+    private List<Image> lesImages;
 
     /**
      * Constructeur de Jeu
@@ -51,9 +48,7 @@ public class Jeu {
      */
     public Jeu(GraphicsContext gc) throws FileNotFoundException {
         this.gc = gc;
-        collisionneur = new CollisionneurAABB();
         camera = new Camera( 0, 0);
-        lesEntites = new ArrayList<>();
         initialiser();
     }
 
@@ -75,7 +70,7 @@ public class Jeu {
         }
 
         for (String chemin : lesCartesChemin) {
-            carte = recuperateurDeCartes.recupereCarte(chemin);
+            carteCourante = recuperateurDeCartes.recupereCarte(chemin);
         }
 
         for (String chemin : lesCartesChemin) {
@@ -106,11 +101,14 @@ public class Jeu {
         imageProjectile = new Image(RecuperateurRessources.getRessource("/images/entites/projectile.png", getClass()));
         imageEnnemi = new Image(RecuperateurRessources.getRessource("/images/entites/ennemi.png", getClass()));
 
-        lesEntites.add(new Ennemi(new Position(500, 600), new Dimension(30, 30),
-                new Rectangle(new Position(0, 0), 30, 30), null, null, new ComportementNull(), 10));
+        Entite entite = new Ennemi(new Position(500, 600), new Dimension(30, 30),
+                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
+                new ComportementOctorockTireur(carteCourante), 10);
 
-        deplaceur = new DeplaceurEntite(carte);
-        nombreCalques = carte.getListeDeCalques().size();
+        carteCourante.ajouterEntite(entite);
+
+        deplaceur = new DeplaceurEntite(carteCourante);
+        nombreCalques = carteCourante.getListeDeCalques().size();
     }
 
     /**
@@ -194,9 +192,9 @@ public class Jeu {
 
                 if (joueur.getEtatAction() == EtatAction.SANS_ACTION) {
                     if (input.contains("RIGHT")) {
-                        boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.DROITE);
-                        if (estDeplace && (carte.getDimension().getLargeur() * 30) - (joueur.getPosition().getX()) > 100) {
-                            if (((camera.getPositionCameraX() <= carte.getDimension().getLargeur() * 20)) &&
+                        boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.DROITE, true);
+                        if (estDeplace && (carteCourante.getDimension().getLargeur() * 30) - (joueur.getPosition().getX()) > 100) {
+                            if (((camera.getPositionCameraX() <= carteCourante.getDimension().getLargeur() * 20)) &&
                                     (joueur.getPosition().getX() >= gc.getCanvas().getWidth() / 2)) {
                                 camera.deplacementCamera(joueur.getVelocite().getX(), 0);
                             }
@@ -204,10 +202,10 @@ public class Jeu {
                     }
 
                     if (input.contains("LEFT")) {
-                        boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.GAUCHE);
+                        boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.GAUCHE, true);
                         if (estDeplace && 0 + joueur.getPosition().getY() > 100) {
                             if (!(camera.getPositionCameraX() <= 0) &&
-                                    (joueur.getPosition().getX() <= carte.getDimension().getLargeur() * 20 +
+                                    (joueur.getPosition().getX() <= carteCourante.getDimension().getLargeur() * 20 +
                                             gc.getCanvas().getWidth() / 2)) {
                                 camera.deplacementCamera(-joueur.getVelocite().getX(), 0);
                             }
@@ -215,18 +213,18 @@ public class Jeu {
                     }
 
                     if (input.contains("UP")) {
-                        boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.HAUT);
+                        boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.HAUT, true);
                         if (estDeplace && !(camera.getPositionCameraY() <= 0) &&
-                                (joueur.getPosition().getY() <= carte.getDimension().getHauteur() * 22 +
+                                (joueur.getPosition().getY() <= carteCourante.getDimension().getHauteur() * 22 +
                                         gc.getCanvas().getHeight() / 2)) {
                             camera.deplacementCamera(0, -joueur.getVelocite().getY());
                         }
                     }
 
                     if (input.contains("DOWN")) {
-                        boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.BAS);
-                        if (estDeplace && (carte.getDimension().getLargeur() * carte.getDimension().getLargeur()) - (joueur.getPosition().getY()) > 100 &&
-                                (camera.getPositionCameraY() <= carte.getDimension().getHauteur() * 22 &&
+                        boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.BAS, true);
+                        if (estDeplace && (carteCourante.getDimension().getLargeur() * carteCourante.getDimension().getLargeur()) - (joueur.getPosition().getY()) > 100 &&
+                                (camera.getPositionCameraY() <= carteCourante.getDimension().getHauteur() * 22 &&
                                         (joueur.getPosition().getY() >= gc.getCanvas().getHeight() / 2))) {
                             camera.deplacementCamera(0, joueur.getVelocite().getY());
                         }
@@ -234,36 +232,46 @@ public class Jeu {
                 }
 
                 // Detection attaque joueur et ennemis
-                if (joueur.getEtatAction() == EtatAction.ATTAQUE) {
-                    for (Entite entite : lesEntites) {
-                        if (entite instanceof Ennemi ennemi) {
-                            Rectangle collision = new Rectangle(ennemi.getCollision().getPosition().getX() + ennemi.getPosition().getX(),
-                                    ennemi.getCollision().getPosition().getY() + ennemi.getPosition().getY(),
-                                    ennemi.getCollision().getDimension());
-                            if (CollisionneurAABB.collision(attaqueJoueur, collision)) {
-                                ennemi.setPointsDeVie(ennemi.getPointsDeVie() - joueur.getAttaque().getDegats());
-                                if (ennemi.getPointsDeVie() <= 0) {
-                                    lesEntites.remove(ennemi);
-                                }
+                for (Entite entite : carteCourante.getLesEntites()) {
+                    Rectangle collisionEntite = new Rectangle(entite.getCollision().getPosition().getX() + entite.getPosition().getX(),
+                            entite.getCollision().getPosition().getY() + entite.getPosition().getY(),
+                            entite.getCollision().getDimension());
+                    Rectangle collisionJoueur = new Rectangle(joueur.getCollision().getPosition().getX() + joueur.getPosition().getX(),
+                            joueur.getCollision().getPosition().getY() + joueur.getPosition().getY(),
+                            joueur.getCollision().getDimension());
+
+                    if (entite instanceof Ennemi ennemi) {
+                        if (CollisionneurAABB.collision(attaqueJoueur, collisionEntite)
+                                && joueur.getEtatAction() == EtatAction.ATTAQUE) {
+                            ennemi.setPointsDeVie(ennemi.getPointsDeVie() - joueur.getAttaque().getDegats());
+                            if (ennemi.getPointsDeVie() <= 0) {
+                                carteCourante.supprimerEntite(ennemi);
                             }
-                            Rectangle collisionJoueur = new Rectangle(joueur.getCollision().getPosition().getX() + joueur.getPosition().getX(),
-                                    joueur.getCollision().getPosition().getY() + joueur.getPosition().getY(),
-                                    joueur.getCollision().getDimension());
-                            System.out.println(collisionJoueur + " : " + collision);
-                            if (CollisionneurAABB.collision(collisionJoueur, collision)) {
-                                joueur.setPointsDeVie(joueur.getPointsDeVie() - ennemi.getAttaque().getDegats());
-                            }
+                        }
+
+                        if (CollisionneurAABB.collision(collisionJoueur, collisionEntite)) {
+                            joueur.setPointsDeVie(joueur.getPointsDeVie() - ennemi.getAttaque().getDegats());
+                        }
+                    }
+                    if (entite instanceof Projectile projectile) {
+                        if (CollisionneurAABB.collision(collisionJoueur, collisionEntite)) {
+                            joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
+                            carteCourante.supprimerEntite(projectile);
                         }
                     }
                 }
 
                 // MAJ ennemis
-                for (Entite entite : lesEntites) {
+                for (Entite entite : carteCourante.getLesEntites()) {
                     if (entite instanceof Ennemi ennemi) {
                         Comportement comportement = ennemi.getComportement();
                         if (comportement != null) {
                             comportement.agit(ennemi, 0);
                         }
+
+                    }
+                    if (entite instanceof Projectile projectile) {
+                        deplaceur.deplace(projectile, 0, projectile.getDirection(), true);
                     }
                 }
 
@@ -275,9 +283,9 @@ public class Jeu {
     public void affichage() {
         gc.clearRect(0, 0, 1000, 1000);
         for (int k = 0; k < nombreCalques; k++) {
-            for (int i = 0; i < carte.getDimension().getLargeur(); i++) {
-                for (int j = 0; j < carte.getDimension().getHauteur(); j++) {
-                    Tuile tuile = carte.getListeDeCalques().get(k).getListeDeTuiles().get(i * (int)carte.getDimension().getLargeur() + j);
+            for (int i = 0; i < carteCourante.getDimension().getLargeur(); i++) {
+                for (int j = 0; j < carteCourante.getDimension().getHauteur(); j++) {
+                    Tuile tuile = carteCourante.getListeDeCalques().get(k).getListeDeTuiles().get(i * (int) carteCourante.getDimension().getLargeur() + j);
                     if (tuile.getId() >= 1) {
                         gc.drawImage(lesImages.get(tuile.getId()),
                                 j * 32 - camera.getPositionCameraX(), i * 32 - camera.getPositionCameraY(),
@@ -294,16 +302,17 @@ public class Jeu {
                     attaqueJoueur.getPosition().getY() - camera.getPositionCameraY());
         }
 
-        for (Entite entite : lesEntites) {
-            if (entite instanceof Ennemi) {
-                gc.drawImage(imageEnnemi, entite.getPosition().getX() - camera.getPositionCameraX(),
-                        entite.getPosition().getY() - camera.getPositionCameraY());
+            for (Entite entite : carteCourante.getLesEntites()) {
+                if (entite instanceof Ennemi) {
+                    gc.drawImage(imageEnnemi, entite.getPosition().getX() - camera.getPositionCameraX(),
+                            entite.getPosition().getY() - camera.getPositionCameraY());
+                }
+
+                if (entite instanceof Projectile) {
+                    gc.drawImage(imageProjectile, entite.getPosition().getX() - camera.getPositionCameraX(),
+                            entite.getPosition().getY() - camera.getPositionCameraY());
+                }
             }
-            if (entite instanceof Projectile) {
-                gc.drawImage(imageProjectile, entite.getPosition().getX() - camera.getPositionCameraX(),
-                        entite.getPosition().getY() - camera.getPositionCameraY());
-            }
-        }
         gc.fillText("Vie : " + joueur.getPointsDeVie(), 20, 20);
     }
 }

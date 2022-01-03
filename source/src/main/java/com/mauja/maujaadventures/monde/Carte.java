@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.monde;
 
+import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.logique.Dimension;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class Carte {
     private String nom;
     private int id;
     private List<Calque> listeDeCalques;
+    private List<Entite> lesEntites;
     private Dimension dimension;
 
     /**
@@ -23,15 +25,25 @@ public class Carte {
      */
 
 
-    public Carte(String nom, Dimension dimension, List<Calque> lesCalques) {
-        this.nom = nom;
-        this.id = nombreIdentifiants;
-        this.dimension = dimension;
-        this.listeDeCalques = new ArrayList<>();
-        if (lesCalques != null) {
-            listeDeCalques = lesCalques;
+    public Carte(String nom, Dimension dimension, List<Calque> lesCalques, List<Entite> lesEntites)
+            throws IllegalArgumentException {
+        if (lesCalques == null) {
+            throw new IllegalArgumentException("La carte doit obligatoirement être composée de calques");
         }
+        if (lesEntites == null) {
+            lesEntites = new ArrayList<>();
+        }
+
+        this.nom = nom;
+        this.dimension = dimension;
+        listeDeCalques = lesCalques;
+        this.lesEntites = lesEntites;
+        this.id = nombreIdentifiants;
         nombreIdentifiants++;
+    }
+
+    public Carte(String nom, Dimension dimension, List<Calque> lesCalques) throws IllegalArgumentException {
+        this(nom, dimension, lesCalques, null);
     }
 
     /**
@@ -108,6 +120,20 @@ public class Carte {
      */
     private void setDimension(Dimension dimension) {
         this.dimension = dimension;
+    }
+
+    public List<Entite> getLesEntites() {
+        return lesEntites;
+    }
+
+    public void ajouterEntite(Entite entite) {
+        if (entite != null) {
+            lesEntites.add(entite);
+        }
+    }
+
+    public void supprimerEntite(Entite entite) {
+        lesEntites.remove(entite);
     }
 
     /**

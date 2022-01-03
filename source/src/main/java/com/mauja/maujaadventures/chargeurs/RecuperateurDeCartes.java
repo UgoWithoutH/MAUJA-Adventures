@@ -31,7 +31,7 @@ public class RecuperateurDeCartes {
         System.out.println("toto");
 
         Dimension dimension = new Dimension(chargeurCarte.getWidth(), chargeurCarte.getHeight());
-        Carte carte = new Carte(nomCarte, dimension, lesCalques);
+        Carte carte = new Carte(nomCarte, dimension, lesCalques, null);
         return carte;
     }
 

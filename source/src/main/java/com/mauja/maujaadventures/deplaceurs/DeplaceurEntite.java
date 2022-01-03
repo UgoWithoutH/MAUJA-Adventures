@@ -3,6 +3,7 @@ package com.mauja.maujaadventures.deplaceurs;
 import com.mauja.maujaadventures.collisionneurs.CollisionneurCarte;
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
+import com.mauja.maujaadventures.entites.Projectile;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Carte;
@@ -23,7 +24,7 @@ public class DeplaceurEntite {
      * Méthode permettant le déplacement de l'entite en la modifiant avec son setter
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public boolean deplace(Entite entite, float temps, Direction direction) {
+    public boolean deplace(Entite entite, float temps, Direction direction, boolean gestionCollisions) {
         Position positionEntite;
         Rectangle collisionEntite;
 
@@ -47,16 +48,29 @@ public class DeplaceurEntite {
             return false;
         }
 
-        collisionEntite = new Rectangle(
-                new Position(entite.getCollision().getPosition().getX() + positionEntite.getX(),
-                        positionEntite.getY() + entite.getCollision().getPosition().getY()),
-                entite.getCollision().getDimension());
+        if (gestionCollisions) {
+            collisionEntite = new Rectangle(
+                    new Position(entite.getCollision().getPosition().getX() + positionEntite.getX(),
+                            positionEntite.getY() + entite.getCollision().getPosition().getY()),
+                    entite.getCollision().getDimension());
 
-        if (!collisionneurCarte.collisionne(collisionEntite, carteCourante)) {
+            if (!collisionneurCarte.collisionne(collisionEntite, carteCourante)) {
+                entite.setPosition(positionEntite);
+                entite.setDirection(direction);
+                return true;
+            }
+            else {
+                if (entite instanceof Projectile projectile) {
+                    carteCourante.supprimerEntite(projectile);
+                }
+            }
+        }
+        else {
             entite.setPosition(positionEntite);
             entite.setDirection(direction);
             return true;
         }
+
         return false;
     }
 }
