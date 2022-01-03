@@ -101,11 +101,13 @@ public class Jeu {
         imageProjectile = new Image(RecuperateurRessources.getRessource("/images/entites/projectile.png", getClass()));
         imageEnnemi = new Image(RecuperateurRessources.getRessource("/images/entites/ennemi.png", getClass()));
 
-        Entite entite = new Ennemi(new Position(500, 600), new Dimension(30, 30),
-                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementOctorockTireur(carteCourante), 10);
+        for (int i = 0; i < 80; i++) {
+            Entite entite = new Ennemi(new Position(490, 600), new Dimension(30, 30),
+                    new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
+                    new ComportementOctorockTireur(carteCourante), 10);
 
-        carteCourante.ajouterEntite(entite);
+            carteCourante.ajouterEntite(entite);
+        }
 
         deplaceur = new DeplaceurEntite(carteCourante);
         nombreCalques = carteCourante.getListeDeCalques().size();

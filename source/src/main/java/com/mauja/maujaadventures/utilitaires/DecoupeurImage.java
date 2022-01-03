@@ -19,20 +19,20 @@ public class DecoupeurImage {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public static List<Image> decoupe(String chemin, int largeurTuile, int hauteurTuile) {
-        List<Image> listeDeTuiles = new ArrayList<Image>();
-        System.out.println(chemin);
+        List<Image> lesImages = new ArrayList<>();
         Image image = new Image(chemin);
         PixelReader lecteur = image.getPixelReader();
+        WritableImage imageDecoupe;
         double largeurImage = image.getWidth() / largeurTuile;
         double hauteurImage = image.getHeight() / hauteurTuile;
 
-        for (int i = 0; i < largeurImage; i++){
-            for (int j = 0; j < hauteurImage; j++) {
-                WritableImage imageTuile = new WritableImage(lecteur,
-                j * largeurTuile, i * hauteurTuile, largeurTuile, hauteurTuile);
-                listeDeTuiles.add(imageTuile);
+        for (int y = 0; y < hauteurImage; y++){
+            for (int x = 0; x < largeurImage; x++) {
+                imageDecoupe = new WritableImage(lecteur, x * largeurTuile, y * hauteurTuile, largeurTuile, hauteurTuile);
+                lesImages.add(imageDecoupe);
             }
         }
-        return listeDeTuiles;
+
+        return lesImages;
     }
 }

@@ -1,6 +1,7 @@
 package com.mauja.maujaadventures.collisionneurs;
 
 import com.mauja.maujaadventures.logique.Rectangle;
+import com.mauja.maujaadventures.monde.Calque;
 import com.mauja.maujaadventures.monde.Carte;
 
 public class CollisionneurCarte {
@@ -18,16 +19,18 @@ public class CollisionneurCarte {
 
         Rectangle collisionTuileRelative, collisionTuileAbsolue;
 
-        for(int x = coinGauche; x <= coinDroite; x++) {
-            for(int y = coinSuperieur; y <= coinInferieur; y++) {
-                collisionTuileRelative = carte.getListeDeCalques().get(1).getTuile(y, x).getCollision();
-                if (collisionTuileRelative != null) {
-                    collisionTuileAbsolue = new Rectangle(collisionTuileRelative.getPosition().getX() + x * 32,
-                            collisionTuileRelative.getPosition().getY() + y * 32,
-                            collisionTuileRelative.getDimension().getLargeur(),
-                            collisionTuileRelative.getDimension().getHauteur());
-                    if (CollisionneurAABB.collision(collision, collisionTuileAbsolue))
-                        return true;
+        for (int w = 0; w < carte.getListeDeCalques().size(); w++) {
+            for(int x = coinGauche; x <= coinDroite; x++) {
+                for(int y = coinSuperieur; y <= coinInferieur; y++) {
+                    collisionTuileRelative = carte.getListeDeCalques().get(w).getTuile(y, x).getCollision();
+                    if (collisionTuileRelative != null) {
+                        collisionTuileAbsolue = new Rectangle(collisionTuileRelative.getPosition().getX() + x * 32,
+                                collisionTuileRelative.getPosition().getY() + y * 32,
+                                collisionTuileRelative.getDimension().getLargeur(),
+                                collisionTuileRelative.getDimension().getHauteur());
+                        if (CollisionneurAABB.collision(collision, collisionTuileAbsolue))
+                            return true;
+                    }
                 }
             }
         }

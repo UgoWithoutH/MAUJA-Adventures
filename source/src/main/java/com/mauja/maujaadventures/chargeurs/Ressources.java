@@ -9,7 +9,7 @@ public class Ressources {
     private static final List<String> lesCartes = new ArrayList<>();
     static {
 
-        lesCartes.add(new File("ressources/cartes/carteTest2.tmx").getAbsolutePath());
+        lesCartes.add(new File("ressources/cartes/marais.tmx").getAbsolutePath());
         System.out.println(lesCartes.get(0));
 
     }
@@ -22,7 +22,7 @@ public class Ressources {
     private static final List<String> lesImagesJeuxDeTuiles = new ArrayList<>();
     static {
         try {
-            lesImagesJeuxDeTuiles.add(new File("ressources/images/tilesets/hyptosis_tile-art-batch-5.png").toURI().toURL().toString());
+            lesImagesJeuxDeTuiles.add(new File("ressources/images/tilesets/witch_swamp.png").toURI().toURL().toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
