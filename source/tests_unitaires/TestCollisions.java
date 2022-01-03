@@ -1,7 +1,7 @@
-import com.mauja.maujaadventures.modele.collisionneurs.Collisionneur;
-import com.mauja.maujaadventures.modele.logique.Dimension;
-import com.mauja.maujaadventures.modele.logique.Rectangle;
-import com.mauja.maujaadventures.modele.logique.Position;
+import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
+import com.mauja.maujaadventures.logique.Dimension;
+import com.mauja.maujaadventures.logique.Rectangle;
+import com.mauja.maujaadventures.logique.Position;
 
 /*import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;*/
 
 public class TestCollisions {
 
-    Collisionneur collisionneur;
+    CollisionneurAABB collisionneur;
     Rectangle rectangle1, rectangle2, rectangle3, rectangle4;
 
     @BeforeEach
@@ -25,7 +25,7 @@ public class TestCollisions {
                 new Dimension(40, 5));
         rectangle4 = new Rectangle(new Position(-10, -10),
                 new Dimension(10, 10));
-        collisionneur = new Collisionneur();
+        collisionneur = new CollisionneurAABB();
     }
 
     @Test
