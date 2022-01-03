@@ -6,10 +6,10 @@ import java.util.Arrays;
 
 public class RecuperateurRessources {
 
-    private static final String SOURCE = "\\source\\src";
+    private static final String SOURCE = "/source/src";
 
     public static ArrayList<String> getRessourcesString(){
-        File f = new File(System.getProperty("user.dir")+SOURCE+"\\main\\resources\\com\\mauja\\maujaadventures");
+        File f = new File(System.getProperty("user.dir")+SOURCE+"/main/resources/com/mauja/maujaadventures");
 
         return new ArrayList<String>(Arrays.asList(f.list()));
     }

@@ -3,12 +3,12 @@ import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.logique.Position;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
+/*import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;*/
 
 public class TestCollisions {
 

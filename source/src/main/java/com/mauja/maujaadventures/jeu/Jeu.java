@@ -19,7 +19,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.util.*;
 
 public class Jeu {
@@ -97,14 +100,28 @@ public class Jeu {
         Rectangle rectangle = new Rectangle(new Position(3, 24), new Dimension(27, 23));
         joueur = new PersonnageJouable(position, new Dimension(33, 47),
                 rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
-        imagePersonnage = new Image(RecuperateurRessources.getRessource("/images/entites/link_epee.png", getClass()));
+        /*imagePersonnage = new Image(RecuperateurRessources.getRessource("/images/entites/link_epee.png", getClass()));
         imageProjectile = new Image(RecuperateurRessources.getRessource("/images/entites/projectile.png", getClass()));
+<<<<<<< HEAD
         imageEnnemi = new Image(RecuperateurRessources.getRessource("/images/entites/ennemi.png", getClass()));
 
         for (int i = 0; i < 80; i++) {
             Entite entite = new Ennemi(new Position(490, 600), new Dimension(30, 30),
                     new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                     new ComportementOctorockTireur(carteCourante), 10);
+=======
+        imageEnnemi = new Image(RecuperateurRessources.getRessource("/images/entites/ennemi.png", getClass()));*/
+        try {
+            imagePersonnage = new Image(String.valueOf(new File("ressources/images/entites/link_epee.png").toURI().toURL()));
+            imageProjectile = new Image(String.valueOf(new File("ressources/images/entites/projectile.png").toURI().toURL()));
+            imageEnnemi = new Image(String.valueOf(new File("ressources/images/entites/ennemi.png").toURI().toURL()));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Entite entite = new Ennemi(new Position(500, 600), new Dimension(30, 30),
+                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
+                new ComportementOctorockTireur(carteCourante), 10);
+>>>>>>> 5caf147fb1e51090665eacb66ff6e83eae862ae7
 
             carteCourante.ajouterEntite(entite);
         }
