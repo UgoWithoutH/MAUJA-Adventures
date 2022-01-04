@@ -4,6 +4,7 @@ package com.mauja.maujaadventures.jeu;
 import com.mauja.maujaadventures.comportements.Comportement;
 import com.mauja.maujaadventures.comportements.ComportementOctorockTireur;
 import com.mauja.maujaadventures.entites.*;
+import com.mauja.maujaadventures.fenetres.FenetreDeJeu;
 import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.chargeurs.RecuperateurDeCartes;
@@ -42,6 +43,7 @@ public class Jeu {
     private Image imageEnnemi;
     private Map<Tuile, Image> lesTuilesImagees;
     private List<Image> lesImages;
+    private FenetreDeJeu fenetreDeJeu;
 
     /**
      * Constructeur de Jeu
@@ -102,14 +104,13 @@ public class Jeu {
                 rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
         /*imagePersonnage = new Image(RecuperateurRessources.getRessource("/images/entites/link_epee.png", getClass()));
         imageProjectile = new Image(RecuperateurRessources.getRessource("/images/entites/projectile.png", getClass()));
-<<<<<<< HEAD
         imageEnnemi = new Image(RecuperateurRessources.getRessource("/images/entites/ennemi.png", getClass()));
 
         for (int i = 0; i < 80; i++) {
             Entite entite = new Ennemi(new Position(490, 600), new Dimension(30, 30),
                     new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                     new ComportementOctorockTireur(carteCourante), 10);
-=======
+
         imageEnnemi = new Image(RecuperateurRessources.getRessource("/images/entites/ennemi.png", getClass()));*/
         try {
             imagePersonnage = new Image(String.valueOf(new File("ressources/images/entites/link_epee.png").toURI().toURL()));
@@ -121,13 +122,14 @@ public class Jeu {
         Entite entite = new Ennemi(new Position(500, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                 new ComportementOctorockTireur(carteCourante), 10);
->>>>>>> 5caf147fb1e51090665eacb66ff6e83eae862ae7
+
 
             carteCourante.ajouterEntite(entite);
-        }
+
 
         deplaceur = new DeplaceurEntite(carteCourante);
         nombreCalques = carteCourante.getListeDeCalques().size();
+        fenetreDeJeu = new FenetreDeJeu(carteCourante, camera, joueur, attaqueJoueur, nombreCalques, gc, imagePersonnage, imageProjectile, imageEnnemi, lesTuilesImagees, lesImages);
     }
 
     /**
@@ -293,13 +295,13 @@ public class Jeu {
                         deplaceur.deplace(projectile, 0, projectile.getDirection(), true);
                     }
                 }
-
-                affichage();
+                fenetreDeJeu.affichage();
+                //affichage();
             }
         }.start();
     };
 
-    public void affichage() {
+    /*public void affichage() {
         gc.clearRect(0, 0, 1000, 1000);
         for (int k = 0; k < nombreCalques; k++) {
             for (int i = 0; i < carteCourante.getDimension().getLargeur(); i++) {
@@ -333,5 +335,5 @@ public class Jeu {
                 }
             }
         gc.fillText("Vie : " + joueur.getPointsDeVie(), 20, 20);
-    }
+    }*/
 }

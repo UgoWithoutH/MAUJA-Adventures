@@ -15,7 +15,7 @@ public class TestCollisions {
     CollisionneurAABB collisionneur;
     Rectangle rectangle1, rectangle2, rectangle3, rectangle4;
 
-    @BeforeEach
+    /*@BeforeEach
     public void creationCollision() {
         rectangle1 = new Rectangle(new Position(0, 0),
                 new Dimension(20, 20));
@@ -39,7 +39,7 @@ public class TestCollisions {
                 () -> assertEquals(true, collisionneur.collision(rectangle2, rectangle4)),
                 () -> assertEquals(true, collisionneur.collision(rectangle3, rectangle4))
         );
-    }
+    }*/
 }
 
 
