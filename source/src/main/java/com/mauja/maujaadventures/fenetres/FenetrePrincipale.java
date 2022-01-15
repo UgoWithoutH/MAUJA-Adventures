@@ -36,10 +36,10 @@ public class FenetrePrincipale extends Application {
         Canvas canvas = new Canvas(964, 800);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         content.getChildren().add(canvas);
-        Jeu jeu = new Jeu(gc);
         input = b.lecture();
-
-        jeu.boucle(input);
+        Jeu jeu = new Jeu(gc,input);
+        jeu.start();
+        //jeu.boucle(input);
 
         stage.show();
     }

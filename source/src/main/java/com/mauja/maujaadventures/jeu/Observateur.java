@@ -1,2 +1,7 @@
-package com.mauja.maujaadventures.jeu;public interface Observateur {
+package com.mauja.maujaadventures.jeu;
+
+public interface Observateur {
+
+    void update(int timer);
+
 }
