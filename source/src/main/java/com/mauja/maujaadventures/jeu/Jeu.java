@@ -119,7 +119,7 @@ public class Jeu {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        Entite entite = new Ennemi(new Position(500, 600), new Dimension(30, 30),
+        Entite entite = new Ennemi(new Position(400, 500), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                 new ComportementOctorockTireur(carteCourante), 10);
 
@@ -129,7 +129,8 @@ public class Jeu {
 
         deplaceur = new DeplaceurEntite(carteCourante);
         nombreCalques = carteCourante.getListeDeCalques().size();
-        fenetreDeJeu = new FenetreDeJeu(carteCourante, camera, joueur, attaqueJoueur, nombreCalques, gc, imagePersonnage, imageProjectile, imageEnnemi, lesTuilesImagees, lesImages);
+        fenetreDeJeu = new FenetreDeJeu(carteCourante, camera, joueur, nombreCalques, gc, imagePersonnage,
+                imageProjectile, imageEnnemi, lesTuilesImagees, lesImages);
     }
 
     /**
@@ -295,7 +296,7 @@ public class Jeu {
                         deplaceur.deplace(projectile, 0, projectile.getDirection(), true);
                     }
                 }
-                fenetreDeJeu.affichage();
+                fenetreDeJeu.affichage(attaqueJoueur);
                 //affichage();
             }
         }.start();
