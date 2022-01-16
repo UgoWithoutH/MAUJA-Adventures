@@ -203,7 +203,7 @@ public class Jeu extends Observable implements Observateur {
             if (lesTouchesAppuyees.contains(Touche.FLECHE_DROITE)) {
                 boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.DROITE, true);
 
-                if (carteCourante.getDimension().getLargeur() * decalageX - (joueur.getPosition().getX()) > 100) {
+                if (estDeplace && carteCourante.getDimension().getLargeur() * decalageX - (joueur.getPosition().getX()) > carteCourante.getDimension().getLargeur()) {
                     if (((camera.getPositionCameraX() <= carteCourante.getDimension().getLargeur() * decalageX)) &&
                             (joueur.getPosition().getX() >= DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
                         camera.deplacementCamera(joueur.getVelocite().getX(), 0);
