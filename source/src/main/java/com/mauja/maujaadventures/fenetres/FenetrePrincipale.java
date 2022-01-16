@@ -38,7 +38,9 @@ public class FenetrePrincipale extends Application {
         gestionnaireDeTouches.ajouteToucheFX(KeyCode.SPACE, Touche.ESPACE);
         gestionnaireDeTouches.initialisation();
 
-        new Jeu(gc, gestionnaireDeTouches).start();
+        Jeu jeu = new Jeu(gestionnaireDeTouches);
+        jeu.start();
+        FenetreDeJeu fenetre = new FenetreDeJeu(gc, jeu);
         stage.setScene(scene);
         stage.show();
     }

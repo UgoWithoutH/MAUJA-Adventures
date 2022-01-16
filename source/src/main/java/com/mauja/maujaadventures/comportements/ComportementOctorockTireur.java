@@ -17,7 +17,7 @@ public class ComportementOctorockTireur implements Comportement {
     private static final Random ALEATOIRE = new Random();
     private static final List<Direction> DIRECTIONS_POSSIBLES = Arrays.asList(Direction.values());
     private static final int NOMBRE_DIRECTIONS = DIRECTIONS_POSSIBLES.size();
-    private static final float INTERVALLE_DEPLACEMENT = 100;
+    private static final float INTERVALLE_DEPLACEMENT = 20;
     private static final float INTERVALLE_TIR = 600;
     private static final int NOMBRE_MAXIMUM_TENTATIVES_DEPLACEMENT = 6;
 
