@@ -58,7 +58,6 @@ public class FenetreDeJeu {
         if (joueur.getEtatAction() == EtatAction.ATTAQUE) {
             gc.drawImage(imageProjectile, attaqueJoueur.getPosition().getX() - camera.getPositionCameraX(),
                     attaqueJoueur.getPosition().getY() - camera.getPositionCameraY());
-            //System.out.println("Coucou");
         }
 
         for (Entite entite : carteCourante.getLesEntites()) {
