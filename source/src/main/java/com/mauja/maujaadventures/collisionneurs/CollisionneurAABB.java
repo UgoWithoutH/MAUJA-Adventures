@@ -11,7 +11,7 @@ public class CollisionneurAABB {
      * @return true si il y a une collision sinon false
      * @throws IllegalArgumentException
      */
-    public static boolean collision(Rectangle rectangle1, Rectangle rectangle2) throws IllegalArgumentException {
+    public boolean collisionne(Rectangle rectangle1, Rectangle rectangle2) {
         double gauche, droite, haut, bas;
         if (rectangle1 == null || rectangle2 == null) {
             return false;
@@ -27,27 +27,5 @@ public class CollisionneurAABB {
                 position2.getY() + rectangle2.getDimension().getHauteur());
 
         return (gauche < droite) && (haut < bas);
-    }
-
-    /**
-     * Méthode permettant la vérification si une collision est présente
-     * @param rectangle Collision à tester
-     * @throws IllegalArgumentException Si la collision est nulle
-     */
-    private void verificationRectangle(Rectangle rectangle) throws IllegalArgumentException {
-        if (rectangle == null) {
-            throw new IllegalArgumentException("La collision donnée en paramètre est nulle");
-        }
-    }
-
-    /**
-     * Méthode permettant de savoir si la position est nulle
-     * @param position Position à tester
-     * @throws IllegalArgumentException levé si la position est nulle
-     */
-    private void verificationPosition(Position position) throws IllegalArgumentException {
-        if (position == null) {
-            throw new IllegalArgumentException("La collision donnée en paramètre est nulle");
-        }
     }
 }
