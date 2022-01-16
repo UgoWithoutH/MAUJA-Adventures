@@ -2,9 +2,9 @@ package com.mauja.maujaadventures.jeu;
 
 
 import com.mauja.maujaadventures.comportements.Comportement;
+import com.mauja.maujaadventures.comportements.ComportementPoursuite;
 import com.mauja.maujaadventures.comportements.ComportementOctorockTireur;
 import com.mauja.maujaadventures.entites.*;
-import com.mauja.maujaadventures.fenetres.FenetreDeJeu;
 import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.chargeurs.RecuperateurDeCartes;
@@ -12,16 +12,10 @@ import com.mauja.maujaadventures.deplaceurs.DeplaceurEntite;
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.monde.*;
 import com.mauja.maujaadventures.utilitaires.DecoupeurImage;
-import com.mauja.maujaadventures.utilitaires.RecuperateurRessources;
-import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.*;
@@ -45,6 +39,9 @@ public class Jeu implements Observateur {
     private Image imageEnnemi;
     private Map<Tuile, Image> lesTuilesImagees;
     private List<Image> lesImages;
+    private final double decalageX = 28.2;
+    private final double decalageY = 24;
+
 
     /**
      * Constructeur de Jeu
@@ -116,11 +113,17 @@ public class Jeu implements Observateur {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        Entite entite = new Ennemi(new Position(500, 600), new Dimension(30, 30),
+        Entite entite = new Ennemi(new Position(300, 400), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                 new ComportementOctorockTireur(carteCourante), 10);
 
+        Entite entite2 = new Ennemi(new Position(1000, 1000), new Dimension(30, 30),
+                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
+                new ComportementPoursuite(carteCourante, joueur), 10);
+
         carteCourante.ajouterEntite(entite);
+        carteCourante.ajouterEntite(entite2);
+
 
         deplaceur = new DeplaceurEntite(carteCourante);
         nombreCalques = carteCourante.getListeDeCalques().size();
@@ -405,8 +408,8 @@ public class Jeu implements Observateur {
         if (joueur.getEtatAction() == EtatAction.SANS_ACTION) {
             if (input.contains("RIGHT")) {
                 boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.DROITE, true);
-                if (estDeplace && (carteCourante.getDimension().getLargeur() * 30) - (joueur.getPosition().getX()) > 100) {
-                    if (((camera.getPositionCameraX() <= carteCourante.getDimension().getLargeur() * 20)) &&
+                if (estDeplace && (carteCourante.getDimension().getLargeur() * decalageX) - (joueur.getPosition().getX()) > carteCourante.getDimension().getLargeur()) {
+                    if (((camera.getPositionCameraX() <= carteCourante.getDimension().getLargeur() * decalageX)) &&
                             (joueur.getPosition().getX() >= gc.getCanvas().getWidth() / 2)) {
                         camera.deplacementCamera(joueur.getVelocite().getX(), 0);
                     }
@@ -415,9 +418,9 @@ public class Jeu implements Observateur {
 
             if (input.contains("LEFT")) {
                 boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.GAUCHE, true);
-                if (estDeplace && 0 + joueur.getPosition().getY() > 100) {
+                if (estDeplace && 0 + joueur.getPosition().getY() > carteCourante.getDimension().getLargeur()) {
                     if (!(camera.getPositionCameraX() <= 0) &&
-                            (joueur.getPosition().getX() <= carteCourante.getDimension().getLargeur() * 20 +
+                            (joueur.getPosition().getX() <= carteCourante.getDimension().getLargeur() * 32 -
                                     gc.getCanvas().getWidth() / 2)) {
                         camera.deplacementCamera(-joueur.getVelocite().getX(), 0);
                     }
@@ -427,7 +430,7 @@ public class Jeu implements Observateur {
             if (input.contains("UP")) {
                 boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.HAUT, true);
                 if (estDeplace && !(camera.getPositionCameraY() <= 0) &&
-                        (joueur.getPosition().getY() <= carteCourante.getDimension().getHauteur() * 22 +
+                        (joueur.getPosition().getY() <= carteCourante.getDimension().getHauteur() * decalageY +
                                 gc.getCanvas().getHeight() / 2)) {
                     camera.deplacementCamera(0, -joueur.getVelocite().getY());
                 }
@@ -435,8 +438,8 @@ public class Jeu implements Observateur {
 
             if (input.contains("DOWN")) {
                 boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.BAS, true);
-                if (estDeplace && (carteCourante.getDimension().getLargeur() * carteCourante.getDimension().getLargeur()) - (joueur.getPosition().getY()) > 100 &&
-                        (camera.getPositionCameraY() <= carteCourante.getDimension().getHauteur() * 22 &&
+                if (estDeplace && (carteCourante.getDimension().getLargeur() * carteCourante.getDimension().getLargeur()) - (joueur.getPosition().getY()) > carteCourante.getDimension().getHauteur() &&
+                        (camera.getPositionCameraY() <= carteCourante.getDimension().getHauteur() * decalageY &&
                                 (joueur.getPosition().getY() >= gc.getCanvas().getHeight() / 2))) {
                     camera.deplacementCamera(0, joueur.getVelocite().getY());
                 }
