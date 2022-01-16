@@ -25,8 +25,6 @@ public class Jeu extends Observable implements Observateur {
     private Carte carteCourante;
     private Camera camera;
     private PersonnageJouable joueur;
-    private Rectangle attaqueJoueur;
-    private int nombreCalques;
     private int tempsAttaque = 0;
     private Boucle boucle;
 
@@ -71,10 +69,6 @@ public class Jeu extends Observable implements Observateur {
 
     public PersonnageJouable getJoueur() {
         return joueur;
-    }
-
-    public Rectangle getAttaqueJoueur() {
-        return attaqueJoueur;
     }
 
     public List<Tuile> getLesTuiles() {
@@ -123,7 +117,6 @@ public class Jeu extends Observable implements Observateur {
         carteCourante.ajouterEntite(entite);
 
         deplaceur = new DeplaceurEntite(carteCourante);
-        nombreCalques = carteCourante.getListeDeCalques().size();
     }
 
     public void start() {
@@ -155,8 +148,7 @@ public class Jeu extends Observable implements Observateur {
                                 (joueur.getDimension().getHauteur() - joueur.getAttaque().getCollision().getDimension().getHauteur()) / 2,
                         joueur.getAttaque().getCollision().getDimension().getLargeur(),
                         joueur.getCollision().getDimension().getHauteur());
-                //joueur.getAttaque().setCollision(collisionAttaque);
-                attaqueJoueur = collisionAttaque;
+                joueur.getAttaque().setCollision(collisionAttaque);
             }
             if (joueur.getDirection() == Direction.GAUCHE) {
                 collisionAttaque = new Rectangle(joueur.getPosition().getX()
@@ -165,31 +157,26 @@ public class Jeu extends Observable implements Observateur {
                                 (joueur.getDimension().getHauteur() - joueur.getAttaque().getCollision().getDimension().getHauteur()) / 2,
                         joueur.getAttaque().getCollision().getDimension().getLargeur(),
                         joueur.getCollision().getDimension().getHauteur());
-                //joueur.getAttaque().setCollision(collisionAttaque);
-                attaqueJoueur = collisionAttaque;
-
+                joueur.getAttaque().setCollision(collisionAttaque);
             }
+
             if (joueur.getDirection() == Direction.HAUT) {
                 collisionAttaque = new Rectangle(joueur.getPosition().getX() +
                         (joueur.getDimension().getLargeur() - joueur.getAttaque().getCollision().getDimension().getLargeur()) / 2,
                         joueur.getPosition().getY() - joueur.getAttaque().getCollision().getDimension().getHauteur(),
                         joueur.getAttaque().getCollision().getDimension().getLargeur(),
                         joueur.getCollision().getDimension().getHauteur());
-                //joueur.getAttaque().setCollision(collisionAttaque);
-                attaqueJoueur = collisionAttaque;
-
+                joueur.getAttaque().setCollision(collisionAttaque);
             }
+
             if (joueur.getDirection() == Direction.BAS) {
                 collisionAttaque = new Rectangle(joueur.getPosition().getX() +
                         (joueur.getDimension().getLargeur() - joueur.getAttaque().getCollision().getDimension().getLargeur()) / 2,
                         joueur.getPosition().getY() + joueur.getDimension().getHauteur(),
                         joueur.getAttaque().getCollision().getDimension().getLargeur(),
                         joueur.getCollision().getDimension().getHauteur());
-                //joueur.getAttaque().setCollision(collisionAttaque);
-                attaqueJoueur = collisionAttaque;
-
+                joueur.getAttaque().setCollision(collisionAttaque);
             }
-
             tempsAttaque = 0;
         }
         else {
@@ -250,7 +237,7 @@ public class Jeu extends Observable implements Observateur {
                     joueur.getCollision().getDimension());
 
             if (entite instanceof Ennemi ennemi) {
-                if (collisionneur.collisionne(attaqueJoueur, collisionEntite)
+                if (collisionneur.collisionne(joueur.getAttaque().getCollision(), collisionEntite)
                         && joueur.getEtatAction() == EtatAction.ATTAQUE) {
                     ennemi.setPointsDeVie(ennemi.getPointsDeVie() - joueur.getAttaque().getDegats());
                     if (ennemi.getPointsDeVie() <= 0) {

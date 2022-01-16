@@ -27,9 +27,7 @@ public class FenetreDeJeu implements Observateur {
 
     private List<Tuile> lesTuiles;
     private int nombreCalques;
-
     private PersonnageJouable joueur;
-    private Rectangle attaqueJoueur;
 
     private GraphicsContext gc;
     private Image imagePersonnage;
@@ -63,8 +61,9 @@ public class FenetreDeJeu implements Observateur {
                 joueur.getPosition().getY() - camera.getPositionCameraY());
 
         if (joueur.getEtatAction() == EtatAction.ATTAQUE) {
-            gc.drawImage(imageProjectile, attaqueJoueur.getPosition().getX() - camera.getPositionCameraX(),
-                    attaqueJoueur.getPosition().getY() - camera.getPositionCameraY());
+            gc.drawImage(imageProjectile,
+                    joueur.getAttaque().getCollision().getPosition().getX() - camera.getPositionCameraX(),
+                    joueur.getAttaque().getCollision().getPosition().getY() - camera.getPositionCameraY());
         }
 
         for (Entite entite : carteCourante.getLesEntites()) {
@@ -87,7 +86,6 @@ public class FenetreDeJeu implements Observateur {
         lesTuiles = jeu.getLesTuiles();
         camera = jeu.getCamera();
         joueur = jeu.getJoueur();
-        attaqueJoueur = jeu.getAttaqueJoueur();
 
         List<String> lesImagesJeuxDeTuilesChemin = Ressources.getLesImagesJeuxDeTuiles();
 
