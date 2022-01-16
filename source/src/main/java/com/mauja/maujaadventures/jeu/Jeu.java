@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
+import org.w3c.dom.css.Rect;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -60,7 +61,7 @@ public class Jeu implements Observateur {
         boucle = new Boucle();
         boucle.subscribe(this);
         initialiser();
-        fenetreDeJeu = new FenetreDeJeu(carteCourante, camera, joueur, attaqueJoueur, nombreCalques, gc, imagePersonnage, imageProjectile, imageEnnemi, lesTuilesImagees, lesImages);
+        fenetreDeJeu = new FenetreDeJeu(carteCourante, camera, joueur, nombreCalques, gc, imagePersonnage, imageProjectile, imageEnnemi, lesTuilesImagees, lesImages);
     }
 
     /**
@@ -454,6 +455,6 @@ public class Jeu implements Observateur {
             }
         }
 
-        fenetreDeJeu.affichage();
+        fenetreDeJeu.affichage(attaqueJoueur);
     }
 }
