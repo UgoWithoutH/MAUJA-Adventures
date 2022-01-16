@@ -1,15 +1,12 @@
 package com.mauja.maujaadventures.fenetres;
 
-import com.mauja.maujaadventures.entites.PersonnageJouable;
-import com.mauja.maujaadventures.entrees.Boutons;
+import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
+import com.mauja.maujaadventures.entrees.Touche;
 import com.mauja.maujaadventures.jeu.Jeu;
-import com.mauja.maujaadventures.logique.Dimension;
-import com.mauja.maujaadventures.logique.Position;
-import com.mauja.maujaadventures.logique.Rectangle;
-import com.mauja.maujaadventures.utilitaires.RecuperateurRessources;
 import javafx.application.Application;
 
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -26,21 +23,23 @@ public class FenetrePrincipale extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         ArrayList<String> input;
-        VBox content = new VBox();
-
-        Scene scene = new Scene(content);
-        stage.setScene(scene);
+        VBox noeud = new VBox();
+        Scene scene = new Scene(noeud);
         scene.setFill(Color.BLACK);
-
-        Boutons b = new Boutons(scene);
         Canvas canvas = new Canvas(964, 800);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        content.getChildren().add(canvas);
-        input = b.lecture();
-        Jeu jeu = new Jeu(gc,input);
-        jeu.start();
-        //jeu.boucle(input);
+        noeud.getChildren().add(canvas);
 
+        GestionnaireDeTouchesFX gestionnaireDeTouches = new GestionnaireDeTouchesFX(scene);
+        gestionnaireDeTouches.ajouteToucheFX(KeyCode.DOWN, Touche.FLECHE_BAS);
+        gestionnaireDeTouches.ajouteToucheFX(KeyCode.UP, Touche.FLECHE_HAUT);
+        gestionnaireDeTouches.ajouteToucheFX(KeyCode.LEFT, Touche.FLECHE_GAUCHE);
+        gestionnaireDeTouches.ajouteToucheFX(KeyCode.RIGHT, Touche.FLECHE_DROITE);
+        gestionnaireDeTouches.ajouteToucheFX(KeyCode.SPACE, Touche.ESPACE);
+        gestionnaireDeTouches.initialisation();
+
+        new Jeu(gc, gestionnaireDeTouches).start();
+        stage.setScene(scene);
         stage.show();
     }
 

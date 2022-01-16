@@ -1,10 +1,11 @@
 package com.mauja.maujaadventures.collisionneurs;
 
 import com.mauja.maujaadventures.logique.Rectangle;
-import com.mauja.maujaadventures.monde.Calque;
 import com.mauja.maujaadventures.monde.Carte;
 
 public class CollisionneurCarte {
+    private CollisionneurAABB collisionneur = new CollisionneurAABB();
+
     public boolean collisionne(Rectangle collision, Carte carte) {
         if (collision == null || carte == null || carte.getListeDeCalques().get(1).getListeDeTuiles() == null) {
             return false;
@@ -28,7 +29,7 @@ public class CollisionneurCarte {
                                 collisionTuileRelative.getPosition().getY() + y * 32,
                                 collisionTuileRelative.getDimension().getLargeur(),
                                 collisionTuileRelative.getDimension().getHauteur());
-                        if (CollisionneurAABB.collision(collision, collisionTuileAbsolue))
+                        if (collisionneur.collisionne(collision, collisionTuileAbsolue))
                             return true;
                     }
                 }
