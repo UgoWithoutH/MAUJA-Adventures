@@ -25,10 +25,11 @@ public class FenetreDeJeu {
     private Map<Tuile, Image> lesTuilesImagees;
     private List<Image> lesImages;
 
-    public FenetreDeJeu(Carte carteCourante, Camera camera, PersonnageJouable joueur, int nombreCalques, GraphicsContext gc, Image imagePersonnage, Image imageProjectile, Image imageEnnemi, Map<Tuile, Image> lesTuilesImagees, List<Image> lesImages) {
+    public FenetreDeJeu(Carte carteCourante, Camera camera, PersonnageJouable joueur, Rectangle attaqueJoueur, int nombreCalques, GraphicsContext gc, Image imagePersonnage, Image imageProjectile, Image imageEnnemi, Map<Tuile, Image> lesTuilesImagees, List<Image> lesImages) {
         this.carteCourante = carteCourante;
         this.camera = camera;
         this.joueur = joueur;
+        this.attaqueJoueur = attaqueJoueur;
         this.nombreCalques = nombreCalques;
         this.gc = gc;
         this.imagePersonnage = imagePersonnage;
@@ -38,7 +39,7 @@ public class FenetreDeJeu {
         this.lesImages = lesImages;
     }
 
-    public void affichage(Rectangle attaqueJoueur) {
+    public void affichage() {
         gc.clearRect(0, 0, 1000, 1000);
         for (int k = 0; k < nombreCalques; k++) {
             for (int i = 0; i < carteCourante.getDimension().getLargeur(); i++) {

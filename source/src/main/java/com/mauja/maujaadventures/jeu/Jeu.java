@@ -45,6 +45,7 @@ public class Jeu implements Observateur {
     private Image imageEnnemi;
     private Map<Tuile, Image> lesTuilesImagees;
     private List<Image> lesImages;
+    private FenetreDeJeu fenetreDeJeu;
 
     /**
      * Constructeur de Jeu
@@ -59,6 +60,7 @@ public class Jeu implements Observateur {
         boucle = new Boucle();
         boucle.subscribe(this);
         initialiser();
+        fenetreDeJeu = new FenetreDeJeu(carteCourante, camera, joueur, attaqueJoueur, nombreCalques, gc, imagePersonnage, imageProjectile, imageEnnemi, lesTuilesImagees, lesImages);
     }
 
     /**
@@ -116,7 +118,7 @@ public class Jeu implements Observateur {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        Entite entite = new Ennemi(new Position(500, 600), new Dimension(30, 30),
+        Entite entite = new Ennemi(new Position(400, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                 new ComportementOctorockTireur(carteCourante), 10);
 
@@ -301,42 +303,6 @@ public class Jeu implements Observateur {
         }.start();
     };*/
 
-    public void affichage() {
-        gc.clearRect(0, 0, 1000, 1000);
-        for (int k = 0; k < nombreCalques; k++) {
-            for (int i = 0; i < carteCourante.getDimension().getLargeur(); i++) {
-                for (int j = 0; j < carteCourante.getDimension().getHauteur(); j++) {
-                    Tuile tuile = carteCourante.getListeDeCalques().get(k).getListeDeTuiles().get(i * (int) carteCourante.getDimension().getLargeur() + j);
-                    if (tuile.getId() >= 1) {
-                        gc.drawImage(lesImages.get(tuile.getId()),
-                                j * 32 - camera.getPositionCameraX(), i * 32 - camera.getPositionCameraY(),
-                                32, 32);
-                    }
-                }
-            }
-        }
-        gc.drawImage(imagePersonnage, joueur.getPosition().getX() - camera.getPositionCameraX(),
-                joueur.getPosition().getY() - camera.getPositionCameraY());
-
-        if (joueur.getEtatAction() == EtatAction.ATTAQUE) {
-            gc.drawImage(imageProjectile, attaqueJoueur.getPosition().getX() - camera.getPositionCameraX(),
-                    attaqueJoueur.getPosition().getY() - camera.getPositionCameraY());
-        }
-
-        for (Entite entite : carteCourante.getLesEntites()) {
-            if (entite instanceof Ennemi) {
-                gc.drawImage(imageEnnemi, entite.getPosition().getX() - camera.getPositionCameraX(),
-                        entite.getPosition().getY() - camera.getPositionCameraY());
-            }
-
-            if (entite instanceof Projectile) {
-                gc.drawImage(imageProjectile, entite.getPosition().getX() - camera.getPositionCameraX(),
-                        entite.getPosition().getY() - camera.getPositionCameraY());
-            }
-        }
-        gc.fillText("Vie : " + joueur.getPointsDeVie(), 20, 20);
-    }
-
     @Override
     public void update(int timer) {
         if (input.contains("B") && tempsAttaque > joueur.getAttaque().getDuree()) {
@@ -478,6 +444,7 @@ public class Jeu implements Observateur {
             if (entite instanceof Ennemi ennemi) {
                 Comportement comportement = ennemi.getComportement();
                 if (comportement != null) {
+                    System.out.println(ennemi.getPosition());
                     comportement.agit(ennemi, 0);
                 }
 
@@ -487,6 +454,6 @@ public class Jeu implements Observateur {
             }
         }
 
-        affichage();
+        fenetreDeJeu.affichage();
     }
 }
