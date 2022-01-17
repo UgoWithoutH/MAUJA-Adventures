@@ -36,6 +36,7 @@ public class FenetrePrincipale extends Application {
         gestionnaireDeTouches.ajouteToucheFX(KeyCode.LEFT, Touche.FLECHE_GAUCHE);
         gestionnaireDeTouches.ajouteToucheFX(KeyCode.RIGHT, Touche.FLECHE_DROITE);
         gestionnaireDeTouches.ajouteToucheFX(KeyCode.SPACE, Touche.ESPACE);
+        gestionnaireDeTouches.ajouteToucheFX(KeyCode.B, Touche.B);
         gestionnaireDeTouches.initialisation();
 
         Jeu jeu = new Jeu(gestionnaireDeTouches);
