@@ -121,12 +121,12 @@ public class Jeu extends Observable implements Observateur {
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                 new ComportementOctorockTireur(carteCourante), 10);
 
-        Entite entite2 = new Ennemi(new Position(1000, 1000), new Dimension(30, 30),
+        /*Entite entite2 = new Ennemi(new Position(1000, 1000), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                 new ComportementPoursuite(carteCourante, joueur), 10);
-
+        */
         carteCourante.ajouterEntite(entite);
-        carteCourante.ajouterEntite(entite2);
+        //carteCourante.ajouterEntite(entite2);
 
 
         deplaceur = new DeplaceurEntite(carteCourante);
