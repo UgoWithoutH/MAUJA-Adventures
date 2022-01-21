@@ -142,7 +142,7 @@ public class Jeu extends Observable implements Observateur {
     public void update(int timer) {
         lesTouchesAppuyees = gestionnaireDeTouches.detecte();
 
-        if (lesTouchesAppuyees.contains(Touche.B) && tempsAttaque > joueur.getAttaque().getDuree()) {
+        if (lesTouchesAppuyees.contains(Touche.B) /*&& tempsAttaque > joueur.getAttaque().getDuree()*/) {
             System.out.println("Je me protège");
             joueur.setEtatAction(EtatAction.SE_PROTEGE);
         }
@@ -265,9 +265,34 @@ public class Jeu extends Observable implements Observateur {
                 }
             }
             if (entite instanceof Projectile projectile) {
-                if (collisionneur.collisionne(collisionJoueur, collisionEntite)) {
+                if (collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() != EtatAction.SE_PROTEGE) {
                     joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
                     carteCourante.supprimerEntite(projectile);
+                }
+                else if(collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() == EtatAction.SE_PROTEGE){
+                    carteCourante.supprimerEntite(projectile);
+
+                    /*
+                    if(joueur.getDirection() == Direction.BAS && projectile.getDirection() == Direction.HAUT) {
+                        carteCourante.supprimerEntite(projectile);
+                    }
+                    if(joueur.getDirection() == Direction.HAUT && projectile.getDirection() == Direction.BAS) {
+                        carteCourante.supprimerEntite(projectile);
+                    }
+                    if(joueur.getDirection() == Direction.GAUCHE && projectile.getDirection() == Direction.DROITE) {
+                        carteCourante.supprimerEntite(projectile);
+                    }
+                    if(joueur.getDirection() == Direction.DROITE && projectile.getDirection() == Direction.GAUCHE) {
+                        carteCourante.supprimerEntite(projectile);
+                    }
+                    else{
+                        joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
+                        carteCourante.supprimerEntite(projectile);
+
+
+                    }
+
+                     */
                 }
             }
         }
