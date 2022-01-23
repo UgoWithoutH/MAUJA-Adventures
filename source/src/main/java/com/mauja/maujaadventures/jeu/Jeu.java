@@ -19,7 +19,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Jeu extends Observable implements Observateur {
-    private static final Dimension DIMENSION_CAMERA_PAR_DEFAUT = new Dimension(964, 800);
+    private static final Dimension DIMENSION_CAMERA_PAR_DEFAUT = new Dimension(964, 608);
 
     private DeplaceurEntite deplaceur;
     private List<Tuile> lesTuiles;
@@ -150,7 +150,10 @@ public class Jeu extends Observable implements Observateur {
             joueur.setEtatAction(EtatAction.SANS_ACTION);
         }
 
-        if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
+        if(lesTouchesAppuyees.contains(Touche.ECHAP)){
+            System.out.println("echap");
+        }
+        else if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
             //System.out.println("J'attaque");
             joueur.setEtatAction(EtatAction.ATTAQUE);
             Rectangle collisionAttaque;
