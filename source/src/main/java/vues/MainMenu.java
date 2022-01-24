@@ -58,4 +58,8 @@ public class MainMenu{
     public void startSolo() {
         navigateur.partie();
     }
+
+    public void quitter(ActionEvent buttonQuitter){
+        myStage.close();
+    }
 }

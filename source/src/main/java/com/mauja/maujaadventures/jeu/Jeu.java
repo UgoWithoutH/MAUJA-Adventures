@@ -2,6 +2,7 @@ package com.mauja.maujaadventures.jeu;
 
 
 import com.mauja.maujaadventures.comportements.Comportement;
+import com.mauja.maujaadventures.comportements.ComportementChevalier;
 import com.mauja.maujaadventures.comportements.ComportementPoursuite;
 import com.mauja.maujaadventures.comportements.ComportementOctorockTireur;
 import com.mauja.maujaadventures.entites.*;
@@ -35,6 +36,7 @@ public class Jeu extends Observable implements Observateur {
         public boolean isPause() {return pause.get();}
         public BooleanProperty pauseProperty() {return pause;}
         public void setPause(boolean pause) {this.pause.set(pause);}
+    int v;
     private final double decalageX = 28.2;
     private final double decalageY = 24;
 
@@ -130,10 +132,10 @@ public class Jeu extends Observable implements Observateur {
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                 new ComportementOctorockTireur(carteCourante), 10);
 
-        /*Entite entite2 = new Ennemi(new Position(1000, 1000), new Dimension(30, 30),
+        Entite entite2 = new Ennemi(new Position(400, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementPoursuite(carteCourante, joueur), 10);
-        */
+                new ComportementChevalier(carteCourante, joueur), 10);
+
         carteCourante.ajouterEntite(entite);
         //carteCourante.ajouterEntite(entite2);
 
@@ -284,35 +286,22 @@ public class Jeu extends Observable implements Observateur {
                 }
             }
             if (entite instanceof Projectile projectile) {
+
                 if (collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() != EtatAction.SE_PROTEGE) {
                     joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
                     carteCourante.supprimerEntite(projectile);
-                }
-                else if(collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() == EtatAction.SE_PROTEGE){
+                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) &&
+                        joueur.getEtatAction() == EtatAction.SE_PROTEGE &&
+                        (joueur.getDirection().getVal() == (v=projectile.getDirection().getVal() + 1) ||
+                                (joueur.getDirection().getVal() == (v=projectile.getDirection().getVal() - 1)))) {
+                    projectile.setDirection(Direction.valeurDe((byte)v));
+                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() == EtatAction.SE_PROTEGE){
                     carteCourante.supprimerEntite(projectile);
-
-                    /*
-                    if(joueur.getDirection() == Direction.BAS && projectile.getDirection() == Direction.HAUT) {
-                        carteCourante.supprimerEntite(projectile);
-                    }
-                    if(joueur.getDirection() == Direction.HAUT && projectile.getDirection() == Direction.BAS) {
-                        carteCourante.supprimerEntite(projectile);
-                    }
-                    if(joueur.getDirection() == Direction.GAUCHE && projectile.getDirection() == Direction.DROITE) {
-                        carteCourante.supprimerEntite(projectile);
-                    }
-                    if(joueur.getDirection() == Direction.DROITE && projectile.getDirection() == Direction.GAUCHE) {
-                        carteCourante.supprimerEntite(projectile);
-                    }
-                    else{
-                        joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
-                        carteCourante.supprimerEntite(projectile);
+                    joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
 
 
-                    }
+            }
 
-                     */
-                }
             }
         }
 
