@@ -29,6 +29,7 @@ public class Jeu extends Observable implements Observateur {
     private PersonnageJouable joueur;
     private int tempsAttaque = 0;
     private Boucle boucle;
+    int v;
 
 
     private final double decalageX = 28.2;
@@ -268,35 +269,22 @@ public class Jeu extends Observable implements Observateur {
                 }
             }
             if (entite instanceof Projectile projectile) {
+
                 if (collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() != EtatAction.SE_PROTEGE) {
                     joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
                     carteCourante.supprimerEntite(projectile);
-                }
-                else if(collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() == EtatAction.SE_PROTEGE){
+                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) &&
+                        joueur.getEtatAction() == EtatAction.SE_PROTEGE &&
+                        (joueur.getDirection().getVal() == (v=projectile.getDirection().getVal() + 1) ||
+                                (joueur.getDirection().getVal() == (v=projectile.getDirection().getVal() - 1)))) {
+                    projectile.setDirection(Direction.valeurDe((byte)v));
+                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() == EtatAction.SE_PROTEGE){
                     carteCourante.supprimerEntite(projectile);
-
-                    /*
-                    if(joueur.getDirection() == Direction.BAS && projectile.getDirection() == Direction.HAUT) {
-                        carteCourante.supprimerEntite(projectile);
-                    }
-                    if(joueur.getDirection() == Direction.HAUT && projectile.getDirection() == Direction.BAS) {
-                        carteCourante.supprimerEntite(projectile);
-                    }
-                    if(joueur.getDirection() == Direction.GAUCHE && projectile.getDirection() == Direction.DROITE) {
-                        carteCourante.supprimerEntite(projectile);
-                    }
-                    if(joueur.getDirection() == Direction.DROITE && projectile.getDirection() == Direction.GAUCHE) {
-                        carteCourante.supprimerEntite(projectile);
-                    }
-                    else{
-                        joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
-                        carteCourante.supprimerEntite(projectile);
+                    joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
 
 
-                    }
+            }
 
-                     */
-                }
             }
         }
 
