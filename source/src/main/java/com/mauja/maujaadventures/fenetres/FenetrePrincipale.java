@@ -25,11 +25,8 @@ import java.util.*;
 public class FenetrePrincipale extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
         Navigateur navigateur = new Navigateur(stage);
-        fxml.setController(new MainMenu(navigateur));
-        Scene scene = new Scene(fxml.load());
-        stage.setScene(scene);
+        navigateur.mainMenu();
         stage.setWidth(964);
         stage.setHeight(650);
         stage.show();

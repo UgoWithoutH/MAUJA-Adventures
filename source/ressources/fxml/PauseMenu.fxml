@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<StackPane fx:id="pausePane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      prefHeight="400.0" prefWidth="600.0" alignment="CENTER">
+    <VBox fx:id="content" alignment="CENTER">
+        <Button fx:id="reprendre" text="Reprendre"/>
+        <Button fx:id="param" text="Paramètres"/>
+        <Button fx:id="sauvegarder" text="Sauvegarder"/>
+        <Button fx:id="sauvegarderQuitter" text="Sauvegarder &amp; quitter"/>
+    </VBox>
+
+    <stylesheets>
+        <URL value="@pausestyle.css" />
+    </stylesheets>
+</StackPane>

@@ -31,11 +31,11 @@ public class MainMenu{
     private Button param;
     @FXML
     private Button quitter;
+    private Navigateur navigateur;
     private Stage myStage;
 
-
-
     public MainMenu(Navigateur navigateur){
+        this.navigateur = navigateur;
         myStage = navigateur.getMyStage();
 
         myStage.widthProperty().addListener((listener) -> {
@@ -56,33 +56,6 @@ public class MainMenu{
     }
 
     public void startSolo() {
-        ArrayList<String> input;
-        VBox noeud = new VBox();
-        //Scene scene = new Scene(noeud);
-        myStage.getScene().setRoot(noeud);
-        Scene scene = myStage.getScene();
-        scene.setFill(Color.BLACK);
-        Canvas canvas = new Canvas(964, 608);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        noeud.getChildren().add(canvas);
-
-        GestionnaireDeTouchesFX gestionnaireDeTouches = new GestionnaireDeTouchesFX(scene);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.DOWN, Touche.FLECHE_BAS);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.UP, Touche.FLECHE_HAUT);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.LEFT, Touche.FLECHE_GAUCHE);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.RIGHT, Touche.FLECHE_DROITE);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.SPACE, Touche.ESPACE);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.B, Touche.B);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.ESCAPE, Touche.ECHAP);
-        gestionnaireDeTouches.initialisation();
-
-        Jeu jeu = null;
-        try {
-            jeu = new Jeu(gestionnaireDeTouches);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        new FenetreDeJeu(gc, jeu);
-        jeu.start();
+        navigateur.partie();
     }
 }

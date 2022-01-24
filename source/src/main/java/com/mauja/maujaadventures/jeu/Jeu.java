@@ -14,6 +14,8 @@ import com.mauja.maujaadventures.chargeurs.RecuperateurDeCartes;
 import com.mauja.maujaadventures.deplaceurs.DeplaceurEntite;
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.monde.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -29,8 +31,10 @@ public class Jeu extends Observable implements Observateur {
     private PersonnageJouable joueur;
     private int tempsAttaque = 0;
     private Boucle boucle;
-
-
+    private BooleanProperty pause = new SimpleBooleanProperty();
+        public boolean isPause() {return pause.get();}
+        public BooleanProperty pauseProperty() {return pause;}
+        public void setPause(boolean pause) {this.pause.set(pause);}
     private final double decalageX = 28.2;
     private final double decalageY = 24;
 
@@ -58,7 +62,12 @@ public class Jeu extends Observable implements Observateur {
 
         boucle = new Boucle();
         boucle.attacher(this);
+        setPause(false);
         initialiser();
+    }
+
+    public static Dimension getDimensionCameraParDefaut() {
+        return DIMENSION_CAMERA_PAR_DEFAUT;
     }
 
     public List<Carte> getLesCartes() {
@@ -151,9 +160,16 @@ public class Jeu extends Observable implements Observateur {
         }
 
         if(lesTouchesAppuyees.contains(Touche.ECHAP)){
-            System.out.println("echap");
+            if(!isPause()){
+                setPause(true);
+            }
         }
-        else if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
+        else{
+            if(isPause()){
+                setPause(false);
+            }
+        }
+        if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
             //System.out.println("J'attaque");
             joueur.setEtatAction(EtatAction.ATTAQUE);
             Rectangle collisionAttaque;
