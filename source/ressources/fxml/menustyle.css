@@ -1,0 +1,43 @@
+.root {
+    -fx-background-color: lightsteelblue;
+}
+
+.text-titre {
+ -fx-font-smoothing-type: lcd;
+ -fx-fill:
+    linear-gradient(to left, #b30c00, #ff1100,#005c9d,#0096ff);
+ -fx-font-size: 40px;
+}
+
+.button {
+    -fx-background-color:
+        #000000,
+        linear-gradient(#7ebcea, #2f4b8f),
+        linear-gradient(#426ab7, #263e75),
+        linear-gradient(#395cab, #223768);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+}
+
+.button:hover {
+    -fx-background-color:
+        linear-gradient(from 0% 93% to 0% 100%, #426ab7 0%, #263e75 100%),
+        #395cab,
+        #223768,
+        radial-gradient(center 50% 50%, radius 100%, #223768, #395cab);
+}
+.button:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+.button Text {
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+
+}
+
+
+
+

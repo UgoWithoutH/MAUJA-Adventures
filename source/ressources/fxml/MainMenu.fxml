@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.net.URL?>
 <GridPane fx:id="mainGrid" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <columnConstraints>
         <ColumnConstraints percentWidth="100"/>
@@ -18,4 +19,8 @@
         <Button fx:id="param" text="Paramètres" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
         <Button fx:id="quitter" text="Quitter" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
     </VBox>
+
+    <stylesheets>
+        <URL value="@menustyle.css" />
+    </stylesheets>
 </GridPane>
