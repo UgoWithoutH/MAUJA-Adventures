@@ -16,6 +16,6 @@
     <VBox alignment="CENTER" spacing="20">
         <Button fx:id="solo" text="Solo" GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#startSolo"/>
         <Button fx:id="param" text="Paramètres" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <Button fx:id="quitter" text="Quitter" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Button fx:id="quitter" text="Quitter" GridPane.columnIndex="0" GridPane.rowIndex="2" onAction="#quitter"/>
     </VBox>
 </GridPane>

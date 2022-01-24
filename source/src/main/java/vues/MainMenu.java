@@ -85,4 +85,8 @@ public class MainMenu{
         new FenetreDeJeu(gc, jeu);
         jeu.start();
     }
+
+    public void quitter(ActionEvent buttonQuitter){
+        myStage.close();
+    }
 }
