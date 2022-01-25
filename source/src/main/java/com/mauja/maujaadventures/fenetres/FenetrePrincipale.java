@@ -26,7 +26,7 @@ public class FenetrePrincipale extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Navigateur navigateur = new Navigateur(stage);
-        navigateur.mainMenu();
+        navigateur.naviguerVers("MainMenu.fxml",new MainMenu(navigateur));
         stage.setWidth(964);
         stage.setHeight(650);
         stage.show();

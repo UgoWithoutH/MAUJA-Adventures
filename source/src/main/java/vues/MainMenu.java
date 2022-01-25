@@ -56,7 +56,9 @@ public class MainMenu{
     }
 
     public void startSolo() {
-        navigateur.partie();
+        Partie partie = new Partie(navigateur);
+        navigateur.naviguerVers("Partie.fxml",partie);
+        partie.start();
     }
 
     public void quitter(ActionEvent buttonQuitter){

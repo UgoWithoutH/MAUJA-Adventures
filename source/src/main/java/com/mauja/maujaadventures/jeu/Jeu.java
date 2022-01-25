@@ -39,6 +39,7 @@ public class Jeu extends Observable implements Observateur {
     int v;
     private final double decalageX = 28.2;
     private final double decalageY = 24;
+    private final Options options;
 
     private GestionnaireDeTouches gestionnaireDeTouches;
     private List<Touche> lesTouchesAppuyees;
@@ -61,6 +62,7 @@ public class Jeu extends Observable implements Observateur {
         camera = new Camera( 0, 0);
         lesTouchesAppuyees = new ArrayList<>();
         lesCartes = new ArrayList<>();
+        options = new Options();
 
         boucle = new Boucle();
         boucle.attacher(this);
@@ -91,6 +93,8 @@ public class Jeu extends Observable implements Observateur {
     public List<Tuile> getLesTuiles() {
         return lesTuiles;
     }
+
+    public Options getOptions() {return options;}
 
     /**
      * Fonction d'initialisation du jeu

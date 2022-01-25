@@ -4,6 +4,7 @@ import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.entrees.Touche;
 import com.mauja.maujaadventures.fenetres.FenetreDeJeu;
 import com.mauja.maujaadventures.jeu.Jeu;
+import com.mauja.maujaadventures.jeu.Options;
 import com.mauja.maujaadventures.logique.Dimension;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -25,25 +27,19 @@ import java.util.ArrayList;
 public class Partie {
 
     @FXML
-    private Pane partiePane;
+    private StackPane partiePane;
     private Navigateur navigateur;
     private StackPane pausePane;
-    private Scene scene;
 
-    public Partie(Navigateur navigateur){
+    public Partie(Navigateur navigateur) {
         this.navigateur = navigateur;
     }
 
-    @FXML
-    public void initialize(){
-    }
-
-    public void start(){
+    public void start() {
         ArrayList<String> input;
         VBox noeud = new VBox();
         partiePane.getChildren().add(noeud);
-        Stage myStage = navigateur.getMyStage(); //temporaire
-        myStage.getScene().setRoot(partiePane);
+        Stage myStage = navigateur.getMyStage();
         Scene scene = myStage.getScene();
         scene.setFill(Color.BLACK);
         Canvas canvas = new Canvas(964, 608);
@@ -60,37 +56,30 @@ public class Partie {
         gestionnaireDeTouches.ajouteToucheFX(KeyCode.ESCAPE, Touche.ECHAP);
         gestionnaireDeTouches.initialisation();
 
-        Jeu jeu = null;
         try {
-            jeu = new Jeu(gestionnaireDeTouches);
+            Jeu jeu = new Jeu(gestionnaireDeTouches);
+            new FenetreDeJeu(gc, jeu);
+
+            jeu.pauseProperty().addListener((listener) -> {
+                if (pausePane == null) {
+                    try {
+                        FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/PauseMenu.fxml"));
+                        fxml.setController(new PauseMenu(navigateur, jeu.getOptions()));
+                        pausePane = fxml.load();
+                        partiePane.getChildren().add(pausePane);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (pausePane.isVisible()) {
+                    pausePane.setVisible(false);
+                } else {
+                    pausePane.setVisible(true);
+                }
+            });
+            jeu.start();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        new FenetreDeJeu(gc, jeu);
-
-        jeu.pauseProperty().addListener((listener) -> {
-            if(pausePane == null){
-                try {
-                    FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/PauseMenu.fxml"));
-                    fxml.setController(new PauseMenu(navigateur));
-                    pausePane = fxml.load();
-                    Dimension dimension = Jeu.getDimensionCameraParDefaut();
-                    pausePane.setPrefSize(myStage.getWidth()*0.70, myStage.getHeight()*0.70);
-                    partiePane.getChildren().add(pausePane);
-                    myStage.widthProperty().addListener((listenerStage) -> {
-
-                    });
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            else if(pausePane.isVisible()){
-                pausePane.setVisible(false);
-            }
-            else {
-                pausePane.setVisible(true);
-            }
-        });
-        jeu.start();
     }
 }

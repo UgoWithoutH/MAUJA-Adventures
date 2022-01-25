@@ -21,6 +21,6 @@
     </VBox>
 
     <stylesheets>
-        <URL value="@menustyle.css" />
+        <URL value="@../css/menustyle.css" />
     </stylesheets>
 </GridPane>

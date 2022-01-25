@@ -11,7 +11,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="mauja-adventures" />
-    <orderEntry type="library" exported="" name="lib" level="project" />
-    <orderEntry type="library" exported="" name="TiledReader-1.1" level="project" />
+    <orderEntry type="library" name="TiledReader-1.1" level="application" />
+    <orderEntry type="library" name="lib" level="application" />
   </component>
 </module>
