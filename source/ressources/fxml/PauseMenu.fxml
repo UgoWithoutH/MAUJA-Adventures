@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+    <VBox fx:id="content" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="8">
+        <Button fx:id="reprendre" text="Reprendre" onAction="#reprendre"/>
+        <Button fx:id="param" text="Paramètres" onAction="#parametres"/>
+        <Button fx:id="sauvegarder" text="Sauvegarder"/>
+        <Button fx:id="sauvegarderQuitter" text="Sauvegarder &amp; quitter" onAction="#sauvegarderQuitter"/>
+
+
+        <stylesheets>
+            <URL value="@../css/pausestyle.css" />
+        </stylesheets>
+    </VBox>

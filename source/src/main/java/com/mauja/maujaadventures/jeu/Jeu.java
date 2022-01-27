@@ -3,11 +3,11 @@ package com.mauja.maujaadventures.jeu;
 
 import com.mauja.maujaadventures.comportements.Comportement;
 import com.mauja.maujaadventures.comportements.ComportementChevalier;
-import com.mauja.maujaadventures.comportements.ComportementPoursuite;
 import com.mauja.maujaadventures.comportements.ComportementOctorockTireur;
 import com.mauja.maujaadventures.entites.*;
 
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouches;
+import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.entrees.Touche;
 import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.chargeurs.Ressources;
@@ -31,11 +31,10 @@ public class Jeu extends Observable implements Observateur {
     private int tempsAttaque = 0;
     private Boucle boucle;
     int v;
-
-
     private final double decalageX = 28.2;
     private final double decalageY = 24;
-
+    private final Options options;
+    private boolean paramOuvert = false;
     private GestionnaireDeTouches gestionnaireDeTouches;
     private List<Touche> lesTouchesAppuyees;
     private CollisionneurAABB collisionneur;
@@ -45,22 +44,28 @@ public class Jeu extends Observable implements Observateur {
      * @throws FileNotFoundException Exception déclencher si le fichier n'est pas trouvé
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Jeu(GestionnaireDeTouches gestionnaireDeTouches)
-            throws IllegalArgumentException, FileNotFoundException {
-        if (gestionnaireDeTouches == null) {
-            throw new IllegalArgumentException("Le gestionnaire de touches passé en paramètre ne peut pas être null.");
-        }
-
-        this.gestionnaireDeTouches = gestionnaireDeTouches;
+    public Jeu(Options options) throws FileNotFoundException, FileNotFoundException {
         collisionneur = new CollisionneurAABB();
 
         camera = new Camera( 0, 0);
         lesTouchesAppuyees = new ArrayList<>();
         lesCartes = new ArrayList<>();
+        this.options = options;
 
         boucle = new Boucle();
         boucle.attacher(this);
         initialiser();
+    }
+
+    public void setGestionnaireDeTouches(GestionnaireDeTouches gestionnaireDeTouches){
+        if (gestionnaireDeTouches == null) {
+            throw new IllegalArgumentException("Le gestionnaire de touches passé en paramètre ne peut pas être null.");
+        }
+        this.gestionnaireDeTouches = gestionnaireDeTouches;
+    }
+
+    public static Dimension getDimensionCameraParDefaut() {
+        return DIMENSION_CAMERA_PAR_DEFAUT;
     }
 
     public List<Carte> getLesCartes() {
@@ -82,6 +87,15 @@ public class Jeu extends Observable implements Observateur {
     public List<Tuile> getLesTuiles() {
         return lesTuiles;
     }
+
+    public Options getOptions() {return options;}
+
+    public void setParamOuvert(boolean value){paramOuvert = value;}
+    public boolean isParamOuvert() {return paramOuvert;}
+
+    public GestionnaireDeTouches getGestionnaireDeTouches() {return gestionnaireDeTouches;}
+
+    public Boucle getBoucle() {return boucle;}
 
     /**
      * Fonction d'initialisation du jeu
@@ -140,6 +154,10 @@ public class Jeu extends Observable implements Observateur {
         boucleThread.start();
     }
 
+    public void stop(){
+        boucle.setRunning(false);
+    }
+
     @Override
     public void update(int timer) {
         lesTouchesAppuyees = gestionnaireDeTouches.detecte();
@@ -152,10 +170,7 @@ public class Jeu extends Observable implements Observateur {
             joueur.setEtatAction(EtatAction.SANS_ACTION);
         }
 
-        if(lesTouchesAppuyees.contains(Touche.ECHAP)){
-            System.out.println("echap");
-        }
-        else if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
+        if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
             //System.out.println("J'attaque");
             joueur.setEtatAction(EtatAction.ATTAQUE);
             Rectangle collisionAttaque;
@@ -276,16 +291,13 @@ public class Jeu extends Observable implements Observateur {
                     carteCourante.supprimerEntite(projectile);
                 } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) &&
                         joueur.getEtatAction() == EtatAction.SE_PROTEGE &&
-                        (joueur.getDirection().getVal() == (v=projectile.getDirection().getVal() + 1) ||
-                                (joueur.getDirection().getVal() == (v=projectile.getDirection().getVal() - 1)))) {
-                    projectile.setDirection(Direction.valeurDe((byte)v));
-                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() == EtatAction.SE_PROTEGE){
+                        (joueur.getDirection().getVal() == (v = projectile.getDirection().getVal() + 1) ||
+                                (joueur.getDirection().getVal() == (v = projectile.getDirection().getVal() - 1)))) {
+                    projectile.setDirection(Direction.valeurDe((byte) v));
+                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() == EtatAction.SE_PROTEGE) {
                     carteCourante.supprimerEntite(projectile);
                     joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
-
-
-            }
-
+                }
             }
         }
 
@@ -296,7 +308,6 @@ public class Jeu extends Observable implements Observateur {
                 if (comportement != null) {
                     comportement.agit(ennemi, 0);
                 }
-
             }
             if (entite instanceof Projectile projectile) {
                 deplaceur.deplace(projectile, 0, projectile.getDirection(), true);

@@ -9,18 +9,18 @@
 <?import java.net.URL?>
 <GridPane fx:id="mainGrid" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <columnConstraints>
-        <ColumnConstraints percentWidth="100"/>
+        <ColumnConstraints percentWidth="100" halignment="CENTER"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints percentHeight="100"/>
+        <RowConstraints percentHeight="100" valignment="CENTER"/>
     </rowConstraints>
     <VBox alignment="CENTER" spacing="20">
-        <Button fx:id="solo" text="Solo" GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#startSolo"/>
-        <Button fx:id="param" text="Paramètres" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <Button fx:id="quitter" text="Quitter" GridPane.columnIndex="0" GridPane.rowIndex="2" onAction="#quitter"/>
+        <Button fx:id="solo" text="Solo" onAction="#startSolo"/>
+        <Button fx:id="param" text="Paramètres" onAction="#parametres"/>
+        <Button fx:id="quitter" text="Quitter" onAction="#quitter"/>
     </VBox>
 
     <stylesheets>
-        <URL value="@menustyle.css" />
+        <URL value="@../css/menustyle.css" />
     </stylesheets>
 </GridPane>
