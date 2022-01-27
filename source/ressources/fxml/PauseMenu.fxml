@@ -7,15 +7,14 @@
 <?import javafx.scene.layout.*?>
 
 <?import java.net.URL?>
-<StackPane fx:id="pausePane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" alignment="CENTER">
-    <VBox fx:id="content" alignment="CENTER" spacing="8">
+    <VBox fx:id="content" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="8">
         <Button fx:id="reprendre" text="Reprendre" onAction="#reprendre"/>
         <Button fx:id="param" text="Paramètres" onAction="#parametres"/>
         <Button fx:id="sauvegarder" text="Sauvegarder"/>
         <Button fx:id="sauvegarderQuitter" text="Sauvegarder &amp; quitter" onAction="#sauvegarderQuitter"/>
-    </VBox>
 
-    <stylesheets>
-        <URL value="@../css/pausestyle.css" />
-    </stylesheets>
-</StackPane>
+
+        <stylesheets>
+            <URL value="@../css/pausestyle.css" />
+        </stylesheets>
+    </VBox>

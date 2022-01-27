@@ -1,11 +1,10 @@
 package vues;
 
-import com.mauja.maujaadventures.jeu.Options;
+import com.mauja.maujaadventures.jeu.Jeu;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 
@@ -16,23 +15,27 @@ public class Parametres {
     private GridPane paramPane;
     @FXML
     private TextField zoneText;
-    @FXML
-    private VBox content;
-    private Options options;
+    private Jeu jeu;
 
-    public Parametres(Navigateur navigateur, Options options){
+    public Parametres(Navigateur navigateur, Jeu jeu){
         this.navigateur = navigateur;
-        this.options = options;
+        this.jeu = jeu;
+        Stage myStage = navigateur.getMyStage();
+        myStage.widthProperty().addListener((listener) -> {
+            paramPane.setPrefSize(myStage.getWidth()*0.70, myStage.getHeight()*0.70);
+        });
     }
 
     @FXML
     public void initialize(){
-        Stage stage = navigateur.getMyStage();
-        zoneText.textProperty().bindBidirectional(options.paramProperty(),new NumberStringConverter());
+        Stage myStage = navigateur.getMyStage();
+        paramPane.setMaxSize(myStage.getWidth()*0.70, myStage.getHeight()*0.70);
+        zoneText.textProperty().bindBidirectional(jeu.getOptions().paramProperty(),new NumberStringConverter());
     }
 
     @FXML
     public void retour(){
         paramPane.setVisible(false);
+        jeu.setParamOuvert(false);
     }
 }
