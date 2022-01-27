@@ -127,8 +127,8 @@ public class Jeu extends Observable implements Observateur {
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                 new ComportementChevalier(carteCourante, joueur), 10);
 
-        carteCourante.ajouterEntite(entite);
-        //carteCourante.ajouterEntite(entite2);
+        //carteCourante.ajouterEntite(entite);
+        carteCourante.ajouterEntite(entite2);
 
 
         deplaceur = new DeplaceurEntite(carteCourante);
