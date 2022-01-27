@@ -74,6 +74,6 @@ public class PauseMenu {
     public void sauvegarderQuitter(){
         stackpane.setVisible(false);
         jeu.stop();
-        navigateur.naviguerVers("MainMenu.fxml",null);
+        navigateur.faireDemiTour();
     }
 }

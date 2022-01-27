@@ -8,10 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Navigateur {
 
@@ -19,10 +16,12 @@ public class Navigateur {
     private Map<String, Map<URL, List<Object>>> catalogueScenes = new HashMap<>();
     private RecuperateurRessources recuperateurRessources = new RecuperateurRessources();
     private Scene sceneCourante;
+    private Stack<Scene> laPileDeScenes;
 
     public Navigateur(Stage myStage) {
         if (myStage == null) throw new IllegalArgumentException("Le stage est null");
         this.myStage = myStage;
+        laPileDeScenes = new Stack<>();
 
         var list = recuperateurRessources.getRessourcesString();
         for (Map.Entry<String, URL> element : list.entrySet()) {
@@ -51,6 +50,7 @@ public class Navigateur {
                         try {
                             fxmlLoader.setController(controlleur);
                             Scene scene = new Scene(fxmlLoader.load());
+                            empilerScene(scene);
                             myStage.setScene(scene);
                             var mapUrl = new HashMap<URL, List<Object>>();
                             var list = new ArrayList<>();
@@ -58,18 +58,33 @@ public class Navigateur {
                             list.add(controlleur);
                             mapUrl.put(element.getKey(), list);
                             catalogueScenes.put(nom, mapUrl);
-                            sceneCourante = scene;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 } else {
-                    sceneCourante = (Scene) element.getValue().get(0);
-                    myStage.setScene(sceneCourante);
+                    empilerScene((Scene) element.getValue().get(0));
                     return element.getValue().get(1);
                 }
             }
         }
         return controlleur;
+    }
+
+    public void faireDemiTour() {
+        if (laPileDeScenes.size() != 0) {
+            laPileDeScenes.pop();
+            miseAJourStage(laPileDeScenes.peek());
+        }
+    }
+
+    public void empilerScene(Scene scene){
+        laPileDeScenes.add(scene);
+        miseAJourStage(scene);
+    }
+
+    public void miseAJourStage(Scene scene){
+        sceneCourante = scene;
+        myStage.setScene(sceneCourante);
     }
 }
