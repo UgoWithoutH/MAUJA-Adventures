@@ -4,18 +4,15 @@ import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.entrees.Touche;
 import com.mauja.maujaadventures.fenetres.FenetreDeJeu;
 import com.mauja.maujaadventures.jeu.Jeu;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,8 +57,8 @@ public class Partie {
         jeu.getGestionnaireDeTouches().echapProperty().addListener((listener) -> {
             if (contentPause == null) {
                 try {
-                    FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/PauseMenu.fxml"));
-                    PauseMenu pauseMenu = new PauseMenu(navigateur, jeu);
+                    FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/MenuPause.fxml"));
+                    MenuPause pauseMenu = new MenuPause(navigateur, jeu);
                     fxml.setController(pauseMenu);
                     pauseMenu.setPane(partiePane);
                     contentPause = fxml.load();
@@ -99,8 +96,8 @@ public class Partie {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         noeud.getChildren().add(canvas);
         new FenetreDeJeu(gc, jeu);
-        FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/PauseMenu.fxml"));
-        PauseMenu pauseMenu = new PauseMenu(navigateur, jeu);
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/MenuPause.fxml"));
+        MenuPause pauseMenu = new MenuPause(navigateur, jeu);
         fxml.setController(pauseMenu);
         pauseMenu.setPane(partiePane);
         try {

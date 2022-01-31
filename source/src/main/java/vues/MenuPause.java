@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class PauseMenu {
+public class MenuPause {
     private GridPane paramPane;
     private Navigateur navigateur;
     @FXML
@@ -21,7 +21,7 @@ public class PauseMenu {
     private Jeu jeu;
     private StackPane stackpane;
 
-    public PauseMenu(Navigateur navigateur, Jeu jeu){
+    public MenuPause(Navigateur navigateur, Jeu jeu){
         this.navigateur = navigateur;
         this.jeu = jeu;
         Stage myStage = navigateur.getMyStage();
