@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class MainMenu{
+public class MenuPrincipal {
 
     @FXML
     private GridPane mainGrid;
@@ -27,7 +27,7 @@ public class MainMenu{
     private Jeu jeu;
     private Manager manager;
 
-    public MainMenu(Navigateur navigateur){
+    public MenuPrincipal(Navigateur navigateur){
         try {
             this.navigateur = navigateur;
             manager = new Manager();
