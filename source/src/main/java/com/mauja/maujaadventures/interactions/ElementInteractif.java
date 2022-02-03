@@ -8,4 +8,8 @@ public abstract class ElementInteractif {
     public abstract void init();
 
     public abstract void interagit();
+
+    public void setMapConditionAction(Map<Condition, Action> mapConditionAction) {
+        this.mapConditionAction = mapConditionAction;
+    }
 }
