@@ -19,11 +19,13 @@ public class InteractionHandler extends DefaultHandler {
         return listeScenarios;
     }
 
+    //cette méthode est appelée lors du début du traitement du document XML
     @Override
     public void startDocument() {
         listeScenarios = new ArrayList<>();
     }
 
+    //cette méthode est appelée lors de la détection d'un tag de début
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         if (qName.equalsIgnoreCase("Scenario")) {
@@ -35,6 +37,7 @@ public class InteractionHandler extends DefaultHandler {
         }
     }
 
+    //cette méthode est appelée lors de la détection d'un tag de fin
     @Override
     public void endElement(String uri, String localName, String qName) {
         /*
@@ -52,7 +55,20 @@ public class InteractionHandler extends DefaultHandler {
             e.printStackTrace();
         }
         */
+
     }
 
+    //cette méthode est appelée lors de la détection de données entre deux tags
+    @Override
+    public void characters (char ch[], int start, int length)
+    {
 
+    }
+
+    //cette méthode est appelée lors de la fin du traitement du document XML
+    @Override
+    public void endDocument ()
+    {
+
+    }
 }
