@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2ad43959-46b8-4ee3-92a7-f495987d312c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/Attaqueur.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/Defendeur.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/jeu/TableauDeJeu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentation/diagramme_de_classe.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/../documentation/diagramme_de_classe.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mauja-adventures.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mauja-adventures.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ressources/interactionsTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/interactionsTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/chargeurs/ChargeurDeCalques.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/chargeurs/ChargeurDeCartes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/fenetres/FenetreDeJeu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/fenetres/FenetreDeJeu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/fenetres/FenetrePrincipale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/fenetres/FenetrePrincipale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Condition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Condition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ConditionCollision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ConditionCollision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/TypeCollision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/TypeCollision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/TypeEntite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/jeu/Jeu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/jeu/Jeu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/utilitaires/RecuperateurRessources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/utilitaires/RecuperateurRessources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/MenuPause.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/MenuPause.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/MenuPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/MenuPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/Navigateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/navigation/Navigateur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/Parametres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/Parametres.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/Partie.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="23lrrIeHIrF6PeGng5U43fJvoq4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../librairies/TiledReader-1.1.0" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.1484375" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager" selected="Application.TestParsageInteraction">
+    <configuration name="FenetrePrincipale" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.mauja.maujaadventures.fenetres.FenetrePrincipale" />
+      <module name="mauja-adventures" />
+      <option name="VM_PARAMETERS" value="--module-path $PROJECT_DIR$/../../../../javafx/javafx-sdk-17.0.1/lib/ --add-modules javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestParsageInteraction" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TestParsageInteraction" />
+      <module name="mauja-adventures" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.FenetrePrincipale" />
+      <item itemvalue="Application.TestParsageInteraction" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2ad43959-46b8-4ee3-92a7-f495987d312c" name="Changes" comment="" />
+      <created>1642319711262</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1642319711262</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

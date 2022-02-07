@@ -1,12 +1,12 @@
-package vues;
+package vues.codebehind;
 
 import com.mauja.maujaadventures.jeu.Jeu;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
+import vues.navigation.Navigateur;
 
 public class Parametres {
 
@@ -30,7 +30,7 @@ public class Parametres {
     public void initialize(){
         Stage myStage = navigateur.getMyStage();
         paramPane.setMaxSize(myStage.getWidth()*0.70, myStage.getHeight()*0.70);
-        zoneText.textProperty().bindBidirectional(jeu.getOptions().paramProperty(),new NumberStringConverter());
+        zoneText.textProperty().bindBidirectional(jeu.getTableauDeJeu().getOptions().paramProperty(),new NumberStringConverter());
     }
 
     @FXML

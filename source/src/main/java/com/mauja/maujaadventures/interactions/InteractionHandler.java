@@ -1,10 +1,12 @@
 package com.mauja.maujaadventures.interactions;
 
 import com.mauja.maujaadventures.entites.Ennemi;
+
 import com.mauja.maujaadventures.logique.Attaque;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

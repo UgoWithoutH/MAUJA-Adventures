@@ -1,4 +1,4 @@
-package vues;
+package vues.navigation;
 
 import com.mauja.maujaadventures.utilitaires.RecuperateurRessources;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +12,10 @@ import java.util.*;
 
 public class Navigateur {
 
+    public static final String menuPause = "MenuPause.fxml";
+    public static final String menuPrincipal = "MenuPrincipal.fxml";
+    public static final String parametres = "Parametres.fxml";
+    public static final String partie = "Partie.fxml";
     private Stage myStage;
     private Map<String, Map<URL, List<Object>>> catalogueScenes = new HashMap<>();
     private RecuperateurRessources recuperateurRessources = new RecuperateurRessources();

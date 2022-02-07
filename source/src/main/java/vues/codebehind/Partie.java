@@ -1,4 +1,4 @@
-package vues;
+package vues.codebehind;
 
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.entrees.Touche;
@@ -13,6 +13,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import vues.codebehind.MenuPause;
+import vues.navigation.Navigateur;
 
 import java.io.IOException;
 import java.util.ArrayList;

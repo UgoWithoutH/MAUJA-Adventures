@@ -81,11 +81,11 @@ public class FenetreDeJeu implements Observateur {
     }
 
     private void initialiser() {
-        carteCourante = jeu.getCarteCourante();
+        carteCourante = jeu.getTableauDeJeu().getCarteCourante();
         nombreCalques = carteCourante.getListeDeCalques().size();
-        lesTuiles = jeu.getLesTuiles();
+        lesTuiles = jeu.getTableauDeJeu().getLesTuiles();
         camera = jeu.getCamera();
-        joueur = jeu.getJoueur();
+        joueur = jeu.getTableauDeJeu().getJoueur();
 
         List<String> lesImagesJeuxDeTuilesChemin = Ressources.getLesImagesJeuxDeTuiles();
 
