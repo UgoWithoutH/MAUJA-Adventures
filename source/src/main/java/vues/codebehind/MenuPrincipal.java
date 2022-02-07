@@ -1,4 +1,4 @@
-package vues;
+package vues.codebehind;
 
 import com.mauja.maujaadventures.Manager;
 import com.mauja.maujaadventures.jeu.Jeu;
@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import vues.navigation.Navigateur;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class MenuPrincipal {
     @FXML
     public void startSolo() {
         Partie partie1 = new Partie(navigateur, jeu);
-        Partie partie2 = (Partie) navigateur.naviguerVers("Partie.fxml",partie1);
+        Partie partie2 = (Partie) navigateur.naviguerVers(Navigateur.partie, partie1);
         if(partie2 == partie1){
             partie2.initialiserVue();
             partie2.start();

@@ -6,8 +6,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import vues.MenuPrincipal;
-import vues.Navigateur;
+import vues.codebehind.MenuPrincipal;
+import vues.navigation.Navigateur;
 
 
 public class FenetrePrincipale extends Application {

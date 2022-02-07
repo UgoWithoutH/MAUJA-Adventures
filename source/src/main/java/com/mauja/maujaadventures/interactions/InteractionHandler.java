@@ -1,9 +1,11 @@
 package com.mauja.maujaadventures.interactions;
 
+import com.mauja.maujaadventures.entites.Ennemi;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +57,6 @@ public class InteractionHandler extends DefaultHandler {
             e.printStackTrace();
         }
         */
-
     }
 
     //cette méthode est appelée lors de la détection de données entre deux tags

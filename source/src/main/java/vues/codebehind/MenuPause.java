@@ -1,4 +1,4 @@
-package vues;
+package vues.codebehind;
 
 import com.mauja.maujaadventures.jeu.Jeu;
 import javafx.fxml.FXML;
@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import vues.navigation.Navigateur;
 
 import java.io.IOException;
 

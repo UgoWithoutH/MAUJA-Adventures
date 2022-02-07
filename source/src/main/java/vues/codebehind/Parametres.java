@@ -1,12 +1,12 @@
-package vues;
+package vues.codebehind;
 
 import com.mauja.maujaadventures.jeu.Jeu;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
+import vues.navigation.Navigateur;
 
 public class Parametres {
 
