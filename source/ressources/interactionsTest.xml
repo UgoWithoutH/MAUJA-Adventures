@@ -1,8 +1,7 @@
 <Carte id="1">
     <Scenario>
-
+        <ElementInteractif ptsVie="3" x="10" y="10" largeur="10" hauteur="10"/>
     </Scenario>
     <Scenario>
-
     </Scenario>
 </Carte>

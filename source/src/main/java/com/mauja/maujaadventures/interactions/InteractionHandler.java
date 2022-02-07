@@ -1,9 +1,15 @@
 package com.mauja.maujaadventures.interactions;
 
+import com.mauja.maujaadventures.entites.Ennemi;
+import com.mauja.maujaadventures.logique.Attaque;
+import com.mauja.maujaadventures.logique.Dimension;
+import com.mauja.maujaadventures.logique.Position;
+import com.mauja.maujaadventures.logique.Rectangle;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,29 +38,44 @@ public class InteractionHandler extends DefaultHandler {
 
             // nouveau scénario
             scenarioCourant = new Scenario();
-            listeScenarios.add(scenarioCourant);
+        }
 
+        try {
+            //if (Class.forName(qName) == Class.forName("com.mauja.maujaadventures.interactions.ElementInteractif")) {
+            if (qName.equalsIgnoreCase("ElementInteractif")){
+                /*elementInteractifCourant = new Ennemi(new Position(Double.parseDouble(attributes.getValue("x")),
+                        Double.parseDouble(attributes.getValue("y"))),
+                        new Dimension(Double.parseDouble(attributes.getValue("largeur")), Double.parseDouble(attributes.getValue("hauteur"))),
+                        new Rectangle(10,10,10,10), null, null, null,
+                        Integer.parseInt(attributes.getValue("ptsVie")));*/
+                Map<Condition, Action> map = new HashMap<>();
+                Constructor[] constructors = Class.forName("com.mauja.maujaadventures.entites.Ennemi").getConstructors();
+                elementInteractifCourant = (ElementInteractif)constructors[0].newInstance(new Position(
+                                Double.parseDouble(attributes.getValue("x")),
+                                Double.parseDouble(attributes.getValue("y"))),
+                        new Dimension(Double.parseDouble(attributes.getValue("largeur")),
+                                Double.parseDouble(attributes.getValue("hauteur"))),
+                        new Rectangle(10, 10, 10, 10), null, null, null,
+                        Integer.parseInt(attributes.getValue("ptsVie")));
+
+                elementInteractifCourant.setMapConditionAction(map);
+                scenarioCourant.ajouterElementInteractif(elementInteractifCourant);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     //cette méthode est appelée lors de la détection d'un tag de fin
     @Override
     public void endElement(String uri, String localName, String qName) {
-        /*
-        try {
-            if (Class.forName(qName) == Class.forName("com.mauja.maujaadventures.interactions.ElementInteractif")) {
-                elementInteractifCourant = (ElementInteractif) Class.forName(qName).newInstance();
-                Map<Condition, Action> map = new HashMap<>();
-                elementInteractifCourant.setMapConditionAction(map);
-                //scenarioCourant.ajouterElementInteractif((ElementInteractif)elementInteractif);
-            }
-            if ()
 
-
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
+        if (qName.equalsIgnoreCase("Scenario")){
+            listeScenarios.add(scenarioCourant);
         }
-        */
+
 
     }
 

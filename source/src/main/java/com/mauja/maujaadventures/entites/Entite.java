@@ -1,11 +1,12 @@
 package com.mauja.maujaadventures.entites;
 
+import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.logique.Velocite;
 
-public abstract class Entite {
+public abstract class Entite extends ElementInteractif {
     private Position position;
     private Dimension dimension;
     private Rectangle collision;
@@ -113,6 +114,8 @@ public abstract class Entite {
                 + collision.hashCode()
                 + direction.hashCode());
     }
+
+
 
     /**
      * Redéfinition du equals

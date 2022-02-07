@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scenario {
+
     private List<ElementInteractif> listeElemInteractif;
 
 
@@ -15,6 +16,9 @@ public class Scenario {
         listeElemInteractif.add(elementInteractif);
     }
 
+    public List<ElementInteractif> getListeElemInteractif() {
+        return listeElemInteractif;
+    }
 
     @Override
     public String toString() {

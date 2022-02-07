@@ -48,9 +48,11 @@ public class Ennemi extends Vivant {
                 && comportement.equals(ennemi.getComportement());
     }
 
+
     @Override
     public String toString() {
-        return super.toString()
-                + "\nComportement : " + comportement;
+        return /*super.toString()
+                + "\nComportement : " + comportement;*/
+        "toto";
     }
 }

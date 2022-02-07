@@ -1,3 +1,4 @@
+import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.interactions.InteractionHandler;
 import com.mauja.maujaadventures.interactions.Scenario;
 import org.xml.sax.SAXException;
@@ -21,6 +22,7 @@ public class TestParsageInteraction {
             parseur.parse(inputStream, handler);
             List<Scenario> scenarios = handler.getListeScenarios();
             System.out.println(scenarios);
+            ElementInteractif elementInteractif = scenarios.get(0).getListeElemInteractif().get(0);
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
