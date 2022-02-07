@@ -22,22 +22,19 @@ import java.util.*;
 public class Jeu extends Observable implements Observateur {
     private static final Dimension DIMENSION_CAMERA_PAR_DEFAUT = new Dimension(964, 608);
 
+    private TableauDeJeu tableauDeJeu;
     private DeplaceurEntite deplaceur;
-    private List<Tuile> lesTuiles;
-    private List<Carte> lesCartes;
-    private Carte carteCourante;
+    private CollisionneurAABB collisionneur;
+    private GestionnaireDeTouches gestionnaireDeTouches;
+
     private Camera camera;
-    private PersonnageJouable joueur;
     private int tempsAttaque = 0;
     private Boucle boucle;
-    int v;
+    private int v;
     private final double decalageX = 28.2;
     private final double decalageY = 24;
-    private final Options options;
     private boolean paramOuvert = false;
-    private GestionnaireDeTouches gestionnaireDeTouches;
     private List<Touche> lesTouchesAppuyees;
-    private CollisionneurAABB collisionneur;
 
     /**
      * Constructeur de Jeu
@@ -46,11 +43,10 @@ public class Jeu extends Observable implements Observateur {
      */
     public Jeu(Options options) throws FileNotFoundException, FileNotFoundException {
         collisionneur = new CollisionneurAABB();
+        tableauDeJeu = new TableauDeJeu(options);
 
         camera = new Camera( 0, 0);
         lesTouchesAppuyees = new ArrayList<>();
-        lesCartes = new ArrayList<>();
-        this.options = options;
 
         boucle = new Boucle();
         boucle.attacher(this);
@@ -68,84 +64,27 @@ public class Jeu extends Observable implements Observateur {
         return DIMENSION_CAMERA_PAR_DEFAUT;
     }
 
-    public List<Carte> getLesCartes() {
-        return lesCartes;
+    public TableauDeJeu getTableauDeJeu() {
+        return tableauDeJeu;
     }
 
-    public Carte getCarteCourante() {
-        return carteCourante;
+    public void setParamOuvert(boolean value) {
+        paramOuvert = value;
+    }
+    public boolean isParamOuvert() {
+        return paramOuvert;
     }
 
     public Camera getCamera() {
         return camera;
     }
 
-    public PersonnageJouable getJoueur() {
-        return joueur;
+    public GestionnaireDeTouches getGestionnaireDeTouches() {
+        return gestionnaireDeTouches;
     }
 
-    public List<Tuile> getLesTuiles() {
-        return lesTuiles;
-    }
-
-    public Options getOptions() {return options;}
-
-    public void setParamOuvert(boolean value){paramOuvert = value;}
-    public boolean isParamOuvert() {return paramOuvert;}
-
-    public GestionnaireDeTouches getGestionnaireDeTouches() {return gestionnaireDeTouches;}
-
-    public Boucle getBoucle() {return boucle;}
-
-    /**
-     * Fonction d'initialisation du jeu
-     * @throws FileNotFoundException Exception si le fichier de l'image n'est pas trouvé
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public void initialiser() throws FileNotFoundException {
-        RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
-
-        List<String> lesCartesChemin = Ressources.getLesCartes();
-
-        List<JeuDeTuiles> lesJeuxDeTuiles = null;
-
-        Carte carte;
-        for (String chemin : lesCartesChemin) {
-            carte = recuperateurDeCartes.recupereCarte(chemin);
-            lesCartes.add(carte);
-        }
-
-        carteCourante = lesCartes.get(0);
-
-        for (String chemin : lesCartesChemin) {
-            lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles(chemin);
-        }
-
-        lesTuiles = new ArrayList<>();
-
-        for (JeuDeTuiles jeuDeTuiles : lesJeuxDeTuiles) {
-            lesTuiles.addAll(jeuDeTuiles.getListeDeTuiles());
-        }
-
-        Position position = new Position(482, 400);
-        Rectangle rectangle = new Rectangle(new Position(3, 24), new Dimension(27, 23));
-        joueur = new PersonnageJouable(position, new Dimension(33, 47),
-                rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
-
-
-        Entite entite = new Ennemi(new Position(400, 600), new Dimension(30, 30),
-                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementOctorockTireur(carteCourante), 10);
-
-        Entite entite2 = new Ennemi(new Position(400, 600), new Dimension(30, 30),
-                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementChevalier(carteCourante, joueur), 10);
-
-        //carteCourante.ajouterEntite(entite);
-        carteCourante.ajouterEntite(entite2);
-
-
-        deplaceur = new DeplaceurEntite(carteCourante);
+    public Boucle getBoucle() {
+        return boucle;
     }
 
     public void start() {
@@ -164,145 +103,144 @@ public class Jeu extends Observable implements Observateur {
 
         if (lesTouchesAppuyees.contains(Touche.B) /*&& tempsAttaque > joueur.getAttaque().getDuree()*/) {
             System.out.println("Je me protège");
-            joueur.setEtatAction(EtatAction.SE_PROTEGE);
         }
         else {
-            joueur.setEtatAction(EtatAction.SANS_ACTION);
+            tableauDeJeu.getJoueur().setEtatAction(EtatAction.SANS_ACTION);
         }
 
         if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
             //System.out.println("J'attaque");
-            joueur.setEtatAction(EtatAction.ATTAQUE);
+            tableauDeJeu.getJoueur().setEtatAction(EtatAction.ATTAQUE);
             Rectangle collisionAttaque;
-            if (joueur.getDirection() == Direction.DROITE) {
-                collisionAttaque = new Rectangle(joueur.getPosition().getX() + joueur.getCollision().getPosition().getX()
-                        + joueur.getCollision().getDimension().getLargeur(),
-                        joueur.getPosition().getY() +
-                                (joueur.getDimension().getHauteur() - joueur.getAttaque().getCollision().getDimension().getHauteur()) / 2,
-                        joueur.getAttaque().getCollision().getDimension().getLargeur(),
-                        joueur.getCollision().getDimension().getHauteur());
-                joueur.getAttaque().setCollision(collisionAttaque);
+            if (tableauDeJeu.getJoueur().getDirection() == Direction.DROITE) {
+                collisionAttaque = new Rectangle(tableauDeJeu.getJoueur().getPosition().getX() + tableauDeJeu.getJoueur().getCollision().getPosition().getX()
+                        + tableauDeJeu.getJoueur().getCollision().getDimension().getLargeur(),
+                        tableauDeJeu.getJoueur().getPosition().getY() +
+                                (tableauDeJeu.getJoueur().getDimension().getHauteur() - tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getHauteur()) / 2,
+                        tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur(),
+                        tableauDeJeu.getJoueur().getCollision().getDimension().getHauteur());
+                tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
             }
-            if (joueur.getDirection() == Direction.GAUCHE) {
-                collisionAttaque = new Rectangle(joueur.getPosition().getX()
-                        - joueur.getCollision().getDimension().getLargeur(),
-                        joueur.getPosition().getY() +
-                                (joueur.getDimension().getHauteur() - joueur.getAttaque().getCollision().getDimension().getHauteur()) / 2,
-                        joueur.getAttaque().getCollision().getDimension().getLargeur(),
-                        joueur.getCollision().getDimension().getHauteur());
-                joueur.getAttaque().setCollision(collisionAttaque);
-            }
-
-            if (joueur.getDirection() == Direction.HAUT) {
-                collisionAttaque = new Rectangle(joueur.getPosition().getX() +
-                        (joueur.getDimension().getLargeur() - joueur.getAttaque().getCollision().getDimension().getLargeur()) / 2,
-                        joueur.getPosition().getY() - joueur.getAttaque().getCollision().getDimension().getHauteur(),
-                        joueur.getAttaque().getCollision().getDimension().getLargeur(),
-                        joueur.getCollision().getDimension().getHauteur());
-                joueur.getAttaque().setCollision(collisionAttaque);
+            if (tableauDeJeu.getJoueur().getDirection() == Direction.GAUCHE) {
+                collisionAttaque = new Rectangle(tableauDeJeu.getJoueur().getPosition().getX()
+                        - tableauDeJeu.getJoueur().getCollision().getDimension().getLargeur(),
+                        tableauDeJeu.getJoueur().getPosition().getY() +
+                                (tableauDeJeu.getJoueur().getDimension().getHauteur() - tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getHauteur()) / 2,
+                        tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur(),
+                        tableauDeJeu.getJoueur().getCollision().getDimension().getHauteur());
+                tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
             }
 
-            if (joueur.getDirection() == Direction.BAS) {
-                collisionAttaque = new Rectangle(joueur.getPosition().getX() +
-                        (joueur.getDimension().getLargeur() - joueur.getAttaque().getCollision().getDimension().getLargeur()) / 2,
-                        joueur.getPosition().getY() + joueur.getDimension().getHauteur(),
-                        joueur.getAttaque().getCollision().getDimension().getLargeur(),
-                        joueur.getCollision().getDimension().getHauteur());
-                joueur.getAttaque().setCollision(collisionAttaque);
+            if (tableauDeJeu.getJoueur().getDirection() == Direction.HAUT) {
+                collisionAttaque = new Rectangle(tableauDeJeu.getJoueur().getPosition().getX() +
+                        (tableauDeJeu.getJoueur().getDimension().getLargeur() - tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur()) / 2,
+                        tableauDeJeu.getJoueur().getPosition().getY() - tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getHauteur(),
+                        tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur(),
+                        tableauDeJeu.getJoueur().getCollision().getDimension().getHauteur());
+                tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
+            }
+
+            if (tableauDeJeu.getJoueur().getDirection() == Direction.BAS) {
+                collisionAttaque = new Rectangle(tableauDeJeu.getJoueur().getPosition().getX() +
+                        (tableauDeJeu.getJoueur().getDimension().getLargeur() - tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur()) / 2,
+                        tableauDeJeu.getJoueur().getPosition().getY() + tableauDeJeu.getJoueur().getDimension().getHauteur(),
+                        tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur(),
+                        tableauDeJeu.getJoueur().getCollision().getDimension().getHauteur());
+                tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
             }
             tempsAttaque = 0;
         }
         else {
             tempsAttaque++;
-            if (tempsAttaque > joueur.getAttaque().getDuree() && joueur.getEtatAction() != EtatAction.SE_PROTEGE) {
-                joueur.setEtatAction(EtatAction.SANS_ACTION);
+            if (tempsAttaque > tableauDeJeu.getJoueur().getAttaque().getDuree() && tableauDeJeu.getJoueur().getEtatAction() != EtatAction.SE_PROTEGE) {
+                tableauDeJeu.getJoueur().setEtatAction(EtatAction.SANS_ACTION);
             }
         }
 
-        if (joueur.getEtatAction() == EtatAction.SANS_ACTION) {
+        if (tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SANS_ACTION) {
             if (lesTouchesAppuyees.contains(Touche.FLECHE_DROITE)) {
-                boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.DROITE, true);
+                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.DROITE, true);
 
-                if (estDeplace && carteCourante.getDimension().getLargeur() * decalageX - (joueur.getPosition().getX()) > carteCourante.getDimension().getLargeur()) {
-                    if (((camera.getPositionCameraX() <= carteCourante.getDimension().getLargeur() * decalageX)) &&
-                            (joueur.getPosition().getX() >= DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
-                        camera.deplacementCamera(joueur.getVelocite().getX(), 0);
+                if (estDeplace && tableauDeJeu.getCarteCourante().getDimension().getLargeur() * decalageX - (tableauDeJeu.getJoueur().getPosition().getX()) > tableauDeJeu.getCarteCourante().getDimension().getLargeur()) {
+                    if (((camera.getPositionCameraX() <= tableauDeJeu.getCarteCourante().getDimension().getLargeur() * decalageX)) &&
+                            (tableauDeJeu.getJoueur().getPosition().getX() >= DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
+                        camera.deplacementCamera(tableauDeJeu.getJoueur().getVelocite().getX(), 0);
                     }
                 }
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_GAUCHE)) {
-                boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.GAUCHE, true);
-                if (estDeplace && 0 + joueur.getPosition().getY() > carteCourante.getDimension().getLargeur()) {
+                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.GAUCHE, true);
+                if (estDeplace && 0 + tableauDeJeu.getJoueur().getPosition().getY() > tableauDeJeu.getCarteCourante().getDimension().getLargeur()) {
                     if (!(camera.getPositionCameraX() <= 0) &&
-                            (joueur.getPosition().getX() <= carteCourante.getDimension().getLargeur() * 32 -
+                            (tableauDeJeu.getJoueur().getPosition().getX() <= tableauDeJeu.getCarteCourante().getDimension().getLargeur() * 32 -
                                     DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
-                        camera.deplacementCamera(-joueur.getVelocite().getX(), 0);
+                        camera.deplacementCamera(-tableauDeJeu.getJoueur().getVelocite().getX(), 0);
                     }
                 }
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_HAUT)) {
-                boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.HAUT, true);
+                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.HAUT, true);
                 if (estDeplace && !(camera.getPositionCameraY() <= 0) &&
-                        (joueur.getPosition().getY() <= carteCourante.getDimension().getHauteur() * decalageY +
+                        (tableauDeJeu.getJoueur().getPosition().getY() <= tableauDeJeu.getCarteCourante().getDimension().getHauteur() * decalageY +
                                 DIMENSION_CAMERA_PAR_DEFAUT.getHauteur() / 2)) {
-                    camera.deplacementCamera(0, -joueur.getVelocite().getY());
+                    camera.deplacementCamera(0, -tableauDeJeu.getJoueur().getVelocite().getY());
                 }
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_BAS)) {
-                boolean estDeplace = deplaceur.deplace(joueur, 0, Direction.BAS, true);
+                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.BAS, true);
 
-                if (estDeplace && (carteCourante.getDimension().getLargeur() * carteCourante.getDimension().getLargeur()) - (joueur.getPosition().getY()) > carteCourante.getDimension().getHauteur() &&
-                        (camera.getPositionCameraY() <= carteCourante.getDimension().getHauteur() * decalageY &&
-                                (joueur.getPosition().getY() >= DIMENSION_CAMERA_PAR_DEFAUT.getHauteur() / 2))) {
-                    camera.deplacementCamera(0, joueur.getVelocite().getY());
+                if (estDeplace && (tableauDeJeu.getCarteCourante().getDimension().getLargeur() * tableauDeJeu.getCarteCourante().getDimension().getLargeur()) - (tableauDeJeu.getJoueur().getPosition().getY()) > tableauDeJeu.getCarteCourante().getDimension().getHauteur() &&
+                        (camera.getPositionCameraY() <= tableauDeJeu.getCarteCourante().getDimension().getHauteur() * decalageY &&
+                                (tableauDeJeu.getJoueur().getPosition().getY() >= DIMENSION_CAMERA_PAR_DEFAUT.getHauteur() / 2))) {
+                    camera.deplacementCamera(0, tableauDeJeu.getJoueur().getVelocite().getY());
                 }
             }
         }
 
         // Detection attaque joueur et ennemis
-        for (Entite entite : carteCourante.getLesEntites()) {
+        for (Entite entite : tableauDeJeu.getCarteCourante().getLesEntites()) {
             Rectangle collisionEntite = new Rectangle(entite.getCollision().getPosition().getX() + entite.getPosition().getX(),
                     entite.getCollision().getPosition().getY() + entite.getPosition().getY(),
                     entite.getCollision().getDimension());
-            Rectangle collisionJoueur = new Rectangle(joueur.getCollision().getPosition().getX() + joueur.getPosition().getX(),
-                    joueur.getCollision().getPosition().getY() + joueur.getPosition().getY(),
-                    joueur.getCollision().getDimension());
+            Rectangle collisionJoueur = new Rectangle(tableauDeJeu.getJoueur().getCollision().getPosition().getX() + tableauDeJeu.getJoueur().getPosition().getX(),
+                    tableauDeJeu.getJoueur().getCollision().getPosition().getY() + tableauDeJeu.getJoueur().getPosition().getY(),
+                    tableauDeJeu.getJoueur().getCollision().getDimension());
 
             if (entite instanceof Ennemi ennemi) {
-                if (collisionneur.collisionne(joueur.getAttaque().getCollision(), collisionEntite)
-                        && joueur.getEtatAction() == EtatAction.ATTAQUE) {
-                    ennemi.setPointsDeVie(ennemi.getPointsDeVie() - joueur.getAttaque().getDegats());
+                if (collisionneur.collisionne(tableauDeJeu.getJoueur().getAttaque().getCollision(), collisionEntite)
+                        && tableauDeJeu.getJoueur().getEtatAction() == EtatAction.ATTAQUE) {
+                    ennemi.setPointsDeVie(ennemi.getPointsDeVie() - tableauDeJeu.getJoueur().getAttaque().getDegats());
                     if (ennemi.getPointsDeVie() <= 0) {
-                        carteCourante.supprimerEntite(ennemi);
+                        tableauDeJeu.getCarteCourante().supprimerEntite(ennemi);
                     }
                 }
 
                 if (collisionneur.collisionne(collisionJoueur, collisionEntite)) {
-                    joueur.setPointsDeVie(joueur.getPointsDeVie() - ennemi.getAttaque().getDegats());
+                    tableauDeJeu.getJoueur().setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - ennemi.getAttaque().getDegats());
                 }
             }
             if (entite instanceof Projectile projectile) {
 
-                if (collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() != EtatAction.SE_PROTEGE) {
-                    joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
-                    carteCourante.supprimerEntite(projectile);
+                if (collisionneur.collisionne(collisionJoueur, collisionEntite) && tableauDeJeu.getJoueur().getEtatAction() != EtatAction.SE_PROTEGE) {
+                    tableauDeJeu.getJoueur().setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - projectile.getDegats());
+                    tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
                 } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) &&
-                        joueur.getEtatAction() == EtatAction.SE_PROTEGE &&
-                        (joueur.getDirection().getVal() == (v = projectile.getDirection().getVal() + 1) ||
-                                (joueur.getDirection().getVal() == (v = projectile.getDirection().getVal() - 1)))) {
+                        tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SE_PROTEGE &&
+                        (tableauDeJeu.getJoueur().getDirection().getVal() == (v = projectile.getDirection().getVal() + 1) ||
+                                (tableauDeJeu.getJoueur().getDirection().getVal() == (v = projectile.getDirection().getVal() - 1)))) {
                     projectile.setDirection(Direction.valeurDe((byte) v));
-                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) && joueur.getEtatAction() == EtatAction.SE_PROTEGE) {
-                    carteCourante.supprimerEntite(projectile);
-                    joueur.setPointsDeVie(joueur.getPointsDeVie() - projectile.getDegats());
+                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) && tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SE_PROTEGE) {
+                    tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
+                    tableauDeJeu.getJoueur().setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - projectile.getDegats());
                 }
             }
         }
 
         // MAJ ennemis
-        for (Entite entite : carteCourante.getLesEntites()) {
+        for (Entite entite : tableauDeJeu.getCarteCourante().getLesEntites()) {
             if (entite instanceof Ennemi ennemi) {
                 Comportement comportement = ennemi.getComportement();
                 if (comportement != null) {
@@ -314,5 +252,14 @@ public class Jeu extends Observable implements Observateur {
             }
         }
         notifier(timer);
+    }
+
+    /**
+     * Fonction d'initialisation du jeu
+     * @throws FileNotFoundException Exception si le fichier de l'image n'est pas trouvé
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    private void initialiser() throws FileNotFoundException {
+        deplaceur = new DeplaceurEntite(tableauDeJeu.getCarteCourante());
     }
 }
