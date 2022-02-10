@@ -1,7 +1,16 @@
 package com.mauja.maujaadventures.interactions;
 
-public interface Balise {
+public abstract class Balise {
 
-    public void ajouter(Balise balise);
+    private Balise baliseParente;
 
+    public abstract void ajouter(Balise balise);
+
+    public Balise getBaliseParente() {
+        return baliseParente;
+    }
+
+    public void setBaliseParente(Balise baliseParente) {
+        this.baliseParente = baliseParente;
+    }
 }

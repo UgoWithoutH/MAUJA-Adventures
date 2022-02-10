@@ -38,10 +38,9 @@ public class InteractionHandler extends DefaultHandler {
     //cette méthode est appelée lors de la détection d'un tag de début
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
+        baliseParente = baliseCourante;
 
         if (qName.equalsIgnoreCase("Scenario")) {
-
-            // nouveau scénario
             baliseCourante = new Scenario();
             baliseParente = baliseCourante;
         }
@@ -49,8 +48,7 @@ public class InteractionHandler extends DefaultHandler {
         try {
             if (qName.equalsIgnoreCase("ElementInteractif")){
                 Constructor[] constructors = Class.forName(attributes.getValue("type")).getConstructors();
-                Map<Condition, Action> map = new HashMap<>();
-                baliseParente = baliseCourante;
+                Map<Condition, List<Action>> map = new HashMap<>();
                 baliseCourante = (ElementInteractif)constructors[0].newInstance(new Position(
                                 Double.parseDouble(attributes.getValue("x")),
                                 Double.parseDouble(attributes.getValue("y"))),
@@ -60,7 +58,18 @@ public class InteractionHandler extends DefaultHandler {
                         Integer.parseInt(attributes.getValue("ptsVie")));
                 ((ElementInteractif)baliseCourante).setMapConditionAction(map);
             }
+            if (qName.equalsIgnoreCase("Condition")){
+                Constructor[] constructors = Class.forName(attributes.getValue("type")).getConstructors();
+                baliseCourante = (Condition)constructors[0].newInstance();
+            }
+            if (qName.equalsIgnoreCase("Action")){
+                Constructor[] constructors = Class.forName(attributes.getValue("type")).getConstructors();
+                baliseCourante = (Action)constructors[0].newInstance();
 
+            }
+            if (baliseCourante != null) {
+                baliseCourante.setBaliseParente(baliseParente);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,12 +81,15 @@ public class InteractionHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) {
 
         if (qName.equalsIgnoreCase("Scenario")){
-            listeScenarios.add((Scenario)baliseParente);
+            listeScenarios.add((Scenario)baliseCourante);
         }
-        if (qName.equalsIgnoreCase("ElementInteractif")) {
-            baliseParente.ajouter(baliseCourante);
-            baliseCourante = baliseParente;
+        else{
+            if (!qName.equalsIgnoreCase("Carte")) {
+                baliseCourante.getBaliseParente().ajouter(baliseCourante);
+                baliseCourante = baliseCourante.getBaliseParente();
+            }
         }
+
 
 
 

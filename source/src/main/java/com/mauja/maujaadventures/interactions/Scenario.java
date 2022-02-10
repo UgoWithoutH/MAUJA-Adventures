@@ -3,7 +3,7 @@ package com.mauja.maujaadventures.interactions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Scenario implements Balise {
+public class Scenario extends Balise {
 
     private List<ElementInteractif> listeElemInteractif;
 
