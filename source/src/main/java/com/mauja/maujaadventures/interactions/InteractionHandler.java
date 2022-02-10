@@ -22,6 +22,8 @@ public class InteractionHandler extends DefaultHandler {
     private List<Scenario> listeScenarios;
     private Scenario scenarioCourant;
     private  ElementInteractif elementInteractifCourant;
+    private Balise baliseParente;
+    private Balise baliseCourante;
 
     public List<Scenario> getListeScenarios() {
         return listeScenarios;
@@ -36,38 +38,33 @@ public class InteractionHandler extends DefaultHandler {
     //cette méthode est appelée lors de la détection d'un tag de début
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
+
         if (qName.equalsIgnoreCase("Scenario")) {
 
             // nouveau scénario
-            scenarioCourant = new Scenario();
+            baliseCourante = new Scenario();
+            baliseParente = baliseCourante;
         }
 
         try {
-            //if (Class.forName(qName) == Class.forName("com.mauja.maujaadventures.interactions.ElementInteractif")) {
             if (qName.equalsIgnoreCase("ElementInteractif")){
-                /*elementInteractifCourant = new Ennemi(new Position(Double.parseDouble(attributes.getValue("x")),
-                        Double.parseDouble(attributes.getValue("y"))),
-                        new Dimension(Double.parseDouble(attributes.getValue("largeur")), Double.parseDouble(attributes.getValue("hauteur"))),
-                        new Rectangle(10,10,10,10), null, null, null,
-                        Integer.parseInt(attributes.getValue("ptsVie")));*/
+                Constructor[] constructors = Class.forName(attributes.getValue("type")).getConstructors();
                 Map<Condition, Action> map = new HashMap<>();
-                Constructor[] constructors = Class.forName("com.mauja.maujaadventures.entites.Ennemi").getConstructors();
-                elementInteractifCourant = (ElementInteractif)constructors[0].newInstance(new Position(
+                baliseParente = baliseCourante;
+                baliseCourante = (ElementInteractif)constructors[0].newInstance(new Position(
                                 Double.parseDouble(attributes.getValue("x")),
                                 Double.parseDouble(attributes.getValue("y"))),
                         new Dimension(Double.parseDouble(attributes.getValue("largeur")),
                                 Double.parseDouble(attributes.getValue("hauteur"))),
                         new Rectangle(10, 10, 10, 10), null, null, null,
                         Integer.parseInt(attributes.getValue("ptsVie")));
-
-                elementInteractifCourant.setMapConditionAction(map);
-                scenarioCourant.ajouterElementInteractif(elementInteractifCourant);
+                ((ElementInteractif)baliseCourante).setMapConditionAction(map);
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     //cette méthode est appelée lors de la détection d'un tag de fin
@@ -75,8 +72,13 @@ public class InteractionHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) {
 
         if (qName.equalsIgnoreCase("Scenario")){
-            listeScenarios.add(scenarioCourant);
+            listeScenarios.add((Scenario)baliseParente);
         }
+        if (qName.equalsIgnoreCase("ElementInteractif")) {
+            baliseParente.ajouter(baliseCourante);
+            baliseCourante = baliseParente;
+        }
+
 
 
     }

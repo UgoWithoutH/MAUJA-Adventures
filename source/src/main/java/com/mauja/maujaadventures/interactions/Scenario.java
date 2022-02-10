@@ -3,7 +3,7 @@ package com.mauja.maujaadventures.interactions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Scenario {
+public class Scenario implements Balise {
 
     private List<ElementInteractif> listeElemInteractif;
 
@@ -25,5 +25,10 @@ public class Scenario {
         return "Scenario{" +
                 "listeElemInteractif=" + listeElemInteractif +
                 '}';
+    }
+
+    @Override
+    public void ajouter(Balise balise) {
+        ajouterElementInteractif((ElementInteractif)balise);
     }
 }

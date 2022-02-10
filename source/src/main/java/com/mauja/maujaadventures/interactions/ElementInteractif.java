@@ -2,7 +2,7 @@ package com.mauja.maujaadventures.interactions;
 
 import java.util.Map;
 
-public abstract class ElementInteractif {
+public abstract class ElementInteractif implements Balise{
     private Map<Condition, Action> mapConditionAction;
 
 
@@ -22,5 +22,10 @@ public abstract class ElementInteractif {
         return "ElementInteractif{" +
                 "mapConditionAction=" + mapConditionAction +
                 '}';
+    }
+
+    @Override
+    public void ajouter(Balise balise) {
+
     }
 }
