@@ -8,6 +8,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.*;
 import java.util.List;
+import javax.xml.*;
 
 public class TestParsageInteraction {
     public static void main(String[] args) {

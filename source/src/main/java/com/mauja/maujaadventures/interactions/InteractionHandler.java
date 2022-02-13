@@ -20,9 +20,10 @@ import java.util.Map;
 public class InteractionHandler extends DefaultHandler {
 
     private List<Scenario> listeScenarios;
-    private Scenario scenarioCourant;
-    private  ElementInteractif elementInteractifCourant;
     private Balise baliseParente;
+    private CreateurDElementInteractif createurDElementInteractif;
+    private CreateurDAction createurDAction;
+    private CreateurDeCondition createurDeCondition;
     private Balise baliseCourante;
 
     public List<Scenario> getListeScenarios() {
@@ -33,6 +34,9 @@ public class InteractionHandler extends DefaultHandler {
     @Override
     public void startDocument() {
         listeScenarios = new ArrayList<>();
+        createurDElementInteractif = new CreateurDElementInteractif();
+        createurDAction = new CreateurDAction();
+        createurDeCondition = new CreateurDeCondition();
     }
 
     //cette méthode est appelée lors de la détection d'un tag de début
@@ -47,25 +51,13 @@ public class InteractionHandler extends DefaultHandler {
 
         try {
             if (qName.equalsIgnoreCase("ElementInteractif")){
-                Constructor[] constructors = Class.forName(attributes.getValue("type")).getConstructors();
-                Map<Condition, List<Action>> map = new HashMap<>();
-                baliseCourante = (ElementInteractif)constructors[0].newInstance(new Position(
-                                Double.parseDouble(attributes.getValue("x")),
-                                Double.parseDouble(attributes.getValue("y"))),
-                        new Dimension(Double.parseDouble(attributes.getValue("largeur")),
-                                Double.parseDouble(attributes.getValue("hauteur"))),
-                        new Rectangle(10, 10, 10, 10), null, null, null,
-                        Integer.parseInt(attributes.getValue("ptsVie")));
-                ((ElementInteractif)baliseCourante).setMapConditionAction(map);
+                baliseCourante = createurDElementInteractif.creation(attributes);
             }
             if (qName.equalsIgnoreCase("Condition")){
-                Constructor[] constructors = Class.forName(attributes.getValue("type")).getConstructors();
-                baliseCourante = (Condition)constructors[0].newInstance();
+                baliseCourante = createurDeCondition.creation(attributes);
             }
             if (qName.equalsIgnoreCase("Action")){
-                Constructor[] constructors = Class.forName(attributes.getValue("type")).getConstructors();
-                baliseCourante = (Action)constructors[0].newInstance();
-
+                baliseCourante = createurDAction.creation(attributes);
             }
             if (baliseCourante != null) {
                 baliseCourante.setBaliseParente(baliseParente);
