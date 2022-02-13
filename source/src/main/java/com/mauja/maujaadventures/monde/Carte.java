@@ -6,6 +6,7 @@ import com.mauja.maujaadventures.logique.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Carte {
     public static int nombreIdentifiants = 0;

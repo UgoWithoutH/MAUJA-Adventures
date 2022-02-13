@@ -2,8 +2,7 @@ package com.mauja.maujaadventures.jeu;
 
 import com.mauja.maujaadventures.chargeurs.RecuperateurDeCartes;
 import com.mauja.maujaadventures.chargeurs.Ressources;
-import com.mauja.maujaadventures.comportements.ComportementChevalier;
-import com.mauja.maujaadventures.comportements.ComportementOctorockTireur;
+import com.mauja.maujaadventures.comportements.ComportementPoursuite;
 import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
@@ -87,15 +86,14 @@ public class TableauDeJeu {
                 rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
 
 
-        Entite entite = new Ennemi(new Position(400, 600), new Dimension(30, 30),
-                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementOctorockTireur(carteCourante), 10);
+        for (int i = 0; i < 50; i++) {
+            for (int j = 0; j < 50; j++) {
+                Entite entite = new Ennemi(new Position(i*16, j*16), new Dimension(30, 30),
+                        new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
+                        new ComportementPoursuite(carteCourante, joueur), 10);
 
-        Entite entite2 = new Ennemi(new Position(400, 600), new Dimension(30, 30),
-                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementChevalier(carteCourante, joueur), 10);
-
-        carteCourante.ajouterEntite(entite);
-        carteCourante.ajouterEntite(entite2);
+                carteCourante.ajouterEntite(entite);
+            }
+        }
     }
 }

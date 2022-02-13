@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public class Attaque {
     private static final int DEGATS_PAR_DEFAUT = 3;
-    private final float dureeOriginelle;
+    private final double dureeOriginelle;
     private Rectangle collision;
     private int degats;
-    private float duree;
+    private double duree;
 
-    public Attaque(Rectangle collision, float duree, int degats) {
+    public Attaque(Rectangle collision, double duree, int degats) {
         this.collision = collision;
         if (degats < 0) {
             degats = DEGATS_PAR_DEFAUT;
@@ -19,7 +19,7 @@ public class Attaque {
         dureeOriginelle = duree;
     }
 
-    public Attaque(Rectangle collision, float duree) {
+    public Attaque(Rectangle collision, double duree) {
         this(collision, duree, DEGATS_PAR_DEFAUT);
     }
 
@@ -35,19 +35,15 @@ public class Attaque {
         return degats;
     }
 
-    private void setDegats(int degats) {
-        this.degats = degats;
-    }
-
-    public float getDuree() {
+    public double getDuree() {
         return duree;
     }
 
-    private void setDuree(float duree) {
+    public void setDuree(double duree) {
         this.duree = duree;
     }
 
-    public float getDureeOriginelle() {
+    public double getDureeOriginelle() {
         return dureeOriginelle;
     }
 

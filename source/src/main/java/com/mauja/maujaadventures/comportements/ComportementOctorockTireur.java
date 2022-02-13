@@ -62,7 +62,5 @@ public class ComportementOctorockTireur implements Comportement {
                 iterations = 0;
             }
         }
-
-
     }
 }

@@ -2,27 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ad43959-46b8-4ee3-92a7-f495987d312c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/TiledReader_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/Attaqueur.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/Defendeur.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/jeu/TableauDeJeu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/etats/EtatJoueur.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/etats/EtatJoueurAttaque.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/etats/EtatJoueurDeplacement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/etats/EtatJoueurProtege.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../documentation/diagramme_de_classe.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/../documentation/diagramme_de_classe.mdj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mauja-adventures.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mauja-adventures.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/chargeurs/ChargeurDeCalques.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/chargeurs/ChargeurDeCartes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/fenetres/FenetreDeJeu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/fenetres/FenetreDeJeu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/fenetres/FenetrePrincipale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/fenetres/FenetrePrincipale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Condition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Condition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ConditionCollision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ConditionCollision.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/TypeCollision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/TypeCollision.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/TypeEntite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/comportements/ComportementOctorockTireur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/comportements/ComportementOctorockTireur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/Attaqueur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/Attaqueur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/Defendeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/Defendeur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/DeplaceurEntite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/DeplaceurEntite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entites/EtatAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entrees/GestionnaireDeTouches.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entrees/GestionnaireDeTouches.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entrees/GestionnaireDeTouchesFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entrees/GestionnaireDeTouchesFX.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/jeu/Jeu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/jeu/Jeu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/utilitaires/RecuperateurRessources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/utilitaires/RecuperateurRessources.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vues/Parametres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/Parametres.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/jeu/TableauDeJeu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/jeu/TableauDeJeu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/logique/Attaque.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/logique/Attaque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/monde/Carte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/monde/Carte.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +51,11 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.1484375" />
     <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.mauja.maujaadventures.etats" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="FenetrePrincipale" type="Application" factoryName="Application" nameIsGenerated="true">

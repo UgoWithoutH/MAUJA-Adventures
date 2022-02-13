@@ -4,19 +4,20 @@ import com.mauja.maujaadventures.collisionneurs.CollisionneurCarte;
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.entites.Projectile;
+import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Carte;
 
 public class DeplaceurEntite {
-    private Carte carteCourante;
+    private TableauDeJeu tableauDeJeu;
     private CollisionneurCarte collisionneurCarte;
 
-    public DeplaceurEntite(Carte carte) {
-        if (carte == null) {
-            throw new IllegalArgumentException("La carte passée en paramètre du déplaceur ne peut pas être nulle.");
+    public DeplaceurEntite(TableauDeJeu tableauDeJeu) throws IllegalArgumentException {
+        if (tableauDeJeu == null) {
+            throw new IllegalArgumentException("Le tableau de jeu passé en paramètre du déplaceur ne peut pas être null.");
         }
-        carteCourante = carte;
+        this.tableauDeJeu = tableauDeJeu;
         collisionneurCarte = new CollisionneurCarte();
     }
 
@@ -24,7 +25,7 @@ public class DeplaceurEntite {
      * Méthode permettant le déplacement de l'entite en la modifiant avec son setter
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public boolean deplace(Entite entite, float temps, Direction direction, boolean gestionCollisions) {
+    public boolean deplace(Entite entite, double temps, Direction direction, boolean gestionCollisions) {
         Position positionEntite;
         Rectangle collisionEntite;
 
@@ -54,14 +55,14 @@ public class DeplaceurEntite {
                             positionEntite.getY() + entite.getCollision().getPosition().getY()),
                     entite.getCollision().getDimension());
 
-            if (!collisionneurCarte.collisionne(collisionEntite, carteCourante)) {
+            if (!collisionneurCarte.collisionne(collisionEntite, tableauDeJeu.getCarteCourante())) {
                 entite.setPosition(positionEntite);
                 entite.setDirection(direction);
                 return true;
             }
             else {
                 if (entite instanceof Projectile projectile) {
-                    carteCourante.supprimerEntite(projectile);
+                    tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
                 }
             }
         }

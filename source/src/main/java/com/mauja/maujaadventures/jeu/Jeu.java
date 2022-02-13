@@ -23,7 +23,6 @@ public class Jeu extends Observable implements Observateur {
     private static final Dimension DIMENSION_CAMERA_PAR_DEFAUT = new Dimension(964, 608);
 
     private TableauDeJeu tableauDeJeu;
-    private DeplaceurEntite deplaceur;
     private CollisionneurAABB collisionneur;
     private GestionnaireDeTouches gestionnaireDeTouches;
 
@@ -53,7 +52,7 @@ public class Jeu extends Observable implements Observateur {
         initialiser();
     }
 
-    public void setGestionnaireDeTouches(GestionnaireDeTouches gestionnaireDeTouches){
+    public void setGestionnaireDeTouches(GestionnaireDeTouches gestionnaireDeTouches) {
         if (gestionnaireDeTouches == null) {
             throw new IllegalArgumentException("Le gestionnaire de touches passé en paramètre ne peut pas être null.");
         }
@@ -101,24 +100,12 @@ public class Jeu extends Observable implements Observateur {
     public void update(int timer) {
         lesTouchesAppuyees = gestionnaireDeTouches.detecte();
 
-        if (lesTouchesAppuyees.contains(Touche.B) /*&& tempsAttaque > joueur.getAttaque().getDuree()*/) {
-            System.out.println("Je me protège");
-        }
-        else {
-            tableauDeJeu.getJoueur().setEtatAction(EtatAction.SANS_ACTION);
-        }
-
         if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
             //System.out.println("J'attaque");
             tableauDeJeu.getJoueur().setEtatAction(EtatAction.ATTAQUE);
             Rectangle collisionAttaque;
             if (tableauDeJeu.getJoueur().getDirection() == Direction.DROITE) {
-                collisionAttaque = new Rectangle(tableauDeJeu.getJoueur().getPosition().getX() + tableauDeJeu.getJoueur().getCollision().getPosition().getX()
-                        + tableauDeJeu.getJoueur().getCollision().getDimension().getLargeur(),
-                        tableauDeJeu.getJoueur().getPosition().getY() +
-                                (tableauDeJeu.getJoueur().getDimension().getHauteur() - tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getHauteur()) / 2,
-                        tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur(),
-                        tableauDeJeu.getJoueur().getCollision().getDimension().getHauteur());
+                collisionAttaque =
                 tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
             }
             if (tableauDeJeu.getJoueur().getDirection() == Direction.GAUCHE) {
@@ -201,7 +188,11 @@ public class Jeu extends Observable implements Observateur {
         }
 
         // Detection attaque joueur et ennemis
-        for (Entite entite : tableauDeJeu.getCarteCourante().getLesEntites()) {
+        Iterator<Entite> iterateur = tableauDeJeu.getCarteCourante().getLesEntites().iterator();
+        List<Entite> entiteASupprimer = new ArrayList<>();
+
+        while (iterateur.hasNext()) {
+            Entite entite = iterateur.next();
             Rectangle collisionEntite = new Rectangle(entite.getCollision().getPosition().getX() + entite.getPosition().getX(),
                     entite.getCollision().getPosition().getY() + entite.getPosition().getY(),
                     entite.getCollision().getDimension());
@@ -226,21 +217,18 @@ public class Jeu extends Observable implements Observateur {
 
                 if (collisionneur.collisionne(collisionJoueur, collisionEntite) && tableauDeJeu.getJoueur().getEtatAction() != EtatAction.SE_PROTEGE) {
                     tableauDeJeu.getJoueur().setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - projectile.getDegats());
-                    tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
+                    entiteASupprimer.add(projectile);
                 } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) &&
                         tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SE_PROTEGE &&
                         (tableauDeJeu.getJoueur().getDirection().getVal() == (v = projectile.getDirection().getVal() + 1) ||
                                 (tableauDeJeu.getJoueur().getDirection().getVal() == (v = projectile.getDirection().getVal() - 1)))) {
                     projectile.setDirection(Direction.valeurDe((byte) v));
                 } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) && tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SE_PROTEGE) {
-                    tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
+                    entiteASupprimer.add(projectile);
                     tableauDeJeu.getJoueur().setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - projectile.getDegats());
                 }
             }
-        }
 
-        // MAJ ennemis
-        for (Entite entite : tableauDeJeu.getCarteCourante().getLesEntites()) {
             if (entite instanceof Ennemi ennemi) {
                 Comportement comportement = ennemi.getComportement();
                 if (comportement != null) {
@@ -250,6 +238,9 @@ public class Jeu extends Observable implements Observateur {
             if (entite instanceof Projectile projectile) {
                 deplaceur.deplace(projectile, 0, projectile.getDirection(), true);
             }
+        }
+        for (Entite entite : entiteASupprimer) {
+            tableauDeJeu.getCarteCourante().supprimerEntite(entite);
         }
         notifier(timer);
     }
