@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="2ad43959-46b8-4ee3-92a7-f495987d312c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/TiledReader_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ressources/interactionsTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/interactionsTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mauja-adventures.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mauja-adventures.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/codebehind/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuiles.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,16 +38,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../librairies/TiledReader-1.1.0" />
-    <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.1484375" />
+    <property name="last_opened_file_path" value="$USER_HOME$/.jdks/javafx-sdk-17.0.1/TiledReader-1.1.0" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15527344" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.TestParsageInteraction">
+  <component name="RunManager" selected="Application.FenetrePrincipale">
     <configuration name="FenetrePrincipale" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mauja.maujaadventures.fenetres.FenetrePrincipale" />
       <module name="mauja-adventures" />
-      <option name="VM_PARAMETERS" value="--module-path $PROJECT_DIR$/../../../../javafx/javafx-sdk-17.0.1/lib/ --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\Portable\.jdks\javafx-sdk-17.0.1\lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -87,16 +85,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/tests/TestParsageInteraction.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
