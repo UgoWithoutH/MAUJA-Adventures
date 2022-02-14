@@ -52,16 +52,12 @@
     <property name="project.structure.proportion" value="0.15527344" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-<<<<<<< HEAD
-  <component name="RunManager" selected="Application.FenetrePrincipale">
-=======
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.mauja.maujaadventures.interactions" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TestParsageInteraction">
->>>>>>> 9499ee1b222a1640ec86abbc329836361672e7c3
+  <component name="RunManager" selected="Application.FenetrePrincipale">
     <configuration name="FenetrePrincipale" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mauja.maujaadventures.fenetres.FenetrePrincipale" />
       <module name="mauja-adventures" />
@@ -103,9 +99,6 @@
         </entry>
       </map>
     </option>
-<<<<<<< HEAD
-    <option name="oldMeFiltersMigrated" value="true" />
-=======
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -117,6 +110,5 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
->>>>>>> 9499ee1b222a1640ec86abbc329836361672e7c3
   </component>
 </project>
