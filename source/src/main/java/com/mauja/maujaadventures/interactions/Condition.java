@@ -1,5 +1,5 @@
 package com.mauja.maujaadventures.interactions;
 
-public interface Condition {
-    boolean verificationCondition();
+public abstract class Condition extends Balise {
+    public abstract boolean verificationCondition();
 }

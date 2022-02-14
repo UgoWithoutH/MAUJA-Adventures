@@ -1,12 +1,8 @@
 package com.mauja.maujaadventures.interactions;
 
-import java.util.jar.Attributes;
+import org.xml.sax.Attributes;
 
-public class CreateurDeBalise {
+public interface  CreateurDeBalise {
 
-
-
-    public void creation(Attributes attributes){
-
-    }
+    public Balise creation(Attributes attributes);
 }
