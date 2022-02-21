@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ad43959-46b8-4ee3-92a7-f495987d312c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/TiledReader_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mauja-adventures.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mauja-adventures.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/GestionnaireInteractions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/GestionnaireInteractions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/evenements/Evenement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/evenements/TraiteurEvenements.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +52,7 @@
       <recent name="com.mauja.maujaadventures.interactions" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.FenetrePrincipale">
+  <component name="RunManager" selected="Application.TestParsageInteraction">
     <configuration name="FenetrePrincipale" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mauja.maujaadventures.fenetres.FenetrePrincipale" />
       <module name="mauja-adventures" />
@@ -77,6 +83,7 @@
       <updated>1642319711262</updated>
       <workItem from="1645108167015" duration="4299000" />
       <workItem from="1645112530567" duration="89000" />
+      <workItem from="1645438879645" duration="21000" />
     </task>
     <servers />
   </component>
