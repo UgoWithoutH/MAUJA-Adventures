@@ -1,10 +1,10 @@
 <Carte id="1">
     <Scenario>
-        <ElementInteractif type="com.mauja.maujaadventures.interactions.Levier" x="10" y="10" >
+        <ElementInteractif type="com.mauja.maujaadventures.interactions.Levier" x="10" y="10" id="1">
             <Condition type="com.mauja.maujaadventures.interactions.ConditionCollision"/>
             <Action type="com.mauja.maujaadventures.interactions.ActionOuverturePorte">
-                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" ptsVie="3" x="10" y="10" largeur="10" hauteur="10"/>
-                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" ptsVie="3" x="10" y="10" largeur="10" hauteur="10"/>
+                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" ptsVie="3" x="10" y="10" largeur="10" hauteur="10" id="2"/>
+                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" ptsVie="3" x="10" y="10" largeur="10" hauteur="10" id="3"/>
             </Action>
             <Action type="com.mauja.maujaadventures.interactions.ActionOuverturePorte"/>
         </ElementInteractif>

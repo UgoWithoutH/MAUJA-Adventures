@@ -8,11 +8,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ressources/interactionsTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/interactionsTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ActionOuverturePorte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ActionOuverturePorte.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDeBalise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDeBalise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Condition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Condition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDElementInteractif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDElementInteractif.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDeCondition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDeCondition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Levier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Levier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/TestParsageInteraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/TestParsageInteraction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,9 +103,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/tests/TestParsageInteraction.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="17" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java</url>
+          <line>68</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

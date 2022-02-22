@@ -7,8 +7,8 @@ public class Levier extends ElementInteractif{
     public boolean active;
 
 
-    public Levier(Position position) {
-        this.position = position;
+    public Levier(Double x, Double y) {
+        this.position = new Position(x,y);
         this.active = false;
     }
 

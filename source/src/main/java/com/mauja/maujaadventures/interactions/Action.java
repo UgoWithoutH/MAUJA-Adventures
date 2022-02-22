@@ -20,4 +20,11 @@ public abstract class Action extends Balise{
     private void ajouterElementInteractif(ElementInteractif elementInteractif){
         listeElementInteractif.add(elementInteractif);
     }
+
+    @Override
+    public String toString() {
+        return "Action{" +
+                "listeElementInteractif=" + listeElementInteractif +
+                '}';
+    }
 }
