@@ -5,15 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ad43959-46b8-4ee3-92a7-f495987d312c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_02_2022_10_38_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_02_2022_10_38__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/GestionnaireInteractions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/TiledReader_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ressources/interactionsTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/interactionsTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Condition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Condition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDElementInteractif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDElementInteractif.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDeCondition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDeCondition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Levier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Levier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/codebehind/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuiles.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,9 +45,10 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../librairies/TiledReader-1.1.0" />
     <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.1484375" />
+    <property name="project.structure.proportion" value="0.15527344" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
@@ -56,7 +56,7 @@
       <recent name="com.mauja.maujaadventures.interactions" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TestParsageInteraction">
+  <component name="RunManager" selected="Application.FenetrePrincipale">
     <configuration name="FenetrePrincipale" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mauja.maujaadventures.fenetres.FenetrePrincipale" />
       <module name="mauja-adventures" />
@@ -85,8 +85,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1642319711262</updated>
+      <workItem from="1645108167015" duration="4299000" />
+      <workItem from="1645112530567" duration="89000" />
+      <workItem from="1645438879645" duration="21000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

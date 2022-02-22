@@ -1,0 +1,121 @@
+Index: .idea/libraries/TiledReader_1_1.xml
+===================================================================
+diff --git a/.idea/libraries/TiledReader_1_1.xml b/.idea/libraries/TiledReader_1_1.xml
+deleted file mode 100644
+--- a/.idea/libraries/TiledReader_1_1.xml	(revision c0717b963834ae17f8baaf07675ced261ce552d6)
++++ /dev/null	(revision c0717b963834ae17f8baaf07675ced261ce552d6)
+@@ -1,14 +0,0 @@
+-<component name="libraryTable">
+-  <library name="TiledReader-1.1">
+-    <CLASSES>
+-      <root url="file://$USER_HOME$/.jdks/javafx-sdk-17.0.1/TiledReader-1.1.0" />
+-    </CLASSES>
+-    <JAVADOC>
+-      <root url="file://$USER_HOME$/.jdks/javafx-sdk-17.0.1/TiledReader-1.1.0/javadoc" />
+-    </JAVADOC>
+-    <SOURCES>
+-      <root url="file://$USER_HOME$/.jdks/javafx-sdk-17.0.1/TiledReader-1.1.0/src" />
+-    </SOURCES>
+-    <jarDirectory url="file://$USER_HOME$/.jdks/javafx-sdk-17.0.1/TiledReader-1.1.0" recursive="false" />
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/lib.xml
+===================================================================
+diff --git a/.idea/libraries/lib.xml b/.idea/libraries/lib.xml
+deleted file mode 100644
+--- a/.idea/libraries/lib.xml	(revision c0717b963834ae17f8baaf07675ced261ce552d6)
++++ /dev/null	(revision c0717b963834ae17f8baaf07675ced261ce552d6)
+@@ -1,10 +0,0 @@
+-<component name="libraryTable">
+-  <library name="lib">
+-    <CLASSES>
+-      <root url="file://$PATH_TO_FX$" />
+-    </CLASSES>
+-    <JAVADOC />
+-    <SOURCES />
+-    <jarDirectory url="file://$PATH_TO_FX$" recursive="false" />
+-  </library>
+-</component>
+\ No newline at end of file
+Index: mauja-adventures.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src/main/java\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/tests_unitaires\" isTestSource=\"true\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/ressources\" type=\"java-resource\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/vues\" type=\"java-resource\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/tests\" isTestSource=\"true\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"module\" module-name=\"mauja-adventures\" />\r\n    <orderEntry type=\"library\" exported=\"\" name=\"lib\" level=\"project\" />\r\n    <orderEntry type=\"library\" exported=\"\" name=\"TiledReader-1.1\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/mauja-adventures.iml b/mauja-adventures.iml
+--- a/mauja-adventures.iml	(revision c0717b963834ae17f8baaf07675ced261ce552d6)
++++ b/mauja-adventures.iml	(date 1644823014555)
+@@ -12,7 +12,7 @@
+     <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
+     <orderEntry type="module" module-name="mauja-adventures" />
+-    <orderEntry type="library" exported="" name="lib" level="project" />
+-    <orderEntry type="library" exported="" name="TiledReader-1.1" level="project" />
++    <orderEntry type="library" name="TiledReader-1.1" level="application" />
++    <orderEntry type="library" name="lib" level="application" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2ad43959-46b8-4ee3-92a7-f495987d312c\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/libraries/TiledReader_1_1.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/libraries/lib.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/mauja-adventures.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/mauja-adventures.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/vues/codebehind/Camera.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/vues/codebehind/Camera.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuiles.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuiles.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/ressources/interactionsTest.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/ressources/interactionsTest.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Action.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Action.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ActionOuverturePorte.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ActionOuverturePorte.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDeBalise.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDeBalise.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Levier.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Levier.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/tests/TestParsageInteraction.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/tests/TestParsageInteraction.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Enum\" />\r\n        <option value=\"AnnotationType\" />\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"23lrrIeHIrF6PeGng5U43fJvoq4\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$USER_HOME$/.jdks/javafx-sdk-17.0.1/TiledReader-1.1.0\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Modules\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.15527344\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateClassDialog.RecentsKey\">\r\n      <recent name=\"com.mauja.maujaadventures.interactions\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.FenetrePrincipale\">\r\n    <configuration name=\"FenetrePrincipale\" type=\"Application\" factoryName=\"Application\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.mauja.maujaadventures.fenetres.FenetrePrincipale\" />\r\n      <module name=\"mauja-adventures\" />\r\n      <option name=\"VM_PARAMETERS\" value=\"--module-path C:\\Users\\Portable\\.jdks\\javafx-sdk-17.0.1\\lib --add-modules javafx.controls,javafx.fxml\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"TestParsageInteraction\" type=\"Application\" factoryName=\"Application\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"TestParsageInteraction\" />\r\n      <module name=\"mauja-adventures\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"Application.FenetrePrincipale\" />\r\n      <item itemvalue=\"Application.TestParsageInteraction\" />\r\n    </list>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2ad43959-46b8-4ee3-92a7-f495987d312c\" name=\"Changes\" comment=\"\" />\r\n      <created>1642319711262</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1642319711262</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/tests/TestParsageInteraction.java</url>\r\n          <line>23</line>\r\n          <option name=\"timeStamp\" value=\"17\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision c0717b963834ae17f8baaf07675ced261ce552d6)
++++ b/.idea/workspace.xml	(date 1645283388567)
+@@ -6,15 +6,6 @@
+       <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/mauja-adventures.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mauja-adventures.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/vues/codebehind/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/Camera.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuiles.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/ressources/interactionsTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/interactionsTest.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Action.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ActionOuverturePorte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ActionOuverturePorte.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDeBalise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/CreateurDeBalise.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/InteractionHandler.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Levier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Levier.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/tests/TestParsageInteraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/TestParsageInteraction.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -47,9 +38,10 @@
+     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
++    <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="last_opened_file_path" value="$USER_HOME$/.jdks/javafx-sdk-17.0.1/TiledReader-1.1.0" />
+     <property name="project.structure.last.edited" value="Modules" />
+-    <property name="project.structure.proportion" value="0.15527344" />
++    <property name="project.structure.proportion" value="0.1484375" />
+     <property name="project.structure.side.proportion" value="0.2" />
+   </component>
+   <component name="RecentsManager">
+@@ -61,7 +53,7 @@
+     <configuration name="FenetrePrincipale" type="Application" factoryName="Application" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="com.mauja.maujaadventures.fenetres.FenetrePrincipale" />
+       <module name="mauja-adventures" />
+-      <option name="VM_PARAMETERS" value="--module-path C:\Users\Portable\.jdks\javafx-sdk-17.0.1\lib --add-modules javafx.controls,javafx.fxml" />
++      <option name="VM_PARAMETERS" value="--module-path &quot;C:\javafx-sdk-17.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+@@ -86,8 +78,12 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1642319711262</updated>
++      <workItem from="1645283284500" duration="104000" />
+     </task>
+     <servers />
++  </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="version" value="3" />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+     <option name="TAB_STATES">
