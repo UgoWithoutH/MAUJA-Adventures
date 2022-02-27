@@ -2,7 +2,9 @@ package com.mauja.maujaadventures.interactions;
 
 import com.mauja.maujaadventures.annotations.ConstructDef;
 import com.mauja.maujaadventures.annotations.Param;
+import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
+import com.mauja.maujaadventures.logique.Rectangle;
 
 public class Levier extends ElementInteractif{
     private static final double LARGEUR_DEFAUT = 15;
@@ -35,5 +37,9 @@ public class Levier extends ElementInteractif{
 
     public Position getPosition() {
         return position;
+    }
+
+    public Rectangle getCollision(){
+        return new Rectangle( position , new Dimension(LARGEUR_DEFAUT , HAUTEUR_DEFAUT ));
     }
 }
