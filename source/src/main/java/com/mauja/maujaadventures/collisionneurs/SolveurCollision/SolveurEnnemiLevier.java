@@ -1,13 +1,14 @@
 package com.mauja.maujaadventures.collisionneurs.SolveurCollision;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
+import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.entites.Projectile;
 import com.mauja.maujaadventures.interactions.Condition;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.interactions.Levier;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 
-public class SolveurLevierEnnemi implements SolveurCollision{
+public class SolveurEnnemiLevier extends SolveurCollision{
     private TableauDeJeu tableauDeJeu;
     private CollisionneurAABB collisionneur;
     private Condition condition;
@@ -20,11 +21,9 @@ public class SolveurLevierEnnemi implements SolveurCollision{
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public boolean resoud(ElementInteractif e1, ElementInteractif e2) {
-        if (collisionneur.collisionne(((Levier)e1).getCollision(), ((Projectile)e2).getCollision()) /*&& condition==true*/) {
-            ((Levier)e1).setActive(true);
-            return true;
-        }
-        return false;
+    public void resoud(ElementInteractif e1, ElementInteractif e2) {
+        Ennemi ennemi = (Ennemi) e1;
+        Levier levier = (Levier) e2;
+            levier.setActive(true);
     }
 }

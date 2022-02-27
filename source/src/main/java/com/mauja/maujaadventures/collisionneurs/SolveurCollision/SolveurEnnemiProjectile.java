@@ -6,7 +6,7 @@ import com.mauja.maujaadventures.entites.Projectile;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 
-public class SolveurEnnemiProjectile implements SolveurCollision{
+public class SolveurEnnemiProjectile extends SolveurCollision{
     private TableauDeJeu tableauDeJeu;
     private CollisionneurAABB collisionneur;
 
@@ -18,15 +18,13 @@ public class SolveurEnnemiProjectile implements SolveurCollision{
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public boolean resoud(ElementInteractif e1, ElementInteractif e2) {
-        if (collisionneur.collisionne(((Ennemi)e1).getCollision(), ((Projectile)e2).getCollision())) {
-            ((Ennemi)e1).setPointsDeVie(((Ennemi)e1).getPointsDeVie() - ((Projectile)e2).getDegats());
-            tableauDeJeu.getCarteCourante().supprimerEntite(((Projectile)e2));
-            if (((Ennemi) e1).getPointsDeVie() < 0 ){
-                tableauDeJeu.getCarteCourante().supprimerEntite(((Ennemi)e1));
-            }
-           return true;
+    public void resoud(ElementInteractif e1, ElementInteractif e2) {
+        Ennemi ennemi = (Ennemi) e1;
+        Projectile projectile = (Projectile) e2;
+        ennemi.setPointsDeVie(ennemi.getPointsDeVie() - projectile.getDegats());
+        tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
+        if (ennemi.getPointsDeVie() < 0 ){
+            tableauDeJeu.getCarteCourante().supprimerEntite(ennemi);
         }
-        return false;
     }
 }

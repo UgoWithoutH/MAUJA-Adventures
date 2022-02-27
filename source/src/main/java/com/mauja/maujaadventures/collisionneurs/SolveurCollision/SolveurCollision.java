@@ -2,7 +2,9 @@ package com.mauja.maujaadventures.collisionneurs.SolveurCollision;
 
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 
-public interface SolveurCollision {
+import java.lang.reflect.InvocationTargetException;
+
+public abstract class SolveurCollision {
     /**
      * Interface de la résolution de collision
      * @param e1 Element interactif du première élément à tester la collision
@@ -10,5 +12,16 @@ public interface SolveurCollision {
      * @return true si il y a collision sinon false
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public boolean resoud(ElementInteractif e1, ElementInteractif e2);
+    public void resoud(ElementInteractif e1, ElementInteractif e2){
+        Class classDefinition = null;
+        try {
+            classDefinition = Class.forName("Solveur" + e1.getClass() + e2.getClass());
+            Object ob = classDefinition.getDeclaredConstructor().newInstance();
+            ((SolveurCollision) ob).resoud(e1, e2);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -7,7 +7,7 @@ import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.interactions.Levier;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 
-public class SolveurLevierProjectile implements SolveurCollision{
+public class SolveurLevierProjectile extends SolveurCollision{
     private TableauDeJeu tableauDeJeu;
     private CollisionneurAABB collisionneur;
     private Condition condition;
@@ -20,11 +20,9 @@ public class SolveurLevierProjectile implements SolveurCollision{
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public boolean resoud(ElementInteractif e1, ElementInteractif e2) {
-        if (collisionneur.collisionne(((Levier)e1).getCollision(), ((Projectile)e2).getCollision()) && condition.verificationCondition()) {
-            ((Levier)e1).setActive(true);
-            return true;
-        }
-        return false;
+    public void resoud(ElementInteractif e1, ElementInteractif e2) {
+        Levier levier = (Levier) e1;
+        Projectile projectile = (Projectile) e2;
+            levier.setActive(true);
     }
 }

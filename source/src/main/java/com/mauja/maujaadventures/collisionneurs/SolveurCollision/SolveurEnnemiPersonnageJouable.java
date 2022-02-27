@@ -6,7 +6,7 @@ import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 
-public class SolveurEnnemiPersonnageJouable implements SolveurCollision{
+public class SolveurEnnemiPersonnageJouable extends SolveurCollision{
     private TableauDeJeu tableauDeJeu;
     private CollisionneurAABB collisionneur;
 
@@ -18,17 +18,15 @@ public class SolveurEnnemiPersonnageJouable implements SolveurCollision{
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public boolean resoud(ElementInteractif e1, ElementInteractif e2) {
-        if (collisionneur.collisionne(((PersonnageJouable)e2).getCollision(), ((Ennemi)e1).getCollision())) {
-            ((PersonnageJouable)e2).setPosition(((PersonnageJouable)e2).getPosition());
-            ((Ennemi)e1).setPosition(((Ennemi)e1).getPosition());
-            ((PersonnageJouable)e2).setPointsDeVie(((PersonnageJouable) e2).getPointsDeVie() - ((Ennemi) e1).getAttaque().getDegats());
+    public void resoud(ElementInteractif e1, ElementInteractif e2) {
+        Ennemi ennemi = (Ennemi) e1;
+        PersonnageJouable pj = (PersonnageJouable) e2;
+            pj.setPosition(((PersonnageJouable)e2).getPosition());
+            ennemi.setPosition(((Ennemi)e1).getPosition());
+            pj.setPointsDeVie(pj.getPointsDeVie() - ennemi.getAttaque().getDegats());
             /*
-            if ((PersonnageJouable)e1).getPointDeVie() < 0)
+            if (pj.getPointDeVie() < 0)
                 GameOver
              */
-            return true;
-        }
-        return false;
     }
 }
