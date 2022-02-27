@@ -5,13 +5,31 @@ import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.logique.Position;
 
 public class Levier extends ElementInteractif{
-    public Position position;
-    public boolean active;
+    private static final double LARGEUR_DEFAUT = 15;
+    private static final double HAUTEUR_DEFAUT = 15;
+    private Position position;
+    private boolean active;
 
     @ConstructDef
     public Levier(@Param(nom = "x") Double x, @Param(nom = "y") Double y,
                   @Param(nom = "active", classe = Boolean.class) boolean active) {
         this.position = new Position(x,y);
+        this.active = active;
+    }
+
+    public static double getLargeurDefaut() {
+        return LARGEUR_DEFAUT;
+    }
+
+    public static double getHauteurDefaut() {
+        return HAUTEUR_DEFAUT;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
         this.active = active;
     }
 

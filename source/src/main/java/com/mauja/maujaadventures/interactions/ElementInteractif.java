@@ -18,6 +18,9 @@ public abstract class ElementInteractif extends Balise{
         this.mapConditionAction = mapConditionAction;
     }
 
+    public Map<Condition, List<Action>> getMapConditionAction() {
+        return mapConditionAction;
+    }
 
     @Override
     public String toString() {
