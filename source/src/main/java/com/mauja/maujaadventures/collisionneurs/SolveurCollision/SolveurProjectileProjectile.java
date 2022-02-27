@@ -5,7 +5,7 @@ import com.mauja.maujaadventures.entites.Projectile;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 
-public class SolveurProjectileProjectile implements SolveurCollision{
+public class SolveurProjectileProjectile extends SolveurCollision{
     private TableauDeJeu tableauDeJeu;
     private CollisionneurAABB collisionneur;
 
@@ -17,12 +17,10 @@ public class SolveurProjectileProjectile implements SolveurCollision{
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public boolean resoud(ElementInteractif e1, ElementInteractif e2) {
-        if (collisionneur.collisionne(((Projectile)e1).getCollision(), ((Projectile)e2).getCollision())) {
-            tableauDeJeu.getCarteCourante().supprimerEntite(((Projectile)e1));
-            tableauDeJeu.getCarteCourante().supprimerEntite(((Projectile)e2));
-            return true;
-        }
-        return false;
+    public void resoud(ElementInteractif e1, ElementInteractif e2) {
+        Projectile projectile1 = (Projectile) e1;
+        Projectile projectile2 = (Projectile) e2;
+            tableauDeJeu.getCarteCourante().supprimerEntite(projectile1);
+            tableauDeJeu.getCarteCourante().supprimerEntite(projectile2);
     }
 }

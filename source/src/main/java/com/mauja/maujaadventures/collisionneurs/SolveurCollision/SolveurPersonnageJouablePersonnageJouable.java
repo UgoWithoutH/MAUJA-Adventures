@@ -6,7 +6,7 @@ import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 
-public class SolveurPersonnageJouablePersonnageJouable implements SolveurCollision{
+public class SolveurPersonnageJouablePersonnageJouable extends SolveurCollision{
     private TableauDeJeu tableauDeJeu;
     private CollisionneurAABB collisionneur;
 
@@ -18,12 +18,10 @@ public class SolveurPersonnageJouablePersonnageJouable implements SolveurCollisi
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public boolean resoud(ElementInteractif e1, ElementInteractif e2) {
-        if (collisionneur.collisionne(((PersonnageJouable)e1).getCollision(), ((PersonnageJouable)e2).getCollision())) {
-            ((PersonnageJouable)e1).setPosition(((PersonnageJouable)e1).getPosition());
-            ((PersonnageJouable)e2).setPosition(((PersonnageJouable)e2).getPosition());
-            return true;
-        }
-        return false;
+    public void resoud(ElementInteractif e1, ElementInteractif e2) {
+        PersonnageJouable pj1 = (PersonnageJouable) e1;
+        PersonnageJouable pj2 = (PersonnageJouable) e2;
+            pj1.setPosition(pj1.getPosition());
+            pj2.setPosition(pj2.getPosition());
     }
 }
