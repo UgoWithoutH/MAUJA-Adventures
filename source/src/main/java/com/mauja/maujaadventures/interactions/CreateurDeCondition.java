@@ -9,7 +9,7 @@ public class CreateurDeCondition implements CreateurDeBalise{
     @Override
     public Balise creation(Attributes attributes) {
         Condition baliseCourante = null;
-        Constructor[] constructors = new Constructor[0];
+        Constructor[] constructors;
         try {
             constructors = Class.forName(attributes.getValue("type")).getConstructors();
             baliseCourante = (Condition)constructors[0].newInstance();

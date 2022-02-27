@@ -28,9 +28,9 @@ public abstract class ElementInteractif extends Balise{
 
     @Override
     public void ajouter(Balise balise) {
-        if (balise instanceof Condition){
-            derCondition = (Condition) balise;
-            ajouterCondition((Condition)balise);
+        if (balise instanceof Condition condition){
+            derCondition = condition;
+            ajouterCondition(derCondition);
         }
         else {
             ajouterAction((Action)balise);
