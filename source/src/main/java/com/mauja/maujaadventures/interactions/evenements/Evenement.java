@@ -12,7 +12,11 @@ public class Evenement {
         this.action = action;
     }
 
-    public ElementInteractif getElementInteractif() {return elementInteractif;}
+    public ElementInteractif getElementInteractif() {
+        return elementInteractif;
+    }
 
-    public Action getAction() {return action;}
+    public Action getAction() {
+        return action;
+    }
 }

@@ -20,8 +20,7 @@ local.properties
 
 # IntelliJ
 *.iml
-.idea/workspace.xml
-.idea/libraries
+**/.idea
 
 # Package Files
 *.jar
