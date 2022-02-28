@@ -1,7 +1,6 @@
 package com.mauja.maujaadventures.utilitaires;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 public class Graphe<T> implements Iterable<T> {
     private Map<T, List<T>> lesSommets;
