@@ -1,0 +1,12 @@
+#MAUJA ADVENTURES - Fichier de transitions entre les cartes
+
+#Stipulez dans ce fichier les transitions qui seront réalisées entre les différentes cartes.
+#Précisez vos données sous la forme :
+#nom_carte position_x position_y => nom_carte_suiv position_x position_y
+
+#Vous pouvez mettre des commentaires avec #.
+#Attention : les positions sont exprimées en tuiles, et une erreur de formatage lèvera une exception dans le jeu.
+#De même, si le nom une carte n'existe pas, une erreur sera levée.
+
+exterieur 42 35 => exterieur 32 12
+exterieur 12 02 => exterieur 47 54

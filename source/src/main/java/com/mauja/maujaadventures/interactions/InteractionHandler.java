@@ -1,17 +1,8 @@
 package com.mauja.maujaadventures.interactions;
 
-import com.mauja.maujaadventures.entites.Ennemi;
-
-import com.mauja.maujaadventures.logique.Attaque;
-import com.mauja.maujaadventures.logique.Dimension;
-import com.mauja.maujaadventures.logique.Position;
-import com.mauja.maujaadventures.logique.Rectangle;
-
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,11 +11,11 @@ import java.util.Map;
 public class InteractionHandler extends DefaultHandler {
 
     private List<Scenario> listeScenarios;
-    private Balise baliseParente;
     private CreateurDElementInteractif createurDElementInteractif;
     private CreateurDAction createurDAction;
     private CreateurDeCondition createurDeCondition;
     private Balise baliseCourante;
+    private Map<Integer, ElementInteractif> mapIdElemInteractif;
 
     public List<Scenario> getListeScenarios() {
         return listeScenarios;
@@ -37,12 +28,13 @@ public class InteractionHandler extends DefaultHandler {
         createurDElementInteractif = new CreateurDElementInteractif();
         createurDAction = new CreateurDAction();
         createurDeCondition = new CreateurDeCondition();
+        mapIdElemInteractif = new HashMap<>();
     }
 
     //cette méthode est appelée lors de la détection d'un tag de début
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
-        baliseParente = baliseCourante;
+        Balise baliseParente = baliseCourante;
 
         if (qName.equalsIgnoreCase("Scenario")) {
             baliseCourante = new Scenario();
@@ -52,18 +44,19 @@ public class InteractionHandler extends DefaultHandler {
         try {
             if (qName.equalsIgnoreCase("ElementInteractif")){
                 baliseCourante = createurDElementInteractif.creation(attributes);
+                mapIdElemInteractif.put(Integer.parseInt(attributes.getValue("id")),(ElementInteractif)(baliseCourante));
             }
             if (qName.equalsIgnoreCase("Condition")){
                 baliseCourante = createurDeCondition.creation(attributes);
             }
-            if (qName.equalsIgnoreCase("Action")){
+            if (qName.equalsIgnoreCase("Action")) {
                 baliseCourante = createurDAction.creation(attributes);
-            }
-            if (baliseCourante != null) {
-                baliseCourante.setBaliseParente(baliseParente);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (baliseCourante != null) {
+            baliseCourante.setBaliseParente(baliseParente);
         }
 
     }
@@ -81,9 +74,6 @@ public class InteractionHandler extends DefaultHandler {
                 baliseCourante = baliseCourante.getBaliseParente();
             }
         }
-
-
-
 
     }
 

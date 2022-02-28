@@ -1,11 +1,28 @@
 package com.mauja.maujaadventures.entites;
 
+import com.mauja.maujaadventures.annotations.ConstructDef;
+import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.comportements.Comportement;
 import com.mauja.maujaadventures.comportements.ComportementNull;
 import com.mauja.maujaadventures.logique.*;
 
 public class Ennemi extends Vivant {
     private Comportement comportement;
+
+
+    @ConstructDef
+    public Ennemi(@Param(nom = "xEn") Double xEn, @Param(nom = "yEn") Double yEn, @Param(nom = "hautEn")Double hautEn,
+                  @Param(nom = "largEn")Double largEn, @Param(nom = "xCol")Double xCol, @Param(nom = "yCol")Double yCol,
+                  @Param(nom = "largCol") Double largCol, @Param(nom = "hautCol") Double hautCol,
+                  @Param(nom = "pointsDeVie", classe = Integer.class) int pointsDeVie) throws IllegalArgumentException {
+        super(new Position(xEn, yEn), new Dimension(largEn, hautEn),
+                new Rectangle(xCol, yCol, largCol, hautCol), new Velocite(), null,
+                pointsDeVie);
+        if (comportement == null) {
+            comportement = new ComportementNull();
+        }
+        this.comportement = comportement;
+    }
 
     public Ennemi(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
                   Attaque attaque, Comportement comportement, int pointsDeVie) throws IllegalArgumentException {

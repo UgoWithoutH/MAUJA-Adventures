@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.entites;
 
+import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.logique.*;
 
 public abstract class Vivant extends Entite {
@@ -7,22 +8,23 @@ public abstract class Vivant extends Entite {
     private Attaque attaque;
     private int pointsDeVie;
 
-    public Vivant(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
-                  Attaque attaque, int pointsDeVie) throws IllegalArgumentException {
+    public Vivant(@Param(nom = "position", classe = Position.class) Position position,
+                  @Param(nom = "dimension", classe = Dimension.class) Dimension dimension,
+                  @Param(nom = "collision", classe = Rectangle.class) Rectangle collision,
+                  @Param(nom = "velocite", classe = Velocite.class) Velocite velocite,
+                  @Param(nom = "attaque", classe = Attaque.class) Attaque attaque,
+                  @Param(nom = "pv", classe = int.class) int pointsDeVie) throws IllegalArgumentException {
         super(position, dimension, collision, velocite);
 
-        if (attaque == null) {
-            attaque = new Attaque(null, 0);
-        }
-        this.attaque = attaque;
-        if (pointsDeVie <= 0) {
-            pointsDeVie = POINTS_DE_VIE_PAR_DEFAUT;
-        }
-        this.pointsDeVie = pointsDeVie;
+        this.attaque = attaque == null ? new Attaque(null, 0) : attaque;
+        this.pointsDeVie = pointsDeVie <= 0 ? POINTS_DE_VIE_PAR_DEFAUT : pointsDeVie;
     }
 
-    public Vivant(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
-                  Attaque attaque) throws IllegalArgumentException {
+    public Vivant(@Param(nom = "position", classe = Position.class) Position position,
+                  @Param(nom = "dimension", classe = Dimension.class) Dimension dimension,
+                  @Param(nom = "collision", classe = Rectangle.class) Rectangle collision,
+                  @Param(nom = "velocite", classe = Velocite.class) Velocite velocite,
+                  @Param(nom = "attaque", classe = Attaque.class) Attaque attaque) throws IllegalArgumentException {
         this(position, dimension, collision, velocite, attaque, POINTS_DE_VIE_PAR_DEFAUT);
     }
 

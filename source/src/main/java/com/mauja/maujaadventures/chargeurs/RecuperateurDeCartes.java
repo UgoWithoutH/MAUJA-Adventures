@@ -28,7 +28,7 @@ public class RecuperateurDeCartes {
         if (lesCalques == null) {
             return null;
         }
-        System.out.println("toto");
+        //System.out.println("toto");
 
         Dimension dimension = new Dimension(chargeurCarte.getWidth(), chargeurCarte.getHeight());
         Carte carte = new Carte(nomCarte, dimension, lesCalques, null);

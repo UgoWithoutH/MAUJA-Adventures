@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.entites;
 
+import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
@@ -10,8 +11,11 @@ import java.util.Objects;
 public class Projectile extends Entite {
     private int degats;
 
-    public Projectile(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
-                      int degats) throws IllegalArgumentException {
+    public Projectile(@Param(nom = "position", classe = Position.class) Position position,
+                      @Param(nom = "dimension", classe = Dimension.class) Dimension dimension,
+                      @Param(nom = "collision", classe = Rectangle.class) Rectangle collision,
+                      @Param(nom = "velocite", classe = Velocite.class) Velocite velocite,
+                      @Param(nom = "degats", classe = int.class) int degats) throws IllegalArgumentException {
         super(position, dimension, collision, velocite);
         if (degats < 0) {
             degats = 0;

@@ -6,10 +6,10 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/tests_unitaires" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/ressources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/vues" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="17" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="mauja-adventures" />
     <orderEntry type="library" exported="" name="lib" level="project" />

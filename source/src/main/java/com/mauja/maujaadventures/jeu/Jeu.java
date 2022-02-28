@@ -9,6 +9,7 @@ import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouches;
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.entrees.Touche;
+import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.chargeurs.RecuperateurDeCartes;
@@ -149,6 +150,7 @@ public class Jeu extends Observable implements Observateur {
                 tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
             }
             tempsAttaque = 0;
+            GestionnaireInteractions.getInstance().ajouterElement(tableauDeJeu.getJoueur());
         }
         else {
             tempsAttaque++;

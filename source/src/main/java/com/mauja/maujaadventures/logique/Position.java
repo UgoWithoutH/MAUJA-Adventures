@@ -1,5 +1,7 @@
 package com.mauja.maujaadventures.logique;
 
+import com.mauja.maujaadventures.annotations.Param;
+
 import java.util.Objects;
 
 public class Position {
@@ -11,7 +13,7 @@ public class Position {
      * @param y Position de l'obejt en Y
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Position(double x, double y) {
+    public Position(@Param(nom = "x") double x, @Param(nom = "y") double y) {
         this.x = x;
         this.y = y;
     }
