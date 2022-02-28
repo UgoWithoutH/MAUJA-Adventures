@@ -1,5 +1,7 @@
 package com.mauja.maujaadventures.logique;
 
+import com.mauja.maujaadventures.annotations.Param;
+
 import java.util.Objects;
 
 public class Dimension {
@@ -12,7 +14,7 @@ public class Dimension {
      * @param hauteur Hauteur de l'élément
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Dimension(double largeur, double hauteur) {
+    public Dimension(@Param(nom = "largeur") double largeur, @Param(nom = "hauteur") double hauteur) {
         this.setHauteur(hauteur);
         this.setLargeur(largeur);
     }

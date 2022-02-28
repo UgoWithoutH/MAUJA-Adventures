@@ -1,5 +1,7 @@
 package com.mauja.maujaadventures.interactions;
 
+import com.mauja.maujaadventures.jeu.Observable;
+
 public abstract class Balise {
 
     private Balise baliseParente;

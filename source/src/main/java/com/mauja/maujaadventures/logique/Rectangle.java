@@ -1,10 +1,13 @@
 package com.mauja.maujaadventures.logique;
 
+import com.mauja.maujaadventures.annotations.Param;
+
 public class Rectangle {
     private Dimension dimension;
     private Position position;
 
-    public Rectangle(double positionX, double positionY, double largeur, double hauteur)
+    public Rectangle(@Param(nom = "x") double positionX, @Param(nom = "y") double positionY,
+                     @Param(nom = "largeur") double largeur, @Param(nom = "hauteur") double hauteur)
             throws IllegalArgumentException {
         verificationDimensions(largeur, hauteur);
         dimension = new Dimension(largeur, hauteur);
@@ -15,7 +18,8 @@ public class Rectangle {
      * Constructeur de collision
      * @param position Position de la collision
      */
-    public Rectangle(Position position, Dimension dimension) throws IllegalArgumentException {
+    public Rectangle(@Param(nom = "position", classe = Position.class) Position position,
+                     @Param(nom = "dimension", classe = Dimension.class) Dimension dimension) throws IllegalArgumentException {
         if (position == null || dimension == null) {
             throw new IllegalArgumentException("La position ou la dimension donnée en paramètre ne peuvent "
                     + "pas être nulles. Position : " + position + ", dimension : " + dimension);
@@ -25,11 +29,13 @@ public class Rectangle {
         this.dimension = dimension;
     }
 
-    public Rectangle(Position position, double largeur, double hauteur) throws IllegalArgumentException {
+    public Rectangle(@Param(nom = "position", classe = Position.class) Position position,
+                     @Param(nom = "largeur") double largeur, @Param(nom = "hauteur") double hauteur) throws IllegalArgumentException {
         this(position, new Dimension(largeur, hauteur));
     }
 
-    public Rectangle(double positionX, double positionY, Dimension dimension) throws IllegalArgumentException {
+    public Rectangle(@Param(nom = "x") double positionX, @Param(nom = "y") double positionY,
+                     @Param(nom = "dimension", classe = Dimension.class) Dimension dimension) throws IllegalArgumentException {
         this(new Position(positionX, positionY), dimension);
     }
 
@@ -44,14 +50,6 @@ public class Rectangle {
 
     public Dimension getDimension() {
         return dimension;
-    }
-
-    private void setDimension(Dimension dimension) {
-        this.dimension = dimension;
-    }
-
-    private void setPosition(Position position) {
-        this.position = position;
     }
 
     /**

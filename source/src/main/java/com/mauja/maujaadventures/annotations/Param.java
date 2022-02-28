@@ -11,5 +11,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Param {
     String nom();
-    Class classe() default Double.class;
+    Class<?> classe() default Double.class;
 }

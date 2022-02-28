@@ -1,18 +1,27 @@
 package com.mauja.maujaadventures.entites;
 
+
+import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.logique.*;
 
 public class PersonnageJouable extends Vivant {
     private EtatAction etatAction;
 
-    public PersonnageJouable(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
-                             Attaque attaque, int pointsDeVie) throws IllegalArgumentException {
+    public PersonnageJouable(@Param(nom = "position", classe = Position.class) Position position,
+                             @Param(nom = "dimension", classe = Dimension.class) Dimension dimension,
+                             @Param(nom = "collision", classe = Rectangle.class) Rectangle collision,
+                             @Param(nom = "velocite", classe = Velocite.class) Velocite velocite,
+                             @Param(nom = "attaque", classe = Attaque.class) Attaque attaque,
+                             @Param(nom = "pv", classe = int.class) int pointsDeVie) throws IllegalArgumentException {
         super(position, dimension, collision, velocite, attaque, pointsDeVie);
         etatAction = EtatAction.SANS_ACTION;
     }
 
-    public PersonnageJouable(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
-                             Attaque attaque) throws IllegalArgumentException {
+    public PersonnageJouable(@Param(nom = "position", classe = Position.class) Position position,
+                             @Param(nom = "dimension", classe = Dimension.class) Dimension dimension,
+                             @Param(nom = "collision", classe = Rectangle.class) Rectangle collision,
+                             @Param(nom = "velocite", classe = Velocite.class) Velocite velocite,
+                             @Param(nom = "attaque", classe = Attaque.class) Attaque attaque) throws IllegalArgumentException {
         super(position, dimension, collision, velocite, attaque);
         etatAction = EtatAction.SANS_ACTION;
     }

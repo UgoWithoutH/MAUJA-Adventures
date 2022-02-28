@@ -2,18 +2,20 @@ package com.mauja.maujaadventures.interactions;
 
 import com.mauja.maujaadventures.annotations.ConstructDef;
 import com.mauja.maujaadventures.annotations.Param;
+import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
+import com.mauja.maujaadventures.logique.Rectangle;
 
 public class Levier extends ElementInteractif{
     private static final double LARGEUR_DEFAUT = 15;
     private static final double HAUTEUR_DEFAUT = 15;
-    private Position position;
     private boolean active;
 
     @ConstructDef
-    public Levier(@Param(nom = "x") Double x, @Param(nom = "y") Double y,
+    public Levier(@Param(nom = "position", classe = Position.class) Position position,
+                  @Param(nom = "collision", classe = Rectangle.class) Rectangle collision,
                   @Param(nom = "active", classe = Boolean.class) boolean active) {
-        this.position = new Position(x,y);
+        super(position, collision);
         this.active = active;
     }
 
@@ -31,9 +33,5 @@ public class Levier extends ElementInteractif{
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public Position getPosition() {
-        return position;
     }
 }

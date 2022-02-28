@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.entites;
 
+import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
@@ -7,9 +8,7 @@ import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.logique.Velocite;
 
 public abstract class Entite extends ElementInteractif {
-    private Position position;
     private Dimension dimension;
-    private Rectangle collision;
     private Velocite velocite;
     private Direction direction;
 
@@ -19,55 +18,21 @@ public abstract class Entite extends ElementInteractif {
      * @param collision Collision que l'entite va posséder
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Entite(Position position, Dimension dimension, Rectangle collision, Velocite velocite)
+    public Entite(@Param(nom = "position", classe = Position.class) Position position,
+                  @Param(nom = "dimension", classe = Dimension.class) Dimension dimension,
+                  @Param(nom = "collision", classe = Rectangle.class) Rectangle collision,
+                  @Param(nom = "velocite", classe = Velocite.class) Velocite velocite)
             throws IllegalArgumentException {
-        verificationParametre(position, "position");
+        super(position, collision);
         verificationParametre(dimension, "dimension");
 
         if (velocite == null) {
             velocite = new Velocite();
         }
-        this.position = position;
-        this.collision = collision;
+
         this.dimension = dimension;
         this.velocite = velocite;
         direction = Direction.BAS;
-    }
-
-    /**
-     * Getter de la position
-     * @return Position de l'entite
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public Position getPosition() {
-        return position;
-    }
-
-    /**
-     * Setter de la position
-     * @param position Nouvelle position de l'entite
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    /**
-     * Getter de la collision
-     * @return La zone de collision de l'entite
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public Rectangle getCollision() {
-        return collision;
-    }
-
-    /**
-     * Setter de la collision
-     * @param rectangle Nouvelle collision de l'entite
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void setCollision(Rectangle rectangle) {
-        this.collision = rectangle;
     }
 
     /**
@@ -109,9 +74,8 @@ public abstract class Entite extends ElementInteractif {
      */
     @Override
     public int hashCode() {
-        return 7 * (position.hashCode()
+        return 7 * (velocite.hashCode()
                 + dimension.hashCode()
-                + collision.hashCode()
                 + direction.hashCode());
     }
 
@@ -139,9 +103,8 @@ public abstract class Entite extends ElementInteractif {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public boolean equals(Entite entite) {
-        return position.equals(entite.getPosition())
+        return super.equals(entite)
                 && dimension.equals(entite.getDimension())
-                && collision.equals(entite.getCollision())
                 && velocite.equals(entite.getVelocite())
                 && direction.equals(entite.getDirection());
     }
@@ -153,17 +116,9 @@ public abstract class Entite extends ElementInteractif {
      */
     @Override
     public String toString() {
-        return "[" + this.getClass() + "] : " + position.toString()
+        return super.toString()
                 + "\nDimensions : " + dimension.toString()
-                + "\nCollision : " + collision.toString()
                 + "\nVelocite : " + velocite
                 + "\nDirection : " + direction;
-    }
-
-    private void verificationParametre(Object obj, String nom) throws IllegalArgumentException {
-        if (obj == null) {
-            throw new IllegalArgumentException("Le paramètre " + nom + " donnée à l'entité lors de sa création "
-                    + "ne peut pas être null.");
-        }
     }
 }
