@@ -4,11 +4,12 @@ import com.mauja.maujaadventures.collisionneurs.CollisionneurCarte;
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.entites.Projectile;
+import com.mauja.maujaadventures.jeu.Observable;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Carte;
 
-public class DeplaceurEntite {
+public class DeplaceurEntite extends Observable {
     private Carte carteCourante;
     private CollisionneurCarte collisionneurCarte;
 
@@ -27,6 +28,7 @@ public class DeplaceurEntite {
     public boolean deplace(Entite entite, float temps, Direction direction, boolean gestionCollisions) {
         Position positionEntite;
         Rectangle collisionEntite;
+        notifier(0);
 
         if (direction == Direction.DROITE) {
             positionEntite = new Position(entite.getPosition().getX() + entite.getVelocite().getX(),

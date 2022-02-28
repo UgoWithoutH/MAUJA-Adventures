@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.entites;
 
+import com.mauja.maujaadventures.jeu.Observable;
 import com.mauja.maujaadventures.logique.*;
 
 public class PersonnageJouable extends Vivant {

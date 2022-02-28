@@ -1,82 +1,121 @@
 package vues.codebehind;
 
+import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.monde.Carte;
 import com.mauja.maujaadventures.monde.Tuile;
+import jdk.jshell.spi.ExecutionControl;
 
 public class CameraTuiles extends Camera {
-    private Carte carte;
-    private Tuile[][] zoneVisible;
+    protected Carte carteCourante;
+    protected Tuile[][] zoneVisible;
+
+
+    protected double largeurCarte = 32;
+    protected double hauteurCarte = 32;
+    protected double largeurTuile;
+    protected double hauteurTuile;
 
     public CameraTuiles(Carte carte, Dimension zoneObservable) {
         super(zoneObservable);
-        this.carte = carte;
-    }
+        if (carte == null) {
+            throw new IllegalArgumentException("La carte donnée à la caméra est nulle.");
+        }
+        if (carte.getDimension().getLargeur() < zoneObservable.getLargeur()
+                || carte.getDimension().getHauteur() < zoneObservable.getHauteur()) {
+            throw new IllegalArgumentException("La zone visuelle de la caméra (" + zoneObservable + ") ne peut pas "
+                    + "être plus grande que les dimensions de la carte : " + carte.getDimension());
+        }
+        zoneVisible = new Tuile[(int) zoneObservable.getHauteur()][(int) zoneObservable.getLargeur()];
+        changeCarte(carte);    }
+
 
     @Override
     public void centrerSurEntite(Entite entite) {
-        int largeurTuile = 32;
-        int hauteurTuile = 32;
+        int positionEntiteX = (int) ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) / largeurTuile);
+        int positionEntiteY = (int) ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) / hauteurTuile);
 
-        double largeurCarte = carte.getDimension().getLargeur();
-        double longueurCarte = carte.getDimension().getHauteur();
+        double decalageX = (int) ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) % largeurTuile);
+        double decalageY = (int) ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) % hauteurTuile);
 
-        double positionEntiteX = (entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) / largeurTuile;
-        double positionEntiteY = (entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) / hauteurTuile;
+        double milieuEcranX = milieu.getLargeur();
+        double milieuEcranY = milieu.getHauteur();
+        double nouvellePositionX;
+        double nouvellePositionY;
 
-        double milieuX = milieu.getLargeur();
-        double milieuY = milieu.getHauteur();
+        if (positionEntiteX < milieu.getLargeur()) {
+            nouvellePositionX = 0;
+            decalageX = 0;
+        }
+        else if (positionEntiteX > (largeurCarte - milieuEcranX)) {
+            nouvellePositionX = largeurCarte - zoneObservable.getLargeur();
+            decalageX = largeurTuile;
+        }
+        else {
+            nouvellePositionX = positionEntiteX - milieuEcranX;
+        }
 
-        double positionActuelleX;
-        double positionActuelleY;
-
-
-        if(positionEntiteX < milieu.getLargeur()) {
-            positionActuelleX = 0;
+        if (positionEntiteY < milieuEcranY) {
+            nouvellePositionY = 0;
+            decalageY = 0;
         }
-        else if(positionEntiteX > (largeurCarte - milieuX)){
-            positionActuelleX = largeurCarte - zoneObservable.getLargeur();
+        else if (positionEntiteY > (hauteurCarte - milieuEcranY)) {
+            nouvellePositionY = hauteurCarte - zoneObservable.getHauteur();
+            decalageY = hauteurTuile;
         }
-        else{
-            positionActuelleX = positionEntiteX - milieuX;
+        else {
+            nouvellePositionY = positionEntiteY - milieuEcranY;
         }
-        if(positionEntiteY < milieuY){
-            positionActuelleY=0;
-        }
-        else if(positionEntiteY > (longueurCarte - milieuY)){
-            positionActuelleY = longueurCarte - zoneObservable.getHauteur();
-        }
-        else{
-            positionActuelleY = positionEntiteY - milieuY;
-        }
-        position = new Position(positionActuelleX,positionActuelleY);
+        position = new Position(nouvellePositionX, nouvellePositionY);
+        decalageRelatif = new Dimension(decalageX, decalageY);
         actualisation();
-
-
     }
 
-    public void actualisation() {
-        double hauteurZone = zoneObservable.getHauteur();
-        double largeurZone = zoneObservable.getLargeur();
 
-        double positionX = position.getX();
-        double positionY = position.getY();
+    @Override
+    public void decalage(Direction direction) throws ExecutionControl.NotImplementedException {
+        throw new ExecutionControl.NotImplementedException("Le système de décalage de la caméra 2D n'est pas implémenté.");
+    }
 
-        for(int x = 0;x < hauteurZone; x++){
-            for(int y = 0; y < largeurZone; y++){
-                //zoneVisible[x][y] = //récupérer la tuile? après décalage  (x + positionX, y + positionY);
+
+    public void actualisation() throws IndexOutOfBoundsException {
+        double largeurCamera = zoneObservable.getLargeur();
+        double hauteurCamera = zoneObservable.getHauteur();
+
+        int positionX = (int) position.getX();
+        int positionY = (int) position.getY();
+
+        for (int x = 0; x < hauteurCamera; x++) {
+            for (int y = 0; y < largeurCamera; y++) {
+                zoneVisible[x][y] = carteCourante.getListeDeCalques().get(0).getTuile(x + positionX, y + positionY);
             }
         }
     }
 
+    /**
+     * Methode permettant de changer la carte actuelle
+     * @param carte
+     * @throws IllegalArgumentException
+     */
+    public void changeCarte(Carte carte) throws IllegalArgumentException {
+        if (carte == null || carte.getDimension().getLargeur() == 0) {
+            throw new IllegalArgumentException("La carte passée en paramètre de la caméra ne peut pas être nulle ou vide.");
+        }
+        carteCourante = carte;
+
+        largeurCarte = carteCourante.getDimension().getLargeur();
+        hauteurCarte = carteCourante.getDimension().getHauteur();
+        actualisation();
+    }
+
     public Carte getCarte() {
-        return carte;
+        return carteCourante;
     }
 
     public void setCarte(Carte carte) {
-        this.carte = carte;
+        this.carteCourante = carte;
     }
 
     public Tuile[][] getZoneVisible() {
