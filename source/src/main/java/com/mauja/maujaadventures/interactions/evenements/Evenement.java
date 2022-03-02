@@ -9,10 +9,12 @@ import java.util.List;
 
 public abstract class Evenement {
     protected ElementInteractif elementInteractif;
+    protected ElementInteractif sauvegardeElementInteractif;
     protected TableauDeJeu tableauDeJeu;
 
-    public Evenement(TableauDeJeu tableauDeJeu) {
-        this.elementInteractif = tableauDeJeu.getJoueur();
+    public Evenement(TableauDeJeu tableauDeJeu , ElementInteractif elementInteractif) {
+        this.elementInteractif = elementInteractif;
+        this.sauvegardeElementInteractif = elementInteractif.clone();
         this.tableauDeJeu = tableauDeJeu;
     }
 

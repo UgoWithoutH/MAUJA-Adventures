@@ -6,15 +6,15 @@ import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 
 public class Levier extends ElementInteractif{
-    private static final double LARGEUR_DEFAUT = 15;
-    private static final double HAUTEUR_DEFAUT = 15;
+    private static final double LARGEUR_DEFAUT = 100;
+    private static final double HAUTEUR_DEFAUT = 100;
     private boolean active;
 
     @ConstructeurXml
     public Levier(@Param(nom = "x") Double x,
                   @Param(nom = "y")Double y,
                   @Param(nom = "active", classe = Boolean.class) boolean active) {
-        super(new Position(x,y), new Rectangle(10,10,10,10));
+        super(new Position(x,y), new Rectangle(x,y,LARGEUR_DEFAUT,HAUTEUR_DEFAUT));
         this.active = active;
     }
 
@@ -43,7 +43,7 @@ public class Levier extends ElementInteractif{
 
     public class Builder{
         public Builder() {
-            active=false;
+            //active=false;
         }
     }
 }

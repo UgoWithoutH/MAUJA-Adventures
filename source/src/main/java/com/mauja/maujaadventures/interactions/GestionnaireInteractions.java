@@ -9,6 +9,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -20,21 +21,28 @@ public class GestionnaireInteractions {
     private Queue<Evenement> fileSauvegarde;
     private Thread thread;
     private boolean enCours;
+    private List<ElementInteractif> elementAAjouter;
 
     private GestionnaireInteractions() {
         fileCourante = new LinkedList<>();
         fileSauvegarde = new LinkedList<>();
+        elementAAjouter = new ArrayList<>();
         enCours = false;
         initialisation();
     }
 
     public static GestionnaireInteractions getInstance(){
         if(gestionnaireInteractions == null){
-            return new GestionnaireInteractions();
+            gestionnaireInteractions = new GestionnaireInteractions();
+            return gestionnaireInteractions;
         }
         else{
             return gestionnaireInteractions;
         }
+    }
+
+    public List<ElementInteractif> getElementAAjouter() {
+        return elementAAjouter;
     }
 
     private void initialisation(){
@@ -48,6 +56,14 @@ public class GestionnaireInteractions {
             parseur.parse(inputStream, handler);
             scenarios = handler.getListeScenarios();
 
+            for(Scenario scenario : scenarios){ //temporaire
+                for(ElementInteractif elementInteractif : scenario.getListeElemInteractif()){
+                    if(elementInteractif instanceof Levier levier){
+                        elementAAjouter.add(levier);
+                    }
+                }
+            }
+
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
@@ -55,7 +71,7 @@ public class GestionnaireInteractions {
 
     public void ajouter(Evenement evenement) {
         if (!enCours) {
-            fileSauvegarde.add(evenement);
+            fileCourante.add(evenement);
             if(thread != null) {
                 thread.interrupt();
             }

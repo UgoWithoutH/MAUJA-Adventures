@@ -2,12 +2,13 @@ package com.mauja.maujaadventures.fenetres;
 
 import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.entites.*;
+import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
+import com.mauja.maujaadventures.interactions.Levier;
 import com.mauja.maujaadventures.jeu.Jeu;
 import com.mauja.maujaadventures.jeu.Observateur;
-import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Camera;
 import com.mauja.maujaadventures.monde.Carte;
-import com.mauja.maujaadventures.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.monde.Tuile;
 import com.mauja.maujaadventures.utilitaires.DecoupeurImage;
 import javafx.scene.canvas.GraphicsContext;
@@ -33,14 +34,22 @@ public class FenetreDeJeu implements Observateur {
     private Image imagePersonnage;
     private Image imageProjectile;
     private Image imageEnnemi;
+    private Image imageLevierPasActif;
+    private Image imageLevierActif;
     private List<Image> lesImages;
     private Map<Tuile, Image> lesTuilesImagees;
+    private int test= 0 ;
 
     public FenetreDeJeu(GraphicsContext gc, Jeu jeu) {
         this.gc = gc;
         this.jeu = jeu;
         jeu.attacher(this);
         initialiser();
+        ajoutElementParsage(GestionnaireInteractions.getInstance().getElementAAjouter());
+    }
+
+    public void ajoutElementParsage(List<ElementInteractif> list){
+        carteCourante.getLesElementsInteractif().addAll(list);
     }
 
     public void affichage() {
@@ -57,6 +66,31 @@ public class FenetreDeJeu implements Observateur {
                 }
             }
         }
+
+        for (ElementInteractif elementInteractif : carteCourante.getLesElementsInteractif()) {
+            if (elementInteractif instanceof Ennemi ennemi) {
+                gc.drawImage(imageEnnemi, ennemi.getPosition().getX() - camera.getPositionCameraX(),
+                        ennemi.getPosition().getY() - camera.getPositionCameraY());
+            }
+
+            if (elementInteractif instanceof Projectile projectile) {
+                gc.drawImage(imageProjectile, projectile.getPosition().getX() - camera.getPositionCameraX(),
+                        projectile.getPosition().getY() - camera.getPositionCameraY());
+            }
+
+            if (elementInteractif instanceof Levier levier) {
+                if(test == 0){
+                    test++;
+                }
+                if(levier.isActive()) {
+                    gc.drawImage(imageLevierActif, levier.getPosition().getX() - camera.getPositionCameraX(),
+                            levier.getPosition().getY() - camera.getPositionCameraY());
+                }else{
+                    gc.drawImage(imageLevierPasActif, levier.getPosition().getX() - camera.getPositionCameraX(),
+                            levier.getPosition().getY() - camera.getPositionCameraY());
+                }
+            }
+        }
         gc.drawImage(imagePersonnage, joueur.getPosition().getX() - camera.getPositionCameraX(),
                 joueur.getPosition().getY() - camera.getPositionCameraY());
 
@@ -64,18 +98,6 @@ public class FenetreDeJeu implements Observateur {
             gc.drawImage(imageProjectile,
                     joueur.getAttaque().getCollision().getPosition().getX() - camera.getPositionCameraX(),
                     joueur.getAttaque().getCollision().getPosition().getY() - camera.getPositionCameraY());
-        }
-
-        for (Entite entite : carteCourante.getLesEntites()) {
-            if (entite instanceof Ennemi) {
-                gc.drawImage(imageEnnemi, entite.getPosition().getX() - camera.getPositionCameraX(),
-                        entite.getPosition().getY() - camera.getPositionCameraY());
-            }
-
-            if (entite instanceof Projectile) {
-                gc.drawImage(imageProjectile, entite.getPosition().getX() - camera.getPositionCameraX(),
-                        entite.getPosition().getY() - camera.getPositionCameraY());
-            }
         }
         gc.fillText("Vie : " + joueur.getPointsDeVie(), 20, 20);
     }
@@ -102,6 +124,8 @@ public class FenetreDeJeu implements Observateur {
             imagePersonnage = new Image(String.valueOf(new File("ressources/images/entites/link_epee.png").toURI().toURL()));
             imageProjectile = new Image(String.valueOf(new File("ressources/images/entites/projectile.png").toURI().toURL()));
             imageEnnemi = new Image(String.valueOf(new File("ressources/images/entites/ennemi.png").toURI().toURL()));
+            imageLevierPasActif = new Image(String.valueOf(new File("ressources/images/entites/levierPasActif.png").toURI().toURL()));
+            imageLevierActif = new Image(String.valueOf(new File("ressources/images/entites/levierActif.png").toURI().toURL()));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

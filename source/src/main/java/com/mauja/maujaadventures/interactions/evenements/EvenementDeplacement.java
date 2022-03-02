@@ -14,37 +14,12 @@ import java.util.Map;
 
 public class EvenementDeplacement extends Evenement {
 
-    public EvenementDeplacement(TableauDeJeu tableauDeJeu) {
-        super(tableauDeJeu);
+    public EvenementDeplacement(TableauDeJeu tableauDeJeu, ElementInteractif elementInteractif) {
+        super(tableauDeJeu, elementInteractif);
     }
 
     @Override
     public void traitement(List<Scenario> scenarios) {
-        if(elementInteractif instanceof PersonnageJouable personnage){
-            for(Scenario scenario :  scenarios){
-                for(ElementInteractif e  : scenario.getListeElemInteractif()){
-                    if(e instanceof Levier levier) {
-                        Iterator<Map.Entry<Condition, List<Action>>> it = e.getMapConditionAction().entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry<Condition, List<Action>> a = it.next();
-                            if (a.getKey() instanceof ConditionCollision) {
-                                if(personnage.getEtatAction() == EtatAction.ATTAQUE){
-                                    Dimension dim = personnage.getCollision().getDimension();
-                                    Position pos = personnage.getCollision().getPosition();
-                                    Rectangle rectanglePerso = new Rectangle((int) pos.getX(), (int) pos.getY(), (int) dim.getLargeur(), (int) dim.getHauteur());
-                                    if (!levier.isActive() &&
-                                            rectanglePerso.intersects(levier.getPosition().getX(),levier.getPosition().getY(),Levier.getLargeurDefaut(),Levier.getHauteurDefaut())) {
-                                        levier.setActive(true);
-                                        for (Action action : a.getValue()) {
-                                            action.agit();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+
     }
 }
