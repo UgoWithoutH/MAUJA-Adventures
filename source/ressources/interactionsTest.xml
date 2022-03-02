@@ -2,7 +2,7 @@
     <Scenario>
         <ElementInteractif type="com.mauja.maujaadventures.interactions.Levier" x="10" y="10" active="false" id="1">
             <Condition type="com.mauja.maujaadventures.interactions.ConditionCollision"/>
-            <Action type="com.mauja.maujaadventures.interactions.ActionOuverturePorte">
+            <Action type="com.mauja.maujaadventures.interactions.ActionOuverturePorte" idEffet="1">
                 <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="10" yEn="10" largEn="10" hautEn="10"
                                    xCol="10" yCol="10" largCol="10" hautCol="10" id="2"
                                    pointsDeVie="3"/>

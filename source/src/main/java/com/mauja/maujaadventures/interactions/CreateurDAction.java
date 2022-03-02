@@ -5,7 +5,7 @@ import org.xml.sax.Attributes;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class CreateurDAction implements CreateurDeBalise{
+public class CreateurDAction extends CreateurDeBalise{
     @Override
     public Balise creation(Attributes attributes) {
         Action baliseCourante = null;

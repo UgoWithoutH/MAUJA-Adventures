@@ -5,7 +5,7 @@ import org.xml.sax.Attributes;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class CreateurDeCondition implements CreateurDeBalise{
+public class CreateurDeCondition extends CreateurDeBalise{
     @Override
     public Balise creation(Attributes attributes) {
         Condition baliseCourante = null;

@@ -79,7 +79,7 @@ public class InteractionHandler extends DefaultHandler {
 
     //cette méthode est appelée lors de la détection de données entre deux tags
     @Override
-    public void characters (char ch[], int start, int length)
+    public void characters (char []ch, int start, int length)
     {
 
     }

@@ -1,6 +1,6 @@
 package com.mauja.maujaadventures.entites;
 
-import com.mauja.maujaadventures.annotations.ConstructDef;
+import com.mauja.maujaadventures.annotations.ConstructeurXml;
 import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.comportements.Comportement;
 import com.mauja.maujaadventures.comportements.ComportementNull;
@@ -10,7 +10,7 @@ public class Ennemi extends Vivant {
     private Comportement comportement;
 
 
-    @ConstructDef
+    @ConstructeurXml
     public Ennemi(@Param(nom = "xEn") Double xEn, @Param(nom = "yEn") Double yEn, @Param(nom = "hautEn")Double hautEn,
                   @Param(nom = "largEn")Double largEn, @Param(nom = "xCol")Double xCol, @Param(nom = "yCol")Double yCol,
                   @Param(nom = "largCol") Double largCol, @Param(nom = "hautCol") Double hautCol,
