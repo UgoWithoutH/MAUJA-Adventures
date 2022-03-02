@@ -1,29 +1,30 @@
 package com.mauja.maujaadventures.interactions;
 
-import com.mauja.maujaadventures.entites.EtatAction;
-import com.mauja.maujaadventures.entites.PersonnageJouable;
-import com.mauja.maujaadventures.logique.Dimension;
-import com.mauja.maujaadventures.logique.Position;
+import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class GestionnaireInteractions {
-    private Queue<ElementInteractif> file;
     private static GestionnaireInteractions gestionnaireInteractions;
     private static  List<Scenario> scenarios;
+    private Queue<Evenement> fileCourante;
+    private Queue<Evenement> fileSauvegarde;
+    private Thread thread;
+    private boolean enCours;
 
     private GestionnaireInteractions() {
-        file = new LinkedList<>();
+        fileCourante = new LinkedList<>();
+        fileSauvegarde = new LinkedList<>();
+        enCours = false;
         initialisation();
     }
 
@@ -52,38 +53,36 @@ public class GestionnaireInteractions {
         }
     }
 
-    public void ajouterElement(ElementInteractif elementInteractif) {
-        file.add(elementInteractif);
-        traitement();
+    public void ajouter(Evenement evenement) {
+        if (!enCours) {
+            fileSauvegarde.add(evenement);
+            if(thread != null) {
+                thread.interrupt();
+            }
+            thread = new Thread(this::traitement);
+            thread.start();
+        }
+        else{
+            fileSauvegarde.add(evenement);
+        }
     }
 
     private void traitement() {
-        ElementInteractif element = file.poll();
-        if(element instanceof PersonnageJouable personnage){
-            for(Scenario scenario :  scenarios){
-                for(ElementInteractif e  : scenario.getListeElemInteractif()){
-                    if(e instanceof Levier levier) {
-                        Iterator<Map.Entry<Condition, List<Action>>> it = e.getMapConditionAction().entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry<Condition, List<Action>> a = it.next();
-                            if (a.getKey() instanceof ConditionCollision) {
-                                if(personnage.getEtatAction() == EtatAction.ATTAQUE){
-                                    Dimension dim = personnage.getCollision().getDimension();
-                                    Position pos = personnage.getCollision().getPosition();
-                                    Rectangle rectanglePerso = new Rectangle((int) pos.getX(), (int) pos.getY(), (int) dim.getLargeur(), (int) dim.getHauteur());
-                                    if (!levier.isActive() &&
-                                            rectanglePerso.intersects(levier.getPosition().getX(),levier.getPosition().getY(),Levier.getLargeurDefaut(),Levier.getHauteurDefaut())) {
-                                        levier.setActive(true);
-                                        for (Action action : a.getValue()) {
-                                            action.agit();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+        enCours = true;
+        while(true){
+            if(fileCourante.size() != 0){
+                Evenement evenement = fileCourante.poll();
+                evenement.traitement(scenarios);
+            }
+            else{
+                if(fileSauvegarde.size() != 0){
+                    fileCourante = new LinkedList<>(fileSauvegarde);
+                    fileSauvegarde = new LinkedList<>();
                 }
+                else
+                    break;
             }
         }
+        enCours = false;
     }
 }
