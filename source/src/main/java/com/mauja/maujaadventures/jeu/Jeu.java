@@ -10,6 +10,7 @@ import com.mauja.maujaadventures.entrees.GestionnaireDeTouches;
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.entrees.Touche;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
+import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.chargeurs.RecuperateurDeCartes;
@@ -150,7 +151,6 @@ public class Jeu extends Observable implements Observateur {
                 tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
             }
             tempsAttaque = 0;
-            GestionnaireInteractions.getInstance().ajouterElement(tableauDeJeu.getJoueur());
         }
         else {
             tempsAttaque++;
@@ -161,6 +161,9 @@ public class Jeu extends Observable implements Observateur {
 
         if (tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SANS_ACTION) {
             if (lesTouchesAppuyees.contains(Touche.FLECHE_DROITE)) {
+
+                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu));
+
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.DROITE, true);
 
                 if (estDeplace && tableauDeJeu.getCarteCourante().getDimension().getLargeur() * decalageX - (tableauDeJeu.getJoueur().getPosition().getX()) > tableauDeJeu.getCarteCourante().getDimension().getLargeur()) {
@@ -172,6 +175,9 @@ public class Jeu extends Observable implements Observateur {
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_GAUCHE)) {
+
+                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu));
+
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.GAUCHE, true);
                 if (estDeplace && 0 + tableauDeJeu.getJoueur().getPosition().getY() > tableauDeJeu.getCarteCourante().getDimension().getLargeur()) {
                     if (!(camera.getPositionCameraX() <= 0) &&
@@ -183,6 +189,9 @@ public class Jeu extends Observable implements Observateur {
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_HAUT)) {
+
+                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu));
+
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.HAUT, true);
                 if (estDeplace && !(camera.getPositionCameraY() <= 0) &&
                         (tableauDeJeu.getJoueur().getPosition().getY() <= tableauDeJeu.getCarteCourante().getDimension().getHauteur() * decalageY +
@@ -192,6 +201,9 @@ public class Jeu extends Observable implements Observateur {
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_BAS)) {
+
+                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu));
+
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.BAS, true);
 
                 if (estDeplace && (tableauDeJeu.getCarteCourante().getDimension().getLargeur() * tableauDeJeu.getCarteCourante().getDimension().getLargeur()) - (tableauDeJeu.getJoueur().getPosition().getY()) > tableauDeJeu.getCarteCourante().getDimension().getHauteur() &&
