@@ -20,7 +20,7 @@ public class EvenementAttaque extends Evenement{
 
     @Override
     public void traitement(List<Scenario> scenarios) {
-        if(sauvegardeElementInteractif instanceof PersonnageJouable personnage){
+        if(elementInteractif instanceof PersonnageJouable personnage){
             for(Scenario scenario :  scenarios){
                 for(ElementInteractif e  : scenario.getListeElemInteractif()){
                     if(e instanceof Levier levier) {
@@ -28,17 +28,15 @@ public class EvenementAttaque extends Evenement{
                         while (it.hasNext()) {
                             Map.Entry<Condition, List<Action>> a = it.next();
                             if (a.getKey() instanceof ConditionCollision) {
-                                if(personnage.getEtatAction() == EtatAction.ATTAQUE){
-                                    if (!levier.isActive()){
-                                        Dimension dim = personnage.getCollision().getDimension();
-                                        Position pos = personnage.getPosition();
-                                        Rectangle rectanglePerso = new Rectangle((int) pos.getX(), (int) pos.getY(), (int) dim.getLargeur(), (int) dim.getHauteur());
-                                        Rectangle rectangleLevier = new Rectangle((int) levier.getPosition().getX(), (int) levier.getPosition().getY(), (int) Levier.getLargeurDefaut(), (int) Levier.getHauteurDefaut());
-                                        if(rectanglePerso.intersects(rectangleLevier)) {
-                                            levier.setActive(true);
-                                            for (Action action : a.getValue()) {
-                                                action.agit();
-                                            }
+                                if (!levier.isActive()) {
+                                    Dimension dim = personnage.getAttaque().getCollision().getDimension();
+                                    Position pos = personnage.getAttaque().getCollision().getPosition();
+                                    Rectangle rectangleAttaque = new Rectangle((int) pos.getX(), (int) pos.getY(), (int) dim.getLargeur(), (int) dim.getHauteur());
+                                    Rectangle rectangleLevier = new Rectangle((int) levier.getPosition().getX(), (int) levier.getPosition().getY(), (int) Levier.getLargeurDefaut(), (int) Levier.getHauteurDefaut());
+                                    if (rectangleAttaque.intersects(rectangleLevier)) {
+                                        levier.setActive(true);
+                                        for (Action action : a.getValue()) {
+                                            action.agit(tableauDeJeu);
                                         }
                                     }
                                 }

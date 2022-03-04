@@ -126,6 +126,8 @@ public class FenetreDeJeu implements Observateur {
             imageEnnemi = new Image(String.valueOf(new File("ressources/images/entites/ennemi.png").toURI().toURL()));
             imageLevierPasActif = new Image(String.valueOf(new File("ressources/images/entites/levierPasActif.png").toURI().toURL()));
             imageLevierActif = new Image(String.valueOf(new File("ressources/images/entites/levierActif.png").toURI().toURL()));
+            Levier.setHauteurDefaut(imageLevierActif.getHeight());
+            Levier.setLargeurDefaut(imageLevierActif.getWidth());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

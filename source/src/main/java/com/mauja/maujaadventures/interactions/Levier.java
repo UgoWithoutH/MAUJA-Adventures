@@ -6,8 +6,8 @@ import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 
 public class Levier extends ElementInteractif{
-    private static final double LARGEUR_DEFAUT = 100;
-    private static final double HAUTEUR_DEFAUT = 100;
+    private static double LARGEUR_DEFAUT;
+    private static double HAUTEUR_DEFAUT;
     private boolean active;
 
     @ConstructeurXml
@@ -23,6 +23,14 @@ public class Levier extends ElementInteractif{
                   @Param(nom = "active", classe = Boolean.class) boolean active) {
         super(position, collision);
         this.active = active;
+    }
+
+    public static void setHauteurDefaut(double hauteurDefaut) {
+        HAUTEUR_DEFAUT = hauteurDefaut;
+    }
+
+    public static void setLargeurDefaut(double largeurDefaut) {
+        LARGEUR_DEFAUT = largeurDefaut;
     }
 
     public static double getLargeurDefaut() {

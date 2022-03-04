@@ -1,5 +1,7 @@
 package com.mauja.maujaadventures.interactions;
 
+import com.mauja.maujaadventures.jeu.TableauDeJeu;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public abstract class Action extends Balise {
         listeElementInteractif =  new ArrayList<>();
     }
 
-    public abstract void agit();
+    public abstract void agit(TableauDeJeu tableauDeJeu);
 
     @Override
     public void ajouter(Balise balise) {

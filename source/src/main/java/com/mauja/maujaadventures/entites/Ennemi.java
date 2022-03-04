@@ -21,7 +21,9 @@ public class Ennemi extends Vivant {
         if (comportement == null) {
             comportement = new ComportementNull();
         }
-        this.comportement = comportement;
+        else {
+            comportement = comportement;
+        }
     }
 
     public Ennemi(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
@@ -30,7 +32,9 @@ public class Ennemi extends Vivant {
         if (comportement == null) {
             comportement = new ComportementNull();
         }
-        this.comportement = comportement;
+        else {
+            comportement = comportement;
+        }
     }
 
     public Ennemi(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
@@ -44,6 +48,10 @@ public class Ennemi extends Vivant {
 
     public Comportement getComportement() {
         return comportement;
+    }
+
+    public void setComportement(Comportement comportement) {
+        this.comportement = comportement;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.mauja.maujaadventures.interactions;
 import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
+import com.mauja.maujaadventures.monde.Carte;
 
 import java.util.ArrayList;
 import java.util.List;
