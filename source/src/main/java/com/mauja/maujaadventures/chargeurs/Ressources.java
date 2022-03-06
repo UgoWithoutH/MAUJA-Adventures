@@ -8,10 +8,7 @@ import java.util.List;
 public class Ressources {
     private static final List<String> lesCartes = new ArrayList<>();
     static {
-
         lesCartes.add(new File("ressources/cartes/carteTest3.tmx").getAbsolutePath());
-        System.out.println(lesCartes.get(0));
-
     }
     /**/
     private static final List<String> lesJeuxDeTuiles = new ArrayList<>();
@@ -23,6 +20,7 @@ public class Ressources {
     static {
         try {
             lesImagesJeuxDeTuiles.add(new File("ressources/images/tilesets/terrain_atlas.png").toURI().toURL().toString());
+            lesImagesJeuxDeTuiles.add(new File("ressources/images/tilesets/houses.png").toURI().toURL().toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

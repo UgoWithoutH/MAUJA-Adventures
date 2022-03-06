@@ -1,6 +1,6 @@
 package com.mauja.maujaadventures.interactions;
 
-import com.mauja.maujaadventures.annotations.ConstructDef;
+import com.mauja.maujaadventures.annotations.ConstructeurXml;
 import com.mauja.maujaadventures.annotations.Param;
 
 
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import org.xml.sax.Attributes;
 
-public class CreateurDElementInteractif implements CreateurDeBalise{
+public class CreateurDElementInteractif extends CreateurDeBalise{
     @Override
 
     public Balise creation(Attributes attributes) {
@@ -20,10 +20,10 @@ public class CreateurDElementInteractif implements CreateurDeBalise{
         ElementInteractif baliseCourante = null;
         Map<Condition, List<Action>> map = new HashMap<>();
         try {
-            Constructor[] constructors = Class.forName(attributes.getValue("type")).getConstructors();
-            Constructor constructeur = null;
-            for (Constructor constructor: constructors) {
-                if (constructor.isAnnotationPresent(ConstructDef.class)){
+            Constructor<?>[] constructors = Class.forName(attributes.getValue("type")).getConstructors();
+            Constructor<?> constructeur = null;
+            for (Constructor<?> constructor: constructors) {
+                if (constructor.isAnnotationPresent(ConstructeurXml.class)){
                     constructeur = constructor;
                 }
             }
@@ -39,18 +39,4 @@ public class CreateurDElementInteractif implements CreateurDeBalise{
         return baliseCourante;
     }
 
-    private Object[] trierAttributs(Attributes attributes, Annotation[][] annotations, int nbParam) {
-        Object[] listeAttributs =  new Object[nbParam];
-        Param param;
-        for (int i=0; i<nbParam ;i++) {
-            param = (Param) annotations[i][0];
-            try {
-                Constructor constructor = param.classe().getConstructor(String.class);
-                listeAttributs[i]= constructor.newInstance(attributes.getValue(param.nom()));
-            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
-                e.printStackTrace();
-            }
-        }
-        return listeAttributs;
-    }
 }

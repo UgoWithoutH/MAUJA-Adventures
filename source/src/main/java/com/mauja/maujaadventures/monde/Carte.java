@@ -1,69 +1,48 @@
 package com.mauja.maujaadventures.monde;
 
 import com.mauja.maujaadventures.entites.Entite;
+import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Carte {
-    public static int nombreIdentifiants = 0;
-    private String nom;
-    private int id;
-    private List<Calque> listeDeCalques;
-    private List<Entite> lesEntites;
-    private Dimension dimension;
+    private final String nom;
+    private Dimension dimensionCarte;
+    private Dimension dimensionTuiles;
+    private List<JeuDeTuiles> lesJeuxDeTuiles;
+    private List<Tuile> lesTuiles;
+    private Tuile[][][] laCarte;
+    private List<ElementInteractif> lesElementsInteractifs;
 
     /**
      * Constructeur de la classe Carte
      *
      * @param nom nom Nom de la carte
-     * @param dimension Longueur et Hauteur de la carte
-     * @param lesCalques Liste des calques appartenant à la Carte
+     * @param dimensionCarte Longueur et Hauteur de la carte
+     * @param laCarte Liste des calques appartenant à la Carte
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
 
-
-    public Carte(String nom, Dimension dimension, List<Calque> lesCalques, List<Entite> lesEntites)
-            throws IllegalArgumentException {
-        if (lesCalques == null) {
-            throw new IllegalArgumentException("La carte doit obligatoirement être composée de calques");
+    public Carte(String nom, Dimension dimensionCarte, Tuile[][][] laCarte, List<JeuDeTuiles> lesJeuxDeTuiles,
+                 List<ElementInteractif> lesElementsInteractifs) throws IllegalArgumentException {
+        if (nom == null || nom.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le nom de la carte passé en argument ne peut pas être null ou vide.");
         }
-        if (lesEntites == null) {
-            lesEntites = new ArrayList<>();
+        if (lesJeuxDeTuiles == null || lesJeuxDeTuiles.isEmpty()) {
+            throw new IllegalArgumentException("Les jeux de tuiles utilisés par la carte ne peuvent pas être null.");
         }
+        verificationDimensionsTuiles(lesJeuxDeTuiles);
+        verificationDimensionsTuiles(laCarte, dimensionCarte);
 
         this.nom = nom;
-        this.dimension = dimension;
-        listeDeCalques = lesCalques;
-        this.lesEntites = lesEntites;
-        this.id = nombreIdentifiants;
-        nombreIdentifiants++;
-    }
+        this.dimensionCarte = dimensionCarte;
+        this.lesJeuxDeTuiles = lesJeuxDeTuiles;
+        this.laCarte = laCarte;
+        this.lesElementsInteractifs = lesElementsInteractifs == null ? new ArrayList<>() : lesElementsInteractifs;
 
-    public Carte(String nom, Dimension dimension, List<Calque> lesCalques) throws IllegalArgumentException {
-        this(nom, dimension, lesCalques, null);
-    }
-
-    /**
-     * Getter de l'id de la Carte
-     *
-     * @return L'Id de la Carte
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Setter de l'id de la carte
-     *
-     * @param id Nouvelle id de la tuile
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void setId(int id) {
-        this.id = id;
+        lesTuiles = new ArrayList<>();
+        recuperationTuiles(lesJeuxDeTuiles);
     }
 
     /**
@@ -76,64 +55,48 @@ public class Carte {
         return nom;
     }
 
-    /**
-     * Setter du nom de la carte
-     *
-     * @param nom Nouveau nom de la Carte
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void setNom(String nom) {
-        this.nom = nom;
+    public Dimension getDimensionTuiles() {
+        return dimensionTuiles;
     }
 
-    /**
-     * Getter de la liste de calques
-     *
-     * @return La liste des calques
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public List<Calque> getListeDeCalques() {
-        return listeDeCalques;
+    public Dimension getDimensionCarte() {
+        return dimensionCarte;
     }
 
-    /**
-     * Ajouter un nouveau calque
-     * @param c Calque que l'on veut rajouter
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public void ajouterCalques(Calque c) {
-        this.listeDeCalques.add(c);
+    public Tuile[][][] getLaCarte() {
+        return Arrays.copyOf(laCarte, laCarte.length);
     }
 
-    /**
-     * Getter de la dimension
-     * @return Les valeurs de la dimension
-     */
-    public Dimension getDimension() {
-        return dimension;
+    public List<ElementInteractif> getLesElementsInteractifs() {
+        return Collections.unmodifiableList(lesElementsInteractifs);
     }
 
-    /**
-     * Setter de la dimension
-     * @param dimension Nouveau valeur de la dimension
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void setDimension(Dimension dimension) {
-        this.dimension = dimension;
+    public List<JeuDeTuiles> getLesJeuxDeTuiles() {
+        return Collections.unmodifiableList(lesJeuxDeTuiles);
     }
 
-    public List<Entite> getLesEntites() {
-        return lesEntites;
+    public List<Tuile> getLesTuiles() {
+        return Collections.unmodifiableList(lesTuiles);
     }
 
-    public void ajouterEntite(Entite entite) {
-        if (entite != null) {
-            lesEntites.add(entite);
+    public Tuile getTuile(int x, int y, int k) {
+        return laCarte[k][y][x];
+    }
+
+    public void ajouterElementInteractif(ElementInteractif elementInteractif) {
+        if (elementInteractif != null) {
+            lesElementsInteractifs.add(elementInteractif);
         }
     }
 
-    public void supprimerEntite(Entite entite) {
-        lesEntites.remove(entite);
+    public void ajouterElementsInteractifs(List<ElementInteractif> elementsInteractifs) {
+        for (ElementInteractif elementInteractif : elementsInteractifs) {
+            ajouterElementInteractif(elementInteractif);
+        }
+    }
+
+    public void supprimerEntite(ElementInteractif elementInteractif) {
+        lesElementsInteractifs.remove(elementInteractif);
     }
 
     /**
@@ -143,8 +106,7 @@ public class Carte {
      */
     @Override
     public int hashCode() {
-        return dimension.hashCode() + 31 * nom.hashCode() + id
-                + 31 * listeDeCalques.hashCode();
+        return nom.hashCode();
     }
 
     /**
@@ -170,10 +132,7 @@ public class Carte {
      */
 
     public boolean equals(Carte c) {
-        boolean resultat = (dimension.equals(c.getDimension()))
-                && (Objects.equals(c.getNom(), nom)) && (c.getId() == id)
-                && (listeDeCalques.equals(c.getListeDeCalques()));
-        return resultat;
+        return c.getNom().equals(nom);
     }
 
     /**
@@ -183,11 +142,66 @@ public class Carte {
      */
     @Override
     public String toString() {
-        return "Carte{" +
-                "nom='" + nom + ", id=" + id +
-                ", listeDeCalques=" + listeDeCalques.toString() +
-                ", dimension=" + dimension.toString() +
-                " nombre Identifiant: " + nombreIdentifiants +
-                '}';
+        StringBuilder chaine = new StringBuilder();
+        chaine.append("Carte ").append(nom).append(" de dimensions ").append(dimensionCarte).append(" :");
+        chaine.append("\nComposée de ").append(lesJeuxDeTuiles.size()).append(" jeux de tuiles : ");
+        chaine.append(lesJeuxDeTuiles);
+        chaine.append("\nCe qui correspond à ").append(lesTuiles.size()).append(" tuiles différentes");
+        chaine.append("\nVoici les calques qui composent cette carte :");
+
+        for (int k = 0; k < laCarte.length; k++) {
+            chaine.append("\n\nCalque ").append(k + 1).append(" : ");
+            for (int y = 0; y < laCarte[k].length; y++) {
+                for (int x = 0; x < laCarte[k][y].length; x++) {
+                    chaine.append(laCarte[k][y][x].getId()).append(" ");
+                }
+                chaine.append("\n");
+            }
+        }
+
+        chaine.append("\n\nVoici les ").append(lesElementsInteractifs.size()).append(" entités qui composent cette carte : \n");
+        for (ElementInteractif elementInteractif : lesElementsInteractifs) {
+            chaine.append("\n-").append(elementInteractif);
+        }
+
+        return chaine.toString();
+    }
+
+    private void verificationDimensionsTuiles(List<JeuDeTuiles> lesJeuxDeTuiles) throws IllegalArgumentException {
+        dimensionTuiles = lesJeuxDeTuiles.get(0).getDimensionTuiles();
+
+        for (JeuDeTuiles jeuDeTuiles : lesJeuxDeTuiles) {
+            if (!jeuDeTuiles.getDimensionTuiles().equals(dimensionTuiles)) {
+                throw new IllegalArgumentException("La dimension du jeu de tuiles " + jeuDeTuiles
+                        + " n'est pas la même que la dimension d'un autre jeu de tuiles " + dimensionTuiles);
+            }
+        }
+    }
+
+    private void verificationDimensionsTuiles(Tuile[][][] grosTableauTuile, Dimension dimensionCarte)
+            throws IllegalArgumentException {
+        if (grosTableauTuile.length == 0 || grosTableauTuile[0].length == 0
+                || grosTableauTuile[0].length < dimensionCarte.getHauteur()
+                || grosTableauTuile[0][0].length < dimensionCarte.getLargeur()) {
+            throw new IllegalArgumentException("Dimension incompatibles entre le tableau de tuiles et la dimension "
+                    + "donnée (" + dimensionCarte + ").");
+        }
+
+        for (Tuile[][] moyenTableauTuile : grosTableauTuile) {
+            for (Tuile[] petitTableauTuile : moyenTableauTuile) {
+                for (Tuile tuile : petitTableauTuile) {
+                    if (tuile == null) {
+                        throw new IllegalArgumentException("Une tuile du tableau passée en paramètre est nulle, "
+                                + "impossible de créer la carte");
+                    }
+                }
+            }
+        }
+    }
+
+    private void recuperationTuiles(List<JeuDeTuiles> lesJeuxDeTuiles) {
+        for (JeuDeTuiles jeuDeTuiles : lesJeuxDeTuiles) {
+            lesTuiles.addAll(jeuDeTuiles.getListeDeTuiles());
+        }
     }
 }

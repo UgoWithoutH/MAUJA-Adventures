@@ -3,13 +3,14 @@ package com.mauja.maujaadventures.interactions;
 import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
+import com.mauja.maujaadventures.monde.Carte;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class ElementInteractif extends Balise{
+public abstract class ElementInteractif extends Balise implements Cloneable{
     private Position position;
     private Rectangle collision;
     private Map<Condition, List<Action>> mapConditionAction;
@@ -102,5 +103,15 @@ public abstract class ElementInteractif extends Balise{
                 + "\nCollision : " + collision.toString()
                 + "Conditions : " + mapConditionAction.toString()
                 + "Dernière condition : " + derCondition;
+    }
+
+    @Override
+    public ElementInteractif clone() {
+        try {
+            ElementInteractif clone = (ElementInteractif) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

@@ -58,7 +58,7 @@ public class ComportementOctorockTireur implements Comportement {
                 Projectile projectile = new Projectile(vivant.getPosition(), new Dimension(20, 20),
                         new Rectangle(0, 0, 20, 20), null, 3);
                 projectile.setDirection(vivant.getDirection());
-                carteCourante.ajouterEntite(projectile);
+                carteCourante.ajouterElementInteractif(projectile);
                 iterations = 0;
             }
         }

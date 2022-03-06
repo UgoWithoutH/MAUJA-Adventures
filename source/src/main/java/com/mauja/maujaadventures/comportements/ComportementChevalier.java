@@ -59,7 +59,6 @@ public class ComportementChevalier implements Comportement {
 
             while (!resultatDeplacement && nombreTentatives < NOMBRE_MAXIMUM_TENTATIVES_DEPLACEMENT);
             iterations++;
-            System.out.println(iterations);
             if (iterations == 10) {
                 iterations = 0;
                 if (joueur.getPosition().getX() - vivant.getPosition().getX() < 300 &&
@@ -67,7 +66,7 @@ public class ComportementChevalier implements Comportement {
                     Projectile projectile = new Projectile(vivant.getPosition(), new Dimension(20, 20),
                                 new Rectangle(0, 0, 20, 20), null, 3);
                         projectile.setDirection(vivant.getDirection());
-                        carteCourante.ajouterEntite(projectile);
+                        carteCourante.ajouterElementInteractif(projectile);
                 }
             }
         }

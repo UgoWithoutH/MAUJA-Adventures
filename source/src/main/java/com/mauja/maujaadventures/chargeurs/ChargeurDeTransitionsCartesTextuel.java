@@ -1,23 +1,23 @@
 package com.mauja.maujaadventures.chargeurs;
 
 import com.mauja.maujaadventures.logique.TransitionCarte;
+import com.mauja.maujaadventures.monde.Carte;
 import com.mauja.maujaadventures.utilitaires.FormatInvalideException;
-import com.mauja.maujaadventures.utilitaires.Graphe;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Locale;
-import java.util.StringTokenizer;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class ChargeurDeTransitionsCartesTextuel implements ChargeurTransitionCarte {
+public class ChargeurDeTransitionsCartesTextuel implements ChargeurDeTransitionsCarte {
     private static final String CARACTERES_IGNORES ="#.*";
-    private static final String DELIMITEUR = "=>";
+    private static final String DELIMITEUR = " ";
 
     @Override
-    public Graphe<TransitionCarte> charge(String chemin) {
-        Graphe<TransitionCarte> graphe = null;
+    public Map<TransitionCarte, TransitionCarte> charge(String chemin, List<Carte> lesCartes) {
+        Map<TransitionCarte, TransitionCarte> graphe = null;
 
         try (BufferedReader tampon = new BufferedReader(new FileReader(chemin))) {
             StringBuilder chaineTotale = new StringBuilder();
@@ -27,28 +27,41 @@ public class ChargeurDeTransitionsCartesTextuel implements ChargeurTransitionCar
                 chaineTotale.append(ligne);
                 chaineTotale.append("\n");
             }
-            String chaine = chaineTotale.toString().trim().toUpperCase(Locale.ROOT);
-            chaine = chaine.replaceAll("\n", ":");
+            String chaine = chaineTotale.toString().trim().toLowerCase();
+            chaine = chaine.replaceAll("\n", DELIMITEUR);
+            chaine = chaine.replaceAll("  ", DELIMITEUR);
             graphe = creerGraphe(chaine);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+
         return graphe;
     }
 
-    private Graphe<TransitionCarte> creerGraphe(String donnees) throws FormatInvalideException {
-        Graphe<TransitionCarte> graphe = new Graphe<>();
-        StringTokenizer delimiteur = new StringTokenizer(donnees, DELIMITEUR);
-        int nombreJetons = delimiteur.countTokens();
+    private Map<TransitionCarte, TransitionCarte> creerGraphe(String donnees) throws FormatInvalideException {
+        Map<TransitionCarte, TransitionCarte> graphe = new HashMap<>();
+        String[] jetons = donnees.split(DELIMITEUR);
+        int nombreJetons = jetons.length;
 
         if (nombreJetons % 6 != 0) {
             throw new FormatInvalideException("Le nombre de champs spécifiés dans le fichier "
                     + "de transitions entre les cartes est incorrect. Il en manque " + (6 - (nombreJetons % 6)));
         }
 
-        while (delimiteur.hasMoreTokens()) {
-            //graphe.ajouterArrete(, false);
+        int compteur = 0;
+        TransitionCarte transition1, transition2;
+        while (nombreJetons != compteur) {
+            try {
+                transition1 = new TransitionCarte(jetons[0], Integer.parseInt(jetons[1]), Integer.parseInt(jetons[2]));
+                transition2 = new TransitionCarte(jetons[3], Integer.parseInt(jetons[4]), Integer.parseInt(jetons[5]));
+                graphe.put(transition1, transition2);
+            }
+            catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+
+            compteur = compteur + 6;
         }
         return graphe;
     }

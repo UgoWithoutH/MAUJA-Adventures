@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.4" tiledversion="1.4.3" name="terrain_atlas" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
  <image source="../images/tilesets/terrain_atlas.png" width="1024" height="1024"/>
+ <tile id="7">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="-0.181818" y="17.8182" width="13.6364" height="14.1818"/>
+  </objectgroup>
+ </tile>
  <tile id="15">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="32" height="32"/>

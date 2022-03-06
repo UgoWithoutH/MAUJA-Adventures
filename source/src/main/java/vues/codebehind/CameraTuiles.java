@@ -23,10 +23,10 @@ public class CameraTuiles extends Camera {
         if (carte == null) {
             throw new IllegalArgumentException("La carte donnée à la caméra est nulle.");
         }
-        if (carte.getDimension().getLargeur() < zoneObservable.getLargeur()
-                || carte.getDimension().getHauteur() < zoneObservable.getHauteur()) {
+        if (carte.getDimensionCarte().getLargeur() < zoneObservable.getLargeur()
+                || carte.getDimensionCarte().getHauteur() < zoneObservable.getHauteur()) {
             throw new IllegalArgumentException("La zone visuelle de la caméra (" + zoneObservable + ") ne peut pas "
-                    + "être plus grande que les dimensions de la carte : " + carte.getDimension());
+                    + "être plus grande que les dimensions de la carte : " + carte.getDimensionCarte());
         }
         zoneVisible = new Tuile[(int) zoneObservable.getHauteur()][(int) zoneObservable.getLargeur()];
         changeCarte(carte);    }
@@ -87,9 +87,12 @@ public class CameraTuiles extends Camera {
         int positionX = (int) position.getX();
         int positionY = (int) position.getY();
 
-        for (int x = 0; x < largeurCamera; x++) {
+
+        for (int k = 0; k < carteCourante.getLaCarte().length; k++) {
             for (int y = 0; y < hauteurCamera; y++) {
-                zoneVisible[x][y] = carteCourante.getListeDeCalques().get(0).getTuile(x + positionX, y + positionY);
+                for (int x = 0; x < largeurCamera; x++) {
+                    //zoneVisible[k][x][y] = carteCourante.getTuile(x + positionX, y + positionY, k);
+                }
             }
         }
     }
@@ -100,13 +103,13 @@ public class CameraTuiles extends Camera {
      * @throws IllegalArgumentException
      */
     public void changeCarte(Carte carte) throws IllegalArgumentException {
-        if (carte == null || carte.getDimension().getLargeur() == 0) {
+        if (carte == null || carte.getDimensionCarte().getLargeur() == 0) {
             throw new IllegalArgumentException("La carte passée en paramètre de la caméra ne peut pas être nulle ou vide.");
         }
         carteCourante = carte;
 
-        largeurCarte = carteCourante.getDimension().getLargeur();
-        hauteurCarte = carteCourante.getDimension().getHauteur();
+        largeurCarte = carteCourante.getDimensionCarte().getLargeur();
+        hauteurCarte = carteCourante.getDimensionCarte().getHauteur();
         actualisation();
     }
 

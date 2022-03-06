@@ -5,11 +5,11 @@ import org.xml.sax.Attributes;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class CreateurDeCondition implements CreateurDeBalise{
+public class CreateurDeCondition extends CreateurDeBalise{
     @Override
     public Balise creation(Attributes attributes) {
         Condition baliseCourante = null;
-        Constructor[] constructors;
+        Constructor<?>[] constructors;
         try {
             constructors = Class.forName(attributes.getValue("type")).getConstructors();
             baliseCourante = (Condition)constructors[0].newInstance();
