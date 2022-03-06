@@ -11,7 +11,7 @@ public class Carte {
     private Dimension dimensionTuiles;
     private List<JeuDeTuiles> lesJeuxDeTuiles;
     private List<Tuile> lesTuiles;
-    private List<Calque> listeDeCalques;
+    private Tuile[][][] laCarte;
     private List<Entite> lesEntites;
 
     /**
@@ -19,27 +19,25 @@ public class Carte {
      *
      * @param nom nom Nom de la carte
      * @param dimensionCarte Longueur et Hauteur de la carte
-     * @param lesCalques Liste des calques appartenant à la Carte
+     * @param laCarte Liste des calques appartenant à la Carte
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
 
-    public Carte(String nom, Dimension dimensionCarte, List<Calque> lesCalques, List<JeuDeTuiles> lesJeuxDeTuiles,
+    public Carte(String nom, Dimension dimensionCarte, Tuile[][][] laCarte, List<JeuDeTuiles> lesJeuxDeTuiles,
                  List<Entite> lesEntites) throws IllegalArgumentException {
         if (nom == null || nom.trim().isEmpty()) {
             throw new IllegalArgumentException("Le nom de la carte passé en argument ne peut pas être null ou vide.");
-        }
-        if (lesCalques == null || lesCalques.isEmpty()) {
-            throw new IllegalArgumentException("La carte doit obligatoirement être composée de calques");
         }
         if (lesJeuxDeTuiles == null || lesJeuxDeTuiles.isEmpty()) {
             throw new IllegalArgumentException("Les jeux de tuiles utilisés par la carte ne peuvent pas être null.");
         }
         verificationDimensionsTuiles(lesJeuxDeTuiles);
+        verificationDimensionsTuiles(laCarte, dimensionCarte);
 
         this.nom = nom;
         this.dimensionCarte = dimensionCarte;
         this.lesJeuxDeTuiles = lesJeuxDeTuiles;
-        listeDeCalques = lesCalques;
+        this.laCarte = laCarte;
         this.lesEntites = lesEntites == null ? new ArrayList<>() : lesEntites;
 
         lesTuiles = new ArrayList<>();
@@ -64,14 +62,8 @@ public class Carte {
         return dimensionCarte;
     }
 
-    /**
-     * Getter de la liste de calques
-     *
-     * @return La liste des calques
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public List<Calque> getListeDeCalques() {
-        return Collections.unmodifiableList(listeDeCalques);
+    public Tuile[][][] getLaCarte() {
+        return Arrays.copyOf(laCarte, laCarte.length);
     }
 
     public List<Entite> getLesEntites() {
@@ -86,6 +78,10 @@ public class Carte {
         return Collections.unmodifiableList(lesTuiles);
     }
 
+    public Tuile getTuile(int x, int y, int k) {
+        return laCarte[k][y][x];
+    }
+
     public void ajouterEntite(Entite entite) {
         if (entite != null) {
             lesEntites.add(entite);
@@ -94,16 +90,6 @@ public class Carte {
 
     public void supprimerEntite(Entite entite) {
         lesEntites.remove(entite);
-    }
-
-    /**
-     * Ajouter un nouveau calque
-     * @param c Calque que l'on veut rajouter
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public void ajouterCalque(Calque c) {
-        this.listeDeCalques.add(c);
-        lesTuiles.addAll(c.getListeDeTuiles());
     }
 
     /**
@@ -154,11 +140,19 @@ public class Carte {
         chaine.append("\nComposée de ").append(lesJeuxDeTuiles.size()).append(" jeux de tuiles : ");
         chaine.append(lesJeuxDeTuiles);
         chaine.append("\nCe qui correspond à ").append(lesTuiles.size()).append(" tuiles différentes");
-        chaine.append("\nVoici les ").append(listeDeCalques.size()).append(" calques qui composent cette carte : \n");
-        for (Calque calque : listeDeCalques) {
-            chaine.append(calque).append("\n\n");
+        chaine.append("\nVoici les calques qui composent cette carte :");
+
+        for (int k = 0; k < laCarte.length; k++) {
+            chaine.append("\n\nCalque ").append(k + 1).append(" : ");
+            for (int y = 0; y < laCarte[k].length; y++) {
+                for (int x = 0; x < laCarte[k][y].length; x++) {
+                    chaine.append(laCarte[k][y][x].getId()).append(" ");
+                }
+                chaine.append("\n");
+            }
         }
-        chaine.append("\nVoici les ").append(lesEntites.size()).append(" entités qui composent cette carte : \n");
+
+        chaine.append("\n\nVoici les ").append(lesEntites.size()).append(" entités qui composent cette carte : \n");
         for (Entite entite : lesEntites) {
             chaine.append("\n-").append(entite);
         }
@@ -173,6 +167,27 @@ public class Carte {
             if (!jeuDeTuiles.getDimensionTuiles().equals(dimensionTuiles)) {
                 throw new IllegalArgumentException("La dimension du jeu de tuiles " + jeuDeTuiles
                         + " n'est pas la même que la dimension d'un autre jeu de tuiles " + dimensionTuiles);
+            }
+        }
+    }
+
+    private void verificationDimensionsTuiles(Tuile[][][] grosTableauTuile, Dimension dimensionCarte)
+            throws IllegalArgumentException {
+        if (grosTableauTuile.length == 0 || grosTableauTuile[0].length == 0
+                || grosTableauTuile[0].length < dimensionCarte.getHauteur()
+                || grosTableauTuile[0][0].length < dimensionCarte.getLargeur()) {
+            throw new IllegalArgumentException("Dimension incompatibles entre le tableau de tuiles et la dimension "
+                    + "donnée (" + dimensionCarte + ").");
+        }
+
+        for (Tuile[][] moyenTableauTuile : grosTableauTuile) {
+            for (Tuile[] petitTableauTuile : moyenTableauTuile) {
+                for (Tuile tuile : petitTableauTuile) {
+                    if (tuile == null) {
+                        throw new IllegalArgumentException("Une tuile du tableau passée en paramètre est nulle, "
+                                + "impossible de créer la carte");
+                    }
+                }
             }
         }
     }

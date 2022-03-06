@@ -13,7 +13,7 @@ public class Tuile {
     private static int nombreTuiles = 0;
     private final int id;
     private Rectangle collision;
-    protected static Dimension dimension;
+    private Dimension dimension;
 
     /**
      * Constructeur de la classe abstraite Tuile
@@ -24,6 +24,7 @@ public class Tuile {
             throw new IllegalArgumentException("La dimension de la tuile ne peut pas être nulle ou inférieure "
                     + "ou égale à zéro. Donné : " + dimension);
         }
+        this.dimension = dimension;
         this.collision = collision;
         this.id = id;
         nombreTuiles++;
@@ -35,13 +36,6 @@ public class Tuile {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public Dimension getDimension() { return dimension; }
-
-    /**
-     * Setter de la dimension de la tuile
-     * @param dimensions Nouvelle dimensions de la tuile
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void setDimension(Dimension dimensions) { Tuile.dimension = dimensions; }
 
     public Rectangle getCollision() {
         return collision;

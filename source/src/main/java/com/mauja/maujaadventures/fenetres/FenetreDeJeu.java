@@ -44,12 +44,12 @@ public class FenetreDeJeu implements Observateur {
     public void affichage() {
         gc.clearRect(0, 0, 1000, 1000);
         for (int k = 0; k < nombreCalques; k++) {
-            for (int i = 0; i < carteCourante.getDimensionCarte().getLargeur(); i++) {
-                for (int j = 0; j < carteCourante.getDimensionCarte().getHauteur(); j++) {
-                    Tuile tuile = carteCourante.getListeDeCalques().get(k).getListeDeTuiles().get(i * (int) carteCourante.getDimensionCarte().getLargeur() + j);
+            for (int y = 0; y < carteCourante.getDimensionCarte().getLargeur(); y++) {
+                for (int x = 0; x < carteCourante.getDimensionCarte().getHauteur(); x++) {
+                    Tuile tuile = carteCourante.getTuile(x, y, k);
                     if (tuile.getId() >= 1) {
                         gc.drawImage(lesImages.get(tuile.getId()),
-                                j * 32 - camera.getPositionCameraX(), i * 32 - camera.getPositionCameraY(),
+                                x * 32 - camera.getPositionCameraX(), y * 32 - camera.getPositionCameraY(),
                                 32, 32);
                     }
                 }
@@ -80,7 +80,7 @@ public class FenetreDeJeu implements Observateur {
 
     private void initialiser() {
         carteCourante = jeu.getTableauDeJeu().getCarteCourante();
-        nombreCalques = carteCourante.getListeDeCalques().size();
+        nombreCalques = carteCourante.getLaCarte().length;
         lesTuiles = jeu.getTableauDeJeu().getCarteCourante().getLesTuiles();
         camera = jeu.getCamera();
         joueur = jeu.getTableauDeJeu().getJoueur();

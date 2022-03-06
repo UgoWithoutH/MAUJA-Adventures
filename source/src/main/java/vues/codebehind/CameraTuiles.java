@@ -87,9 +87,11 @@ public class CameraTuiles extends Camera {
         int positionX = (int) position.getX();
         int positionY = (int) position.getY();
 
-        for (int x = 0; x < hauteurCamera; x++) {
-            for (int y = 0; y < largeurCamera; y++) {
-                zoneVisible[x][y] = carteCourante.getListeDeCalques().get(0).getTuile(x + positionX, y + positionY);
+        for (int k = 0; k < carteCourante.getLaCarte().length; k++) {
+            for (int y = 0; y < hauteurCamera; y++) {
+                for (int x = 0; x < largeurCamera; x++) {
+                    //zoneVisible[k][x][y] = carteCourante.getTuile(x + positionX, y + positionY, k);
+                }
             }
         }
     }

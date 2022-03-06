@@ -26,6 +26,7 @@ public class JeuDeTuiles {
         if (identifiant == null || identifiant.trim().isEmpty()) {
             throw new IllegalArgumentException("L'identifiant passé en paramètre ne peut pas être null.");
         }
+        verificationDimensionTuiles(dimensionTuiles, lesTuiles);
         this.dimensionJeuDeTuiles = dimensionJeuDeTuiles;
         this.dimensionTuiles = dimensionTuiles;
         this.identifiant = identifiant;
@@ -95,5 +96,15 @@ public class JeuDeTuiles {
             chaine.append(tuile.getId()).append(" ");
         }
         return chaine.toString();
+    }
+
+    private void verificationDimensionTuiles(Dimension dimensionTuiles, List<Tuile> lesTuiles)
+            throws IllegalArgumentException {
+        for (Tuile tuile : lesTuiles) {
+            if (!tuile.getDimension().equals(dimensionTuiles)) {
+                throw new IllegalArgumentException("Les tuiles doivent toute faire la même dimension. "
+                        + "Donné : " + dimensionTuiles + ", trouvé : " + tuile);
+            }
+        }
     }
 }

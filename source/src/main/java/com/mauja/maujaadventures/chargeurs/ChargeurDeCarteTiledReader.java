@@ -24,7 +24,7 @@ public class ChargeurDeCarteTiledReader implements ChargeurDeCartesTiled {
         TiledMap chargeurCarte = chargeur.getMap(nomCarte);
 
         List<JeuDeTuiles> lesJeuxDeTuiles = chargeJeuxDeTuiles(chargeurCarte);
-        List<Calque> lesCalques = chargeCalques(chargeurCarte, lesJeuxDeTuiles);
+        Tuile[][][] lesCalques = chargeCalques(chargeurCarte, lesJeuxDeTuiles);
         if (lesCalques == null) {
             throw new FormatInvalideException("La carte " + nomCarte
                     + " ne contient aucun calque, et ne peut pas être créée.");
@@ -72,41 +72,37 @@ public class ChargeurDeCarteTiledReader implements ChargeurDeCartesTiled {
         return lesJeuxDeTuiles;
     }
 
-    private List<Calque> chargeCalques(TiledMap chargeurCarte, List<JeuDeTuiles> lesJeuxDeTuiles) {
-        List<Calque> lesCalques = new ArrayList<>();
+    private Tuile[][][] chargeCalques(TiledMap chargeurCarte, List<JeuDeTuiles> lesJeuxDeTuiles) {
         List<TiledLayer> lesCalquesTiled = chargeurCarte.getTopLevelLayers();
-
         if (lesCalquesTiled == null) {
             return null;
         }
+        Tuile[][][] lesCalques = new Tuile[lesCalquesTiled.size()][chargeurCarte.getHeight()][chargeurCarte.getWidth()];
 
-        Dimension dimension = new Dimension(chargeurCarte.getWidth(), chargeurCarte.getHeight());
-
-        for (TiledLayer tiledLayer : lesCalquesTiled) {
-            List<Tuile> lesTuiles = chargeTuiles(chargeurCarte, (TiledTileLayer) tiledLayer, lesJeuxDeTuiles);
-            Calque calque = new Calque(dimension, lesTuiles);
-            lesCalques.add(calque);
+        for (int i = 0; i < lesCalquesTiled.size(); i++) {
+            Tuile[][] lesTuiles = chargeTuiles(chargeurCarte, (TiledTileLayer) lesCalquesTiled.get(i), lesJeuxDeTuiles);
+            lesCalques[i] = lesTuiles;
         }
         return lesCalques;
     }
 
-    public List<Tuile> chargeTuiles(TiledMap chargeurCarte, TiledTileLayer calque, List<JeuDeTuiles> lesJeuxDeTuiles) {
-        List<Tuile> lesTuiles = new ArrayList<>();
-        double largeurCarte = chargeurCarte.getWidth();
-        double hauteurCarte = chargeurCarte.getHeight();
+    public Tuile[][] chargeTuiles(TiledMap chargeurCarte, TiledTileLayer calque, List<JeuDeTuiles> lesJeuxDeTuiles) {
+        int largeurCarte = chargeurCarte.getWidth();
+        int hauteurCarte = chargeurCarte.getHeight();
+        Tuile[][] lesTuiles = new Tuile[hauteurCarte][largeurCarte];
 
         for (int j = 0; j < hauteurCarte; j++) {
             for (int k = 0; k < largeurCarte; k++) {
                 TiledTile tuileTiled = calque.getTile(k, j);
                 if (tuileTiled == null) {
-                    lesTuiles.add(Tuile.TUILE_IGNOREE);
+                    lesTuiles[j][k] = Tuile.TUILE_IGNOREE;
                 }
                 else {
                     String identifiantJeuDeTuile = tuileTiled.getTileset().getName();
                     for (JeuDeTuiles jeuDeTuile : lesJeuxDeTuiles) {
                         if (jeuDeTuile.getIdentifiant().equals(identifiantJeuDeTuile)) {
                             Tuile tuile = jeuDeTuile.getListeDeTuiles().get(tuileTiled.getID());
-                            lesTuiles.add(tuile);
+                            lesTuiles[j][k] = tuile;
                             break;
                         }
                     }
