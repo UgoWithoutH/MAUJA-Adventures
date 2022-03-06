@@ -94,7 +94,7 @@ public class Jeu extends Observable implements Observateur {
     }
 
     @Override
-    public void update(int timer) {
+    public void miseAJour(int timer) {
         lesTouchesAppuyees = gestionnaireDeTouches.detecte();
 
         if (lesTouchesAppuyees.contains(Touche.B) /*&& tempsAttaque > joueur.getAttaque().getDuree()*/) {

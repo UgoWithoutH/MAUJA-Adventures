@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ public class FenetreDeJeu implements Observateur {
     private Map<Tuile, Image> lesTuilesImagees;
 
     public FenetreDeJeu(GraphicsContext gc, Jeu jeu) {
+        lesImages = new ArrayList<>();
         this.gc = gc;
         this.jeu = jeu;
         jeu.attacher(this);
@@ -44,8 +46,8 @@ public class FenetreDeJeu implements Observateur {
     public void affichage() {
         gc.clearRect(0, 0, 1000, 1000);
         for (int k = 0; k < nombreCalques; k++) {
-            for (int y = 0; y < carteCourante.getDimensionCarte().getLargeur(); y++) {
-                for (int x = 0; x < carteCourante.getDimensionCarte().getHauteur(); x++) {
+            for (int y = 0; y < carteCourante.getDimensionCarte().getHauteur(); y++) {
+                for (int x = 0; x < carteCourante.getDimensionCarte().getLargeur(); x++) {
                     Tuile tuile = carteCourante.getTuile(x, y, k);
                     if (tuile.getId() >= 1) {
                         gc.drawImage(lesImages.get(tuile.getId()),
@@ -88,10 +90,11 @@ public class FenetreDeJeu implements Observateur {
         List<String> lesImagesJeuxDeTuilesChemin = Ressources.getLesImagesJeuxDeTuiles();
 
         for (String chemin : lesImagesJeuxDeTuilesChemin) {
-            lesImages = DecoupeurImage.decoupe(chemin,32,32);
+            lesImages.addAll(DecoupeurImage.decoupe(chemin,32,32));
         }
 
         System.out.println(lesTuiles.size());
+        System.out.println(lesImages.size());
         System.out.println(carteCourante);
 
         lesTuilesImagees = new HashMap<>();
@@ -109,7 +112,7 @@ public class FenetreDeJeu implements Observateur {
     }
 
     @Override
-    public void update(int timer) {
+    public void miseAJour(int timer) {
         affichage();
     }
 }

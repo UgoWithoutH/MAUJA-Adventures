@@ -15,7 +15,7 @@ public class Observable {
 
     public void notifier(int timer){
         for (Observateur observateur : lesObservateurs){
-            observateur.update(timer);
+            observateur.miseAJour(timer);
         }
     }
 }

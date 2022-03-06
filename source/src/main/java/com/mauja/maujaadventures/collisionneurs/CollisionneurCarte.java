@@ -23,8 +23,6 @@ public class CollisionneurCarte {
         int coinInferieur = (int) ((collision.getPosition().getY() + collision.getDimension().getLargeur())
                 / hauteurTuile);
 
-        System.out.println("Collisions : " + coinGauche + " droite : " + coinDroite + " haut : " + coinSuperieur + " bas : " + coinInferieur);
-
         Rectangle collisionTuileRelative, collisionTuileAbsolue;
 
         if (coinInferieur >= hauteurCarte || coinInferieur < 0
@@ -35,15 +33,14 @@ public class CollisionneurCarte {
         }
 
         for (int k = 0; k < carte.getLaCarte().length; k++) {
-            for(int y = coinGauche; y <= coinDroite; y++) {
-                for (int x = coinSuperieur; x <= coinInferieur; x++) {
-                    collisionTuileRelative = carte.getTuile(y, x, k).getCollision();
+            for(int x = coinGauche; x <= coinDroite; x++) {
+                for (int y = coinSuperieur; y <= coinInferieur; y++) {
+                    collisionTuileRelative = carte.getTuile(x, y, k).getCollision();
                     if (collisionTuileRelative != null) {
-                        collisionTuileAbsolue = new Rectangle(collisionTuileRelative.getPosition().getX() + y * largeurTuile,
-                                collisionTuileRelative.getPosition().getY() + x * hauteurTuile,
+                        collisionTuileAbsolue = new Rectangle(collisionTuileRelative.getPosition().getX() + x * largeurTuile,
+                                collisionTuileRelative.getPosition().getY() + y * hauteurTuile,
                                 collisionTuileRelative.getDimension());
                         if (collisionneur.collisionne(collision, collisionTuileAbsolue)) {
-                            System.out.println("COLLISION DETECTEE");
                             return true;
                         }
                     }

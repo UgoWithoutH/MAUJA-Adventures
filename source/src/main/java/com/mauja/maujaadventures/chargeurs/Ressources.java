@@ -20,6 +20,7 @@ public class Ressources {
     static {
         try {
             lesImagesJeuxDeTuiles.add(new File("ressources/images/tilesets/terrain_atlas.png").toURI().toURL().toString());
+            lesImagesJeuxDeTuiles.add(new File("ressources/images/tilesets/houses.png").toURI().toURL().toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
