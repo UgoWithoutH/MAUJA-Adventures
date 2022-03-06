@@ -4,50 +4,53 @@ package com.mauja.maujaadventures.monde;
 import com.mauja.maujaadventures.logique.Dimension;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class JeuDeTuiles {
-    private int nombreTuiles;
-    private Dimension dimension;
-    private List<Tuile> listeDeTuiles;
     private final String identifiant;
+    private int nombreTuiles;
+    private Dimension dimensionJeuDeTuiles;
+    private Dimension dimensionTuiles;
+    private List<Tuile> listeDeTuiles;
 
     /**
      * Constructeur du jeu de tuiles
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public JeuDeTuiles(Dimension dimension, String identifiant, List<Tuile> lesTuiles){
-        this.dimension = dimension;
-        this.identifiant = identifiant;
-        listeDeTuiles = new ArrayList<Tuile>();
-        if (lesTuiles != null) {
-            listeDeTuiles = lesTuiles;
-            nombreTuiles = listeDeTuiles.size();
+    public JeuDeTuiles(Dimension dimensionJeuDeTuiles, Dimension dimensionTuiles, String identifiant,
+                       List<Tuile> lesTuiles) throws IllegalArgumentException {
+        if (lesTuiles == null || lesTuiles.isEmpty()) {
+            throw new IllegalArgumentException("Le jeu de tuile ne peut pas être vide.");
         }
+        if (identifiant == null || identifiant.trim().isEmpty()) {
+            throw new IllegalArgumentException("L'identifiant passé en paramètre ne peut pas être null.");
+        }
+        this.dimensionJeuDeTuiles = dimensionJeuDeTuiles;
+        this.dimensionTuiles = dimensionTuiles;
+        this.identifiant = identifiant;
+        listeDeTuiles = lesTuiles;
+        nombreTuiles = listeDeTuiles.size();
     }
 
-    /**
-     * Getter du nombre de tuile
-     * @return Le nombre de Tuile
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
+    public String getIdentifiant() {
+        return identifiant;
+    }
+
     public int getNombreTuiles() {
         return nombreTuiles;
     }
 
+    public Dimension getDimensionJeuDeTuiles() {
+        return dimensionJeuDeTuiles;
+    }
+
+    public Dimension getDimensionTuiles() {
+        return dimensionTuiles;
+    }
 
     public List<Tuile> getListeDeTuiles() {
-        return listeDeTuiles;
-    }
-
-
-    public Dimension getDimension() {
-        return dimension;
-    }
-
-
-    public String getIdentifiant() {
-        return identifiant;
+        return Collections.unmodifiableList(listeDeTuiles);
     }
 
     /**
@@ -57,8 +60,7 @@ public class JeuDeTuiles {
      */
     @Override
     public int hashCode() {
-        return nombreTuiles + 31 * dimension.hashCode()
-                + 31 * listeDeTuiles.hashCode()+ 31 * identifiant.hashCode();
+        return identifiant.hashCode();
     }
 
     /**
@@ -83,24 +85,15 @@ public class JeuDeTuiles {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public boolean equals(JeuDeTuiles jt) {
-        boolean resultat = (listeDeTuiles.equals(jt.getListeDeTuiles())) && (jt.getNombreTuiles()==nombreTuiles)
-                && (dimension.equals(jt.getDimension())) && (jt.getIdentifiant()==identifiant);
-        return resultat;
+        return jt != null && jt.getIdentifiant().equals(identifiant);
     }
 
-    /**
-     * Redéfinition du toString
-     * @return Chaîne que l'on veut afficher
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
     @Override
     public String toString() {
-        return "JeuDeTuiles{" +
-                "nombreTuiles=" + nombreTuiles +
-                ", dimension=" + dimension.toString() +
-                ", listeDeTuiles=" + listeDeTuiles +
-                ", identifiant='" + identifiant + '\'' +
-                '}';
+        StringBuilder chaine = new StringBuilder();
+        for (Tuile tuile : listeDeTuiles) {
+            chaine.append(tuile.getId()).append(" ");
+        }
+        return chaine.toString();
     }
-
 }

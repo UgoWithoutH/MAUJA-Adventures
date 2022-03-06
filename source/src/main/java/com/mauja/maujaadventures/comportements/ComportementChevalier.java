@@ -59,7 +59,6 @@ public class ComportementChevalier implements Comportement {
 
             while (!resultatDeplacement && nombreTentatives < NOMBRE_MAXIMUM_TENTATIVES_DEPLACEMENT);
             iterations++;
-            System.out.println(iterations);
             if (iterations == 10) {
                 iterations = 0;
                 if (joueur.getPosition().getX() - vivant.getPosition().getX() < 300 &&

@@ -97,9 +97,10 @@ public class Calque {
      */
     @Override
     public String toString() {
-        return "Calque{" +
-                "dimension=" + dimension.toString() +
-                ", listeDeTuiles=" + listeDeTuiles.toString() +
-                '}';
+        StringBuilder chaine = new StringBuilder(0);
+        for (Tuile tuile : listeDeTuiles) {
+            chaine.append(tuile.getId()).append(" ");
+        }
+        return chaine.toString();
     }
 }

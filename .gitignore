@@ -12,17 +12,17 @@ bin/
 gen/
 out/
 
-# Local configuration file (sdk path, etc)
-local.properties
-
-# Log Files
-*.log
-
 # IntelliJ
 *.iml
 source/.idea/workspace.xml
 source/.idea/libraries
 source/.idea/shelf
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log Files
+*.log
 
 # Package Files
 *.jar

@@ -2,7 +2,7 @@ package vues.codebehind;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.monde.Carte;
-import com.mauja.maujaadventures.monde.TuileSimple;
+import com.mauja.maujaadventures.monde.Tuile;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import java.util.List;
  * classe permettant de gerer l'affichage de la camera
  */
 public class CameraTuilesFX extends CameraTuiles {
-    private List<TuileSimple> lesTuilesGraphiques;
-    private TuileSimple[][] visionGraphique;
+    private List<Tuile> lesTuilesGraphiques;
+    private Tuile[][] visionGraphique;
 
     /**
      * Constructeur de la camera
@@ -20,14 +20,14 @@ public class CameraTuilesFX extends CameraTuiles {
      * @param lesTuilesGraphiques listes de tuiles pour l'affichage
      * @throws IllegalArgumentException
      */
-    public CameraTuilesFX(Carte carte, Dimension zoneVisuelle, List<TuileSimple> lesTuilesGraphiques)
+    public CameraTuilesFX(Carte carte, Dimension zoneVisuelle, List<Tuile> lesTuilesGraphiques)
             throws IllegalArgumentException {
         super(carte, zoneVisuelle);
         if (lesTuilesGraphiques == null) {
             throw new IllegalArgumentException("La liste de tuiles graphique doit être non nulle pour la création de la caméra.");
         }
         this.lesTuilesGraphiques = lesTuilesGraphiques;
-        visionGraphique = new TuileSimple[(int) zoneVisuelle.getHauteur()][(int) zoneVisuelle.getLargeur()];
+        visionGraphique = new Tuile[(int) zoneVisuelle.getHauteur()][(int) zoneVisuelle.getLargeur()];
         //visionGraphique = new TuileFX[(int) zoneVisuelle.getLargeur()][(int) zoneVisuelle.getHauteur()];
     }
 
@@ -37,7 +37,7 @@ public class CameraTuilesFX extends CameraTuiles {
      * @param y coordonnées Y de la tuile
      * @return
      */
-    public TuileSimple getTuileGraphique(int x, int y) {
+    public Tuile getTuileGraphique(int x, int y) {
         return visionGraphique[x][y];
     }
 

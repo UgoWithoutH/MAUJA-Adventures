@@ -4,10 +4,8 @@ import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.jeu.Jeu;
 import com.mauja.maujaadventures.jeu.Observateur;
-import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Camera;
 import com.mauja.maujaadventures.monde.Carte;
-import com.mauja.maujaadventures.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.monde.Tuile;
 import com.mauja.maujaadventures.utilitaires.DecoupeurImage;
 import javafx.scene.canvas.GraphicsContext;
@@ -46,9 +44,9 @@ public class FenetreDeJeu implements Observateur {
     public void affichage() {
         gc.clearRect(0, 0, 1000, 1000);
         for (int k = 0; k < nombreCalques; k++) {
-            for (int i = 0; i < carteCourante.getDimension().getLargeur(); i++) {
-                for (int j = 0; j < carteCourante.getDimension().getHauteur(); j++) {
-                    Tuile tuile = carteCourante.getListeDeCalques().get(k).getListeDeTuiles().get(i * (int) carteCourante.getDimension().getLargeur() + j);
+            for (int i = 0; i < carteCourante.getDimensionCarte().getLargeur(); i++) {
+                for (int j = 0; j < carteCourante.getDimensionCarte().getHauteur(); j++) {
+                    Tuile tuile = carteCourante.getListeDeCalques().get(k).getListeDeTuiles().get(i * (int) carteCourante.getDimensionCarte().getLargeur() + j);
                     if (tuile.getId() >= 1) {
                         gc.drawImage(lesImages.get(tuile.getId()),
                                 j * 32 - camera.getPositionCameraX(), i * 32 - camera.getPositionCameraY(),
@@ -83,7 +81,7 @@ public class FenetreDeJeu implements Observateur {
     private void initialiser() {
         carteCourante = jeu.getTableauDeJeu().getCarteCourante();
         nombreCalques = carteCourante.getListeDeCalques().size();
-        lesTuiles = jeu.getTableauDeJeu().getLesTuiles();
+        lesTuiles = jeu.getTableauDeJeu().getCarteCourante().getLesTuiles();
         camera = jeu.getCamera();
         joueur = jeu.getTableauDeJeu().getJoueur();
 
@@ -92,6 +90,9 @@ public class FenetreDeJeu implements Observateur {
         for (String chemin : lesImagesJeuxDeTuilesChemin) {
             lesImages = DecoupeurImage.decoupe(chemin,32,32);
         }
+
+        System.out.println(lesTuiles.size());
+        System.out.println(carteCourante);
 
         lesTuilesImagees = new HashMap<>();
         for (int i = 0 ; i < lesTuiles.size(); i++) {
