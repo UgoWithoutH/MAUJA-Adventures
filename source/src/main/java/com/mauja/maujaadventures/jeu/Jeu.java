@@ -97,7 +97,7 @@ public class Jeu extends Observable implements Observateur {
     }
 
     @Override
-    public void update(int timer) {
+    public void miseAJour(int timer) {
         lesTouchesAppuyees = gestionnaireDeTouches.detecte();
 
         if (lesTouchesAppuyees.contains(Touche.B) /*&& tempsAttaque > joueur.getAttaque().getDuree()*/) {
@@ -164,8 +164,8 @@ public class Jeu extends Observable implements Observateur {
 
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.DROITE, true);
 
-                if (estDeplace && tableauDeJeu.getCarteCourante().getDimension().getLargeur() * decalageX - (tableauDeJeu.getJoueur().getPosition().getX()) > tableauDeJeu.getCarteCourante().getDimension().getLargeur()) {
-                    if (((camera.getPositionCameraX() <= tableauDeJeu.getCarteCourante().getDimension().getLargeur() * decalageX)) &&
+                if (estDeplace && tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * decalageX - (tableauDeJeu.getJoueur().getPosition().getX()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) {
+                    if (((camera.getPositionCameraX() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * decalageX)) &&
                             (tableauDeJeu.getJoueur().getPosition().getX() >= DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
                         camera.deplacementCamera(tableauDeJeu.getJoueur().getVelocite().getX(), 0);
                     }
@@ -177,9 +177,9 @@ public class Jeu extends Observable implements Observateur {
                 GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu, tableauDeJeu.getJoueur()));
 
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.GAUCHE, true);
-                if (estDeplace && 0 + tableauDeJeu.getJoueur().getPosition().getY() > tableauDeJeu.getCarteCourante().getDimension().getLargeur()) {
+                if (estDeplace && 0 + tableauDeJeu.getJoueur().getPosition().getY() > tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) {
                     if (!(camera.getPositionCameraX() <= 0) &&
-                            (tableauDeJeu.getJoueur().getPosition().getX() <= tableauDeJeu.getCarteCourante().getDimension().getLargeur() * 32 -
+                            (tableauDeJeu.getJoueur().getPosition().getX() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * 32 -
                                     DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
                         camera.deplacementCamera(-tableauDeJeu.getJoueur().getVelocite().getX(), 0);
                     }
@@ -192,7 +192,7 @@ public class Jeu extends Observable implements Observateur {
 
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.HAUT, true);
                 if (estDeplace && !(camera.getPositionCameraY() <= 0) &&
-                        (tableauDeJeu.getJoueur().getPosition().getY() <= tableauDeJeu.getCarteCourante().getDimension().getHauteur() * decalageY +
+                        (tableauDeJeu.getJoueur().getPosition().getY() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() * decalageY +
                                 DIMENSION_CAMERA_PAR_DEFAUT.getHauteur() / 2)) {
                     camera.deplacementCamera(0, -tableauDeJeu.getJoueur().getVelocite().getY());
                 }
@@ -204,8 +204,8 @@ public class Jeu extends Observable implements Observateur {
 
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.BAS, true);
 
-                if (estDeplace && (tableauDeJeu.getCarteCourante().getDimension().getLargeur() * tableauDeJeu.getCarteCourante().getDimension().getLargeur()) - (tableauDeJeu.getJoueur().getPosition().getY()) > tableauDeJeu.getCarteCourante().getDimension().getHauteur() &&
-                        (camera.getPositionCameraY() <= tableauDeJeu.getCarteCourante().getDimension().getHauteur() * decalageY &&
+                if (estDeplace && (tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) - (tableauDeJeu.getJoueur().getPosition().getY()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() &&
+                        (camera.getPositionCameraY() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() * decalageY &&
                                 (tableauDeJeu.getJoueur().getPosition().getY() >= DIMENSION_CAMERA_PAR_DEFAUT.getHauteur() / 2))) {
                     camera.deplacementCamera(0, tableauDeJeu.getJoueur().getVelocite().getY());
                 }
@@ -213,7 +213,7 @@ public class Jeu extends Observable implements Observateur {
         }
 
         // Detection attaque joueur et ennemis
-        for (ElementInteractif elementInteractif : tableauDeJeu.getCarteCourante().getLesElementsInteractif()) {
+        for (ElementInteractif elementInteractif : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()) {
             Rectangle collisionEntite = new Rectangle(elementInteractif.getCollision().getPosition().getX() + elementInteractif.getPosition().getX(),
                     elementInteractif.getCollision().getPosition().getY() + elementInteractif.getPosition().getY(),
                     elementInteractif.getCollision().getDimension());
@@ -252,7 +252,7 @@ public class Jeu extends Observable implements Observateur {
         }
 
         // MAJ ennemis
-        for (ElementInteractif elementInteractif : tableauDeJeu.getCarteCourante().getLesElementsInteractif()) {
+        for (ElementInteractif elementInteractif : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()) {
             if (elementInteractif instanceof Ennemi ennemi) {
                 Comportement comportement = ennemi.getComportement();
                 if (comportement != null) {

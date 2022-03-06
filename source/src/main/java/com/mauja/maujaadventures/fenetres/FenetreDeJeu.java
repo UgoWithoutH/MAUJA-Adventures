@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class FenetreDeJeu implements Observateur {
     private int test= 0 ;
 
     public FenetreDeJeu(GraphicsContext gc, Jeu jeu) {
+        lesImages = new ArrayList<>();
         this.gc = gc;
         this.jeu = jeu;
         jeu.attacher(this);
@@ -49,25 +51,25 @@ public class FenetreDeJeu implements Observateur {
     }
 
     public void ajoutElementParsage(List<ElementInteractif> list){
-        carteCourante.getLesElementsInteractif().addAll(list);
+        carteCourante.ajouterElementsInteractifs(list);
     }
 
     public void affichage() {
         gc.clearRect(0, 0, 1000, 1000);
         for (int k = 0; k < nombreCalques; k++) {
-            for (int i = 0; i < carteCourante.getDimension().getLargeur(); i++) {
-                for (int j = 0; j < carteCourante.getDimension().getHauteur(); j++) {
-                    Tuile tuile = carteCourante.getListeDeCalques().get(k).getListeDeTuiles().get(i * (int) carteCourante.getDimension().getLargeur() + j);
+            for (int y = 0; y < carteCourante.getDimensionCarte().getHauteur(); y++) {
+                for (int x = 0; x < carteCourante.getDimensionCarte().getLargeur(); x++) {
+                    Tuile tuile = carteCourante.getTuile(x, y, k);
                     if (tuile.getId() >= 1) {
                         gc.drawImage(lesImages.get(tuile.getId()),
-                                j * 32 - camera.getPositionCameraX(), i * 32 - camera.getPositionCameraY(),
+                                x * 32 - camera.getPositionCameraX(), y * 32 - camera.getPositionCameraY(),
                                 32, 32);
                     }
                 }
             }
         }
 
-        for (ElementInteractif elementInteractif : carteCourante.getLesElementsInteractif()) {
+        for (ElementInteractif elementInteractif : carteCourante.getLesElementsInteractifs()) {
             if (elementInteractif instanceof Ennemi ennemi) {
                 gc.drawImage(imageEnnemi, ennemi.getPosition().getX() - camera.getPositionCameraX(),
                         ennemi.getPosition().getY() - camera.getPositionCameraY());
@@ -104,16 +106,20 @@ public class FenetreDeJeu implements Observateur {
 
     private void initialiser() {
         carteCourante = jeu.getTableauDeJeu().getCarteCourante();
-        nombreCalques = carteCourante.getListeDeCalques().size();
-        lesTuiles = jeu.getTableauDeJeu().getLesTuiles();
+        nombreCalques = carteCourante.getLaCarte().length;
+        lesTuiles = jeu.getTableauDeJeu().getCarteCourante().getLesTuiles();
         camera = jeu.getCamera();
         joueur = jeu.getTableauDeJeu().getJoueur();
 
         List<String> lesImagesJeuxDeTuilesChemin = Ressources.getLesImagesJeuxDeTuiles();
 
         for (String chemin : lesImagesJeuxDeTuilesChemin) {
-            lesImages = DecoupeurImage.decoupe(chemin,32,32);
+            lesImages.addAll(DecoupeurImage.decoupe(chemin,32,32));
         }
+
+        System.out.println(lesTuiles.size());
+        System.out.println(lesImages.size());
+        System.out.println(carteCourante);
 
         lesTuilesImagees = new HashMap<>();
         for (int i = 0 ; i < lesTuiles.size(); i++) {
@@ -134,7 +140,7 @@ public class FenetreDeJeu implements Observateur {
     }
 
     @Override
-    public void update(int timer) {
+    public void miseAJour(int timer) {
         affichage();
     }
 }

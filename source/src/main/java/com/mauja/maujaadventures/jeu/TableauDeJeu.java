@@ -1,23 +1,22 @@
 package com.mauja.maujaadventures.jeu;
 
-import com.mauja.maujaadventures.chargeurs.RecuperateurDeCartes;
+import com.mauja.maujaadventures.chargeurs.ChargeurDeCarteTiledReader;
 import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.comportements.ComportementChevalier;
 import com.mauja.maujaadventures.comportements.ComportementOctorockTireur;
+import com.mauja.maujaadventures.comportements.ComportementPoursuite;
 import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.monde.Carte;
 import com.mauja.maujaadventures.monde.JeuDeTuiles;
-import com.mauja.maujaadventures.monde.Tuile;
+import com.mauja.maujaadventures.utilitaires.FormatInvalideException;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TableauDeJeu {
-    private List<Tuile> lesTuiles;
     private List<Carte> lesCartes;
     private Carte carteCourante;
     private PersonnageJouable joueur;
@@ -27,10 +26,6 @@ public class TableauDeJeu {
         lesCartes = new ArrayList<>();
         this.options = options;
         initialiser();
-    }
-
-    public List<Tuile> getLesTuiles() {
-        return lesTuiles;
     }
 
     public List<Carte> getLesCartes() {
@@ -50,7 +45,7 @@ public class TableauDeJeu {
     }
 
     private void initialiser() {
-        RecuperateurDeCartes recuperateurDeCartes = new RecuperateurDeCartes();
+        ChargeurDeCarteTiledReader chargeurDeCartes = new ChargeurDeCarteTiledReader();
         List<String> lesCartesChemin = Ressources.getLesCartes();
 
         List<JeuDeTuiles> lesJeuxDeTuiles = null;
@@ -58,8 +53,8 @@ public class TableauDeJeu {
         Carte carte = null;
         for (String chemin : lesCartesChemin) {
             try {
-                carte = recuperateurDeCartes.recupereCarte(chemin);
-            } catch (FileNotFoundException e) {
+                carte = chargeurDeCartes.charge(chemin);
+            } catch (FormatInvalideException e) {
                 e.printStackTrace();
             }
             lesCartes.add(carte);
@@ -67,24 +62,10 @@ public class TableauDeJeu {
 
         carteCourante = lesCartes.get(0);
 
-        for (String chemin : lesCartesChemin) {
-            try {
-                lesJeuxDeTuiles = recuperateurDeCartes.recupereJeuxDeTuiles(chemin);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        lesTuiles = new ArrayList<>();
-
-        for (JeuDeTuiles jeuDeTuiles : lesJeuxDeTuiles) {
-            lesTuiles.addAll(jeuDeTuiles.getListeDeTuiles());
-        }
-
         Position position = new Position(482, 400);
         Rectangle rectangle = new Rectangle(new Position(3, 24), new Dimension(27, 23));
         joueur = new PersonnageJouable(position, new Dimension(33, 47),
-                rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
+                rectangle, new Velocite(20, 20), new Attaque(new Rectangle(0, 0, 30, 30), 1000));
 
 
         Entite entite = new Ennemi(new Position(400, 600), new Dimension(30, 30),
@@ -95,7 +76,16 @@ public class TableauDeJeu {
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                 new ComportementChevalier(carteCourante, joueur), 10);
 
-        carteCourante.ajouterEntite(entite);
-        carteCourante.ajouterEntite(entite2);
+        carteCourante.ajouterElementInteractif(entite);
+        carteCourante.ajouterElementInteractif(entite2);
+
+        for (int i = 0; i < 50; i++) {
+            for (int j = 0; j < 50; j++) {
+                entite = new Ennemi(new Position(588 + j * 32, 1772 + i * 32), new Dimension(30, 30),
+                        new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
+                        new ComportementPoursuite(carteCourante, joueur), 10);
+                carteCourante.ajouterElementInteractif(entite);
+            }
+        }
     }
 }

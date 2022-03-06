@@ -8,10 +8,10 @@ public class ActionLevierActif extends Action{
     @Override
     public void agit(TableauDeJeu tableauDeJeu) {
         for(ElementInteractif elementInteractif : listeElementInteractif){
-            if(elementInteractif instanceof Ennemi ennemi){
+            if (elementInteractif instanceof Ennemi ennemi){
                 ennemi.setComportement(new ComportementOctorockTireur(tableauDeJeu.getCarteCourante()));
             }
         }
-        tableauDeJeu.getCarteCourante().getLesElementsInteractif().addAll(listeElementInteractif);
+        tableauDeJeu.getCarteCourante().ajouterElementsInteractifs(listeElementInteractif);
     }
 }

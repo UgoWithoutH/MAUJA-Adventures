@@ -24,18 +24,18 @@ public class TestParsageInteraction {
             parseur.parse(inputStream, handler);
             List<Scenario> scenarios = handler.getListeScenarios();
             for(Scenario scenario :  scenarios){
-                System.out.println("passage");
+                //System.out.println("passage");
                 for(ElementInteractif e  : scenario.getListeElemInteractif()){
                     Iterator<Map.Entry<Condition,List<Action>>> it = e.getMapConditionAction().entrySet().iterator();
                     while(it.hasNext()){
                         Map.Entry<Condition,List<Action>> a = it.next();
                         if (a.getKey() instanceof ConditionCollision){
-                            System.out.println("oui");
+                            //System.out.println("oui");
                         }
                     }
                 }
             }
-            System.out.println(scenarios);
+            //System.out.println(scenarios);
             ElementInteractif elementInteractif = scenarios.get(0).getListeElemInteractif().get(0);
 
         } catch (ParserConfigurationException | SAXException | IOException e) {

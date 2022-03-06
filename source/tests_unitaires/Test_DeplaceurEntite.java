@@ -8,8 +8,6 @@ public class Test_DeplaceurEntite {
 
         DeplaceurEntite dp = new DeplaceurEntite();
 
-        System.out.println(pj);
-
         //cas normale
         dp.deplaceur(pj,10,1);
         System.out.println(pj);

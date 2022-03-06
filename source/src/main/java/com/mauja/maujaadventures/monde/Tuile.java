@@ -6,25 +6,26 @@ import com.mauja.maujaadventures.logique.Dimension;
 
 import java.util.Objects;
 
-public abstract class Tuile {
+public class Tuile {
+    private static final Dimension DIMENSION_PAR_DEFAUT = new Dimension(32, 32);
+    public static final Tuile TUILE_IGNOREE = new Tuile(0, null, DIMENSION_PAR_DEFAUT);
+
     private static int nombreTuiles = 0;
     private final int id;
-    private final String identifiantJeuDeTuile;
     private Rectangle collision;
-    protected static Dimension dimension;
+    private Dimension dimension;
 
     /**
      * Constructeur de la classe abstraite Tuile
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public Tuile(int id, String identifiantJeuDeTuile, Rectangle collision, Dimension dimension)
-            throws IllegalArgumentException {
+    public Tuile(int id, Rectangle collision, Dimension dimension) throws IllegalArgumentException {
         if (dimension == null || dimension.getHauteur() <= 0 || dimension.getLargeur() <= 0) {
             throw new IllegalArgumentException("La dimension de la tuile ne peut pas être nulle ou inférieure "
                     + "ou égale à zéro. Donné : " + dimension);
         }
+        this.dimension = dimension;
         this.collision = collision;
-        this.identifiantJeuDeTuile = identifiantJeuDeTuile;
         this.id = id;
         nombreTuiles++;
     }
@@ -35,17 +36,6 @@ public abstract class Tuile {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public Dimension getDimension() { return dimension; }
-
-    /**
-     * Setter de la dimension de la tuile
-     * @param dimensions Nouvelle dimensions de la tuile
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public void setDimension(Dimension dimensions) { Tuile.dimension = dimensions; }
-
-    public String getIdentifiantJeuDeTuile() {
-        return identifiantJeuDeTuile;
-    }
 
     public Rectangle getCollision() {
         return collision;
@@ -102,8 +92,7 @@ public abstract class Tuile {
     @Override
     public String toString() {
         return super.toString() + ", Id :" + id
-                + ", dimension :  " + dimension.toString() +
-                "collision : " + collision.toString()
-                + "Id du jeu de tuile " + identifiantJeuDeTuile;
+                + ", dimension :  " + dimension
+                + "collision : " + collision;
     }
 }

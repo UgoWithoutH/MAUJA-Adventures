@@ -18,32 +18,19 @@ public class Ennemi extends Vivant {
         super(new Position(xEn, yEn), new Dimension(largEn, hautEn),
                 new Rectangle(xCol, yCol, largCol, hautCol), new Velocite(), null,
                 pointsDeVie);
-        if (comportement == null) {
-            comportement = new ComportementNull();
-        }
-        else {
-            comportement = comportement;
-        }
+        this.comportement = comportement == null ? new ComportementNull() : comportement;
     }
 
     public Ennemi(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
                   Attaque attaque, Comportement comportement, int pointsDeVie) throws IllegalArgumentException {
         super(position, dimension, collision, velocite, attaque, pointsDeVie);
-        if (comportement == null) {
-            comportement = new ComportementNull();
-        }
-        else {
-            comportement = comportement;
-        }
+        this.comportement = comportement == null ? new ComportementNull() : comportement;
     }
 
     public Ennemi(Position position, Dimension dimension, Rectangle collision, Velocite velocite,
                   Attaque attaque, Comportement comportement) throws IllegalArgumentException {
         super(position, dimension, collision, velocite, attaque);
-        if (comportement == null) {
-            comportement = new ComportementNull();
-        }
-        this.comportement = comportement;
+        this.comportement = comportement == null ? new ComportementNull() : comportement;
     }
 
     public Comportement getComportement() {

@@ -17,6 +17,10 @@ public class TransitionCarte {
         this.position = position;
     }
 
+    public TransitionCarte(String nom, double positionX, double positionY) {
+        this(nom, new Position(positionX, positionY));
+    }
+
     public String getNomCarte() {
         return nomCarte;
     }
