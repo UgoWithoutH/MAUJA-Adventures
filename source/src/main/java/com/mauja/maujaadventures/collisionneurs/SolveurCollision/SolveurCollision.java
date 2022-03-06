@@ -1,27 +1,41 @@
 package com.mauja.maujaadventures.collisionneurs.SolveurCollision;
 
 import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.monde.Carte;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public abstract class SolveurCollision {
+    protected Carte cartecourante;
     /**
-     * Interface de la résolution de collision
+     * Constructeur de la classe SolveurCollision
+     * @param carte Carte actuelle sur laquelle se déroule le projet
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    public SolveurCollision(Carte carte){
+        this.cartecourante = carte;
+    }
+    /**
+     * méthode de la résolution de collision
+     * Appel de la bonne méthode de solveur collision par concaténation des noms de la classe
      * @param e1 Element interactif du première élément à tester la collision
      * @param e2 Element interactif du second élément à tester
-     * @return true si il y a collision sinon false
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public void resoud(ElementInteractif e1, ElementInteractif e2){
-        Class classDefinition = null;
+        Class<?> classDefinition = null;
+        Constructor<?> constructor = null;
+        String nomClasse = "com.mauja.maujaadventures.collisionneurs.SolveurCollision.Solveur"
+                + e1.getClass().getSimpleName() + e2.getClass().getSimpleName();
         try {
-            classDefinition = Class.forName("Solveur" + e1.getClass() + e2.getClass());
-            Object ob = classDefinition.getDeclaredConstructor().newInstance();
+            classDefinition = (Class<?>) Class.forName(nomClasse);
+            Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(cartecourante);
             ((SolveurCollision) ob).resoud(e1, e2);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | InvocationTargetException | NoSuchMethodException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException
+                | NoSuchMethodException | InstantiationException e) {
             e.printStackTrace();
         }
     }
-
 }
