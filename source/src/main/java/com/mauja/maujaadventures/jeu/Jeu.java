@@ -1,6 +1,7 @@
 package com.mauja.maujaadventures.jeu;
 
 
+import com.mauja.maujaadventures.collisionneurs.SolveurCollision.SolveurCollision;
 import com.mauja.maujaadventures.comportements.Comportement;
 import com.mauja.maujaadventures.entites.*;
 
@@ -34,6 +35,7 @@ public class Jeu extends Observable implements Observateur {
     private final double decalageY = 24;
     private boolean paramOuvert = false;
     private List<Touche> lesTouchesAppuyees;
+    private SolveurCollision solveurCollision;
 
     /**
      * Constructeur de Jeu
@@ -49,6 +51,13 @@ public class Jeu extends Observable implements Observateur {
 
         boucle = new Boucle();
         boucle.attacher(this);
+
+        solveurCollision = new SolveurCollision(tableauDeJeu.getCarteCourante()){
+            @Override
+            public void resoud(ElementInteractif e1, ElementInteractif e2) {
+                super.resoud(e1, e2);
+            }
+        };
         initialiser();
     }
 
@@ -231,22 +240,13 @@ public class Jeu extends Observable implements Observateur {
                 }
 
                 if (collisionneur.collisionne(collisionJoueur, collisionEntite)) {
-                    tableauDeJeu.getJoueur().setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - ennemi.getAttaque().getDegats());
+                    solveurCollision.resoud(ennemi,tableauDeJeu.getJoueur());
                 }
             }
             if (elementInteractif instanceof Projectile projectile) {
 
-                if (collisionneur.collisionne(collisionJoueur, collisionEntite) && tableauDeJeu.getJoueur().getEtatAction() != EtatAction.SE_PROTEGE) {
-                    tableauDeJeu.getJoueur().setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - projectile.getDegats());
-                    tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
-                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) &&
-                        tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SE_PROTEGE &&
-                        (tableauDeJeu.getJoueur().getDirection().getVal() == (v = projectile.getDirection().getVal() + 1) ||
-                                (tableauDeJeu.getJoueur().getDirection().getVal() == (v = projectile.getDirection().getVal() - 1)))) {
-                    projectile.setDirection(Direction.valeurDe((byte) v));
-                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) && tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SE_PROTEGE) {
-                    tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
-                    tableauDeJeu.getJoueur().setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - projectile.getDegats());
+                if (collisionneur.collisionne(collisionJoueur, collisionEntite)){
+                solveurCollision.resoud(tableauDeJeu.getJoueur() , projectile);
                 }
             }
         }
