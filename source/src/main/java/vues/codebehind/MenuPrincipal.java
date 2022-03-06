@@ -56,7 +56,7 @@ public class MenuPrincipal {
     }
 
     @FXML
-    public void startSolo() {
+    public void startSolo() throws InterruptedException {
         Partie partie1 = new Partie(navigateur, jeu);
         Partie partie2 = (Partie) navigateur.naviguerVers(Navigateur.partie, partie1);
         if(partie2 == partie1){

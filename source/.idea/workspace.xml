@@ -5,37 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f6add371-f3f1-40c0-b629-5866e08219f4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/collisionneurs/SolveurCollision/SolveurCollision.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/collisionneurs/SolveurCollision/SolveurEnnemiEnnemi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/collisionneurs/SolveurCollision/SolveurEnnemiLevier.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/collisionneurs/SolveurCollision/SolveurEnnemiPersonnageJouable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/collisionneurs/SolveurCollision/SolveurEnnemiProjectile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/collisionneurs/SolveurCollision/SolveurLevierPersonnageJouable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/collisionneurs/SolveurCollision/SolveurLevierProjectile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/collisionneurs/SolveurCollision/SolveurPersonnageJouablePersonnageJouable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/collisionneurs/SolveurCollision/SolveurPersonnageJouableProjectile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/collisionneurs/SolveurCollision/SolveurProjectileProjectile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuilesFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mauja-adventures.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mauja-adventures.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ressources/tilesets/terrain_atlas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/tilesets/terrain_atlas.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/annotations/Param.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/annotations/Param.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/chargeurs/RecuperateurDeCartes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/chargeurs/RecuperateurDeCartes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/DeplaceurEntite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/deplaceurs/DeplaceurEntite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entites/Entite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entites/Entite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entites/PersonnageJouable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entites/PersonnageJouable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entites/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entites/Projectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entites/Vivant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/entites/Vivant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Balise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Balise.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/ElementInteractif.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Levier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/interactions/Levier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/logique/Dimension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/logique/Dimension.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/logique/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/logique/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/logique/Rectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/logique/Rectangle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vues/codebehind/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/jeu/Jeu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mauja/maujaadventures/jeu/Jeu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuilesFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/CameraTuilesFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/codebehind/MenuPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/MenuPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vues/codebehind/Partie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vues/codebehind/Partie.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +45,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.16503906" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -84,7 +60,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.mauja.maujaadventures.fenetres.FenetrePrincipale" />
       <module name="mauja-adventures" />
-      <option name="VM_PARAMETERS" value="--module-path $PROJECT_DIR$/../../../../javafx/javafx-sdk-17.0.1/lib/ --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\Portable\.jdks\javafx-sdk-17.0.1\lib --add-modules javafx.controls,javafx.fxml " />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -115,7 +91,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2ad43959-46b8-4ee3-92a7-f495987d312c" name="Changes" comment="" />
+      <changelist id="f6add371-f3f1-40c0-b629-5866e08219f4" name="Changes" comment="" />
       <created>1642319711262</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -133,5 +109,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
