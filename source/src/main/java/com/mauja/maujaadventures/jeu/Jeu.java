@@ -52,12 +52,7 @@ public class Jeu extends Observable implements Observateur {
         boucle = new Boucle();
         boucle.attacher(this);
 
-        solveurCollision = new SolveurCollision(tableauDeJeu.getCarteCourante()){
-            @Override
-            public void resoud(ElementInteractif e1, ElementInteractif e2) {
-                super.resoud(e1, e2);
-            }
-        };
+        solveurCollision = new SolveurCollision(tableauDeJeu.getCarteCourante());
         initialiser();
     }
 
@@ -233,10 +228,7 @@ public class Jeu extends Observable implements Observateur {
             if (elementInteractif instanceof Ennemi ennemi) {
                 if (collisionneur.collisionne(tableauDeJeu.getJoueur().getAttaque().getCollision(), collisionEntite)
                         && tableauDeJeu.getJoueur().getEtatAction() == EtatAction.ATTAQUE) {
-                    ennemi.setPointsDeVie(ennemi.getPointsDeVie() - tableauDeJeu.getJoueur().getAttaque().getDegats());
-                    if (ennemi.getPointsDeVie() <= 0) {
-                        tableauDeJeu.getCarteCourante().supprimerEntite(ennemi);
-                    }
+                    solveurCollision.resoud(ennemi,tableauDeJeu.getJoueur());
                 }
 
                 if (collisionneur.collisionne(collisionJoueur, collisionEntite)) {
@@ -246,7 +238,7 @@ public class Jeu extends Observable implements Observateur {
             if (elementInteractif instanceof Projectile projectile) {
 
                 if (collisionneur.collisionne(collisionJoueur, collisionEntite)){
-                solveurCollision.resoud(tableauDeJeu.getJoueur() , projectile);
+                    solveurCollision.resoud(tableauDeJeu.getJoueur() , projectile);
                 }
             }
         }

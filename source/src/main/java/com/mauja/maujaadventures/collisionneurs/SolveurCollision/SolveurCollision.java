@@ -5,9 +5,8 @@ import com.mauja.maujaadventures.monde.Carte;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
-public abstract class SolveurCollision {
+public class SolveurCollision {
     protected Carte cartecourante;
     /**
      * Constructeur de la classe SolveurCollision
