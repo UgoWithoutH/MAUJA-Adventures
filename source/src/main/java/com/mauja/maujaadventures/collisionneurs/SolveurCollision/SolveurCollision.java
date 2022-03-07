@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class SolveurCollision {
     protected Carte cartecourante;
+
     /**
      * Constructeur de la classe SolveurCollision
      * @param carte Carte actuelle sur laquelle se déroule le projet

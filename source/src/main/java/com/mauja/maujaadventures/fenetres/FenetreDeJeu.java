@@ -111,15 +111,11 @@ public class FenetreDeJeu implements Observateur {
         camera = jeu.getCamera();
         joueur = jeu.getTableauDeJeu().getJoueur();
 
-        List<String> lesImagesJeuxDeTuilesChemin = Ressources.getLesImagesJeuxDeTuiles();
+        List<String> lesImagesJeuxDeTuilesChemin = Ressources.getInstance().getLesImagesJeuxDeTuiles();
 
         for (String chemin : lesImagesJeuxDeTuilesChemin) {
             lesImages.addAll(DecoupeurImage.decoupe(chemin,32,32));
         }
-
-        System.out.println(lesTuiles.size());
-        System.out.println(lesImages.size());
-        System.out.println(carteCourante);
 
         lesTuilesImagees = new HashMap<>();
         for (int i = 0 ; i < lesTuiles.size(); i++) {

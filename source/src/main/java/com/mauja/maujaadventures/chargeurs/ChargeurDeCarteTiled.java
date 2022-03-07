@@ -5,6 +5,6 @@ import com.mauja.maujaadventures.utilitaires.FormatInvalideException;
 
 import java.io.FileNotFoundException;
 
-public interface ChargeurDeCartesTiled {
+public interface ChargeurDeCarteTiled {
     Carte charge(String chemin) throws FileNotFoundException, FormatInvalideException;
 }

@@ -1,7 +1,6 @@
 package com.mauja.maujaadventures.jeu;
 
-import com.mauja.maujaadventures.chargeurs.ChargeurDeCarteTiledReader;
-import com.mauja.maujaadventures.chargeurs.Ressources;
+import com.mauja.maujaadventures.chargeurs.*;
 import com.mauja.maujaadventures.comportements.ComportementChevalier;
 import com.mauja.maujaadventures.comportements.ComportementOctorockTireur;
 import com.mauja.maujaadventures.comportements.ComportementPoursuite;
@@ -10,17 +9,20 @@ import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.monde.Carte;
-import com.mauja.maujaadventures.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.utilitaires.FormatInvalideException;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class TableauDeJeu {
     private List<Carte> lesCartes;
     private Carte carteCourante;
     private PersonnageJouable joueur;
     private Options options;
+    private Map<TransitionCarte, TransitionCarte> transitionsEntreCartes;
 
     public TableauDeJeu(Options options) {
         lesCartes = new ArrayList<>();
@@ -44,21 +46,26 @@ public class TableauDeJeu {
         return options;
     }
 
-    private void initialiser() {
-        ChargeurDeCarteTiledReader chargeurDeCartes = new ChargeurDeCarteTiledReader();
-        List<String> lesCartesChemin = Ressources.getLesCartes();
+    public Map<TransitionCarte, TransitionCarte> getTransitionsEntreCartes() {
+        return Collections.unmodifiableMap(transitionsEntreCartes);
+    }
 
-        List<JeuDeTuiles> lesJeuxDeTuiles = null;
+    private void initialiser() {
+        ChargeurDeCarteTiled chargeurDeCartes = new ChargeurDeCarteTiledReader();
+        ChargeurDeTransitionsCarte chargeurDeTransitions = new ChargeurDeTransitionsCartesTextuel();
+
+        List<String> lesCartesChemin = Ressources.getInstance().getLesCartes();
 
         Carte carte = null;
         for (String chemin : lesCartesChemin) {
             try {
                 carte = chargeurDeCartes.charge(chemin);
-            } catch (FormatInvalideException e) {
+            } catch (FormatInvalideException | FileNotFoundException e) {
                 e.printStackTrace();
             }
             lesCartes.add(carte);
         }
+        transitionsEntreCartes = chargeurDeTransitions.charge(Ressources.getInstance().getFichierTransitions(), lesCartes);
 
         carteCourante = lesCartes.get(0);
 

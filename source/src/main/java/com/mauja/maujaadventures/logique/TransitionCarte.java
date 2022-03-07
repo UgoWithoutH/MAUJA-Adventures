@@ -5,20 +5,21 @@ import java.util.Objects;
 public class TransitionCarte {
     private String nomCarte;
     private Position position;
+    private Rectangle collision;
 
-    public TransitionCarte(String nom, Position position) throws IllegalArgumentException {
+    public TransitionCarte(String nom, Position position, Rectangle collision) throws IllegalArgumentException {
         if (nom == null || nom.trim().isEmpty()) {
             throw new IllegalArgumentException("Le nom de la carte passé en paramètre ne peut pas être null.");
         }
         if (position == null) {
             throw new IllegalArgumentException("La position passée en paramètre ne peut pas être nulle.");
         }
+        if (collision == null) {
+            throw new IllegalArgumentException("La collision passée en paramètre ne peut pas être nulle.");
+        }
         nomCarte = nom;
         this.position = position;
-    }
-
-    public TransitionCarte(String nom, double positionX, double positionY) {
-        this(nom, new Position(positionX, positionY));
+        this.collision = collision;
     }
 
     public String getNomCarte() {
@@ -27,6 +28,10 @@ public class TransitionCarte {
 
     public Position getPosition() {
         return position;
+    }
+
+    public Rectangle getCollision() {
+        return collision;
     }
 
     public boolean equals(TransitionCarte transitionCarte) {
@@ -49,6 +54,6 @@ public class TransitionCarte {
 
     @Override
     public String toString() {
-        return "[" + nomCarte + " : " + position + "]";
+        return "[" + nomCarte + " => " + position + " (" + collision + ")]";
     }
 }

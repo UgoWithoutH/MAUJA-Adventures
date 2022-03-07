@@ -7,16 +7,12 @@ import com.mauja.maujaadventures.monde.*;
 import com.mauja.maujaadventures.utilitaires.FormatInvalideException;
 import org.tiledreader.*;
 
-import java.io.FileNotFoundException;
-import java.lang.reflect.Field;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public class ChargeurDeCarteTiledReader implements ChargeurDeCartesTiled {
+public class ChargeurDeCarteTiledReader implements ChargeurDeCarteTiled {
 
     @Override
     public Carte charge(String nomCarte) throws FormatInvalideException {
@@ -31,7 +27,7 @@ public class ChargeurDeCarteTiledReader implements ChargeurDeCartesTiled {
         }
 
         Dimension dimensionCarte = new Dimension(chargeurCarte.getWidth(), chargeurCarte.getHeight());
-        return new Carte(nomCarte, dimensionCarte, lesCalques, lesJeuxDeTuiles, null);
+        return new Carte(new File(nomCarte).getName(), dimensionCarte, lesCalques, lesJeuxDeTuiles, null);
     }
 
     private List<JeuDeTuiles> chargeJeuxDeTuiles(TiledMap chargeurCarte) {
