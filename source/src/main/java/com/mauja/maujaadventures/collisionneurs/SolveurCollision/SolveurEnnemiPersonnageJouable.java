@@ -1,6 +1,7 @@
 package com.mauja.maujaadventures.collisionneurs.SolveurCollision;
 
 import com.mauja.maujaadventures.entites.Ennemi;
+import com.mauja.maujaadventures.entites.EtatAction;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
@@ -27,5 +28,12 @@ public class SolveurEnnemiPersonnageJouable extends SolveurCollision{
         Ennemi ennemi = (Ennemi) e1;
         PersonnageJouable pj = (PersonnageJouable) e2;
         pj.setPointsDeVie(pj.getPointsDeVie() - ennemi.getAttaque().getDegats());
+
+        if (pj.getEtatAction() == EtatAction.ATTAQUE){
+            ennemi.setPointsDeVie(ennemi.getPointsDeVie() - pj.getAttaque().getDegats());
+            if (ennemi.getPointsDeVie() <= 0) {
+                cartecourante.supprimerEntite(ennemi);
+            }
+        }
     }
 }

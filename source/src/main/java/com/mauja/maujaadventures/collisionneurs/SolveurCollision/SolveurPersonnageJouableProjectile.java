@@ -4,7 +4,6 @@ import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 public class SolveurPersonnageJouableProjectile extends SolveurCollision{
-    private Carte carte;
 
     /**
      * Constructeur de la classe SolveurPersonnageJouableProjectile
@@ -13,7 +12,6 @@ public class SolveurPersonnageJouableProjectile extends SolveurCollision{
      */
     public SolveurPersonnageJouableProjectile(Carte carte) {
         super(carte);
-        this.carte = carte;
     }
 
     /**
@@ -31,7 +29,7 @@ public class SolveurPersonnageJouableProjectile extends SolveurCollision{
         int v;
         if (personnageJouable.getEtatAction() != EtatAction.SE_PROTEGE) {
             personnageJouable.setPointsDeVie(personnageJouable.getPointsDeVie() - projectile.getDegats());
-            carte.supprimerEntite(projectile);
+            cartecourante.supprimerEntite(projectile);
         }
         else if (personnageJouable.getEtatAction() == EtatAction.SE_PROTEGE &&
                 (personnageJouable.getDirection().getVal() == (v = projectile.getDirection().getVal() + 1) ||
@@ -39,7 +37,7 @@ public class SolveurPersonnageJouableProjectile extends SolveurCollision{
             projectile.setDirection(Direction.valeurDe((byte) v));
         }
         else if (personnageJouable.getEtatAction() == EtatAction.SE_PROTEGE) {
-            carte.supprimerEntite(projectile);
+            cartecourante.supprimerEntite(projectile);
             personnageJouable.setPointsDeVie(personnageJouable.getPointsDeVie() - projectile.getDegats());
         }
     }
