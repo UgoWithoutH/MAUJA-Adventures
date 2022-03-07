@@ -4,7 +4,7 @@ import com.mauja.maujaadventures.interactions.ElementInteractif;
 
 import java.lang.reflect.InvocationTargetException;
 
-public abstract class SolveurCollision {
+public class SolveurCollision {
     /**
      * Interface de la résolution de collision
      * @param e1 Element interactif du première élément à tester la collision
@@ -12,7 +12,7 @@ public abstract class SolveurCollision {
      * @return true si il y a collision sinon false
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void resoud(ElementInteractif e1, ElementInteractif e2){
+    public void resoud(ElementInteractif e1, ElementInteractif e2) {
         Class classDefinition = null;
         try {
             classDefinition = Class.forName("Solveur" + e1.getClass() + e2.getClass());

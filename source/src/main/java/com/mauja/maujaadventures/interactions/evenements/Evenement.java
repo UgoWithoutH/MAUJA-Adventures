@@ -10,15 +10,13 @@ import java.util.List;
 public abstract class Evenement {
     protected ElementInteractif elementInteractif;
     protected ElementInteractif sauvegardeElementInteractif;
-    protected TableauDeJeu tableauDeJeu;
 
-    public Evenement(TableauDeJeu tableauDeJeu , ElementInteractif elementInteractif) {
+    public Evenement(ElementInteractif elementInteractif) {
         this.elementInteractif = elementInteractif;
         this.sauvegardeElementInteractif = elementInteractif.clone();
-        this.tableauDeJeu = tableauDeJeu;
     }
 
-    public abstract void traitement(List<Scenario> scenarios);
+    public abstract void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu);
 
     public ElementInteractif getElementInteractif() {
         return elementInteractif;

@@ -159,9 +159,6 @@ public class Jeu extends Observable implements Observateur {
 
         if (tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SANS_ACTION) {
             if (lesTouchesAppuyees.contains(Touche.FLECHE_DROITE)) {
-
-                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu, tableauDeJeu.getJoueur()));
-
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.DROITE, true);
 
                 if (estDeplace && tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * decalageX - (tableauDeJeu.getJoueur().getPosition().getX()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) {
@@ -173,9 +170,6 @@ public class Jeu extends Observable implements Observateur {
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_GAUCHE)) {
-
-                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu, tableauDeJeu.getJoueur()));
-
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.GAUCHE, true);
                 if (estDeplace && 0 + tableauDeJeu.getJoueur().getPosition().getY() > tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) {
                     if (!(camera.getPositionCameraX() <= 0) &&
@@ -187,9 +181,6 @@ public class Jeu extends Observable implements Observateur {
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_HAUT)) {
-
-                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu, tableauDeJeu.getJoueur()));
-
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.HAUT, true);
                 if (estDeplace && !(camera.getPositionCameraY() <= 0) &&
                         (tableauDeJeu.getJoueur().getPosition().getY() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() * decalageY +
@@ -199,9 +190,6 @@ public class Jeu extends Observable implements Observateur {
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_BAS)) {
-
-                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu , tableauDeJeu.getJoueur()));
-
                 boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.BAS, true);
 
                 if (estDeplace && (tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) - (tableauDeJeu.getJoueur().getPosition().getY()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() &&

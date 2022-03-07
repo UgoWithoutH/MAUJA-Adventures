@@ -15,11 +15,13 @@ import java.util.Map;
 public class EvenementAttaque extends Evenement{
 
     public EvenementAttaque(TableauDeJeu tableauDeJeu, ElementInteractif elementInteractif) {
-        super(tableauDeJeu, elementInteractif);
+        super(elementInteractif);
     }
 
     @Override
-    public void traitement(List<Scenario> scenarios) {
+    public void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu) {
+
+        /*
         if(elementInteractif instanceof PersonnageJouable personnage){
             for(Scenario scenario :  scenarios){
                 for(ElementInteractif e  : scenario.getListeElemInteractif()){
@@ -46,5 +48,6 @@ public class EvenementAttaque extends Evenement{
                 }
             }
         }
+        */
     }
 }

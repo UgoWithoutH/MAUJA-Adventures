@@ -31,21 +31,18 @@ public class GestionnaireInteractions {
         initialisation();
     }
 
-    public static GestionnaireInteractions getInstance(){
-        if(gestionnaireInteractions == null){
+    public static GestionnaireInteractions getInstance() {
+        if(gestionnaireInteractions == null) {
             gestionnaireInteractions = new GestionnaireInteractions();
-            return gestionnaireInteractions;
         }
-        else{
-            return gestionnaireInteractions;
-        }
+        return gestionnaireInteractions;
     }
 
     public List<ElementInteractif> getElementAAjouter() {
         return elementAAjouter;
     }
 
-    private void initialisation(){
+    private void initialisation() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
             InputStream inputStream = new FileInputStream("ressources/interactionsTest.xml");
@@ -56,15 +53,16 @@ public class GestionnaireInteractions {
             parseur.parse(inputStream, handler);
             scenarios = handler.getListeScenarios();
 
-            for(Scenario scenario : scenarios){ //temporaire
-                for(ElementInteractif elementInteractif : scenario.getListeElemInteractif()){
-                    if(elementInteractif instanceof Levier levier){
+            for(Scenario scenario : scenarios) { //temporaire
+                for(ElementInteractif elementInteractif : scenario.getListeElemInteractif()) {
+                    if(elementInteractif instanceof Levier levier) {
                         elementAAjouter.add(levier);
                     }
                 }
             }
 
-        } catch (ParserConfigurationException | SAXException | IOException e) {
+        }
+        catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -75,7 +73,7 @@ public class GestionnaireInteractions {
             if(thread != null) {
                 thread.interrupt();
             }
-            thread = new Thread(this::traitement);
+            thread = new Thread(this::traitement, "Thread Traitement évènement");
             thread.start();
         }
         else{
@@ -85,10 +83,10 @@ public class GestionnaireInteractions {
 
     private void traitement() {
         enCours = true;
-        while(true){
+        while(true) {
             if(fileCourante.size() != 0){
                 Evenement evenement = fileCourante.poll();
-                evenement.traitement(scenarios);
+                evenement.traitement(scenarios, null);
             }
             else{
                 if(fileSauvegarde.size() != 0){
