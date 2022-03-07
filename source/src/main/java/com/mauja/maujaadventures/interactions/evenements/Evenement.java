@@ -18,7 +18,7 @@ public abstract class Evenement {
         this.tableauDeJeu = tableauDeJeu;
     }
 
-    public abstract void traitement(List<Scenario> scenarios);
+    public abstract void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu);
 
     public ElementInteractif getElementInteractif() {
         return elementInteractif;

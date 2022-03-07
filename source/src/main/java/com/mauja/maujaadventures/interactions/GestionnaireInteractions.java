@@ -1,6 +1,7 @@
 package com.mauja.maujaadventures.interactions;
 
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
+import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,6 +23,7 @@ public class GestionnaireInteractions {
     private Thread thread;
     private boolean enCours;
     private List<ElementInteractif> elementAAjouter;
+    private TableauDeJeu tableauDeJeu;
 
     private GestionnaireInteractions() {
         fileCourante = new LinkedList<>();
@@ -43,6 +45,10 @@ public class GestionnaireInteractions {
 
     public List<ElementInteractif> getElementAAjouter() {
         return elementAAjouter;
+    }
+
+    public void initialisationBoucleEvenementielle(TableauDeJeu tableauDeJeu){
+        this.tableauDeJeu = tableauDeJeu;
     }
 
     private void initialisation(){
@@ -92,7 +98,7 @@ public class GestionnaireInteractions {
         while(true){
             if(fileCourante.size() != 0){
                 Evenement evenement = fileCourante.poll();
-                evenement.traitement(scenarios);
+                evenement.traitement(scenarios, tableauDeJeu);
             }
             else{
                 if(fileSauvegarde.size() != 0){

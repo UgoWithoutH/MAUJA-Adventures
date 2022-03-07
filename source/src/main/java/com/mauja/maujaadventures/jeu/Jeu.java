@@ -45,6 +45,7 @@ public class Jeu extends Observable implements Observateur {
     public Jeu(Options options) throws FileNotFoundException, FileNotFoundException {
         collisionneur = new CollisionneurAABB();
         tableauDeJeu = new TableauDeJeu(options);
+        GestionnaireInteractions.getInstance().initialisationBoucleEvenementielle(tableauDeJeu);
 
         camera = new Camera( 0, 0);
         lesTouchesAppuyees = new ArrayList<>();

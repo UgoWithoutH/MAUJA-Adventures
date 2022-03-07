@@ -19,6 +19,6 @@ public class EvenementDeplacement extends Evenement {
     }
 
     @Override
-    public void traitement(List<Scenario> scenarios) {
+    public void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu) {
     }
 }
