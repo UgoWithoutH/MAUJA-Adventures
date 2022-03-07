@@ -73,10 +73,14 @@ public class GestionnaireInteractions {
         if (!enCours) {
             fileCourante.add(evenement);
             if(thread != null) {
-                thread.interrupt();
+                synchronized (this) {
+                    notify();
+                }
             }
-            thread = new Thread(this::traitement);
-            thread.start();
+            else {
+                thread = new Thread(this::traitement);
+                thread.start();
+            }
         }
         else{
             fileSauvegarde.add(evenement);
@@ -95,10 +99,17 @@ public class GestionnaireInteractions {
                     fileCourante = new LinkedList<>(fileSauvegarde);
                     fileSauvegarde = new LinkedList<>();
                 }
-                else
-                    break;
+                else {
+                    enCours = false;
+                    synchronized (this) {
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
         }
-        enCours = false;
     }
 }
