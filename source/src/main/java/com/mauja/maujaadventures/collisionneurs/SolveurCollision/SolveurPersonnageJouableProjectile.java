@@ -1,19 +1,25 @@
 package com.mauja.maujaadventures.collisionneurs.SolveurCollision;
 
-import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
-import com.mauja.maujaadventures.jeu.TableauDeJeu;
-
+import com.mauja.maujaadventures.monde.Carte;
 public class SolveurPersonnageJouableProjectile extends SolveurCollision{
-    private TableauDeJeu tableauDeJeu;
-    private CollisionneurAABB collisionneur;
+
+    /**
+     * Constructeur de la classe SolveurPersonnageJouableProjectile
+     * @param carte Carte actuelle sur laquelle se déroule le projet
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
+    public SolveurPersonnageJouableProjectile(Carte carte) {
+        super(carte);
+    }
 
     /**
      * Résolution de la collision entre un PersonnageJouable et un projectile
+     * si l'ennemi ne se protège pas alors le personnage jouable perd des points de vie et le projectiles est détruit
+     * si l'ennemi se protège alors on regarde le sens du projectile et on modifie son sens
      * @param e1 Element interactif du première élément à tester la collision
      * @param e2 Element interactif du second élément à tester
-     * @return true si collision sinon false
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
@@ -23,7 +29,7 @@ public class SolveurPersonnageJouableProjectile extends SolveurCollision{
         int v;
         if (personnageJouable.getEtatAction() != EtatAction.SE_PROTEGE) {
             personnageJouable.setPointsDeVie(personnageJouable.getPointsDeVie() - projectile.getDegats());
-            tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
+            cartecourante.supprimerEntite(projectile);
         }
         else if (personnageJouable.getEtatAction() == EtatAction.SE_PROTEGE &&
                 (personnageJouable.getDirection().getVal() == (v = projectile.getDirection().getVal() + 1) ||
@@ -31,8 +37,8 @@ public class SolveurPersonnageJouableProjectile extends SolveurCollision{
             projectile.setDirection(Direction.valeurDe((byte) v));
         }
         else if (personnageJouable.getEtatAction() == EtatAction.SE_PROTEGE) {
-            tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
-            personnageJouable.setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - projectile.getDegats());
+            cartecourante.supprimerEntite(projectile);
+            personnageJouable.setPointsDeVie(personnageJouable.getPointsDeVie() - projectile.getDegats());
         }
     }
 }

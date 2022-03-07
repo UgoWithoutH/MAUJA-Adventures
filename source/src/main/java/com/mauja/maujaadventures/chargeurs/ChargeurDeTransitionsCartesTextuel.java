@@ -32,7 +32,6 @@ public class ChargeurDeTransitionsCartesTextuel implements ChargeurDeTransitions
             String chaine = chaineTotale.toString().replaceAll(DELIMITEUR_VISUEL, DELIMITEUR);
             chaine = chaine.replaceAll("\n", DELIMITEUR);
             chaine = chaine.replaceAll(" +", DELIMITEUR);
-            System.out.println(chaine);
             graphe = creerGraphe(chaine.trim(), lesCartes);
         }
         catch (IOException e) {
@@ -57,7 +56,6 @@ public class ChargeurDeTransitionsCartesTextuel implements ChargeurDeTransitions
 
         TransitionCarte transition1, transition2;
         while (nombreJetons != compteur) {
-            System.out.println(compteur);
             Carte depart = carteExiste(jetons[compteur], lesCartes);
             Carte arrivee = carteExiste(jetons[3 + compteur], lesCartes);
 
@@ -84,7 +82,6 @@ public class ChargeurDeTransitionsCartesTextuel implements ChargeurDeTransitions
 
             compteur += 6;
         }
-        System.out.println(graphe);
         return graphe;
     }
 

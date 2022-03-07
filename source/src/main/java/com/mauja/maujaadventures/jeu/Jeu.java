@@ -1,6 +1,7 @@
 package com.mauja.maujaadventures.jeu;
 
 
+import com.mauja.maujaadventures.collisionneurs.SolveurCollision.SolveurCollision;
 import com.mauja.maujaadventures.comportements.Comportement;
 import com.mauja.maujaadventures.entites.*;
 
@@ -34,6 +35,7 @@ public class Jeu extends Observable implements Observateur {
     private final double decalageY = 24;
     private boolean paramOuvert = false;
     private List<Touche> lesTouchesAppuyees;
+    private SolveurCollision solveurCollision;
 
     /**
      * Constructeur de Jeu
@@ -49,6 +51,8 @@ public class Jeu extends Observable implements Observateur {
 
         boucle = new Boucle();
         boucle.attacher(this);
+
+        solveurCollision = new SolveurCollision(tableauDeJeu.getCarteCourante());
         initialiser();
     }
 
@@ -164,7 +168,7 @@ public class Jeu extends Observable implements Observateur {
                 if (estDeplace && tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * decalageX - (tableauDeJeu.getJoueur().getPosition().getX()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) {
                     if (((camera.getPositionCameraX() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * decalageX)) &&
                             (tableauDeJeu.getJoueur().getPosition().getX() >= DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
-                        camera.deplacementCamera(tableauDeJeu.getJoueur().getVelocite().getX(), 0);
+                        //camera.deplacementCamera(tableauDeJeu.getJoueur().getVelocite().getX(), 0);
                     }
                 }
             }
@@ -175,7 +179,7 @@ public class Jeu extends Observable implements Observateur {
                     if (!(camera.getPositionCameraX() <= 0) &&
                             (tableauDeJeu.getJoueur().getPosition().getX() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * 32 -
                                     DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
-                        camera.deplacementCamera(-tableauDeJeu.getJoueur().getVelocite().getX(), 0);
+                        //camera.deplacementCamera(-tableauDeJeu.getJoueur().getVelocite().getX(), 0);
                     }
                 }
             }
@@ -185,7 +189,7 @@ public class Jeu extends Observable implements Observateur {
                 if (estDeplace && !(camera.getPositionCameraY() <= 0) &&
                         (tableauDeJeu.getJoueur().getPosition().getY() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() * decalageY +
                                 DIMENSION_CAMERA_PAR_DEFAUT.getHauteur() / 2)) {
-                    camera.deplacementCamera(0, -tableauDeJeu.getJoueur().getVelocite().getY());
+                    //camera.deplacementCamera(0, -tableauDeJeu.getJoueur().getVelocite().getY());
                 }
             }
 
@@ -195,7 +199,7 @@ public class Jeu extends Observable implements Observateur {
                 if (estDeplace && (tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) - (tableauDeJeu.getJoueur().getPosition().getY()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() &&
                         (camera.getPositionCameraY() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() * decalageY &&
                                 (tableauDeJeu.getJoueur().getPosition().getY() >= DIMENSION_CAMERA_PAR_DEFAUT.getHauteur() / 2))) {
-                    camera.deplacementCamera(0, tableauDeJeu.getJoueur().getVelocite().getY());
+                    //camera.deplacementCamera(0, tableauDeJeu.getJoueur().getVelocite().getY());
                 }
             }
         }
@@ -212,29 +216,17 @@ public class Jeu extends Observable implements Observateur {
             if (elementInteractif instanceof Ennemi ennemi) {
                 if (collisionneur.collisionne(tableauDeJeu.getJoueur().getAttaque().getCollision(), collisionEntite)
                         && tableauDeJeu.getJoueur().getEtatAction() == EtatAction.ATTAQUE) {
-                    ennemi.setPointsDeVie(ennemi.getPointsDeVie() - tableauDeJeu.getJoueur().getAttaque().getDegats());
-                    if (ennemi.getPointsDeVie() <= 0) {
-                        tableauDeJeu.getCarteCourante().supprimerEntite(ennemi);
-                    }
+                    solveurCollision.resoud(ennemi,tableauDeJeu.getJoueur());
                 }
 
                 if (collisionneur.collisionne(collisionJoueur, collisionEntite)) {
-                    tableauDeJeu.getJoueur().setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - ennemi.getAttaque().getDegats());
+                    solveurCollision.resoud(ennemi,tableauDeJeu.getJoueur());
                 }
             }
             if (elementInteractif instanceof Projectile projectile) {
 
-                if (collisionneur.collisionne(collisionJoueur, collisionEntite) && tableauDeJeu.getJoueur().getEtatAction() != EtatAction.SE_PROTEGE) {
-                    tableauDeJeu.getJoueur().setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - projectile.getDegats());
-                    tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
-                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) &&
-                        tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SE_PROTEGE &&
-                        (tableauDeJeu.getJoueur().getDirection().getVal() == (v = projectile.getDirection().getVal() + 1) ||
-                                (tableauDeJeu.getJoueur().getDirection().getVal() == (v = projectile.getDirection().getVal() - 1)))) {
-                    projectile.setDirection(Direction.valeurDe((byte) v));
-                } else if (collisionneur.collisionne(collisionJoueur, collisionEntite) && tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SE_PROTEGE) {
-                    tableauDeJeu.getCarteCourante().supprimerEntite(projectile);
-                    tableauDeJeu.getJoueur().setPointsDeVie(tableauDeJeu.getJoueur().getPointsDeVie() - projectile.getDegats());
+                if (collisionneur.collisionne(collisionJoueur, collisionEntite)){
+                    solveurCollision.resoud(tableauDeJeu.getJoueur() , projectile);
                 }
             }
         }

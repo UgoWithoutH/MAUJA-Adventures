@@ -25,6 +25,7 @@ public class Partie {
     private VBox contentPause;
     private Jeu jeu;
     private StackPane partiePane;
+    CameraTuilesFX camera;
 
     public Partie(Navigateur navigateur, Jeu jeu) {
         this.navigateur = navigateur;
@@ -84,6 +85,8 @@ public class Partie {
 
     public void start(){
         jeu.start();
+        System.out.println("test");
+        camera.centrerSurEntite(jeu.getTableauDeJeu().getJoueur());
     }
 
     public void restart(){

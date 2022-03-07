@@ -26,7 +26,6 @@ public class JeuDeTuiles {
         if (identifiant == null || identifiant.trim().isEmpty()) {
             throw new IllegalArgumentException("L'identifiant passé en paramètre ne peut pas être null.");
         }
-        System.out.println(identifiant);
         verificationDimensionTuiles(dimensionTuiles, lesTuiles);
         this.dimensionJeuDeTuiles = dimensionJeuDeTuiles;
         this.dimensionTuiles = dimensionTuiles;

@@ -42,7 +42,7 @@ public class CameraTuilesFX extends CameraTuiles {
     }
 
     /**
-     * Methode permettant de centrer ka camera sur l'entite
+     * Methode permettant de centrer la camera sur l'entite
      * @param entite
      */
     @Override
@@ -58,8 +58,8 @@ public class CameraTuilesFX extends CameraTuiles {
         double largeurCamera = zoneObservable.getLargeur();
         double hauteurCamera = zoneObservable.getHauteur();
 
-        for (int x = 0; x < hauteurCamera; x++) {
-            for (int y = 0; y < largeurCamera; y++) {
+        for (int x = 0; x < largeurCamera; x++) {
+            for (int y = 0; y < hauteurCamera; y++) {
                 visionGraphique[x][y] = lesTuilesGraphiques.get(zoneVisible[x][y].getId());
             }
         }
