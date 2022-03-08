@@ -2,33 +2,24 @@ package com.mauja.maujaadventures.interactions;
 
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 public class GestionnaireInteractions {
+    private static final String CHEMIN_FICHIER_INTERACTIONS = "ressources/interactionsTest.xml";
     private static GestionnaireInteractions gestionnaireInteractions;
-    private static  List<Scenario> scenarios;
     private Queue<Evenement> fileCourante;
     private Queue<Evenement> fileSauvegarde;
+    private ParseurInteraction parseurInteraction;
     private Thread thread;
     private boolean enCours;
-    private List<ElementInteractif> elementAAjouter;
     private TableauDeJeu tableauDeJeu;
 
     private GestionnaireInteractions() {
         fileCourante = new LinkedList<>();
         fileSauvegarde = new LinkedList<>();
-        elementAAjouter = new ArrayList<>();
+        parseurInteraction = new ParseurInteraction();
         enCours = false;
         initialisation();
     }
@@ -41,35 +32,14 @@ public class GestionnaireInteractions {
     }
 
     public List<ElementInteractif> getElementAAjouter() {
-        return elementAAjouter;
+        return parseurInteraction.getElementAAjouter();
     }
 
     public void initialisationBoucleEvenementielle(TableauDeJeu tableauDeJeu){
         this.tableauDeJeu = tableauDeJeu;
     }
     private void initialisation() {
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        try {
-            InputStream inputStream = new FileInputStream("ressources/interactionsTest.xml");
-            SAXParser parseur = factory.newSAXParser();
-
-            InteractionHandler handler = new InteractionHandler();
-
-            parseur.parse(inputStream, handler);
-            scenarios = handler.getListeScenarios();
-
-            for(Scenario scenario : scenarios) { //temporaire
-                for(ElementInteractif elementInteractif : scenario.getListeElemInteractif()) {
-                    if(elementInteractif instanceof Levier levier) {
-                        elementAAjouter.add(levier);
-                    }
-                }
-            }
-
-        }
-        catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
-        }
+        parseurInteraction.creerActionInteraction(CHEMIN_FICHIER_INTERACTIONS);
     }
 
     public void ajouter(Evenement evenement) {
@@ -95,7 +65,7 @@ public class GestionnaireInteractions {
         while(true) {
             if(fileCourante.size() != 0){
                 Evenement evenement = fileCourante.poll();
-                evenement.traitement(scenarios, tableauDeJeu);
+                evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu);
             }
             else{
                 if(fileSauvegarde.size() != 0){
