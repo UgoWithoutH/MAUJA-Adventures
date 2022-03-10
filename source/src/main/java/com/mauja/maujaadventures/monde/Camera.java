@@ -1,6 +1,11 @@
 package com.mauja.maujaadventures.monde;
 
+import com.mauja.maujaadventures.logique.Dimension;
+
 public class Camera {
+    private static final Dimension DIMENSION_CAMERA_PAR_DEFAUT = new Dimension(964, 608);
+    private final double decalageX = 28.2;
+    private final double decalageY = 24;
     private double positionCameraX;
     private double positionCameraY;
 
@@ -32,6 +37,18 @@ public class Camera {
         positionCameraX = ((e.getPosition().getPositionX()) - (jeu.getGraphicsContext().getCanvas().getWidth()) / 2) + (e.getDimension().getLargeur() / 2);
         positionCameraY = ((e.getPosition().getPositionY()) - (jeu.getGraphicsContext().getCanvas().getHeight()) / 2) + (e.getDimens
 */
+
+    public double getDecalageX() {
+        return decalageX;
+    }
+
+    public double getDecalageY() {
+        return decalageY;
+    }
+
+    public static Dimension getDimensionCameraParDefaut() {
+        return DIMENSION_CAMERA_PAR_DEFAUT;
+    }
 
     /**
      * Getter de la position Camera X

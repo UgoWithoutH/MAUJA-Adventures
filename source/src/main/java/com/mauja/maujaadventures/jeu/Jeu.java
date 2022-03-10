@@ -20,8 +20,6 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Jeu extends Observable implements Observateur {
-    private static final Dimension DIMENSION_CAMERA_PAR_DEFAUT = new Dimension(964, 608);
-
     private TableauDeJeu tableauDeJeu;
     private DeplaceurEntite deplaceur;
     private CollisionneurAABB collisionneur;
@@ -31,8 +29,6 @@ public class Jeu extends Observable implements Observateur {
     private int tempsAttaque = 0;
     private Boucle boucle;
     private int v;
-    private final double decalageX = 28.2;
-    private final double decalageY = 24;
     private boolean paramOuvert = false;
     private List<Touche> lesTouchesAppuyees;
     private SolveurCollision solveurCollision;
@@ -45,9 +41,10 @@ public class Jeu extends Observable implements Observateur {
     public Jeu(Options options) throws FileNotFoundException, FileNotFoundException {
         collisionneur = new CollisionneurAABB();
         tableauDeJeu = new TableauDeJeu(options);
-        GestionnaireInteractions.getInstance().initialisationBoucleEvenementielle(tableauDeJeu);
-
         camera = new Camera( 0, 0);
+
+        GestionnaireInteractions.getInstance().initialisationBoucleEvenementielle(tableauDeJeu, camera);
+
         lesTouchesAppuyees = new ArrayList<>();
 
         boucle = new Boucle();
@@ -64,9 +61,9 @@ public class Jeu extends Observable implements Observateur {
         this.gestionnaireDeTouches = gestionnaireDeTouches;
     }
 
-    public static Dimension getDimensionCameraParDefaut() {
+    /*public static Dimension getDimensionCameraParDefaut() {
         return DIMENSION_CAMERA_PAR_DEFAUT;
-    }
+    }*/
 
     public TableauDeJeu getTableauDeJeu() {
         return tableauDeJeu;
@@ -115,7 +112,7 @@ public class Jeu extends Observable implements Observateur {
         if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
             //System.out.println("J'attaque");
             tableauDeJeu.getJoueur().setEtatAction(EtatAction.ATTAQUE);
-            GestionnaireInteractions.getInstance().ajouter(new EvenementAttaque(tableauDeJeu, tableauDeJeu.getJoueur()));
+            //GestionnaireInteractions.getInstance().ajouter(new EvenementAttaque(tableauDeJeu, tableauDeJeu.getJoueur()));
             Rectangle collisionAttaque;
             if (tableauDeJeu.getJoueur().getDirection() == Direction.DROITE) {
                 collisionAttaque = new Rectangle(tableauDeJeu.getJoueur().getPosition().getX() + tableauDeJeu.getJoueur().getCollision().getPosition().getX()
@@ -164,44 +161,47 @@ public class Jeu extends Observable implements Observateur {
 
         if (tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SANS_ACTION) {
             if (lesTouchesAppuyees.contains(Touche.FLECHE_DROITE)) {
-                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.DROITE, true);
+                //boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.DROITE, true);
+                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(),  Direction.DROITE));
 
-                if (estDeplace && tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * decalageX - (tableauDeJeu.getJoueur().getPosition().getX()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) {
+                /*if (estDeplace && tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * decalageX - (tableauDeJeu.getJoueur().getPosition().getX()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) {
                     if (((camera.getPositionCameraX() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * decalageX)) &&
                             (tableauDeJeu.getJoueur().getPosition().getX() >= DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
-                        //camera.deplacementCamera(tableauDeJeu.getJoueur().getVelocite().getX(), 0);
+                        camera.deplacementCamera(tableauDeJeu.getJoueur().getVelocite().getX(), 0);
                     }
-                }
+                }*/
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_GAUCHE)) {
-                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.GAUCHE, true);
-                if (estDeplace && 0 + tableauDeJeu.getJoueur().getPosition().getY() > tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) {
+                //boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.GAUCHE, true);
+                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(),  Direction.GAUCHE));
+                /*if (estDeplace && 0 + tableauDeJeu.getJoueur().getPosition().getY() > tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) {
                     if (!(camera.getPositionCameraX() <= 0) &&
                             (tableauDeJeu.getJoueur().getPosition().getX() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * 32 -
                                     DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
-                        //camera.deplacementCamera(-tableauDeJeu.getJoueur().getVelocite().getX(), 0);
+                        camera.deplacementCamera(-tableauDeJeu.getJoueur().getVelocite().getX(), 0);
                     }
-                }
+                }*/
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_HAUT)) {
-                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.HAUT, true);
-                if (estDeplace && !(camera.getPositionCameraY() <= 0) &&
+                //boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.HAUT, true);
+                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(),  Direction.HAUT));
+                /*if (estDeplace && !(camera.getPositionCameraY() <= 0) &&
                         (tableauDeJeu.getJoueur().getPosition().getY() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() * decalageY +
                                 DIMENSION_CAMERA_PAR_DEFAUT.getHauteur() / 2)) {
-                    //camera.deplacementCamera(0, -tableauDeJeu.getJoueur().getVelocite().getY());
-                }
+                    camera.deplacementCamera(0, -tableauDeJeu.getJoueur().getVelocite().getY());
+                }*/
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_BAS)) {
-                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.BAS, true);
-
-                if (estDeplace && (tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) - (tableauDeJeu.getJoueur().getPosition().getY()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() &&
+                //boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.BAS, true);
+                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(),  Direction.BAS));
+                /*if (estDeplace && (tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) - (tableauDeJeu.getJoueur().getPosition().getY()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() &&
                         (camera.getPositionCameraY() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() * decalageY &&
                                 (tableauDeJeu.getJoueur().getPosition().getY() >= DIMENSION_CAMERA_PAR_DEFAUT.getHauteur() / 2))) {
-                    //camera.deplacementCamera(0, tableauDeJeu.getJoueur().getVelocite().getY());
-                }
+                    camera.deplacementCamera(0, tableauDeJeu.getJoueur().getVelocite().getY());
+                }*/
             }
         }
 
@@ -217,17 +217,17 @@ public class Jeu extends Observable implements Observateur {
             if (elementInteractif instanceof Ennemi ennemi) {
                 if (collisionneur.collisionne(tableauDeJeu.getJoueur().getAttaque().getCollision(), collisionEntite)
                         && tableauDeJeu.getJoueur().getEtatAction() == EtatAction.ATTAQUE) {
-                    solveurCollision.resoud(ennemi,tableauDeJeu.getJoueur());
+                    //solveurCollision.resoud(ennemi,tableauDeJeu.getJoueur());
                 }
 
                 if (collisionneur.collisionne(collisionJoueur, collisionEntite)) {
-                    solveurCollision.resoud(ennemi,tableauDeJeu.getJoueur());
+                    //solveurCollision.resoud(ennemi,tableauDeJeu.getJoueur());
                 }
             }
             if (elementInteractif instanceof Projectile projectile) {
 
                 if (collisionneur.collisionne(collisionJoueur, collisionEntite)){
-                    solveurCollision.resoud(tableauDeJeu.getJoueur() , projectile);
+                    //solveurCollision.resoud(tableauDeJeu.getJoueur() , projectile);
                 }
             }
         }

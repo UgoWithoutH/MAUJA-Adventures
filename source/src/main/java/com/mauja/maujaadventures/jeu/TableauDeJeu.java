@@ -74,8 +74,9 @@ public class TableauDeJeu {
         joueur = new PersonnageJouable(position, new Dimension(33, 47),
                 rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
 
+        carteCourante.ajouterElementInteractif(joueur);
 
-        Entite entite = new Ennemi(new Position(400, 600), new Dimension(30, 30),
+        Entite entite = new Ennemi(new Position(300, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                 new ComportementOctorockTireur(carteCourante), 10);
 
@@ -86,13 +87,13 @@ public class TableauDeJeu {
         carteCourante.ajouterElementInteractif(entite);
         carteCourante.ajouterElementInteractif(entite2);
 
-        for (int i = 0; i < 50; i++) {
+        /*for (int i = 0; i < 50; i++) {
             for (int j = 0; j < 50; j++) {
                 entite = new Ennemi(new Position(588 + j * 32, 1772 + i * 32), new Dimension(30, 30),
                         new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                         new ComportementPoursuite(carteCourante, joueur), 10);
                 carteCourante.ajouterElementInteractif(entite);
             }
-        }
+        }*/
     }
 }

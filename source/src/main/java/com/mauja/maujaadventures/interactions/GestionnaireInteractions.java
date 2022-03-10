@@ -2,6 +2,8 @@ package com.mauja.maujaadventures.interactions;
 
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
+import com.mauja.maujaadventures.monde.Camera;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -15,6 +17,7 @@ public class GestionnaireInteractions {
     private Thread thread;
     private boolean enCours;
     private TableauDeJeu tableauDeJeu;
+    private Camera camera;
 
     private GestionnaireInteractions() {
         fileCourante = new LinkedList<>();
@@ -35,9 +38,11 @@ public class GestionnaireInteractions {
         return parseurInteraction.getElementAAjouter();
     }
 
-    public void initialisationBoucleEvenementielle(TableauDeJeu tableauDeJeu){
+    public void initialisationBoucleEvenementielle(TableauDeJeu tableauDeJeu, Camera camera){
         this.tableauDeJeu = tableauDeJeu;
+        this.camera = camera;
     }
+
     private void initialisation() {
         parseurInteraction.creerActionInteraction(CHEMIN_FICHIER_INTERACTIONS);
     }
@@ -65,10 +70,14 @@ public class GestionnaireInteractions {
         while(true) {
             if(fileCourante.size() != 0){
                 Evenement evenement = fileCourante.poll();
-                evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu);
+                if(evenement != null) {
+                    evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu, camera);
+                }
             }
             else{
                 if(fileSauvegarde.size() != 0){
+                    System.out.println("file courante : " + fileCourante.size());
+                    System.out.println("file sauvegarde : " + fileSauvegarde.size());
                     fileCourante = new LinkedList<>(fileSauvegarde);
                     fileSauvegarde = new LinkedList<>();
                 }

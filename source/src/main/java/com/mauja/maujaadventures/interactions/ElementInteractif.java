@@ -36,7 +36,6 @@ public abstract class ElementInteractif extends Balise implements Cloneable{
 
     public void setPosition(Position position) {
         this.position = position;
-        GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(this));
     }
 
     public Rectangle getCollision() {
