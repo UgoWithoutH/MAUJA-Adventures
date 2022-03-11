@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class ComportementOctorockTireur implements Comportement {
+public class ComportementTireur implements Comportement {
     private static final Random ALEATOIRE = new Random();
     private static final List<Direction> DIRECTIONS_POSSIBLES = Arrays.asList(Direction.values());
     private static final int NOMBRE_DIRECTIONS = DIRECTIONS_POSSIBLES.size();
@@ -31,7 +31,7 @@ public class ComportementOctorockTireur implements Comportement {
     private Vivant vivant;
     private int nombreTentatives = 0;
 
-    public ComportementOctorockTireur(Carte carte) throws IllegalArgumentException {
+    public ComportementTireur(Carte carte) throws IllegalArgumentException {
         if (carte == null) {
             throw new IllegalArgumentException("La carte passée en paramètre du comportement de tireur ne peut pas "
                     + "être nulle.");

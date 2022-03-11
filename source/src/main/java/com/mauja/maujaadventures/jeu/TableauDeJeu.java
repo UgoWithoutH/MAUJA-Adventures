@@ -2,7 +2,7 @@ package com.mauja.maujaadventures.jeu;
 
 import com.mauja.maujaadventures.chargeurs.*;
 import com.mauja.maujaadventures.comportements.ComportementChevalier;
-import com.mauja.maujaadventures.comportements.ComportementOctorockTireur;
+import com.mauja.maujaadventures.comportements.ComportementTireur;
 import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
@@ -79,7 +79,7 @@ public class TableauDeJeu {
 
         Entite entite = new Ennemi(new Position(300, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementOctorockTireur(carteCourante), 10);
+                new ComportementTireur(carteCourante), 10);
 
         Entite entite2 = new Ennemi(new Position(400, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,

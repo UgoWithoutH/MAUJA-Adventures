@@ -1,7 +1,9 @@
 package com.mauja.maujaadventures.fenetres;
 
+import com.mauja.maujaadventures.affichages.Carte2DGraphique;
 import com.mauja.maujaadventures.affichages.JeuDeTuilesGraphique;
 import com.mauja.maujaadventures.affichages.TuileGraphique;
+import com.mauja.maujaadventures.chargeurs.ChargeurCartesGraphiques;
 import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
@@ -35,8 +37,8 @@ public class FenetreDeJeu implements Observateur {
     private PersonnageJouable joueur;
     private Carte carteCourante;
 
+    private List<Carte2DGraphique> lesCartesGraphiques;
     private List<TuileGraphique> lesTuilesGraphiquesCourantes;
-    private List<JeuDeTuilesGraphique> lesJeuxDeTuilesGraphiques;
 
     private Canvas canvas;
     private GraphicsContext contexteGraphique;
@@ -60,7 +62,6 @@ public class FenetreDeJeu implements Observateur {
         camera = jeu.getCamera();
 
         lesTuilesGraphiquesCourantes = new ArrayList<>();
-        lesJeuxDeTuilesGraphiques = new ArrayList<>();
 
         initialiser();
         ajoutElementParsage(GestionnaireInteractions.getInstance().getElementAAjouter());
@@ -124,25 +125,9 @@ public class FenetreDeJeu implements Observateur {
 
     private void initialiser() {
         jeu.attacher(this);
-        DecoupeurImage decoupeur = new DecoupeurImage();
-        List<JeuDeTuiles> jeuxDeTuiles = carteCourante.getLesJeuxDeTuiles();
-
-        for (JeuDeTuiles jeuDeTuiles : jeuxDeTuiles) {
-            List<TuileGraphique> lesTuilesGraphiques = new ArrayList<>();
-            Image imageJeuDeTuile = new Image(jeuDeTuiles.getCheminJeuDeTuiles());
-            List<Image> imagesTuiles = decoupeur.decoupe(imageJeuDeTuile, (int) jeuDeTuiles.getDimensionJeuDeTuiles().getLargeur(),
-                    (int) jeuDeTuiles.getDimensionJeuDeTuiles().getHauteur());
-
-            List<Tuile> lesTuiles = jeuDeTuiles.getListeDeTuiles();
-            for (int i = 0; i < lesTuiles.size(); i++) {
-                lesTuilesGraphiques.add(new TuileGraphique(lesTuiles.get(i), imagesTuiles.get(i)));
-            }
-            lesJeuxDeTuilesGraphiques.add(new JeuDeTuilesGraphique(jeuDeTuiles, lesTuilesGraphiques));
-        }
-
-        for (JeuDeTuilesGraphique jeuDeTuilesGraphique : lesJeuxDeTuilesGraphiques) {
-            lesTuilesGraphiquesCourantes.addAll(jeuDeTuilesGraphique.getLesTuilesGraphiques());
-        }
+        ChargeurCartesGraphiques chargeurCartesGraphiques = new ChargeurCartesGraphiques();
+        lesCartesGraphiques = chargeurCartesGraphiques.charge(tableauDeJeu.getLesCartes());
+        lesTuilesGraphiquesCourantes = lesCartesGraphiques.get(0).getLesTuilesGraphiques();
 
         try {
             imagePersonnage = new Image(String.valueOf(new File("ressources/images/entites/link_epee.png").toURI().toURL()));

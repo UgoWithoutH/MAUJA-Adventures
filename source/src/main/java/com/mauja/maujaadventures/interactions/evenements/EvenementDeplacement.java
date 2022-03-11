@@ -13,9 +13,7 @@ import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.logique.TransitionCarte;
 import com.mauja.maujaadventures.monde.Camera;
-import javafx.scene.control.Tab;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
