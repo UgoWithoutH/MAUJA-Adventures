@@ -1,6 +1,6 @@
 <Carte id="1">
     <Scenario>
-        <ElementInteractif type="com.mauja.maujaadventures.interactions.Levier" x="500" y="500" active="false" id="1">
+        <ElementInteractif type="com.mauja.maujaadventures.interactions.Levier" x="12" y="20" id="1">
             <Condition type="com.mauja.maujaadventures.interactions.ConditionCollision"/>
             <Action type="com.mauja.maujaadventures.interactions.ActionLevierActif" idEffet="1">
                 <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="300" yEn="500" largEn="10" hautEn="10"

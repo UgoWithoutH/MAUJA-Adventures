@@ -3,7 +3,6 @@ package com.mauja.maujaadventures.collisionneurs.SolveurCollision;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class SolveurCollision {
@@ -25,12 +24,11 @@ public class SolveurCollision {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public void resoud(ElementInteractif e1, ElementInteractif e2){
-        Class<?> classDefinition = null;
-        Constructor<?> constructor = null;
+        Class<?> classDefinition;
         String nomClasse = "com.mauja.maujaadventures.collisionneurs.SolveurCollision.Solveur"
                 + e1.getClass().getSimpleName() + e2.getClass().getSimpleName();
         try {
-            classDefinition = (Class<?>) Class.forName(nomClasse);
+            classDefinition = Class.forName(nomClasse);
             Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(cartecourante);
             ((SolveurCollision) ob).resoud(e1, e2);
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException

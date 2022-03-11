@@ -22,7 +22,7 @@ public class Navigateur {
     private Scene sceneCourante;
     private Stack<Scene> laPileDeScenes;
 
-    public Navigateur(Stage myStage) {
+    public Navigateur(Stage myStage) throws IllegalArgumentException {
         if (myStage == null) throw new IllegalArgumentException("Le stage est null");
         this.myStage = myStage;
         laPileDeScenes = new Stack<>();

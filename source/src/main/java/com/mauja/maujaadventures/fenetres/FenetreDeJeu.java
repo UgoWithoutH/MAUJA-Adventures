@@ -1,5 +1,7 @@
 package com.mauja.maujaadventures.fenetres;
 
+import com.mauja.maujaadventures.affichages.JeuDeTuilesGraphique;
+import com.mauja.maujaadventures.affichages.TuileGraphique;
 import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
@@ -7,10 +9,13 @@ import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.Levier;
 import com.mauja.maujaadventures.jeu.Jeu;
 import com.mauja.maujaadventures.jeu.Observateur;
+import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.monde.Camera;
 import com.mauja.maujaadventures.monde.Carte;
+import com.mauja.maujaadventures.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.monde.Tuile;
 import com.mauja.maujaadventures.utilitaires.DecoupeurImage;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -23,29 +28,38 @@ import java.util.Map;
 
 public class FenetreDeJeu implements Observateur {
     private Jeu jeu;
-
-    private Carte carteCourante;
+    private TableauDeJeu tableauDeJeu;
     private Camera camera;
-
-    private List<Tuile> lesTuiles;
-    private int nombreCalques;
     private PersonnageJouable joueur;
+    private Carte carteCourante;
 
-    private GraphicsContext gc;
+    private List<TuileGraphique> lesTuilesGraphiquesCourantes;
+    private List<JeuDeTuilesGraphique> lesJeuxDeTuilesGraphiques;
+
+    private Canvas canvas;
+    private GraphicsContext contexteGraphique;
+
     private Image imagePersonnage;
     private Image imageProjectile;
     private Image imageEnnemi;
     private Image imageLevierPasActif;
     private Image imageLevierActif;
-    private List<Image> lesImages;
-    private Map<Tuile, Image> lesTuilesImagees;
-    private int test= 0 ;
 
-    public FenetreDeJeu(GraphicsContext gc, Jeu jeu) {
-        lesImages = new ArrayList<>();
-        this.gc = gc;
+    public FenetreDeJeu(GraphicsContext contexteGraphique, Jeu jeu) {
+        if (jeu == null) {
+            throw new IllegalArgumentException("Le jeu passé en paramètre ne peut pas être null.");
+        }
         this.jeu = jeu;
-        jeu.attacher(this);
+        //this.canvas = new Canvas(964, 608);
+        this.contexteGraphique = contexteGraphique;
+        tableauDeJeu = jeu.getTableauDeJeu();
+        joueur = tableauDeJeu.getJoueur();
+        carteCourante = tableauDeJeu.getCarteCourante();
+        camera = jeu.getCamera();
+
+        lesTuilesGraphiquesCourantes = new ArrayList<>();
+        lesJeuxDeTuilesGraphiques = new ArrayList<>();
+
         initialiser();
         ajoutElementParsage(GestionnaireInteractions.getInstance().getElementAAjouter());
     }
@@ -55,13 +69,13 @@ public class FenetreDeJeu implements Observateur {
     }
 
     public void affichage() {
-        gc.clearRect(0, 0, 1000, 1000);
-        for (int k = 0; k < nombreCalques; k++) {
+        contexteGraphique.clearRect(0, 0, 1000, 1000);
+        for (int k = 0; k < carteCourante.getLaCarte().length; k++) {
             for (int y = 0; y < carteCourante.getDimensionCarte().getHauteur(); y++) {
                 for (int x = 0; x < carteCourante.getDimensionCarte().getLargeur(); x++) {
                     Tuile tuile = carteCourante.getTuile(x, y, k);
                     if (tuile.getId() >= 1) {
-                        gc.drawImage(lesImages.get(tuile.getId()),
+                        contexteGraphique.drawImage(lesTuilesGraphiquesCourantes.get(tuile.getId()).getImage(),
                                 x * 32 - camera.getPositionCameraX(), y * 32 - camera.getPositionCameraY(),
                                 32, 32);
                     }
@@ -71,55 +85,56 @@ public class FenetreDeJeu implements Observateur {
 
         for (ElementInteractif elementInteractif : carteCourante.getLesElementsInteractifs()) {
             if (elementInteractif instanceof Ennemi ennemi) {
-                gc.drawImage(imageEnnemi, ennemi.getPosition().getX() - camera.getPositionCameraX(),
+                contexteGraphique.drawImage(imageEnnemi, ennemi.getPosition().getX() - camera.getPositionCameraX(),
                         ennemi.getPosition().getY() - camera.getPositionCameraY());
             }
 
             if (elementInteractif instanceof Projectile projectile) {
-                gc.drawImage(imageProjectile, projectile.getPosition().getX() - camera.getPositionCameraX(),
+                contexteGraphique.drawImage(imageProjectile, projectile.getPosition().getX() - camera.getPositionCameraX(),
                         projectile.getPosition().getY() - camera.getPositionCameraY());
             }
 
             if (elementInteractif instanceof Levier levier) {
-                if(test == 0){
-                    test++;
-                }
                 if(levier.isActive()) {
-                    gc.drawImage(imageLevierActif, levier.getPosition().getX() - camera.getPositionCameraX(),
+                    contexteGraphique.drawImage(imageLevierActif, levier.getPosition().getX() - camera.getPositionCameraX(),
                             levier.getPosition().getY() - camera.getPositionCameraY());
                 }else{
-                    gc.drawImage(imageLevierPasActif, levier.getPosition().getX() - camera.getPositionCameraX(),
+                    contexteGraphique.drawImage(imageLevierPasActif, levier.getPosition().getX() - camera.getPositionCameraX(),
                             levier.getPosition().getY() - camera.getPositionCameraY());
                 }
             }
         }
-        gc.drawImage(imagePersonnage, joueur.getPosition().getX() - camera.getPositionCameraX(),
+        contexteGraphique.drawImage(imagePersonnage, joueur.getPosition().getX() - camera.getPositionCameraX(),
                 joueur.getPosition().getY() - camera.getPositionCameraY());
 
         if (joueur.getEtatAction() == EtatAction.ATTAQUE) {
-            gc.drawImage(imageProjectile,
+            contexteGraphique.drawImage(imageProjectile,
                     joueur.getAttaque().getCollision().getPosition().getX() - camera.getPositionCameraX(),
                     joueur.getAttaque().getCollision().getPosition().getY() - camera.getPositionCameraY());
         }
-        gc.fillText("Vie : " + joueur.getPointsDeVie(), 20, 20);
+        contexteGraphique.fillText("Vie : " + joueur.getPointsDeVie(), 20, 20);
     }
 
     private void initialiser() {
-        carteCourante = jeu.getTableauDeJeu().getCarteCourante();
-        nombreCalques = carteCourante.getLaCarte().length;
-        lesTuiles = jeu.getTableauDeJeu().getCarteCourante().getLesTuiles();
-        camera = jeu.getCamera();
-        joueur = jeu.getTableauDeJeu().getJoueur();
+        jeu.attacher(this);
+        DecoupeurImage decoupeur = new DecoupeurImage();
+        List<JeuDeTuiles> jeuxDeTuiles = carteCourante.getLesJeuxDeTuiles();
 
-        List<String> lesImagesJeuxDeTuilesChemin = Ressources.getInstance().getLesImagesJeuxDeTuiles();
+        for (JeuDeTuiles jeuDeTuiles : jeuxDeTuiles) {
+            List<TuileGraphique> lesTuilesGraphiques = new ArrayList<>();
+            Image imageJeuDeTuile = new Image(jeuDeTuiles.getCheminJeuDeTuiles());
+            List<Image> imagesTuiles = decoupeur.decoupe(imageJeuDeTuile, (int) jeuDeTuiles.getDimensionJeuDeTuiles().getLargeur(),
+                    (int) jeuDeTuiles.getDimensionJeuDeTuiles().getHauteur());
 
-        for (String chemin : lesImagesJeuxDeTuilesChemin) {
-            lesImages.addAll(DecoupeurImage.decoupe(chemin,32,32));
+            List<Tuile> lesTuiles = jeuDeTuiles.getListeDeTuiles();
+            for (int i = 0; i < lesTuiles.size(); i++) {
+                lesTuilesGraphiques.add(new TuileGraphique(lesTuiles.get(i), imagesTuiles.get(i)));
+            }
+            lesJeuxDeTuilesGraphiques.add(new JeuDeTuilesGraphique(jeuDeTuiles, lesTuilesGraphiques));
         }
 
-        lesTuilesImagees = new HashMap<>();
-        for (int i = 0 ; i < lesTuiles.size(); i++) {
-            lesTuilesImagees.put(lesTuiles.get(i), lesImages.get(i));
+        for (JeuDeTuilesGraphique jeuDeTuilesGraphique : lesJeuxDeTuilesGraphiques) {
+            lesTuilesGraphiquesCourantes.addAll(jeuDeTuilesGraphique.getLesTuilesGraphiques());
         }
 
         try {
@@ -130,7 +145,8 @@ public class FenetreDeJeu implements Observateur {
             imageLevierActif = new Image(String.valueOf(new File("ressources/images/entites/levierActif.png").toURI().toURL()));
             Levier.setHauteurDefaut(imageLevierActif.getHeight());
             Levier.setLargeurDefaut(imageLevierActif.getWidth());
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }

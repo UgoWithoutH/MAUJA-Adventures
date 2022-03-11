@@ -37,13 +37,11 @@ public class ChargeurDeCarteTiledReader implements ChargeurDeCarteTiled {
 
         for (TiledTileset jeuDeTuileTiled : lesJeuxDeTuilesTiled) {
             Dimension dimensionTuiles = new Dimension(jeuDeTuileTiled.getTileWidth(), jeuDeTuileTiled.getTileHeight());
-            String nomJeuDeTuiles = jeuDeTuileTiled.getName();
             Collection<TiledTile> lesTuilesTiled = jeuDeTuileTiled.getTiles();
             List<Tuile> lesTuiles = new ArrayList<>();
 
             for (TiledTile tuileTiled : lesTuilesTiled) {
                 List<TiledObject> lesCollisions = tuileTiled.getCollisionObjects();
-
                 Rectangle rectangle;
 
                 //Il a une collision, on la récupère et la génère.
@@ -60,8 +58,18 @@ public class ChargeurDeCarteTiledReader implements ChargeurDeCarteTiled {
                 Tuile tuile = new Tuile(tuileTiled.getID() + idTuiles, rectangle, dimensionTuiles);
                 lesTuiles.add(tuile);
             }
+            /*URL cheminJeuDeTuiles = null;
+            try {
+                cheminJeuDeTuiles = new URL("file://" + URLEncoder.encode(jeuDeTuileTiled.getImage().getSource(), StandardCharsets.UTF_8));
+            }
+            catch (MalformedURLException e) {
+                e.printStackTrace();
+            }*/
+
             Dimension dimensionJeuDeTuiles = new Dimension(jeuDeTuileTiled.getWidth(), jeuDeTuileTiled.getHeight());
-            JeuDeTuiles jeuDeTuiles = new JeuDeTuiles(dimensionJeuDeTuiles, dimensionTuiles, nomJeuDeTuiles, lesTuiles);
+            String nomJeuDeTuiles = jeuDeTuileTiled.getName();
+            JeuDeTuiles jeuDeTuiles = new JeuDeTuiles(dimensionJeuDeTuiles, nomJeuDeTuiles, lesTuiles, jeuDeTuileTiled.getImage().getSource());
+
             lesJeuxDeTuiles.add(jeuDeTuiles);
             idTuiles += jeuDeTuileTiled.getTiles().size();
         }

@@ -5,6 +5,7 @@ import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Carte {
     private final String nom;
@@ -13,7 +14,7 @@ public class Carte {
     private List<JeuDeTuiles> lesJeuxDeTuiles;
     private List<Tuile> lesTuiles;
     private Tuile[][][] laCarte;
-    private List<ElementInteractif> lesElementsInteractifs;
+    private CopyOnWriteArrayList<ElementInteractif> lesElementsInteractifs;
 
     /**
      * Constructeur de la classe Carte
@@ -39,7 +40,8 @@ public class Carte {
         this.dimensionCarte = dimensionCarte;
         this.lesJeuxDeTuiles = lesJeuxDeTuiles;
         this.laCarte = laCarte;
-        this.lesElementsInteractifs = lesElementsInteractifs == null ? new ArrayList<>() : lesElementsInteractifs;
+        this.lesElementsInteractifs = lesElementsInteractifs == null ? new CopyOnWriteArrayList<>()
+                : new CopyOnWriteArrayList<>(lesElementsInteractifs);
 
         lesTuiles = new ArrayList<>();
         recuperationTuiles(lesJeuxDeTuiles);
