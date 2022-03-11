@@ -1,5 +1,8 @@
 package com.mauja.maujaadventures.interactions;
 
+import com.mauja.maujaadventures.interactions.createurs.CreateurDAction;
+import com.mauja.maujaadventures.interactions.createurs.CreateurDElementInteractif;
+import com.mauja.maujaadventures.interactions.createurs.CreateurDeCondition;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -51,6 +54,9 @@ public class InteractionHandler extends DefaultHandler {
             }
             if (qName.equalsIgnoreCase("Action")) {
                 baliseCourante = createurDAction.creation(attributes);
+            }
+            if(Character.isLowerCase(qName.charAt(0))){
+
             }
         } catch (Exception e) {
             e.printStackTrace();

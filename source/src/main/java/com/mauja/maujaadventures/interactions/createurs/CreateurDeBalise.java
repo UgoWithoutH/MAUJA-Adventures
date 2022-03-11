@@ -1,6 +1,7 @@
-package com.mauja.maujaadventures.interactions;
+package com.mauja.maujaadventures.interactions.createurs;
 
 import com.mauja.maujaadventures.annotations.Param;
+import com.mauja.maujaadventures.interactions.Balise;
 import org.xml.sax.Attributes;
 
 import java.lang.annotation.Annotation;
@@ -17,8 +18,10 @@ public abstract class   CreateurDeBalise {
         for (int i=0; i<nbParam ;i++) {
             param = (Param) annotations[i][0];
             try {
-                Constructor<?> constructor = param.classe().getConstructor(String.class);
-                listeAttributs[i]= constructor.newInstance(attributes.getValue(param.nom()));
+                if (param.estPrimitif) {
+                    Constructor<?> constructor = param.classe().getConstructor(String.class);
+                    listeAttributs[i] = constructor.newInstance(attributes.getValue(param.nom()));
+                }
             } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
             }

@@ -1,7 +1,6 @@
-package com.mauja.maujaadventures.interactions;
+package com.mauja.maujaadventures.interactions.createurs;
 
 import com.mauja.maujaadventures.annotations.ConstructeurXml;
-import com.mauja.maujaadventures.annotations.Param;
 
 
 import java.lang.annotation.Annotation;
@@ -10,9 +9,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.mauja.maujaadventures.interactions.Action;
+import com.mauja.maujaadventures.interactions.Balise;
+import com.mauja.maujaadventures.interactions.Condition;
+import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.createurs.CreateurDeBalise;
 import org.xml.sax.Attributes;
 
-public class CreateurDElementInteractif extends CreateurDeBalise{
+public class CreateurDElementInteractif extends CreateurDeBalise {
     @Override
 
     public Balise creation(Attributes attributes) {

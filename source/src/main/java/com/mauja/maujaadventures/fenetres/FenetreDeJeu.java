@@ -13,6 +13,8 @@ import com.mauja.maujaadventures.monde.Tuile;
 import com.mauja.maujaadventures.utilitaires.DecoupeurImage;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -101,6 +103,10 @@ public class FenetreDeJeu implements Observateur {
                     joueur.getAttaque().getCollision().getPosition().getX() - camera.getPositionCameraX(),
                     joueur.getAttaque().getCollision().getPosition().getY() - camera.getPositionCameraY());
         }
+        gc.setFill(Color.rgb(255,255, 255, 0.5));
+        gc.fillRect(0, 0, 150,25);
+        gc.setFill(Color.RED);
+        gc.setFont(new Font(20));
         gc.fillText("Vie : " + joueur.getPointsDeVie(), 20, 20);
     }
 

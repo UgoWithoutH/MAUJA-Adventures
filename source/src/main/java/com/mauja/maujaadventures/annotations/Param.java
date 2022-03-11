@@ -12,4 +12,5 @@ import java.lang.annotation.Target;
 public @interface Param {
     String nom();
     Class<?> classe() default Double.class;
+    boolean estPrimitif = true;
 }
