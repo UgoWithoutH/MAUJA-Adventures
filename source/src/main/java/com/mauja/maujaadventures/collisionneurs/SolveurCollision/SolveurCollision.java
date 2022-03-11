@@ -5,10 +5,10 @@ import com.mauja.maujaadventures.monde.Carte;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
-public abstract class SolveurCollision {
+public class SolveurCollision {
     protected Carte cartecourante;
+
     /**
      * Constructeur de la classe SolveurCollision
      * @param carte Carte actuelle sur laquelle se déroule le projet
@@ -24,7 +24,7 @@ public abstract class SolveurCollision {
      * @param e2 Element interactif du second élément à tester
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void resoud(ElementInteractif e1, ElementInteractif e2){
+    public void resoud(ElementInteractif e1, ElementInteractif e2, ElementInteractif memento){
         Class<?> classDefinition = null;
         Constructor<?> constructor = null;
         String nomClasse = "com.mauja.maujaadventures.collisionneurs.SolveurCollision.Solveur"
@@ -32,7 +32,7 @@ public abstract class SolveurCollision {
         try {
             classDefinition = (Class<?>) Class.forName(nomClasse);
             Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(cartecourante);
-            ((SolveurCollision) ob).resoud(e1, e2);
+            ((SolveurCollision) ob).resoud(e1, e2, memento);
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException
                 | NoSuchMethodException | InstantiationException e) {
             e.printStackTrace();

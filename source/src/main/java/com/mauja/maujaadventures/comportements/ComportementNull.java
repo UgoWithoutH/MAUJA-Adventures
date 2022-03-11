@@ -7,4 +7,9 @@ public class ComportementNull implements Comportement {
     public void agit(Vivant vivant, float temps) {
         //Ne fait rien
     }
+
+    @Override
+    public void miseAJour(boolean resultatDeplacement) {
+        //Ne fait rien
+    }
 }

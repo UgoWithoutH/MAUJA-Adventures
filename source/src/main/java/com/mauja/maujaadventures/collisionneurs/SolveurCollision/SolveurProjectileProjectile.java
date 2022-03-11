@@ -25,7 +25,7 @@ public class SolveurProjectileProjectile extends SolveurCollision{
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void resoud(ElementInteractif e1, ElementInteractif e2) {
+    public void resoud(ElementInteractif e1, ElementInteractif e2, ElementInteractif memento) {
         Projectile projectile1 = (Projectile) e1;
         Projectile projectile2 = (Projectile) e2;
         carte.supprimerEntite(projectile1);

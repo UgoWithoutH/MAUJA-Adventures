@@ -22,12 +22,13 @@ public class SolveurPersonnageJouablePersonnageJouable extends SolveurCollision{
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void resoud(ElementInteractif e1, ElementInteractif e2) {
+    public void resoud(ElementInteractif e1, ElementInteractif e2, ElementInteractif memento) {
         PersonnageJouable pj1 = (PersonnageJouable) e1;
         PersonnageJouable pj2 = (PersonnageJouable) e2;
-        pj1.setPosition(pj1.getPosition());
+        pj1.setPosition(memento.getPosition());
+        /*pj1.setPosition(pj1.getPosition());
         pj1.setDirection(pj1.getDirection());
         pj2.setPosition(pj2.getPosition());
-        pj2.setDirection(pj2.getDirection());
+        pj2.setDirection(pj2.getDirection());*/
     }
 }

@@ -6,7 +6,6 @@ import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
 public class SolveurEnnemiProjectile extends SolveurCollision{
-    private Carte carte;
     /**
      * Constructeur de la classe SolveurEnnemiProjectile
      * @param carte Carte actuelle sur laquelle se déroule le projet
@@ -14,7 +13,6 @@ public class SolveurEnnemiProjectile extends SolveurCollision{
      */
     public SolveurEnnemiProjectile(Carte carte) {
         super(carte);
-        this.carte = carte;
     }
 
     /**
@@ -26,13 +24,13 @@ public class SolveurEnnemiProjectile extends SolveurCollision{
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void resoud(ElementInteractif e1, ElementInteractif e2) {
+    public void resoud(ElementInteractif e1, ElementInteractif e2, ElementInteractif memento) {
         Ennemi ennemi = (Ennemi) e1;
         Projectile projectile = (Projectile) e2;
         ennemi.setPointsDeVie(ennemi.getPointsDeVie() - projectile.getDegats());
-        carte.supprimerEntite(projectile);
+        cartecourante.supprimerEntite(projectile);
         if (ennemi.getPointsDeVie() <= 0 ){
-            carte.supprimerEntite(ennemi);
+            cartecourante.supprimerEntite(ennemi);
         }
     }
 }

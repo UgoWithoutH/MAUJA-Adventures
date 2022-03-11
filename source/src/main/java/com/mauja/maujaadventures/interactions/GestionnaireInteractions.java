@@ -1,82 +1,64 @@
 package com.mauja.maujaadventures.interactions;
 
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
-import org.xml.sax.SAXException;
+import com.mauja.maujaadventures.jeu.TableauDeJeu;
+import com.mauja.maujaadventures.monde.Camera;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 public class GestionnaireInteractions {
+    private static final String CHEMIN_FICHIER_INTERACTIONS = "ressources/interactionsTest.xml";
     private static GestionnaireInteractions gestionnaireInteractions;
-    private static  List<Scenario> scenarios;
     private Queue<Evenement> fileCourante;
     private Queue<Evenement> fileSauvegarde;
+    private ParseurInteraction parseurInteraction;
     private Thread thread;
     private boolean enCours;
-    private List<ElementInteractif> elementAAjouter;
+    private TableauDeJeu tableauDeJeu;
+    private Camera camera;
 
     private GestionnaireInteractions() {
         fileCourante = new LinkedList<>();
         fileSauvegarde = new LinkedList<>();
-        elementAAjouter = new ArrayList<>();
+        parseurInteraction = new ParseurInteraction();
         enCours = false;
         initialisation();
     }
 
-    public static GestionnaireInteractions getInstance(){
-        if(gestionnaireInteractions == null){
+    public static GestionnaireInteractions getInstance() {
+        if(gestionnaireInteractions == null) {
             gestionnaireInteractions = new GestionnaireInteractions();
-            return gestionnaireInteractions;
         }
-        else{
-            return gestionnaireInteractions;
-        }
+        return gestionnaireInteractions;
     }
 
     public List<ElementInteractif> getElementAAjouter() {
-        return elementAAjouter;
+        return parseurInteraction.getElementAAjouter();
     }
 
-    private void initialisation(){
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        try {
-            InputStream inputStream = new FileInputStream("ressources/interactionsTest.xml");
-            SAXParser parseur = factory.newSAXParser();
+    public void initialisationBoucleEvenementielle(TableauDeJeu tableauDeJeu, Camera camera){
+        this.tableauDeJeu = tableauDeJeu;
+        this.camera = camera;
+    }
 
-            InteractionHandler handler = new InteractionHandler();
-
-            parseur.parse(inputStream, handler);
-            scenarios = handler.getListeScenarios();
-
-            for(Scenario scenario : scenarios){ //temporaire
-                for(ElementInteractif elementInteractif : scenario.getListeElemInteractif()){
-                    if(elementInteractif instanceof Levier levier){
-                        elementAAjouter.add(levier);
-                    }
-                }
-            }
-
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
-        }
+    private void initialisation() {
+        parseurInteraction.creerActionInteraction(CHEMIN_FICHIER_INTERACTIONS);
     }
 
     public void ajouter(Evenement evenement) {
         if (!enCours) {
             fileCourante.add(evenement);
             if(thread != null) {
-                thread.interrupt();
+                synchronized (this) {
+                    notify();
+                }
             }
-            thread = new Thread(this::traitement);
-            thread.start();
+            else {
+                thread = new Thread(this::traitement, "Thread Traitement évènement");
+                thread.start();
+            }
         }
         else{
             fileSauvegarde.add(evenement);
@@ -85,20 +67,31 @@ public class GestionnaireInteractions {
 
     private void traitement() {
         enCours = true;
-        while(true){
+        while(true) {
             if(fileCourante.size() != 0){
                 Evenement evenement = fileCourante.poll();
-                evenement.traitement(scenarios);
+                if(evenement != null) {
+                    evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu, camera);
+                }
             }
             else{
                 if(fileSauvegarde.size() != 0){
+                    System.out.println("file courante : " + fileCourante.size());
+                    System.out.println("file sauvegarde : " + fileSauvegarde.size());
                     fileCourante = new LinkedList<>(fileSauvegarde);
                     fileSauvegarde = new LinkedList<>();
                 }
-                else
-                    break;
+                else {
+                    enCours = false;
+                    synchronized (this) {
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
         }
-        enCours = false;
     }
 }
