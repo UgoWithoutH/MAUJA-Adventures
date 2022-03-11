@@ -1,11 +1,13 @@
-package com.mauja.maujaadventures.interactions;
+package com.mauja.maujaadventures.interactions.createurs;
 
+import com.mauja.maujaadventures.interactions.Action;
+import com.mauja.maujaadventures.interactions.Balise;
 import org.xml.sax.Attributes;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class CreateurDAction extends CreateurDeBalise{
+public class CreateurDAction extends CreateurDeBalise {
     @Override
     public Balise creation(Attributes attributes) {
         Action baliseCourante = null;

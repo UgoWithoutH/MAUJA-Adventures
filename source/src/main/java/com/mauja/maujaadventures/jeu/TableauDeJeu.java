@@ -72,10 +72,13 @@ public class TableauDeJeu {
         Position position = new Position(482, 400);
         Rectangle rectangle = new Rectangle(new Position(3, 24), new Dimension(27, 23));
         joueur = new PersonnageJouable(position, new Dimension(33, 47),
+
                 rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
 
 
-        Entite entite = new Ennemi(new Position(400, 600), new Dimension(30, 30),
+        carteCourante.ajouterElementInteractif(joueur);
+
+        Entite entite = new Ennemi(new Position(300, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
                 new ComportementOctorockTireur(carteCourante), 10);
 

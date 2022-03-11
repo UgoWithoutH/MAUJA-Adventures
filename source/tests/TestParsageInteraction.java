@@ -4,12 +4,12 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.awt.*;
+
 import java.io.*;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.xml.*;
+
 
 public class TestParsageInteraction {
     public static void main(String[] args) {

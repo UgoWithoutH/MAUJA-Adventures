@@ -23,7 +23,7 @@ public class SolveurPersonnageJouableProjectile extends SolveurCollision{
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void resoud(ElementInteractif e1, ElementInteractif e2) {
+    public void resoud(ElementInteractif e1, ElementInteractif e2, ElementInteractif memento) {
         PersonnageJouable personnageJouable = (PersonnageJouable) e1;
         Projectile projectile = (Projectile) e2;
         int v;
