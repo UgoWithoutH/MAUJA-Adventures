@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.interactions;
 
+import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.monde.Camera;
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Queue;
 
 public class GestionnaireInteractions {
-    private static final String CHEMIN_FICHIER_INTERACTIONS = "ressources/interactionsTest.xml";
     private static GestionnaireInteractions gestionnaireInteractions;
     private Queue<Evenement> fileCourante;
     private Queue<Evenement> fileSauvegarde;
@@ -44,7 +44,7 @@ public class GestionnaireInteractions {
     }
 
     private void initialisation() {
-        parseurInteraction.creerActionInteraction(CHEMIN_FICHIER_INTERACTIONS);
+        parseurInteraction.creerActionInteraction(Ressources.getInstance().getLesScripts().get(0));
     }
 
     public void ajouter(Evenement evenement) {

@@ -1,11 +1,14 @@
 package com.mauja.maujaadventures.entrees;
 
+import com.mauja.maujaadventures.chargeurs.ChargeurDeTouchesFX;
+import com.mauja.maujaadventures.chargeurs.Ressources;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,16 +22,20 @@ public class GestionnaireDeTouchesFX extends GestionnaireDeTouches {
             throw new IllegalArgumentException("La scene passée en paramètre pour la récupération des touches ne "
                     + "peut pas être nulle.");
         }
-
         this.scene = scene;
-        dicoTouchesFX = new HashMap<>();
+        ChargeurDeTouchesFX chargeur = new ChargeurDeTouchesFX();
+        dicoTouchesFX = chargeur.recupereTouches(Ressources.getInstance().getFichierTouches());
     }
 
-    public void ajouteToucheFX(KeyCode toucheFX, Touche touche) {
+    public Map<KeyCode, Touche> getDicoTouchesFX() {
+        return Collections.unmodifiableMap(dicoTouchesFX);
+    }
+
+    public void ajouterToucheFX(KeyCode toucheFX, Touche touche) {
         dicoTouchesFX.put(toucheFX, touche);
     }
 
-    public void supprimeToucheFX(KeyCode toucheFX) {
+    public void supprimerToucheFX(KeyCode toucheFX) {
         dicoTouchesFX.remove(toucheFX);
     }
 
@@ -41,7 +48,7 @@ public class GestionnaireDeTouchesFX extends GestionnaireDeTouches {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (touche) -> {
             KeyCode codeTouche = touche.getCode();
             if (dicoTouchesFX.containsKey(codeTouche)){
-                if(!lesTouchesAppuyees.contains(dicoTouchesFX.get(codeTouche)) && (codeTouche != KeyCode.ESCAPE)) {
+                if(!lesTouchesAppuyees.contains(dicoTouchesFX.get(codeTouche))) {
                     lesTouchesAppuyees.add(dicoTouchesFX.get(codeTouche));
                 }
             }
@@ -49,16 +56,7 @@ public class GestionnaireDeTouchesFX extends GestionnaireDeTouches {
 
         scene.addEventHandler(KeyEvent.KEY_RELEASED, (touche) -> {
             KeyCode codeTouche = touche.getCode();
-            if(codeTouche == KeyCode.ESCAPE) {
-                if (lesTouchesAppuyees.contains(KeyCode.ESCAPE)) {
-                    lesTouchesAppuyees.remove(dicoTouchesFX.get(codeTouche));
-                } else {
-                    lesTouchesAppuyees.add(dicoTouchesFX.get(KeyCode.ESCAPE));
-                }
-                setEchap(!getEchap());
-            }
-            else
-                lesTouchesAppuyees.remove(dicoTouchesFX.get(codeTouche));
+            lesTouchesAppuyees.remove(dicoTouchesFX.get(codeTouche));
         });
     }
 }

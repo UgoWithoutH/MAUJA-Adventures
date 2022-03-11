@@ -3,7 +3,6 @@ package com.mauja.maujaadventures.jeu;
 import com.mauja.maujaadventures.chargeurs.*;
 import com.mauja.maujaadventures.comportements.ComportementChevalier;
 import com.mauja.maujaadventures.comportements.ComportementOctorockTireur;
-import com.mauja.maujaadventures.comportements.ComportementPoursuite;
 import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.entites.PersonnageJouable;

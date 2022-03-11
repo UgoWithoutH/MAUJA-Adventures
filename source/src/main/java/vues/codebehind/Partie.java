@@ -52,13 +52,6 @@ public class Partie {
         noeud.getChildren().add(canvas);
 
         GestionnaireDeTouchesFX gestionnaireDeTouches = new GestionnaireDeTouchesFX(scene);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.DOWN, Touche.FLECHE_BAS);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.UP, Touche.FLECHE_HAUT);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.LEFT, Touche.FLECHE_GAUCHE);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.RIGHT, Touche.FLECHE_DROITE);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.SPACE, Touche.ESPACE);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.B, Touche.B);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.ESCAPE, Touche.ECHAP);
         gestionnaireDeTouches.initialisation();
         jeu.setGestionnaireDeTouches(gestionnaireDeTouches);
         new FenetreDeJeu(gc, jeu);
