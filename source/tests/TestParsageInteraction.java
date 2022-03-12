@@ -16,7 +16,7 @@ public class TestParsageInteraction {
 
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
-            InputStream inputStream = new FileInputStream("ressources/interactionsTest.xml");
+            InputStream inputStream = new FileInputStream("ressources/scripts/testInteractions.xml");
             SAXParser parseur = factory.newSAXParser();
 
             InteractionHandler handler = new InteractionHandler();
