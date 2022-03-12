@@ -36,7 +36,7 @@ public class SolveurPersonnageJouableProjectile extends SolveurCollision{
                         (personnageJouable.getDirection().getVal() == (v = projectile.getDirection().getVal() - 1)))) {
             projectile.setDirection(Direction.valeurDe((byte) v));
         }
-        else if (personnageJouable.getEtatAction() == EtatAction.SE_PROTEGE) {
+        else {
             cartecourante.supprimerEntite(projectile);
             personnageJouable.setPointsDeVie(personnageJouable.getPointsDeVie() - projectile.getDegats());
         }

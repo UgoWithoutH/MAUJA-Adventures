@@ -55,6 +55,7 @@ public class Ressources {
 
     private void initialiser() {
         lesCartes.add(Objects.requireNonNull(new File("ressources/cartes/carteTest3.tmx").getAbsolutePath()));
+        lesCartes.add(Objects.requireNonNull(new File("ressources/cartes/carteTest4.tmx").getAbsolutePath()));
 
         try {
             lesImagesEntites.add(Objects.requireNonNull(new File("images/entites/link_epee.png").toURI().toURL().toExternalForm()));

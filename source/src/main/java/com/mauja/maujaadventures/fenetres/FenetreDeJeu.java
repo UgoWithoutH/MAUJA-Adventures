@@ -95,7 +95,7 @@ public class FenetreDeJeu implements Observateur {
 
     public void affichage() {
         if (jeu.isPause()) {
-            navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, jeu));
+            navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, jeu, this));
         }
 
         contexteGraphique.clearRect(0, 0, 1000, 1000);

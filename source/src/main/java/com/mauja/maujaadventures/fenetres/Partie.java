@@ -51,9 +51,9 @@ public class Partie {
             if (contentPause == null) {
                 try {
                     FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/MenuPause.fxml"));
-                    MenuPause pauseMenu = new MenuPause(navigateur, jeu);
-                    fxml.setController(pauseMenu);
-                    pauseMenu.setPane(partiePane);
+                    //MenuPause pauseMenu = new MenuPause(navigateur, jeu);
+                    //fxml.setController(pauseMenu);
+                    //pauseMenu.setPane(partiePane);
                     contentPause = fxml.load();
                     partiePane.getChildren().add(contentPause);
                     //jeu.getBoucle().setRunning(false);
@@ -86,9 +86,9 @@ public class Partie {
         noeud.getChildren().add(canvas);
         new FenetreDeJeu(navigateur, jeu);
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/MenuPause.fxml"));
-        MenuPause pauseMenu = new MenuPause(navigateur, jeu);
-        fxml.setController(pauseMenu);
-        pauseMenu.setPane(partiePane);
+        //MenuPause pauseMenu = new MenuPause(navigateur, jeu);
+        //fxml.setController(pauseMenu);
+        //pauseMenu.setPane(partiePane);
         try {
             contentPause = fxml.load();
             contentPause.setVisible(false);

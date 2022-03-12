@@ -27,7 +27,7 @@ public class MenuPause {
     @FXML
     private StackPane stackpane;
 
-    public MenuPause(Navigateur navigateur, Jeu jeu) throws IllegalArgumentException {
+    public MenuPause(Navigateur navigateur, Jeu jeu, FenetreDeJeu fenetreDeJeu) throws IllegalArgumentException {
         if (navigateur == null) {
             throw new IllegalArgumentException("Le navigateur passé en paramètre ne peut pas être null.");
         }

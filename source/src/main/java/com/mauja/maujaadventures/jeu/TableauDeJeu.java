@@ -2,6 +2,7 @@ package com.mauja.maujaadventures.jeu;
 
 import com.mauja.maujaadventures.chargeurs.*;
 import com.mauja.maujaadventures.comportements.ComportementChevalier;
+import com.mauja.maujaadventures.comportements.ComportementPoursuite;
 import com.mauja.maujaadventures.comportements.ComportementTireur;
 import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.entites.Entite;
@@ -49,6 +50,26 @@ public class TableauDeJeu {
         return Collections.unmodifiableMap(transitionsEntreCartes);
     }
 
+    public boolean changeCarte(Carte carte) {
+        if (lesCartes.contains(carte)) {
+            carteCourante = carte;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean changeCarte(String nomCarte) {
+        for (Carte carte : lesCartes) {
+            if (carte.getNom().equals(nomCarte)) {
+                System.out.println("Je change la carte.");
+                carteCourante = carte;
+                System.out.println(carteCourante.getNom());
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void initialiser() {
         ChargeurDeCarteTiled chargeurDeCartes = new ChargeurDeCarteTiledReader();
         ChargeurDeTransitionsCarte chargeurDeTransitions = new ChargeurDeTransitionsCartesTextuel();
@@ -79,11 +100,11 @@ public class TableauDeJeu {
 
         Entite entite = new Ennemi(new Position(300, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementTireur(carteCourante), 10);
+                new ComportementPoursuite(carteCourante, joueur), 10);
 
         Entite entite2 = new Ennemi(new Position(400, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementChevalier(carteCourante, joueur), 10);
+                new ComportementPoursuite(carteCourante, joueur), 10);
 
         carteCourante.ajouterElementInteractif(entite);
         carteCourante.ajouterElementInteractif(entite2);

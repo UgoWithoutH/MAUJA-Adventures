@@ -1,7 +1,6 @@
 package com.mauja.maujaadventures.interactions.evenements;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
-import com.mauja.maujaadventures.collisionneurs.CollisionneurCarte;
 import com.mauja.maujaadventures.collisionneurs.SolveurCollision.SolveurCollision;
 import com.mauja.maujaadventures.deplaceurs.DeplaceurEntite;
 import com.mauja.maujaadventures.entites.Direction;
@@ -53,12 +52,14 @@ public class EvenementDeplacement extends Evenement {
             }
         }
 
-        //Pour l'élément à lui SEUL.
+        // Si l'élément se trouve sur la bonne carte et sur un point de transition, on change la carte et on le déplace.
         Map<TransitionCarte, TransitionCarte> transitionsCarte = tableauDeJeu.getTransitionsEntreCartes();
-        for (TransitionCarte transition : transitionsCarte.keySet()) {
-            if (collisionneur.collisionne(collisionElement1, transition.getCollision())) {
-                System.out.println("je transitionne !");
-                elementInteractif.setPosition(transition.getCollision().getPosition());
+        for (Map.Entry<TransitionCarte, TransitionCarte> transitions : transitionsCarte.entrySet()) {
+            if (tableauDeJeu.getCarteCourante().getNom().equals(transitions.getKey().getNomCarte())
+                    && collisionneur.collisionne(collisionElement1, transitions.getKey().getCollision())) {
+                System.out.println("je transitionne : " + transitions.getKey().toString());
+                elementInteractif.setPosition(transitions.getValue().getCollision().getPosition());
+                tableauDeJeu.changeCarte(transitions.getValue().getNomCarte());
             }
         }
     }
