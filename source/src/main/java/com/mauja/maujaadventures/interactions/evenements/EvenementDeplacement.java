@@ -50,6 +50,7 @@ public class EvenementDeplacement extends Evenement {
 
             if (collisionneur.collisionne(collisionElement1, collisionElement2)) {
                 solveurCollision.resoud(elementInteractif, elementInter);
+                elementInteractif.restorerMemento();
             }
         }
 

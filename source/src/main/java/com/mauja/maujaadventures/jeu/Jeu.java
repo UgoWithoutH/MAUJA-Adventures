@@ -151,6 +151,7 @@ public class Jeu extends Observable implements Observateur {
                 tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
             }
             tempsAttaque = 0;
+            new EvenementAttaque(tableauDeJeu.getCarteCourante(), tableauDeJeu.getJoueur());
         }
         else {
             tempsAttaque++;
