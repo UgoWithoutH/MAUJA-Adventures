@@ -1,11 +1,13 @@
 package com.mauja.maujaadventures.logique;
 
+import com.mauja.maujaadventures.annotations.ConstructeurXml;
 import com.mauja.maujaadventures.annotations.Param;
 
 public class Rectangle {
     private Dimension dimension;
     private Position position;
 
+    @ConstructeurXml
     public Rectangle(@Param(nom = "x") double positionX, @Param(nom = "y") double positionY,
                      @Param(nom = "largeur") double largeur, @Param(nom = "hauteur") double hauteur)
             throws IllegalArgumentException {

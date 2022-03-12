@@ -10,7 +10,7 @@ public class Levier extends ElementInteractif{
     private static double HAUTEUR_DEFAUT;
     private boolean active;
 
-    @ConstructeurXml
+
     public Levier(@Param(nom = "x") Double x,
                   @Param(nom = "y")Double y,
                   @Param(nom = "active", classe = Boolean.class) boolean active) {
@@ -18,8 +18,9 @@ public class Levier extends ElementInteractif{
         this.active = active;
     }
 
-    public Levier(@Param(nom = "position", classe = Position.class) Position position,
-                  @Param(nom = "collision", classe = Rectangle.class) Rectangle collision,
+    @ConstructeurXml
+    public Levier(@Param(nom = "position", classe = Position.class, estPrimitif = false) Position position,
+                  @Param(nom = "collision", classe = Rectangle.class, estPrimitif = false) Rectangle collision,
                   @Param(nom = "active", classe = Boolean.class) boolean active) {
         super(position, collision);
         this.active = active;
