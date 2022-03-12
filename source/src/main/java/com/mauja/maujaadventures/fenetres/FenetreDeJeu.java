@@ -6,6 +6,7 @@ import com.mauja.maujaadventures.affichages.TuileGraphique;
 import com.mauja.maujaadventures.chargeurs.ChargeurCartesGraphiques;
 import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.entites.*;
+import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.Levier;
@@ -17,11 +18,15 @@ import com.mauja.maujaadventures.monde.Carte;
 import com.mauja.maujaadventures.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.monde.Tuile;
 import com.mauja.maujaadventures.utilitaires.DecoupeurImage;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import vues.navigation.Fenetre;
+import vues.navigation.Navigateur;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -31,15 +36,19 @@ import java.util.List;
 import java.util.Map;
 
 public class FenetreDeJeu implements Observateur {
+    private Navigateur navigateur;
     private Jeu jeu;
     private TableauDeJeu tableauDeJeu;
     private Camera camera;
+
     private PersonnageJouable joueur;
     private Carte carteCourante;
 
     private List<Carte2DGraphique> lesCartesGraphiques;
     private List<TuileGraphique> lesTuilesGraphiquesCourantes;
 
+    private Scene scene;
+    private StackPane lesCouches;
     private Canvas canvas;
     private GraphicsContext contexteGraphique;
 
@@ -49,13 +58,22 @@ public class FenetreDeJeu implements Observateur {
     private Image imageLevierPasActif;
     private Image imageLevierActif;
 
-    public FenetreDeJeu(GraphicsContext contexteGraphique, Jeu jeu) {
+    public FenetreDeJeu(Navigateur navigateur, Jeu jeu) throws IllegalArgumentException {
         if (jeu == null) {
             throw new IllegalArgumentException("Le jeu passé en paramètre ne peut pas être null.");
         }
+        if (navigateur == null) {
+            throw new IllegalArgumentException("Le navigateur passé en paramètre ne peut pas être null.");
+        }
         this.jeu = jeu;
-        //this.canvas = new Canvas(964, 608);
-        this.contexteGraphique = contexteGraphique;
+        this.navigateur = navigateur;
+        this.canvas = new Canvas(964, 608);
+        this.contexteGraphique = canvas.getGraphicsContext2D();
+
+        lesCouches = new StackPane();
+        lesCouches.getChildren().add(canvas);
+        scene = new Scene(lesCouches);
+
         tableauDeJeu = jeu.getTableauDeJeu();
         joueur = tableauDeJeu.getJoueur();
         carteCourante = tableauDeJeu.getCarteCourante();
@@ -67,11 +85,19 @@ public class FenetreDeJeu implements Observateur {
         ajoutElementParsage(GestionnaireInteractions.getInstance().getElementAAjouter());
     }
 
+    public Scene getScene() {
+        return scene;
+    }
+
     public void ajoutElementParsage(List<ElementInteractif> list){
         carteCourante.ajouterElementsInteractifs(list);
     }
 
     public void affichage() {
+        if (jeu.isPause()) {
+            navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, jeu));
+        }
+
         contexteGraphique.clearRect(0, 0, 1000, 1000);
         for (int k = 0; k < carteCourante.getLaCarte().length; k++) {
             for (int y = 0; y < carteCourante.getDimensionCarte().getHauteur(); y++) {
@@ -98,10 +124,11 @@ public class FenetreDeJeu implements Observateur {
             }
 
             if (elementInteractif instanceof Levier levier) {
-                if(levier.isActive()) {
+                if (levier.isActive()) {
                     contexteGraphique.drawImage(imageLevierActif, levier.getPosition().getX() - camera.getPositionCameraX(),
                             levier.getPosition().getY() - camera.getPositionCameraY());
-                }else{
+                }
+                else{
                     contexteGraphique.drawImage(imageLevierPasActif, levier.getPosition().getX() - camera.getPositionCameraX(),
                             levier.getPosition().getY() - camera.getPositionCameraY());
                 }
@@ -124,7 +151,10 @@ public class FenetreDeJeu implements Observateur {
     }
 
     private void initialiser() {
+        ((GestionnaireDeTouchesFX) jeu.getGestionnaireDeTouches()).setScene(scene);
         jeu.attacher(this);
+        jeu.lancerJeu();
+
         ChargeurCartesGraphiques chargeurCartesGraphiques = new ChargeurCartesGraphiques();
         lesCartesGraphiques = chargeurCartesGraphiques.charge(tableauDeJeu.getLesCartes());
         lesTuilesGraphiquesCourantes = lesCartesGraphiques.get(0).getLesTuilesGraphiques();
@@ -141,10 +171,11 @@ public class FenetreDeJeu implements Observateur {
         catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        affichage();
     }
 
     @Override
-    public void miseAJour(int timer) {
+    public void miseAJour(long timer) {
         affichage();
     }
 }

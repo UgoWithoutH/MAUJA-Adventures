@@ -8,27 +8,35 @@ import com.mauja.maujaadventures.monde.Camera;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class GestionnaireInteractions {
+public class GestionnaireInteractions implements Runnable {
     private static GestionnaireInteractions gestionnaireInteractions;
-    private Queue<Evenement> fileCourante;
-    private Queue<Evenement> fileSauvegarde;
+    private ConcurrentLinkedQueue<Evenement> fileCourante;
     private ParseurInteraction parseurInteraction;
     private Thread thread;
     private boolean enCours;
     private TableauDeJeu tableauDeJeu;
 
-    public GestionnaireInteractions(TableauDeJeu tableauDeJeu) throws IllegalArgumentException {
+    public GestionnaireInteractions(TableauDeJeu tableauDeJeu) throws IllegalArgumentException, IllegalStateException {
+        if (gestionnaireInteractions != null) {
+            throw new IllegalStateException("Il ne peut y avoir qu'un seul gestionnaire d'interactions, "
+                    + "et il a déjà été initialisé.");
+        }
         if (tableauDeJeu == null) {
             throw new IllegalArgumentException("Le tableau de jeu ne peut pas être null.");
         }
         this.tableauDeJeu = tableauDeJeu;
         gestionnaireInteractions = this;
-        fileCourante = new LinkedList<>();
-        fileSauvegarde = new LinkedList<>();
+
+        fileCourante = new ConcurrentLinkedQueue<>();
         parseurInteraction = new ParseurInteraction();
+
         enCours = false;
         initialisation();
+
+        thread = new Thread(this, "Mauja Adventures Interaction Handler");
+        thread.start();
     }
 
     public static GestionnaireInteractions getInstance() {
@@ -43,47 +51,28 @@ public class GestionnaireInteractions {
     }
 
     public void ajouter(Evenement evenement) {
-        if (!enCours) {
+        if (evenement != null) {
             fileCourante.add(evenement);
-            if (thread != null) {
-                synchronized (this) {
-                    notify();
-                }
+            synchronized (this) {
+                notify();
             }
-            else {
-                thread = new Thread(this::traitement, "Thread Traitement évènement");
-                thread.start();
-            }
-        }
-        else{
-            fileSauvegarde.add(evenement);
         }
     }
 
-    private void traitement() {
+    @Override
+    public void run() {
         enCours = true;
         while (enCours) {
-            if (fileCourante.size() != 0){
+            if (!fileCourante.isEmpty()) {
                 Evenement evenement = fileCourante.poll();
-                if(evenement != null) {
-                    evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu);
-                }
+                evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu);
             }
-            else{
-                if (fileSauvegarde.size() != 0){
-                    System.out.println("file courante : " + fileCourante.size());
-                    System.out.println("file sauvegarde : " + fileSauvegarde.size());
-                    fileCourante = new LinkedList<>(fileSauvegarde);
-                    fileSauvegarde = new LinkedList<>();
-                }
-                else {
-                    enCours = false;
-                    synchronized (this) {
-                        try {
-                            wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+            else {
+                synchronized (this) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             }

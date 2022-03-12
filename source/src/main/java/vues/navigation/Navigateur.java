@@ -1,7 +1,9 @@
 package vues.navigation;
 
+import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.utilitaires.RecuperateurRessources;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -11,84 +13,83 @@ import java.net.URL;
 import java.util.*;
 
 public class Navigateur {
-
-    public static final String menuPause = "MenuPause.fxml";
-    public static final String menuPrincipal = "MenuPrincipal.fxml";
-    public static final String parametres = "Parametres.fxml";
-    public static final String partie = "Partie.fxml";
-    private Stage myStage;
-    private Map<String, Map<URL, List<Object>>> catalogueScenes = new HashMap<>();
-    private RecuperateurRessources recuperateurRessources = new RecuperateurRessources();
-    private Scene sceneCourante;
+    private Map<Fenetre, URL> vues;
     private Stack<Scene> laPileDeScenes;
+    private Scene sceneCourante;
+    private Stage stage;
 
-    public Navigateur(Stage myStage) throws IllegalArgumentException {
-        if (myStage == null) throw new IllegalArgumentException("Le stage est null");
-        this.myStage = myStage;
+    public Navigateur(Stage stage) throws IllegalArgumentException {
+        if (stage == null) {
+            throw new IllegalArgumentException("Le stage donné en paramètre ne peut pas être null.");
+        }
+        this.stage = stage;
+        Ressources ressources = Ressources.getInstance();
+        vues = ressources.getLesVues();
         laPileDeScenes = new Stack<>();
-
-        var list = recuperateurRessources.getRessourcesString();
-        for (Map.Entry<String, URL> element : list.entrySet()) {
-            Map<URL, List<Object>> map = new HashMap<>();
-            map.put(element.getValue(), null);
-            catalogueScenes.put(element.getKey(), map);
-        }
     }
 
-    public Stage getMyStage() {
-        return myStage;
+    public Stage getStage() {
+        return stage;
     }
 
-    public Scene getSceneCourante(){return sceneCourante;}
-
-    public Object naviguerVers(String nom, Object controlleur) {
-        if (!catalogueScenes.containsKey(nom)) throw new IllegalArgumentException("Ce nom de fichier n'existe pas");
-
-        else {
-            var map = catalogueScenes.get(nom);
-            var entry = map.entrySet();
-            for (var element : entry) {
-                if (element.getValue() == null) {
-                    FXMLLoader fxmlLoader = new FXMLLoader(element.getKey());
-                    if (controlleur != null) {
-                        try {
-                            fxmlLoader.setController(controlleur);
-                            Scene scene = new Scene(fxmlLoader.load());
-                            empilerScene(scene);
-                            myStage.setScene(scene);
-                            var mapUrl = new HashMap<URL, List<Object>>();
-                            var list = new ArrayList<>();
-                            list.add(scene);
-                            list.add(controlleur);
-                            mapUrl.put(element.getKey(), list);
-                            catalogueScenes.put(nom, mapUrl);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } else {
-                    empilerScene((Scene) element.getValue().get(0));
-                    return element.getValue().get(1);
-                }
-            }
+    public void naviguerVers(Fenetre fenetre, Object controleur) {
+        Scene scene = null;
+        FXMLLoader chargeur = new FXMLLoader();
+        if (!vues.containsKey(fenetre)) {
+            throw new IllegalArgumentException("La fenetre spécifiée ne possède pas de fichier FXML");
         }
-        return controlleur;
+
+        chargeur.setController(controleur);
+        chargeur.setLocation(vues.get(fenetre));
+
+        try {
+            Parent racine = chargeur.load();
+            scene = new Scene(racine);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        naviguerVers(scene);
+    }
+
+
+    public void naviguerVers(Fenetre fenetre) throws IllegalArgumentException {
+        Scene scene = null;
+        if (!vues.containsKey(fenetre)) {
+            throw new IllegalArgumentException("La fenetre spécifiée ne possède pas de fichier FXML");
+        }
+
+        try {
+            Parent racine = FXMLLoader.load(vues.get(fenetre));
+            scene = new Scene(racine);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        naviguerVers(scene);
+    }
+
+    public void naviguerVers(Scene scene) {
+        if (scene != null) {
+            laPileDeScenes.add(scene);
+            miseAJourScene();
+        }
     }
 
     public void faireDemiTour() {
         if (laPileDeScenes.size() != 0) {
             laPileDeScenes.pop();
-            miseAJourStage(laPileDeScenes.peek());
+            miseAJourScene();
         }
     }
 
-    public void empilerScene(Scene scene){
-        laPileDeScenes.add(scene);
-        miseAJourStage(scene);
+    public Scene getSceneCourante() {
+        return sceneCourante;
     }
 
-    public void miseAJourStage(Scene scene){
-        sceneCourante = scene;
-        myStage.setScene(sceneCourante);
+    private void miseAJourScene() {
+        sceneCourante = laPileDeScenes.peek();
+        stage.setScene(sceneCourante);
     }
 }

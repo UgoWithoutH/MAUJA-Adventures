@@ -11,7 +11,10 @@ public abstract class Evenement {
     protected ElementInteractif elementInteractif;
     protected ElementInteractif sauvegardeElementInteractif;
 
-    public Evenement(ElementInteractif elementInteractif) {
+    public Evenement(ElementInteractif elementInteractif) throws IllegalArgumentException {
+        if (elementInteractif == null) {
+            throw new IllegalArgumentException("L'élément interactif passé en paramètre ne peut pas être null.");
+        }
         this.elementInteractif = elementInteractif;
         this.sauvegardeElementInteractif = elementInteractif.clone();
     }

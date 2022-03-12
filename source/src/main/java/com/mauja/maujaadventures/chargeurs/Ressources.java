@@ -1,11 +1,11 @@
 package com.mauja.maujaadventures.chargeurs;
 
+import vues.navigation.Fenetre;
+
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.net.URL;
+import java.util.*;
 
 public class Ressources {
     private static Ressources ressources;
@@ -13,6 +13,7 @@ public class Ressources {
     private List<String> lesCartes;
     private List<String> lesImagesEntites;
     private List<String> lesScripts;
+    private Map<Fenetre, URL> lesVues;
 
     private String fichierTransitions;
     private String fichierTouches;
@@ -21,7 +22,12 @@ public class Ressources {
         lesCartes = new ArrayList<>();
         lesImagesEntites = new ArrayList<>();
         lesScripts = new ArrayList<>();
+        lesVues = new HashMap<>();
         initialiser();
+    }
+
+    public Map<Fenetre, URL> getLesVues() {
+        return Collections.unmodifiableMap(lesVues);
     }
 
     public String getFichierTouches() {
@@ -55,6 +61,12 @@ public class Ressources {
             lesImagesEntites.add(Objects.requireNonNull(new File("images/entites/projectile.png").toURI().toURL().toString()));
 
             lesScripts.add(Objects.requireNonNull(new File("ressources/scripts/testInteractions.xml").toString()));
+
+            lesVues.put(Fenetre.MENU_PRINCIPAL, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPrincipal.fxml")));
+            lesVues.put(Fenetre.PARAMETRES, Objects.requireNonNull(Ressources.class.getResource("/fxml/Parametres.fxml")));
+            lesVues.put(Fenetre.JEU, Objects.requireNonNull(Ressources.class.getResource("/fxml/Partie.fxml")));
+            lesVues.put(Fenetre.MENU_PAUSE, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPause.fxml")));
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

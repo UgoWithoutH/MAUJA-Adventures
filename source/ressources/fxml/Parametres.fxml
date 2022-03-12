@@ -16,7 +16,7 @@
     <columnConstraints>
         <ColumnConstraints percentWidth="100" halignment="CENTER"/>
     </columnConstraints>
-        <HBox alignment="TOP_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <HBox GridPane.columnIndex="0" GridPane.rowIndex="0">
             <padding><Insets top="5" left="5" bottom="5" right="5"/></padding>
             <Button text="Retour" onAction="#retour"/>
         </HBox>

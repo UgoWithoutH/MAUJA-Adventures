@@ -23,9 +23,9 @@ public class TableauDeJeu {
     private Options options;
     private Map<TransitionCarte, TransitionCarte> transitionsEntreCartes;
 
-    public TableauDeJeu(Options options) {
+    public TableauDeJeu() {
         lesCartes = new ArrayList<>();
-        this.options = options;
+        this.options = new Options();
         initialiser();
     }
 

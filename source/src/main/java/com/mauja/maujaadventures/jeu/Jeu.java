@@ -1,7 +1,6 @@
 package com.mauja.maujaadventures.jeu;
 
 
-import com.mauja.maujaadventures.collisionneurs.SolveurCollision.SolveurCollision;
 import com.mauja.maujaadventures.comportements.Comportement;
 import com.mauja.maujaadventures.entites.*;
 
@@ -16,7 +15,6 @@ import com.mauja.maujaadventures.deplaceurs.DeplaceurEntite;
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.monde.*;
 
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Jeu extends Observable implements Observateur {
@@ -29,40 +27,30 @@ public class Jeu extends Observable implements Observateur {
     private GestionnaireInteractions gestionnaireInteractions;
 
     private Camera camera;
-    private int tempsAttaque = 0;
-    private Boucle boucle;
-    private int v;
-    private final double decalageX = 28.2;
-    private final double decalageY = 24;
-    private boolean paramOuvert = false;
+    private BoucleDeJeu boucle;
+    private Thread threadBoucleDeJeu;
     private List<Touche> lesTouchesAppuyees;
-    private SolveurCollision solveurCollision;
 
-    /**
-     * Constructeur de Jeu
-     * @throws FileNotFoundException Exception déclencher si le fichier n'est pas trouvé
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public Jeu(Options options) throws FileNotFoundException, FileNotFoundException {
+    private boolean pause;
+    private int tempsAttaque = 0;
+
+    public Jeu(GestionnaireDeTouches gestionnaireDeTouches) throws IllegalArgumentException {
+        if (gestionnaireDeTouches == null) {
+            throw new IllegalArgumentException("Le gestionnaire de touches passé en paramètre ne peut pas être null.");
+        }
+        this.gestionnaireDeTouches = gestionnaireDeTouches;
+        tableauDeJeu = new TableauDeJeu();
+        boucle = new BoucleDeJeu();
+        boucle.attacher(this);
+
         collisionneur = new CollisionneurAABB();
-        tableauDeJeu = new TableauDeJeu(options);
         gestionnaireInteractions = new GestionnaireInteractions(tableauDeJeu);
 
         camera = new Camera( 0, 0);
         lesTouchesAppuyees = new ArrayList<>();
 
-        boucle = new Boucle();
-        boucle.attacher(this);
-
-        solveurCollision = new SolveurCollision(tableauDeJeu.getCarteCourante());
+        pause = true;
         initialiser();
-    }
-
-    public void setGestionnaireDeTouches(GestionnaireDeTouches gestionnaireDeTouches){
-        if (gestionnaireDeTouches == null) {
-            throw new IllegalArgumentException("Le gestionnaire de touches passé en paramètre ne peut pas être null.");
-        }
-        this.gestionnaireDeTouches = gestionnaireDeTouches;
     }
 
     public static Dimension getDimensionCameraParDefaut() {
@@ -73,13 +61,6 @@ public class Jeu extends Observable implements Observateur {
         return tableauDeJeu;
     }
 
-    public void setParamOuvert(boolean value) {
-        paramOuvert = value;
-    }
-    public boolean isParamOuvert() {
-        return paramOuvert;
-    }
-
     public Camera getCamera() {
         return camera;
     }
@@ -88,24 +69,38 @@ public class Jeu extends Observable implements Observateur {
         return gestionnaireDeTouches;
     }
 
-    public Boucle getBoucle() {
-        return boucle;
+    public boolean isPause() {
+        return pause;
     }
 
-    public void start() {
-        boucle.setRunning(true);
-        Thread boucleThread = new Thread(boucle);
-        boucleThread.start();
+    public void setPause(boolean pause) {
+        this.pause = pause;
     }
 
-    public void stop(){
-        boucle.setRunning(false);
+    public void lancerJeu() throws IllegalStateException {
+        if (threadBoucleDeJeu != null && threadBoucleDeJeu.isAlive()) {
+            throw new IllegalStateException("Le thread du jeu est déjà lancé et doit d'abord être interrompu.");
+        }
+        pause = false;
+        threadBoucleDeJeu = new Thread(boucle, "Mauja Adventures Thread");
+        threadBoucleDeJeu.start();
+    }
+
+    public void arreterJeu() {
+        boucle.setActif(false);
+        try {
+            threadBoucleDeJeu.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void miseAJour(int timer) {
+    public void miseAJour(long timer) {
+        if (pause) {
+            return;
+        }
         lesTouchesAppuyees = gestionnaireDeTouches.detecte();
-
         if (lesTouchesAppuyees.contains(Touche.B) /*&& tempsAttaque > joueur.getAttaque().getDuree()*/) {
             System.out.println("Je me protège");
         }
@@ -116,7 +111,8 @@ public class Jeu extends Observable implements Observateur {
         if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
             //System.out.println("J'attaque");
             tableauDeJeu.getJoueur().setEtatAction(EtatAction.ATTAQUE);
-            GestionnaireInteractions.getInstance().ajouter(new EvenementAttaque(tableauDeJeu, tableauDeJeu.getJoueur()));
+            GestionnaireInteractions.getInstance().ajouter(
+                    new EvenementAttaque(tableauDeJeu.getCarteCourante(), tableauDeJeu.getJoueur()));
             Rectangle collisionAttaque;
             if (tableauDeJeu.getJoueur().getDirection() == Direction.DROITE) {
                 collisionAttaque = new Rectangle(tableauDeJeu.getJoueur().getPosition().getX() + tableauDeJeu.getJoueur().getCollision().getPosition().getX()
@@ -163,51 +159,28 @@ public class Jeu extends Observable implements Observateur {
             }
         }
 
+        //System.out.println(lesTouchesAppuyees);
+
         if (tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SANS_ACTION) {
             if (lesTouchesAppuyees.contains(Touche.FLECHE_DROITE)) {
-                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.DROITE, true);
-
-                if (estDeplace && tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * decalageX - (tableauDeJeu.getJoueur().getPosition().getX()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) {
-                    if (((camera.getPositionCameraX() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * decalageX)) &&
-                            (tableauDeJeu.getJoueur().getPosition().getX() >= DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
-                        //camera.deplacementCamera(tableauDeJeu.getJoueur().getVelocite().getX(), 0);
-                    }
-                }
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.DROITE));
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_GAUCHE)) {
-                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.GAUCHE, true);
-                if (estDeplace && 0 + tableauDeJeu.getJoueur().getPosition().getY() > tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) {
-                    if (!(camera.getPositionCameraX() <= 0) &&
-                            (tableauDeJeu.getJoueur().getPosition().getX() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * 32 -
-                                    DIMENSION_CAMERA_PAR_DEFAUT.getLargeur() / 2)) {
-                        //camera.deplacementCamera(-tableauDeJeu.getJoueur().getVelocite().getX(), 0);
-                    }
-                }
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.GAUCHE));
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_HAUT)) {
-                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.HAUT, true);
-                if (estDeplace && !(camera.getPositionCameraY() <= 0) &&
-                        (tableauDeJeu.getJoueur().getPosition().getY() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() * decalageY +
-                                DIMENSION_CAMERA_PAR_DEFAUT.getHauteur() / 2)) {
-                    //camera.deplacementCamera(0, -tableauDeJeu.getJoueur().getVelocite().getY());
-                }
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.HAUT));
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_BAS)) {
-                boolean estDeplace = deplaceur.deplace(tableauDeJeu.getJoueur(), 0, Direction.BAS, true);
-
-                if (estDeplace && (tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur() * tableauDeJeu.getCarteCourante().getDimensionCarte().getLargeur()) - (tableauDeJeu.getJoueur().getPosition().getY()) > tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() &&
-                        (camera.getPositionCameraY() <= tableauDeJeu.getCarteCourante().getDimensionCarte().getHauteur() * decalageY &&
-                                (tableauDeJeu.getJoueur().getPosition().getY() >= DIMENSION_CAMERA_PAR_DEFAUT.getHauteur() / 2))) {
-                    //camera.deplacementCamera(0, tableauDeJeu.getJoueur().getVelocite().getY());
-                }
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.BAS));
             }
         }
 
         // Detection attaque joueur et ennemis
-        for (ElementInteractif elementInteractif : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()) {
+        /*for (ElementInteractif elementInteractif : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()) {
             Rectangle collisionEntite = new Rectangle(elementInteractif.getCollision().getPosition().getX() + elementInteractif.getPosition().getX(),
                     elementInteractif.getCollision().getPosition().getY() + elementInteractif.getPosition().getY(),
                     elementInteractif.getCollision().getDimension());
@@ -231,7 +204,7 @@ public class Jeu extends Observable implements Observateur {
                     solveurCollision.resoud(tableauDeJeu.getJoueur() , projectile);
                 }
             }
-        }
+        }*/
 
         // MAJ ennemis
         for (ElementInteractif elementInteractif : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()) {
@@ -248,12 +221,7 @@ public class Jeu extends Observable implements Observateur {
         notifier(timer);
     }
 
-    /**
-     * Fonction d'initialisation du jeu
-     * @throws FileNotFoundException Exception si le fichier de l'image n'est pas trouvé
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void initialiser() throws FileNotFoundException {
+    private void initialiser() {
         deplaceur = new DeplaceurEntite(tableauDeJeu.getCarteCourante());
     }
 }

@@ -18,17 +18,20 @@ public class GestionnaireDeTouchesFX extends GestionnaireDeTouches {
     private Map<KeyCode, Touche> dicoTouchesFX;
 
     public GestionnaireDeTouchesFX(Scene scene) throws IllegalArgumentException {
-        if (scene == null) {
-            throw new IllegalArgumentException("La scene passée en paramètre pour la récupération des touches ne "
-                    + "peut pas être nulle.");
-        }
-        this.scene = scene;
+        setScene(scene);
         ChargeurDeTouchesFX chargeur = new ChargeurDeTouchesFX();
         dicoTouchesFX = chargeur.recupereTouches(Ressources.getInstance().getFichierTouches());
     }
 
     public Map<KeyCode, Touche> getDicoTouchesFX() {
         return Collections.unmodifiableMap(dicoTouchesFX);
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+        if (scene != null) {
+            initialisation();
+        }
     }
 
     public void ajouterToucheFX(KeyCode toucheFX, Touche touche) {

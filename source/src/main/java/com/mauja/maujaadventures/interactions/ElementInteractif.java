@@ -2,6 +2,7 @@ package com.mauja.maujaadventures.interactions;
 
 import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
+import com.mauja.maujaadventures.logique.MementoPosition;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Carte;
@@ -14,6 +15,7 @@ import java.util.Objects;
 public abstract class ElementInteractif extends Balise implements Cloneable{
     private Position position;
     private Rectangle collision;
+    private MementoPosition dernierePosition;
     private Map<Condition, List<Action>> mapConditionAction;
 
     private Condition derCondition;
@@ -28,6 +30,19 @@ public abstract class ElementInteractif extends Balise implements Cloneable{
         verificationParametre(position, "position");
         this.position = position;
         this.collision = collision;
+    }
+
+    public void installerMemento(MementoPosition mementoPosition) {
+        dernierePosition = new MementoPosition(position);
+        this.position = mementoPosition.getPosition();
+    }
+
+    public MementoPosition creerMemento() {
+        return new MementoPosition(position);
+    }
+
+    public void restorerMemento() {
+        position = dernierePosition.getPosition();
     }
 
     public Position getPosition() {
@@ -100,9 +115,9 @@ public abstract class ElementInteractif extends Balise implements Cloneable{
 
     @Override
     public String toString() {
-        return "[" + this.getClass() + "] : " + position.toString()
+        return "[" + this.getClass() + "] : " + position
                 + "\nCollision : " + collision.toString()
-                + "Conditions : " + mapConditionAction.toString()
+                + "Conditions : " + mapConditionAction
                 + "Dernière condition : " + derCondition;
     }
 

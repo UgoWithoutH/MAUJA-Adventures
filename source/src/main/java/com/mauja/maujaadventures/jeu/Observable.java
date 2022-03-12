@@ -13,7 +13,7 @@ public class Observable {
         lesObservateurs.remove(listener);
     }
 
-    public void notifier(int timer){
+    public void notifier(long timer){
         for (Observateur observateur : lesObservateurs){
             observateur.miseAJour(timer);
         }

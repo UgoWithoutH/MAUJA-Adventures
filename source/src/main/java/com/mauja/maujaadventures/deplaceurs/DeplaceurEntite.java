@@ -5,6 +5,7 @@ import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.entites.Projectile;
 import com.mauja.maujaadventures.jeu.Observable;
+import com.mauja.maujaadventures.logique.MementoPosition;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Carte;
@@ -30,49 +31,44 @@ public class DeplaceurEntite extends Observable {
         Rectangle collisionEntite;
         notifier(0);
 
-        if (direction == Direction.DROITE) {
-            positionEntite = new Position(entite.getPosition().getX() + entite.getVelocite().getX(),
-                    entite.getPosition().getY());
-        }
-        else if (direction == Direction.GAUCHE) {
-            positionEntite = new Position(entite.getPosition().getX() - entite.getVelocite().getX(),
-                    entite.getPosition().getY());
-        }
-        else if (direction == Direction.BAS) {
-            positionEntite = new Position(entite.getPosition().getX(),
-                    entite.getPosition().getY() + entite.getVelocite().getY());
-        }
-        else if (direction == Direction.HAUT) {
-            positionEntite = new Position(entite.getPosition().getX(),
-                    entite.getPosition().getY() - entite.getVelocite().getY());
-        }
-        else {
-            return false;
+        switch(direction) {
+            case DROITE:
+                positionEntite = new Position(entite.getPosition().getX() + entite.getVelocite().getX(),
+                        entite.getPosition().getY());
+                break;
+            case GAUCHE:
+                positionEntite = new Position(entite.getPosition().getX() - entite.getVelocite().getX(),
+                        entite.getPosition().getY());
+                break;
+            case BAS:
+                positionEntite = new Position(entite.getPosition().getX(),
+                        entite.getPosition().getY() + entite.getVelocite().getY());
+                break;
+            case HAUT:
+                positionEntite = new Position(entite.getPosition().getX(),
+                        entite.getPosition().getY() - entite.getVelocite().getY());
+                break;
+            default:
+                return false;
         }
 
         if (gestionCollisions) {
             collisionEntite = new Rectangle(
                     new Position(entite.getCollision().getPosition().getX() + positionEntite.getX(),
-                            positionEntite.getY() + entite.getCollision().getPosition().getY()),
+                            entite.getCollision().getPosition().getY() + positionEntite.getY()),
                     entite.getCollision().getDimension());
 
             if (!collisionneurCarte.collisionne(collisionEntite, carteCourante)) {
-                entite.setPosition(positionEntite);
+                entite.installerMemento(new MementoPosition(positionEntite));
                 entite.setDirection(direction);
                 return true;
             }
-            else {
-                if (entite instanceof Projectile projectile) {
-                    carteCourante.supprimerEntite(projectile);
-                }
-            }
         }
         else {
-            entite.setPosition(positionEntite);
+            entite.installerMemento(new MementoPosition(positionEntite));
             entite.setDirection(direction);
             return true;
         }
-
         return false;
     }
 }
