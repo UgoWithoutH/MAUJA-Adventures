@@ -3,14 +3,14 @@ package com.mauja.maujaadventures.collisionneurs.SolveurCollision;
 import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
-public class SolveurPersonnageJouableProjectile extends SolveurCollision{
+public class SolveurPersonnageJouableDestructible extends SolveurCollision{
 
     /**
      * Constructeur de la classe SolveurPersonnageJouableProjectile
      * @param carte Carte actuelle sur laquelle se déroule le projet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public SolveurPersonnageJouableProjectile(Carte carte) {
+    public SolveurPersonnageJouableDestructible(Carte carte) {
         super(carte);
     }
 
@@ -25,20 +25,16 @@ public class SolveurPersonnageJouableProjectile extends SolveurCollision{
     @Override
     public void resoud(ElementInteractif e1, ElementInteractif e2) {
         PersonnageJouable personnageJouable = (PersonnageJouable) e1;
-        Projectile projectile = (Projectile) e2;
+        Destructible destructible = (Destructible) e2;
         int v;
         if (personnageJouable.getEtatAction() != EtatAction.SE_PROTEGE) {
-            personnageJouable.setPointsDeVie(personnageJouable.getPointsDeVie() - projectile.getDegats());
-            cartecourante.supprimerEntite(projectile);
+            personnageJouable.setPointsDeVie(personnageJouable.getPointsDeVie() - destructible.getDegats());
+            carteCourante.supprimerEntite(destructible);
         }
         else if (personnageJouable.getEtatAction() == EtatAction.SE_PROTEGE &&
-                (personnageJouable.getDirection().getVal() == (v = projectile.getDirection().getVal() + 1) ||
-                        (personnageJouable.getDirection().getVal() == (v = projectile.getDirection().getVal() - 1)))) {
-            projectile.setDirection(Direction.valeurDe((byte) v));
-        }
-        else {
-            cartecourante.supprimerEntite(projectile);
-            personnageJouable.setPointsDeVie(personnageJouable.getPointsDeVie() - projectile.getDegats());
+                (personnageJouable.getDirection().getVal() == (v = destructible.getDirection().getVal() + 1) ||
+                        (personnageJouable.getDirection().getVal() == (v = destructible.getDirection().getVal() - 1)))) {
+            destructible.setDirection(Direction.valeurDe((byte) v));
         }
     }
 }

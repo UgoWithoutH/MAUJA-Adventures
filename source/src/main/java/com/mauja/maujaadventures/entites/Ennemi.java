@@ -42,6 +42,11 @@ public class Ennemi extends Vivant {
     }
 
     @Override
+    public void miseAJour() {
+        comportement.agit(this, 0);
+    }
+
+    @Override
     public int hashCode() {
         return super.hashCode() + comportement.hashCode();
     }

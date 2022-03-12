@@ -5,7 +5,7 @@ import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 
-public class Levier extends ElementInteractif{
+public class Levier extends ElementInteractif {
     private static double LARGEUR_DEFAUT;
     private static double HAUTEUR_DEFAUT;
     private boolean active;
@@ -49,7 +49,13 @@ public class Levier extends ElementInteractif{
         this.active = active;
     }
 
+    @Override
+    public void miseAJour() {
+        //Ne fait rien.
+    }
+
     public class Builder{
+
         public Builder() {
             //active=false;
         }

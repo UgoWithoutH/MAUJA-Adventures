@@ -89,6 +89,11 @@ public class FenetreDeJeu implements Observateur {
         return scene;
     }
 
+    public void miseAJourCarte() {
+        carteCourante = tableauDeJeu.getCarteCourante();
+        //Appel MAJ caméra.
+    }
+
     public void ajoutElementParsage(List<ElementInteractif> list){
         carteCourante.ajouterElementsInteractifs(list);
     }
@@ -118,9 +123,9 @@ public class FenetreDeJeu implements Observateur {
                         ennemi.getPosition().getY() - camera.getPositionCameraY());
             }
 
-            if (elementInteractif instanceof Projectile projectile) {
-                contexteGraphique.drawImage(imageProjectile, projectile.getPosition().getX() - camera.getPositionCameraX(),
-                        projectile.getPosition().getY() - camera.getPositionCameraY());
+            if (elementInteractif instanceof Destructible destructible) {
+                contexteGraphique.drawImage(imageProjectile, destructible.getPosition().getX() - camera.getPositionCameraX(),
+                        destructible.getPosition().getY() - camera.getPositionCameraY());
             }
 
             if (elementInteractif instanceof Levier levier) {
@@ -177,5 +182,8 @@ public class FenetreDeJeu implements Observateur {
     @Override
     public void miseAJour(long timer) {
         affichage();
+        if (!jeu.getTableauDeJeu().getCarteCourante().equals(carteCourante)) {
+            miseAJourCarte();
+        }
     }
 }

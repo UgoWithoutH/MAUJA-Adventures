@@ -23,7 +23,6 @@ public class SolveurLevierPersonnageJouable extends SolveurCollision{
      */
     @Override
     public void resoud(ElementInteractif e1, ElementInteractif e2) {
-        Levier levier = (Levier) e1;
-        levier.setActive(true);
+        e2.restorerMemento();
     }
 }

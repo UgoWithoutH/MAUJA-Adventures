@@ -32,7 +32,7 @@ public class Position {
      * @param x Nouvelle position X de l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setX(double x) {
+    private void setX(double x) {
         this.x = x;
     }
 
@@ -50,8 +50,16 @@ public class Position {
      * @param y Nouvelle position Y de l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void setY(double y) {
+    private void setY(double y) {
         this.y = y;
+    }
+
+    /**
+     * Génère une nouvelle position en se basant sur le milieu de la position courante.
+     * @return La nouvelle position
+     */
+    public Position getMilieu() {
+        return new Position(x / 2, y / 2);
     }
 
     /**

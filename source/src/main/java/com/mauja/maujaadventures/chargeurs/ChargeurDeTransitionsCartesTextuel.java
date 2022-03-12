@@ -47,33 +47,24 @@ public class ChargeurDeTransitionsCartesTextuel implements ChargeurDeTransitions
         String[] jetons = donnees.split(DELIMITEUR);
         int nombreJetons = jetons.length;
 
-        if (nombreJetons % 6 != 0) {
+        if ((nombreJetons - 3) % 6 != 0) {
             throw new FormatInvalideException("Le nombre de champs spécifiés dans le fichier "
-                    + "de transitions entre les cartes est incorrect. Il en manque " + (6 - (nombreJetons % 6)));
+                    + "de transitions entre les cartes est incorrect. Il en manque " + (6 - ((nombreJetons - 3) % 6)));
         }
 
-        int compteur = 0;
-
+        int compteur = 3;
         TransitionCarte transition1, transition2;
-        while (nombreJetons != compteur) {
-            Carte depart = carteExiste(jetons[compteur], lesCartes);
-            Carte arrivee = carteExiste(jetons[3 + compteur], lesCartes);
 
+        //On crée le point de départ.
+        transition1 = creerTransitionCarte(lesCartes, jetons[0], jetons[1], jetons[2]);
+        graphe.put(null, transition1);
+
+        while (nombreJetons != compteur) {
             try {
-                double positionX1 = Integer.parseInt(jetons[1 + compteur]), positionY1 = Integer.parseInt(jetons[2 + compteur]),
-                        positionX2 = Integer.parseInt(jetons[4 + compteur]), positionY2 = Integer.parseInt(jetons[5 + compteur]);
-                Position position1 = new Position(
-                        positionX1 * depart.getDimensionTuiles().getLargeur(),
-                        positionY1 * depart.getDimensionTuiles().getHauteur()
-                );
-                Position position2 = new Position(
-                        positionX2 * arrivee.getDimensionTuiles().getLargeur(),
-                        positionY2 * arrivee.getDimensionTuiles().getHauteur()
-                );
-                transition1 = new TransitionCarte(jetons[compteur], new Position(positionX1, positionY1),
-                        new Rectangle(position1, depart.getDimensionTuiles()));
-                transition2 = new TransitionCarte(jetons[3 + compteur], new Position(positionX2, positionY2),
-                        new Rectangle(position2, arrivee.getDimensionTuiles()));
+                transition1 = creerTransitionCarte(lesCartes, jetons[compteur],
+                        jetons[1 + compteur], jetons[2 + compteur]);
+                transition2 = creerTransitionCarte(lesCartes, jetons[3 + compteur],
+                        jetons[4 + compteur], jetons[5 + compteur]);
                 graphe.put(transition1, transition2);
             }
             catch (NumberFormatException e) {
@@ -83,6 +74,18 @@ public class ChargeurDeTransitionsCartesTextuel implements ChargeurDeTransitions
             compteur += 6;
         }
         return graphe;
+    }
+
+    private TransitionCarte creerTransitionCarte(List<Carte> lesCartes, String nomCarte,
+            String positionX, String positionY) throws FormatInvalideException, NumberFormatException {
+        Carte carte = carteExiste(nomCarte, lesCartes);
+        double posX = Integer.parseInt(positionX);
+        double posY = Integer.parseInt(positionY);
+
+        Position position = new Position(
+                posX * carte.getDimensionTuiles().getLargeur(),
+                posY * carte.getDimensionTuiles().getHauteur());
+        return new TransitionCarte(nomCarte, position, new Rectangle(position, carte.getDimensionTuiles()));
     }
 
     private Carte carteExiste(String nom, List<Carte> lesCartes) throws FormatInvalideException {

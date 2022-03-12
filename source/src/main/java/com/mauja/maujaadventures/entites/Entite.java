@@ -10,7 +10,7 @@ import com.mauja.maujaadventures.logique.Velocite;
 public abstract class Entite extends ElementInteractif {
     private Dimension dimension;
     private Velocite velocite;
-    private Direction direction;
+    protected Direction direction;
 
     /**
      * Constructeur de la classe Abstraite

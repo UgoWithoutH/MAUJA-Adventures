@@ -2,6 +2,8 @@ package com.mauja.maujaadventures.jeu;
 
 
 import com.mauja.maujaadventures.comportements.Comportement;
+import com.mauja.maujaadventures.deplaceurs.Deplaceur;
+import com.mauja.maujaadventures.deplaceurs.DeplaceurBasique;
 import com.mauja.maujaadventures.entites.*;
 
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouches;
@@ -11,7 +13,6 @@ import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.evenements.EvenementAttaque;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.logique.*;
-import com.mauja.maujaadventures.deplaceurs.DeplaceurEntite;
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.monde.*;
 
@@ -21,7 +22,6 @@ public class Jeu extends Observable implements Observateur {
     private static final Dimension DIMENSION_CAMERA_PAR_DEFAUT = new Dimension(964, 608);
 
     private TableauDeJeu tableauDeJeu;
-    private DeplaceurEntite deplaceur;
     private CollisionneurAABB collisionneur;
     private GestionnaireDeTouches gestionnaireDeTouches;
     private GestionnaireInteractions gestionnaireInteractions;
@@ -30,6 +30,8 @@ public class Jeu extends Observable implements Observateur {
     private BoucleDeJeu boucle;
     private Thread threadBoucleDeJeu;
     private List<Touche> lesTouchesAppuyees;
+
+    private Deplaceur deplaceur;
 
     private boolean pause;
     private int tempsAttaque = 0;
@@ -49,8 +51,9 @@ public class Jeu extends Observable implements Observateur {
         camera = new Camera( 0, 0);
         lesTouchesAppuyees = new ArrayList<>();
 
+        deplaceur = new DeplaceurBasique(tableauDeJeu.getCarteCourante());
+
         pause = true;
-        initialiser();
     }
 
     public static Dimension getDimensionCameraParDefaut() {
@@ -160,23 +163,21 @@ public class Jeu extends Observable implements Observateur {
             }
         }
 
-        //System.out.println(lesTouchesAppuyees);
-
         if (tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SANS_ACTION) {
             if (lesTouchesAppuyees.contains(Touche.FLECHE_DROITE)) {
-                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.DROITE));
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.DROITE, deplaceur));
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_GAUCHE)) {
-                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.GAUCHE));
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.GAUCHE, deplaceur));
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_HAUT)) {
-                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.HAUT));
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.HAUT, deplaceur));
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_BAS)) {
-                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.BAS));
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.BAS, deplaceur));
             }
         }
 
@@ -207,22 +208,9 @@ public class Jeu extends Observable implements Observateur {
             }
         }*/
 
-        // MAJ ennemis
         for (ElementInteractif elementInteractif : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()) {
-            if (elementInteractif instanceof Ennemi ennemi) {
-                Comportement comportement = ennemi.getComportement();
-                if (comportement != null) {
-                    comportement.agit(ennemi, 0);
-                }
-            }
-            if (elementInteractif instanceof Projectile projectile) {
-                deplaceur.deplace(projectile, 0, projectile.getDirection(), true);
-            }
+            elementInteractif.miseAJour();
         }
         notifier(timer);
-    }
-
-    private void initialiser() {
-        deplaceur = new DeplaceurEntite(tableauDeJeu.getCarteCourante());
     }
 }

@@ -1,12 +1,13 @@
 package com.mauja.maujaadventures.comportements;
 
-import com.mauja.maujaadventures.deplaceurs.DeplaceurEntite;
+import com.mauja.maujaadventures.deplaceurs.Deplaceur;
+import com.mauja.maujaadventures.deplaceurs.DeplaceurBasique;
+import com.mauja.maujaadventures.deplaceurs.DeplaceurDeDestructible;
+import com.mauja.maujaadventures.entites.Destructible;
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
-import com.mauja.maujaadventures.entites.Projectile;
 import com.mauja.maujaadventures.entites.Vivant;
 import com.mauja.maujaadventures.logique.Dimension;
-import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Carte;
 
@@ -22,7 +23,7 @@ public class ComportementChevalier implements Comportement {
     private static final float INTERVALLE_TIR = 600;
     private static final int NOMBRE_MAXIMUM_TENTATIVES_DEPLACEMENT = 2;
 
-    private DeplaceurEntite deplaceur;
+    private Deplaceur deplaceur;
     private Carte carteCourante;
     private int iterations = 0;
     private Direction derniereDirection;
@@ -36,7 +37,7 @@ public class ComportementChevalier implements Comportement {
                     + "être nulle.");
         }
         carteCourante = carte;
-        deplaceur = new DeplaceurEntite(carte);
+        deplaceur = new DeplaceurBasique(carte);
         this.joueur = joueur;
     }
 
@@ -53,7 +54,7 @@ public class ComportementChevalier implements Comportement {
                 if (iterations == 0) {
                     derniereDirection = DIRECTIONS_POSSIBLES.get(ALEATOIRE.nextInt(NOMBRE_DIRECTIONS));
                 }
-                resultatDeplacement = deplaceur.deplace(vivant, temps, derniereDirection, true);
+                resultatDeplacement = deplaceur.deplace(vivant, derniereDirection, true);
                 nombreTentatives++;
             }
 
@@ -63,10 +64,11 @@ public class ComportementChevalier implements Comportement {
                 iterations = 0;
                 if (joueur.getPosition().getX() - vivant.getPosition().getX() < 300 &&
                         joueur.getPosition().getY() - vivant.getPosition().getY() < 300) {
-                    Projectile projectile = new Projectile(vivant.getPosition(), new Dimension(20, 20),
-                                new Rectangle(0, 0, 20, 20), null, 3);
-                        projectile.setDirection(vivant.getDirection());
-                        carteCourante.ajouterElementInteractif(projectile);
+                    Destructible destructible = new Destructible(vivant.getPosition(), new Dimension(20, 20),
+                                new Rectangle(0, 0, 20, 20), null, 3,
+                            new DeplaceurDeDestructible(carteCourante, deplaceur));
+                        destructible.setDirection(vivant.getDirection());
+                        carteCourante.ajouterElementInteractif(destructible);
                 }
             }
         }

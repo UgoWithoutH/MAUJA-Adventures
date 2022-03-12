@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.collisionneurs.SolveurCollision;
 
+import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.interactions.Levier;
 import com.mauja.maujaadventures.monde.Carte;
@@ -23,7 +24,6 @@ public class SolveurEnnemiLevier extends SolveurCollision{
      */
     @Override
     public void resoud(ElementInteractif e1, ElementInteractif e2) {
-        Levier levier = (Levier) e2;
-        levier.setActive(true);
+        e1.restorerMemento();
     }
 }

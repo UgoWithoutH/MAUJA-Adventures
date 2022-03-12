@@ -7,7 +7,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class SolveurCollision {
-    protected Carte cartecourante;
+    protected Carte carteCourante;
 
     /**
      * Constructeur de la classe SolveurCollision
@@ -18,7 +18,7 @@ public class SolveurCollision {
         if (carte == null) {
             throw new IllegalArgumentException("La carte passée en paramètre ne peut pas être nulle.");
         }
-        this.cartecourante = carte;
+        this.carteCourante = carte;
     }
 
     /**
@@ -35,13 +35,13 @@ public class SolveurCollision {
 
         try {
             Class<?> classDefinition = Class.forName(combinaison1);
-            Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(cartecourante);
+            Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(carteCourante);
             ((SolveurCollision) ob).resoud(e1, e2);
         }
         catch (ClassNotFoundException e) {
             try {
                 Class<?> classDefinition = Class.forName(combinaison2);
-                Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(cartecourante);
+                Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(carteCourante);
                 ((SolveurCollision) ob).resoud(e2, e1);
             }
             catch (InstantiationException | IllegalAccessException | InvocationTargetException

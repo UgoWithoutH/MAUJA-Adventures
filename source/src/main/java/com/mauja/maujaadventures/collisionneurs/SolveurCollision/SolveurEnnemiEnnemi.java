@@ -23,9 +23,6 @@ public class SolveurEnnemiEnnemi extends SolveurCollision{
      */
     @Override
     public void resoud(ElementInteractif e1, ElementInteractif e2) {
-        Ennemi ennemi = (Ennemi) e1;
-        Ennemi ennemi2 = (Ennemi) e2;
-        ennemi.setPosition(ennemi.getPosition());
-        ennemi2.setPosition(ennemi2.getPosition());
+        e1.restorerMemento();
     }
 }

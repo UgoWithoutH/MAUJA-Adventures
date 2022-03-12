@@ -59,15 +59,21 @@ public class TableauDeJeu {
     }
 
     public boolean changeCarte(String nomCarte) {
-        for (Carte carte : lesCartes) {
-            if (carte.getNom().equals(nomCarte)) {
-                System.out.println("Je change la carte.");
-                carteCourante = carte;
-                System.out.println(carteCourante.getNom());
-                return true;
-            }
+        Carte carte = getCarte(nomCarte);
+        if (carte != null) {
+            carteCourante = carte;
+            return true;
         }
         return false;
+    }
+
+    public Carte getCarte(String nomCarte) {
+        for (Carte carte : lesCartes) {
+            if (carte.getNom().equals(nomCarte)) {
+                return carte;
+            }
+        }
+        return null;
     }
 
     private void initialiser() {
@@ -85,26 +91,22 @@ public class TableauDeJeu {
             }
             lesCartes.add(carte);
         }
+
         transitionsEntreCartes = chargeurDeTransitions.charge(Ressources.getInstance().getFichierTransitions(), lesCartes);
+        carteCourante = getCarte(transitionsEntreCartes.get(null).getNomCarte()) == null
+                ? getCarte(transitionsEntreCartes.get(null).getNomCarte()) : lesCartes.get(0);
 
-        carteCourante = lesCartes.get(0);
-
-        Position position = new Position(482, 400);
         Rectangle rectangle = new Rectangle(new Position(3, 24), new Dimension(27, 23));
-        joueur = new PersonnageJouable(position, new Dimension(33, 47),
-
+        joueur = new PersonnageJouable(transitionsEntreCartes.get(null).getPosition(), new Dimension(33, 47),
                 rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
-
-
-        //carteCourante.ajouterElementInteractif(joueur);
 
         Entite entite = new Ennemi(new Position(300, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementPoursuite(carteCourante, joueur), 10);
+                new ComportementTireur(carteCourante), 100);
 
         Entite entite2 = new Ennemi(new Position(400, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementPoursuite(carteCourante, joueur), 10);
+                new ComportementTireur(carteCourante), 100);
 
         carteCourante.ajouterElementInteractif(entite);
         carteCourante.ajouterElementInteractif(entite2);

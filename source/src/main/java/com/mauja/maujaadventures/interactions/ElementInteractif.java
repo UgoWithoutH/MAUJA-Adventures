@@ -69,6 +69,8 @@ public abstract class ElementInteractif extends Balise implements Cloneable{
         return mapConditionAction;
     }
 
+    public abstract void miseAJour();
+
     @Override
     public void ajouter(Balise balise) {
         if (balise instanceof Condition condition){

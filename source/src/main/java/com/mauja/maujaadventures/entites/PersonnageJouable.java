@@ -35,6 +35,11 @@ public class PersonnageJouable extends Vivant {
     }
 
     @Override
+    public void miseAJour() {
+        //Ne fait rien.
+    }
+
+    @Override
     public int hashCode() {
         return super.hashCode() + 7 * etatAction.hashCode();
     }
