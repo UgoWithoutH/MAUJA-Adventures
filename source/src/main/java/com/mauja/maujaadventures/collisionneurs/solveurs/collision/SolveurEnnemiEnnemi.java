@@ -1,4 +1,4 @@
-package com.mauja.maujaadventures.collisionneurs.SolveurCollision;
+package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 
 import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
