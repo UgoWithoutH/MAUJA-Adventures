@@ -24,7 +24,7 @@ public class SolveurCollision {
      * @param e2 Element interactif du second élément à tester
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public void resoud(ElementInteractif e1, ElementInteractif e2, ElementInteractif memento){
+    public void resoud(ElementInteractif e1, ElementInteractif e2){
         Class<?> classDefinition = null;
         Constructor<?> constructor = null;
         String nomClasse = "com.mauja.maujaadventures.collisionneurs.SolveurCollision.Solveur"
@@ -32,7 +32,7 @@ public class SolveurCollision {
         try {
             classDefinition = (Class<?>) Class.forName(nomClasse);
             Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(cartecourante);
-            ((SolveurCollision) ob).resoud(e1, e2, memento);
+            ((SolveurCollision) ob).resoud(e1, e2);
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException
                 | NoSuchMethodException | InstantiationException e) {
             e.printStackTrace();

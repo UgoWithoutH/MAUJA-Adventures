@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.interactions;
 
+import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.monde.Camera;
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Queue;
 
 public class GestionnaireInteractions {
-    private static final String CHEMIN_FICHIER_INTERACTIONS = "ressources/interactionsTest.xml";
     private static GestionnaireInteractions gestionnaireInteractions;
     private Queue<Evenement> fileCourante;
     private Queue<Evenement> fileSauvegarde;
@@ -17,9 +17,13 @@ public class GestionnaireInteractions {
     private Thread thread;
     private boolean enCours;
     private TableauDeJeu tableauDeJeu;
-    private Camera camera;
 
-    private GestionnaireInteractions() {
+    public GestionnaireInteractions(TableauDeJeu tableauDeJeu) throws IllegalArgumentException {
+        if (tableauDeJeu == null) {
+            throw new IllegalArgumentException("Le tableau de jeu ne peut pas être null.");
+        }
+        this.tableauDeJeu = tableauDeJeu;
+        gestionnaireInteractions = this;
         fileCourante = new LinkedList<>();
         fileSauvegarde = new LinkedList<>();
         parseurInteraction = new ParseurInteraction();
@@ -28,8 +32,8 @@ public class GestionnaireInteractions {
     }
 
     public static GestionnaireInteractions getInstance() {
-        if(gestionnaireInteractions == null) {
-            gestionnaireInteractions = new GestionnaireInteractions();
+        if (gestionnaireInteractions == null) {
+            throw new IllegalArgumentException("Le gestionnaire d'interactions n'a pas encore été initialisé.");
         }
         return gestionnaireInteractions;
     }
@@ -38,19 +42,10 @@ public class GestionnaireInteractions {
         return parseurInteraction.getElementAAjouter();
     }
 
-    public void initialisationBoucleEvenementielle(TableauDeJeu tableauDeJeu, Camera camera){
-        this.tableauDeJeu = tableauDeJeu;
-        this.camera = camera;
-    }
-
-    private void initialisation() {
-        parseurInteraction.creerActionInteraction(CHEMIN_FICHIER_INTERACTIONS);
-    }
-
     public void ajouter(Evenement evenement) {
         if (!enCours) {
             fileCourante.add(evenement);
-            if(thread != null) {
+            if (thread != null) {
                 synchronized (this) {
                     notify();
                 }
@@ -67,15 +62,15 @@ public class GestionnaireInteractions {
 
     private void traitement() {
         enCours = true;
-        while(true) {
-            if(fileCourante.size() != 0){
+        while (enCours) {
+            if (fileCourante.size() != 0){
                 Evenement evenement = fileCourante.poll();
                 if(evenement != null) {
-                    evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu, camera);
+                    evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu);
                 }
             }
             else{
-                if(fileSauvegarde.size() != 0){
+                if (fileSauvegarde.size() != 0){
                     System.out.println("file courante : " + fileCourante.size());
                     System.out.println("file sauvegarde : " + fileSauvegarde.size());
                     fileCourante = new LinkedList<>(fileSauvegarde);
@@ -93,5 +88,9 @@ public class GestionnaireInteractions {
                 }
             }
         }
+    }
+
+    private void initialisation() {
+        parseurInteraction.creerActionInteraction(Ressources.getInstance().getLesScripts().get(0));
     }
 }

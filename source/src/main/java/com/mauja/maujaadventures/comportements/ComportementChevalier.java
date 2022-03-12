@@ -5,9 +5,8 @@ import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.entites.Projectile;
 import com.mauja.maujaadventures.entites.Vivant;
-import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
-import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.logique.Dimension;
+import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Carte;
 
@@ -28,8 +27,6 @@ public class ComportementChevalier implements Comportement {
     private int iterations = 0;
     private Direction derniereDirection;
     private int temps;
-    private Vivant vivant;
-    private int nombreTentatives = 0;
 
     private PersonnageJouable joueur;
 
@@ -45,21 +42,12 @@ public class ComportementChevalier implements Comportement {
 
     @Override
     public void agit(Vivant vivant, float temps) {
-        this.vivant = vivant;
         this.temps++;
-
+        Direction direction;
+        boolean resultatDeplacement;
+        int nombreTentatives = 0;
 
         if (this.temps > INTERVALLE_DEPLACEMENT || iterations != 0) {
-            this.temps = 0;
-            if (iterations == 0) {
-                derniereDirection = DIRECTIONS_POSSIBLES.get(ALEATOIRE.nextInt(NOMBRE_DIRECTIONS));
-            }
-            //resultatDeplacement = deplaceur.deplace(vivant, temps, derniereDirection, true);
-            GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(vivant, derniereDirection));
-            nombreTentatives++;
-        }
-
-        /*if (this.temps > INTERVALLE_DEPLACEMENT || iterations != 0) {
             this.temps = 0;
             do {
                 if (iterations == 0) {
@@ -70,48 +58,19 @@ public class ComportementChevalier implements Comportement {
             }
 
             while (!resultatDeplacement && nombreTentatives < NOMBRE_MAXIMUM_TENTATIVES_DEPLACEMENT);
-        }
-        iterations++;
-        if (iterations == 10) {
-            iterations = 0;
-            if (joueur.getPosition().getX() - vivant.getPosition().getX() < 300 &&
-                    joueur.getPosition().getY() - vivant.getPosition().getY() < 300) {
-                Projectile projectile = new Projectile(vivant.getPosition(), new Dimension(20, 20),
-                        new Rectangle(0, 0, 20, 20), null, 3);
-                projectile.setDirection(vivant.getDirection());
-                carteCourante.ajouterElementInteractif(projectile);
-            }
-        }*/
-    }
-
-    private void action(){
-        iterations++;
-        if (iterations == 10) {
-            iterations = 0;
-            if (joueur.getPosition().getX() - vivant.getPosition().getX() < 300 &&
-                    joueur.getPosition().getY() - vivant.getPosition().getY() < 300) {
-                Projectile projectile = new Projectile(vivant.getPosition(), new Dimension(20, 20),
-                        new Rectangle(0, 0, 20, 20), null, 3);
-                projectile.setDirection(vivant.getDirection());
-                carteCourante.ajouterElementInteractif(projectile);
-            }
-        }
-    }
-
-    @Override
-    public void miseAJour(boolean resultatDeplacement) {
-        if (this.temps > INTERVALLE_DEPLACEMENT || iterations != 0) {
-            if (!resultatDeplacement && nombreTentatives < NOMBRE_MAXIMUM_TENTATIVES_DEPLACEMENT) {
-                this.temps = 0;
-                if (iterations == 0) {
-                    derniereDirection = DIRECTIONS_POSSIBLES.get(ALEATOIRE.nextInt(NOMBRE_DIRECTIONS));
+            iterations++;
+            if (iterations == 10) {
+                iterations = 0;
+                if (joueur.getPosition().getX() - vivant.getPosition().getX() < 300 &&
+                        joueur.getPosition().getY() - vivant.getPosition().getY() < 300) {
+                    Projectile projectile = new Projectile(vivant.getPosition(), new Dimension(20, 20),
+                                new Rectangle(0, 0, 20, 20), null, 3);
+                        projectile.setDirection(vivant.getDirection());
+                        carteCourante.ajouterElementInteractif(projectile);
                 }
-                GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(vivant, derniereDirection));
-                nombreTentatives++;
             }
         }
-        else{
-            action();
-        }
+
+
     }
 }

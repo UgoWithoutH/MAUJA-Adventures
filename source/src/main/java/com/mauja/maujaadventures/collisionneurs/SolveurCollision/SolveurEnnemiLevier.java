@@ -22,7 +22,7 @@ public class SolveurEnnemiLevier extends SolveurCollision{
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void resoud(ElementInteractif e1, ElementInteractif e2, ElementInteractif memento) {
+    public void resoud(ElementInteractif e1, ElementInteractif e2) {
         Levier levier = (Levier) e2;
         levier.setActive(true);
     }

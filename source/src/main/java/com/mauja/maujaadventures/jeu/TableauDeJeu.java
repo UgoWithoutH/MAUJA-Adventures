@@ -2,8 +2,7 @@ package com.mauja.maujaadventures.jeu;
 
 import com.mauja.maujaadventures.chargeurs.*;
 import com.mauja.maujaadventures.comportements.ComportementChevalier;
-import com.mauja.maujaadventures.comportements.ComportementOctorockTireur;
-import com.mauja.maujaadventures.comportements.ComportementPoursuite;
+import com.mauja.maujaadventures.comportements.ComportementTireur;
 import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
@@ -76,11 +75,11 @@ public class TableauDeJeu {
                 rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
 
 
-        carteCourante.ajouterElementInteractif(joueur);
+        //carteCourante.ajouterElementInteractif(joueur);
 
         Entite entite = new Ennemi(new Position(300, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementOctorockTireur(carteCourante), 10);
+                new ComportementTireur(carteCourante), 10);
 
         Entite entite2 = new Ennemi(new Position(400, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
@@ -88,14 +87,5 @@ public class TableauDeJeu {
 
         carteCourante.ajouterElementInteractif(entite);
         carteCourante.ajouterElementInteractif(entite2);
-
-        /*for (int i = 0; i < 50; i++) {
-            for (int j = 0; j < 50; j++) {
-                entite = new Ennemi(new Position(588 + j * 32, 1772 + i * 32), new Dimension(30, 30),
-                        new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                        new ComportementPoursuite(carteCourante, joueur), 10);
-                carteCourante.ajouterElementInteractif(entite);
-            }
-        }*/
     }
 }

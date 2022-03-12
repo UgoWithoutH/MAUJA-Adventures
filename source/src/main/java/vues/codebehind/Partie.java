@@ -4,6 +4,7 @@ import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.entrees.Touche;
 import com.mauja.maujaadventures.fenetres.FenetreDeJeu;
 import com.mauja.maujaadventures.jeu.Jeu;
+import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,20 +21,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Partie {
-
     private Navigateur navigateur;
-    private VBox contentPause;
     private Jeu jeu;
-    private StackPane partiePane;
-    CameraTuilesFX camera;
 
-    public Partie(Navigateur navigateur, Jeu jeu) {
+    private VBox contentPause;
+    private StackPane partiePane;
+
+    public Partie(Navigateur navigateur, Jeu jeu) throws IllegalArgumentException {
+        if (jeu == null) {
+            throw new IllegalArgumentException("Le jeu passé en paramètre ne peut pas être null.");
+        }
+        if (navigateur == null) {
+            throw new IllegalArgumentException("Le navigateur passé en paramètre ne peut pas être null.");
+        }
         this.navigateur = navigateur;
         this.jeu = jeu;
     }
 
     public void initialiserVue(){
-        ArrayList<String> input;
         VBox noeud = new VBox();
         contentPause = null;
         partiePane = new StackPane();
@@ -47,13 +52,6 @@ public class Partie {
         noeud.getChildren().add(canvas);
 
         GestionnaireDeTouchesFX gestionnaireDeTouches = new GestionnaireDeTouchesFX(scene);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.DOWN, Touche.FLECHE_BAS);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.UP, Touche.FLECHE_HAUT);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.LEFT, Touche.FLECHE_GAUCHE);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.RIGHT, Touche.FLECHE_DROITE);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.SPACE, Touche.ESPACE);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.B, Touche.B);
-        gestionnaireDeTouches.ajouteToucheFX(KeyCode.ESCAPE, Touche.ECHAP);
         gestionnaireDeTouches.initialisation();
         jeu.setGestionnaireDeTouches(gestionnaireDeTouches);
         new FenetreDeJeu(gc, jeu);
@@ -85,8 +83,6 @@ public class Partie {
 
     public void start(){
         jeu.start();
-        System.out.println("test");
-        camera.centrerSurEntite(jeu.getTableauDeJeu().getJoueur());
     }
 
     public void restart(){
