@@ -5,8 +5,6 @@ import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.entites.Projectile;
 import com.mauja.maujaadventures.entites.Vivant;
-import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
-import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Carte;
@@ -34,26 +32,17 @@ public class ComportementPoursuite implements Comportement{
     @Override
     public void agit(Vivant vivant, float temps) {
         if (joueur.getPosition().getX() > vivant.getPosition().getX()){
-            //deplaceur.deplace(vivant, temps, Direction.DROITE, true);
-            GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(vivant, Direction.DROITE));
+            deplaceur.deplace(vivant, temps, Direction.DROITE, true);
         }
         if (joueur.getPosition().getX() < vivant.getPosition().getX()){
-            //deplaceur.deplace(vivant, temps, Direction.GAUCHE, true);
-            GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(vivant, Direction.GAUCHE));
+            deplaceur.deplace(vivant, temps, Direction.GAUCHE, true);
         }
         if (joueur.getPosition().getY() > vivant.getPosition().getY()){
-            //deplaceur.deplace(vivant, temps, Direction.BAS, true);
-            GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(vivant, Direction.BAS));
+            deplaceur.deplace(vivant, temps, Direction.BAS, true);
         }
         if (joueur.getPosition().getY() < vivant.getPosition().getY()){
-            //deplaceur.deplace(vivant, temps, Direction.HAUT, true);
-            GestionnaireInteractions.getInstance().ajouter(new EvenementDeplacement(vivant, Direction.HAUT));
+            deplaceur.deplace(vivant, temps, Direction.HAUT, true);
         }
-
-    }
-
-    @Override
-    public void miseAJour(boolean resultatDeplacement) {
 
     }
 }

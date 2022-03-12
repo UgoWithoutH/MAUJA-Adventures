@@ -75,7 +75,7 @@ public class TableauDeJeu {
                 rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
 
 
-        carteCourante.ajouterElementInteractif(joueur);
+        //carteCourante.ajouterElementInteractif(joueur);
 
         Entite entite = new Ennemi(new Position(300, 600), new Dimension(30, 30),
                 new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,

@@ -6,7 +6,6 @@ import com.mauja.maujaadventures.interactions.*;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
-import com.mauja.maujaadventures.monde.Camera;
 
 import java.awt.*;
 import java.util.Iterator;
@@ -20,7 +19,7 @@ public class EvenementAttaque extends Evenement{
     }
 
     @Override
-    public void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu, Camera camera) {
+    public void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu) {
 
         /*
         if(elementInteractif instanceof PersonnageJouable personnage){

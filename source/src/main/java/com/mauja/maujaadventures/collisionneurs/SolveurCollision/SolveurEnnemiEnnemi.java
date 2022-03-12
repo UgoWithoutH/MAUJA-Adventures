@@ -22,10 +22,10 @@ public class SolveurEnnemiEnnemi extends SolveurCollision{
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override
-    public void resoud(ElementInteractif e1, ElementInteractif e2, ElementInteractif memento) {
+    public void resoud(ElementInteractif e1, ElementInteractif e2) {
         Ennemi ennemi = (Ennemi) e1;
         Ennemi ennemi2 = (Ennemi) e2;
-        ennemi.setPosition(memento.getPosition());
-        //ennemi2.setPosition(ennemi2.getPosition());
+        ennemi.setPosition(ennemi.getPosition());
+        ennemi2.setPosition(ennemi2.getPosition());
     }
 }

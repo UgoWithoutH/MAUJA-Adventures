@@ -4,7 +4,6 @@ import com.mauja.maujaadventures.interactions.Action;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.interactions.Scenario;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
-import com.mauja.maujaadventures.monde.Camera;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public abstract class Evenement {
         this.sauvegardeElementInteractif = elementInteractif.clone();
     }
 
-    public abstract void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu, Camera camera);
+    public abstract void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu);
 
     public ElementInteractif getElementInteractif() {
         return elementInteractif;
