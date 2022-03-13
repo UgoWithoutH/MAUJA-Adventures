@@ -91,6 +91,7 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
 
     @Override
     public void miseAJour(long timer) {
+        tableauDeJeu.getJoueur().setEtatAction(EtatAction.SANS_ACTION);
         if (pause) {
             return;
         }

@@ -2,10 +2,13 @@ package com.mauja.maujaadventures.collisionneurs.solveurs.attaque;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.Scenario;
+import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.monde.Carte;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 public class SolveurAttaque {
     protected Carte cartecourante;
@@ -16,15 +19,15 @@ public class SolveurAttaque {
         collisionneur = new CollisionneurAABB();
     }
 
-    public void resoud(ElementInteractif e1, ElementInteractif e2){
+    public void resoud(ElementInteractif e1, ElementInteractif e2, List<Scenario> scenarios, TableauDeJeu tableauDeJeu){
         Class<?> classDefinition = null;
         Constructor<?> constructor = null;
-        String nomClasse = "com.mauja.maujaadventures.collisionneurs.solveurattaque.SolveurAtt"
+        String nomClasse = "com.mauja.maujaadventures.collisionneurs.solveurs.attaque.Solveur"
                 + e1.getClass().getSimpleName() + e2.getClass().getSimpleName();
         try {
             classDefinition = Class.forName(nomClasse);
             Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(cartecourante);
-            ((SolveurAttaque) ob).resoud(e1, e2);
+            ((SolveurAttaque) ob).resoud(e1, e2, scenarios, tableauDeJeu);
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException
                 | NoSuchMethodException | InstantiationException e) {
             e.printStackTrace();

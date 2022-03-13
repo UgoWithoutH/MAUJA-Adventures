@@ -24,7 +24,7 @@ public class EvenementAttaque extends Evenement {
 
         for (ElementInteractif elementInter : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()){
             if(elementInteractif != elementInter) {
-                solveurAttaque.resoud(elementInteractif, elementInter);
+                solveurAttaque.resoud(elementInteractif, elementInter, scenarios, tableauDeJeu);
             }
         }
     }
