@@ -1,8 +1,8 @@
 <Carte id="1" end="oui">
     <Scenario end="oui">
         <ElementInteractif type="com.mauja.maujaadventures.interactions.Levier" active="false" id="1" end="non">
-            <collision type="com.mauja.maujaadventures.logique.Rectangle" x="12" y="20" largeur="400" hauteur="400" end="non"/>
-            <position type="com.mauja.maujaadventures.logique.Position" x="12" y="20" end="oui"/>
+            <collision type="com.mauja.maujaadventures.logique.Rectangle" x="0" y="0" largeur="32" hauteur="32" end="non"/>
+            <position type="com.mauja.maujaadventures.logique.Position" x="32" y="32" end="oui"/>
             <Condition type="com.mauja.maujaadventures.interactions.ConditionCollision" end="oui"/>
             <Action type="com.mauja.maujaadventures.interactions.ActionLevierActif" idEffet="1" end="oui">
                 <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="300" yEn="500" largEn="10" hautEn="10"

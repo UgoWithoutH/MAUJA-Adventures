@@ -37,12 +37,12 @@ public class EvenementDeplacement extends Evenement {
         List<ElementInteractif> elementsInteractifs = tableauDeJeu.getCarteCourante().getLesElementsInteractifs();
         SolveurCollision solveurCollision = new SolveurCollision(tableauDeJeu.getCarteCourante());
 
+        boolean resultat = deplaceur.deplace((Entite) elementInteractif, direction, true);
+
         Rectangle collisionElement1 = new Rectangle(
                 elementInteractif.getCollision().getPosition().getX() + elementInteractif.getPosition().getX(),
                 elementInteractif.getCollision().getPosition().getY() + elementInteractif.getPosition().getY(),
                 elementInteractif.getCollision().getDimension());
-
-        boolean resultat = deplaceur.deplace((Entite) elementInteractif, direction, true);
 
         // Pour TOUS les éléments interactifs.
         for (ElementInteractif elementInter : elementsInteractifs) {
@@ -66,9 +66,9 @@ public class EvenementDeplacement extends Evenement {
             if (transitions.getKey() != null && transitions.getValue() != null) {
                 if (tableauDeJeu.getCarteCourante().getNom().equals(transitions.getKey().getNomCarte())
                         && collisionneur.collisionne(collisionElement1, transitions.getKey().getCollision())) {
-                    elementInteractif.setPosition(transitions.getValue().getCollision().getPosition());
                     if (tableauDeJeu.getJoueur().equals(elementInteractif)) {
-                        tableauDeJeu.changeCarte(transitions.getValue().getNomCarte());
+                        elementInteractif.setPosition(transitions.getValue().getCollision().getPosition());
+                        tableauDeJeu.changerCarte(transitions.getValue().getNomCarte());
                     }
                 }
             }

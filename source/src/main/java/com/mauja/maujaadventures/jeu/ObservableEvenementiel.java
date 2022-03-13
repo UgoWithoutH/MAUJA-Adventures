@@ -11,12 +11,12 @@ public abstract class ObservableEvenementiel {
         lesObservateurEvenementiels = new LinkedList<>();
     }
 
-    public void attacher(ObservateurEvenementiel listener){
-        lesObservateurEvenementiels.add(listener);
+    public void attacher(ObservateurEvenementiel observateur){
+        lesObservateurEvenementiels.add(observateur);
     }
 
-    public void detacher(ObservateurEvenementiel listener){
-        lesObservateurEvenementiels.remove(listener);
+    public void detacher(ObservateurEvenementiel observateur){
+        lesObservateurEvenementiels.remove(observateur);
     }
 
     public void notifier(ElementInteractif elementInteractif, Boolean resultat, Object... parametres){

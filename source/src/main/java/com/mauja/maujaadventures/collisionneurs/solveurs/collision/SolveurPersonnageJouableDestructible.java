@@ -24,13 +24,12 @@ public class SolveurPersonnageJouableDestructible extends SolveurCollision{
      */
     @Override
     public void resoud(ElementInteractif e1, ElementInteractif e2) {
-        System.out.println("Joueur touché par boulet !!!");
         PersonnageJouable personnageJouable = (PersonnageJouable) e1;
         Destructible destructible = (Destructible) e2;
         int v;
         if (personnageJouable.getEtatAction() != EtatAction.SE_PROTEGE) {
             personnageJouable.setPointsDeVie(personnageJouable.getPointsDeVie() - destructible.getDegats());
-            carteCourante.supprimerEntite(destructible);
+            carteCourante.supprimerElementInteractif(destructible);
         }
         else if (personnageJouable.getEtatAction() == EtatAction.SE_PROTEGE &&
                 (personnageJouable.getDirection().getVal() == (v = destructible.getDirection().getVal() + 1) ||

@@ -97,7 +97,7 @@ public class Carte {
         }
     }
 
-    public void supprimerEntite(ElementInteractif elementInteractif) {
+    public void supprimerElementInteractif(ElementInteractif elementInteractif) {
         lesElementsInteractifs.remove(elementInteractif);
     }
 

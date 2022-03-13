@@ -30,9 +30,9 @@ public class SolveurEnnemiDestructible extends SolveurCollision{
         if (!destructible.getEmetteur().getClass().equals(ennemi.getClass())) {
             ennemi.setPointsDeVie(ennemi.getPointsDeVie() - destructible.getDegats());
             if (ennemi.getPointsDeVie() <= 0 ) {
-                carteCourante.supprimerEntite(ennemi);
+                carteCourante.supprimerElementInteractif(ennemi);
             }
-            carteCourante.supprimerEntite(destructible);
+            carteCourante.supprimerElementInteractif(destructible);
         }
     }
 }

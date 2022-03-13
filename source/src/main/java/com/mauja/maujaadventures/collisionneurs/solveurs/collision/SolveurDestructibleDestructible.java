@@ -1,6 +1,5 @@
 package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 
-import com.mauja.maujaadventures.entites.Destructible;
 import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
@@ -25,7 +24,7 @@ public class SolveurDestructibleDestructible extends SolveurCollision {
     @Override
     public void resoud(ElementInteractif e1, ElementInteractif e2) {
         System.out.println("je supprime proj - proj");
-        carteCourante.supprimerEntite(e1);
-        carteCourante.supprimerEntite(e2);
+        carteCourante.supprimerElementInteractif(e1);
+        carteCourante.supprimerElementInteractif(e2);
     }
 }

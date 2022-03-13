@@ -28,12 +28,5 @@ public class SolveurEnnemiPersonnageJouable extends SolveurCollision{
         Ennemi ennemi = (Ennemi) e1;
         PersonnageJouable pj = (PersonnageJouable) e2;
         pj.setPointsDeVie(pj.getPointsDeVie() - ennemi.getAttaque().getDegats());
-
-        /*if (pj.getEtatAction() == EtatAction.ATTAQUE) {
-            ennemi.setPointsDeVie(ennemi.getPointsDeVie() - pj.getAttaque().getDegats());
-            if (ennemi.getPointsDeVie() <= 0) {
-                carteCourante.supprimerEntite(ennemi);
-            }
-        }*/
     }
 }

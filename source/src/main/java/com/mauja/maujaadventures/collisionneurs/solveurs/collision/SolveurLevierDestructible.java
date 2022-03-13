@@ -1,7 +1,6 @@
 package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 
 import com.mauja.maujaadventures.interactions.ElementInteractif;
-import com.mauja.maujaadventures.interactions.Levier;
 import com.mauja.maujaadventures.monde.Carte;
 
 public class SolveurLevierDestructible extends SolveurCollision{
@@ -23,6 +22,6 @@ public class SolveurLevierDestructible extends SolveurCollision{
      */
     @Override
     public void resoud(ElementInteractif e1, ElementInteractif e2) {
-        carteCourante.supprimerEntite(e2);
+        carteCourante.supprimerElementInteractif(e2);
     }
 }

@@ -18,22 +18,19 @@ import com.mauja.maujaadventures.monde.*;
 
 import java.util.*;
 
-public class Jeu extends Observable implements Observateur {
-    private static final Dimension DIMENSION_CAMERA_PAR_DEFAUT = new Dimension(964, 608);
-
+public class Jeu extends Observable implements Observateur, ObservateurCarte {
     private TableauDeJeu tableauDeJeu;
-    private CollisionneurAABB collisionneur;
     private GestionnaireDeTouches gestionnaireDeTouches;
     private GestionnaireInteractions gestionnaireInteractions;
 
-    private Camera camera;
     private BoucleDeJeu boucle;
     private Thread threadBoucleDeJeu;
     private List<Touche> lesTouchesAppuyees;
-
     private Deplaceur deplaceur;
 
     private boolean pause;
+
+    private Camera camera;
     private int tempsAttaque = 0;
 
     public Jeu(GestionnaireDeTouches gestionnaireDeTouches) throws IllegalArgumentException {
@@ -42,22 +39,15 @@ public class Jeu extends Observable implements Observateur {
         }
         this.gestionnaireDeTouches = gestionnaireDeTouches;
         tableauDeJeu = new TableauDeJeu();
+        tableauDeJeu.attacher(this);
         boucle = new BoucleDeJeu();
         boucle.attacher(this);
-
-        collisionneur = new CollisionneurAABB();
         gestionnaireInteractions = new GestionnaireInteractions(tableauDeJeu);
+        lesTouchesAppuyees = new ArrayList<>();
+        deplaceur = new DeplaceurBasique(tableauDeJeu.getCarteCourante());
+        pause = true;
 
         camera = new Camera( 0, 0);
-        lesTouchesAppuyees = new ArrayList<>();
-
-        deplaceur = new DeplaceurBasique(tableauDeJeu.getCarteCourante());
-
-        pause = true;
-    }
-
-    public static Dimension getDimensionCameraParDefaut() {
-        return DIMENSION_CAMERA_PAR_DEFAUT;
     }
 
     public TableauDeJeu getTableauDeJeu() {
@@ -104,11 +94,8 @@ public class Jeu extends Observable implements Observateur {
             return;
         }
         lesTouchesAppuyees = gestionnaireDeTouches.detecte();
-        if (lesTouchesAppuyees.contains(Touche.B) /*&& tempsAttaque > joueur.getAttaque().getDuree()*/) {
+        if (lesTouchesAppuyees.contains(Touche.B)) {
             System.out.println("Je me protège");
-        }
-        else {
-            tableauDeJeu.getJoueur().setEtatAction(EtatAction.SANS_ACTION);
         }
 
         if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
@@ -212,5 +199,12 @@ public class Jeu extends Observable implements Observateur {
             elementInteractif.miseAJour();
         }
         notifier(timer);
+    }
+
+    @Override
+    public void miseAJour(Carte carte) {
+        if (carte != null) {
+            deplaceur = new DeplaceurBasique(carte);
+        }
     }
 }

@@ -76,7 +76,7 @@ public class DeplaceurBasique extends Deplaceur {
                         entite.getPosition().getY());
                 break;
             case GAUCHE:
-                positionEntite = new Position(entite.getPosition().getX() - incrementY,
+                positionEntite = new Position(entite.getPosition().getX() - incrementX,
                         entite.getPosition().getY());
                 break;
             case BAS:

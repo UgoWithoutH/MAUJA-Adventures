@@ -29,7 +29,7 @@ public class SolveurAttPersonnageJouableEnnemi extends SolveurAttaque{
         if (collisionneur.collisionne(pj.getAttaque().getCollision(), collisionEntite)) {
             ennemi.setPointsDeVie(ennemi.getPointsDeVie() - pj.getAttaque().getDegats());
             if (ennemi.getPointsDeVie() <= 0) {
-                cartecourante.supprimerEntite(ennemi);
+                cartecourante.supprimerElementInteractif(ennemi);
             }
         }
     }

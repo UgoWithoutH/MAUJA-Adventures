@@ -6,7 +6,6 @@ import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
-import com.mauja.maujaadventures.jeu.BoucleDeJeu;
 import com.mauja.maujaadventures.jeu.ObservateurEvenementiel;
 import com.mauja.maujaadventures.monde.Carte;
 
@@ -32,7 +31,7 @@ public class DeplaceurDeDestructible extends Deplaceur implements ObservateurEve
     @Override
     public void miseAJour(ElementInteractif elementInteractif, Boolean resultat, Object... parametres) {
         if (!resultat) {
-            carteCourante.supprimerEntite(elementInteractif);
+            carteCourante.supprimerElementInteractif(elementInteractif);
         }
     }
 }

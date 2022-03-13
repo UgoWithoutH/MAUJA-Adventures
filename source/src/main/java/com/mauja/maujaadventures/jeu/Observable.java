@@ -9,12 +9,12 @@ public abstract class Observable {
         lesObservateurs = new LinkedList<>();
     }
 
-    public void attacher(Observateur listener){
-        lesObservateurs.add(listener);
+    public void attacher(Observateur observateur){
+        lesObservateurs.add(observateur);
     }
 
-    public void detacher(Observateur listener){
-        lesObservateurs.remove(listener);
+    public void detacher(Observateur observateur){
+        lesObservateurs.remove(observateur);
     }
 
     public void notifier(long timer){
