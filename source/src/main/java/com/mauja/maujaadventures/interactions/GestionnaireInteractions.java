@@ -1,22 +1,23 @@
 package com.mauja.maujaadventures.interactions;
 
 import com.mauja.maujaadventures.chargeurs.Ressources;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
+import com.mauja.maujaadventures.interactions.parseurs.ParseurInteraction;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
-import com.mauja.maujaadventures.monde.Camera;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GestionnaireInteractions implements Runnable {
     private static GestionnaireInteractions gestionnaireInteractions;
-    private ConcurrentLinkedQueue<Evenement> fileCourante;
     private ParseurInteraction parseurInteraction;
     private Thread thread;
-    private boolean enCours;
+
+    private ConcurrentLinkedQueue<Evenement> fileCourante;
+    private List<Scenario> lesScenarios;
     private TableauDeJeu tableauDeJeu;
+    private boolean enCours;
 
     public GestionnaireInteractions(TableauDeJeu tableauDeJeu) throws IllegalArgumentException, IllegalStateException {
         if (gestionnaireInteractions != null) {
@@ -32,7 +33,6 @@ public class GestionnaireInteractions implements Runnable {
         fileCourante = new ConcurrentLinkedQueue<>();
         parseurInteraction = new ParseurInteraction();
 
-        enCours = false;
         initialisation();
 
         thread = new Thread(this, "Mauja Adventures Interaction Handler");
@@ -44,10 +44,6 @@ public class GestionnaireInteractions implements Runnable {
             throw new IllegalArgumentException("Le gestionnaire d'interactions n'a pas encore été initialisé.");
         }
         return gestionnaireInteractions;
-    }
-
-    public List<ElementInteractif> getElementAAjouter() {
-        return parseurInteraction.getElementAAjouter();
     }
 
     public void ajouter(Evenement evenement) {
@@ -81,5 +77,9 @@ public class GestionnaireInteractions implements Runnable {
 
     private void initialisation() {
         parseurInteraction.creerActionInteraction(Ressources.getInstance().getLesScripts().get(0));
+        lesScenarios = parseurInteraction.getScenarios();
+        for (Scenario scenario : lesScenarios) {
+            tableauDeJeu.getCarteCourante().ajouterElementsInteractifs(scenario.getListeElemInteractif());
+        }
     }
 }

@@ -6,20 +6,10 @@ import com.mauja.maujaadventures.monde.Tuile;
 
 import java.util.List;
 
-/**
- * classe permettant de gerer l'affichage de la camera
- */
 public class CameraTuilesFX extends CameraTuiles {
     private List<Tuile> lesTuilesGraphiques;
     private Tuile[][] visionGraphique;
 
-    /**
-     * Constructeur de la camera
-     * @param carte carte ou se trouve la camera
-     * @param zoneVisuelle dimension de la vue
-     * @param lesTuilesGraphiques listes de tuiles pour l'affichage
-     * @throws IllegalArgumentException
-     */
     public CameraTuilesFX(Carte carte, Dimension zoneVisuelle, List<Tuile> lesTuilesGraphiques)
             throws IllegalArgumentException {
         super(carte, zoneVisuelle);
@@ -31,29 +21,16 @@ public class CameraTuilesFX extends CameraTuiles {
         //visionGraphique = new TuileFX[(int) zoneVisuelle.getLargeur()][(int) zoneVisuelle.getHauteur()];
     }
 
-    /**
-     * retourne la tuile pour un certain endroit
-     * @param x coordonnées X de la tuile
-     * @param y coordonnées Y de la tuile
-     * @return
-     */
     public Tuile getTuileGraphique(int x, int y) {
         return visionGraphique[x][y];
     }
 
-    /**
-     * Methode permettant de centrer la camera sur l'entite
-     * @param entite
-     */
     @Override
     public void centrerSurEntite(Entite entite) {
         super.centrerSurEntite(entite);
         miseAJour();
     }
 
-    /**
-     * Methode mettant a jour la camera ( postion etc.. )
-     */
     private void miseAJour() {
         double largeurCamera = zoneObservable.getLargeur();
         double hauteurCamera = zoneObservable.getHauteur();

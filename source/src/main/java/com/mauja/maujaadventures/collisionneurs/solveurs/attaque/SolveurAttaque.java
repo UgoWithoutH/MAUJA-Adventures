@@ -1,7 +1,7 @@
 package com.mauja.maujaadventures.collisionneurs.solveurs.attaque;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
 import java.lang.reflect.Constructor;

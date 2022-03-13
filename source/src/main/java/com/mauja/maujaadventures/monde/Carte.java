@@ -1,7 +1,6 @@
 package com.mauja.maujaadventures.monde;
 
-import com.mauja.maujaadventures.entites.Entite;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 
 import java.util.*;

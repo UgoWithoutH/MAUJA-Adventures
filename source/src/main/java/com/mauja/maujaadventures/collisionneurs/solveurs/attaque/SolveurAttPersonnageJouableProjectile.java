@@ -1,6 +1,6 @@
 package com.mauja.maujaadventures.collisionneurs.solveurs.attaque;
 
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
 public class SolveurAttPersonnageJouableProjectile extends SolveurAttaque{

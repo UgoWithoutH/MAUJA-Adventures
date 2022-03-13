@@ -1,11 +1,11 @@
-package com.mauja.maujaadventures.interactions;
+package com.mauja.maujaadventures.interactions.elements;
 
 import com.mauja.maujaadventures.annotations.Param;
-import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
+import com.mauja.maujaadventures.interactions.actions.Action;
+import com.mauja.maujaadventures.interactions.conditions.Condition;
 import com.mauja.maujaadventures.logique.MementoPosition;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
-import com.mauja.maujaadventures.monde.Carte;
 
 import java.util.ArrayList;
 import java.util.List;

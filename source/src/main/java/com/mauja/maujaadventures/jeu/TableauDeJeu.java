@@ -5,7 +5,7 @@ import com.mauja.maujaadventures.comportements.ComportementTireur;
 import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.monde.Carte;
 import com.mauja.maujaadventures.utilitaires.FormatInvalideException;

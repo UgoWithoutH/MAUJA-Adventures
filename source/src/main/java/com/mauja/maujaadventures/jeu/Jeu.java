@@ -1,19 +1,17 @@
 package com.mauja.maujaadventures.jeu;
 
 
-import com.mauja.maujaadventures.comportements.Comportement;
 import com.mauja.maujaadventures.deplaceurs.Deplaceur;
 import com.mauja.maujaadventures.deplaceurs.DeplaceurBasique;
 import com.mauja.maujaadventures.entites.*;
 
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouches;
 import com.mauja.maujaadventures.entrees.Touche;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.evenements.EvenementAttaque;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.logique.*;
-import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.monde.*;
 
 import java.util.*;

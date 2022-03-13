@@ -1,6 +1,6 @@
 package com.mauja.maujaadventures.affichages;
 
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import javafx.scene.image.Image;
 
 import java.util.Objects;

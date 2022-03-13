@@ -6,6 +6,7 @@ import com.mauja.maujaadventures.deplaceurs.Deplaceur;
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.interactions.*;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.logique.TransitionCarte;

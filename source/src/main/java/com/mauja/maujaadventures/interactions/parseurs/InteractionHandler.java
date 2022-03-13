@@ -1,6 +1,9 @@
-package com.mauja.maujaadventures.interactions;
+package com.mauja.maujaadventures.interactions.parseurs;
 
+import com.mauja.maujaadventures.interactions.Scenario;
 import com.mauja.maujaadventures.interactions.createurs.*;
+import com.mauja.maujaadventures.interactions.elements.Balise;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import org.xml.sax.Attributes;
 import org.xml.sax.ext.Attributes2Impl;
 import org.xml.sax.helpers.DefaultHandler;

@@ -2,7 +2,7 @@ package com.mauja.maujaadventures.deplaceurs;
 
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;

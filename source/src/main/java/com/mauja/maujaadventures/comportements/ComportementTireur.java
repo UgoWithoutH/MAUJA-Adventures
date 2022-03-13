@@ -6,7 +6,7 @@ import com.mauja.maujaadventures.deplaceurs.DeplaceurDeDestructible;
 import com.mauja.maujaadventures.entites.Destructible;
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Vivant;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;

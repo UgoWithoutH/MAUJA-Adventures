@@ -53,7 +53,6 @@ public class Navigateur {
         naviguerVers(scene);
     }
 
-
     public void naviguerVers(Fenetre fenetre) throws IllegalArgumentException {
         Scene scene = null;
         if (!vues.containsKey(fenetre)) {

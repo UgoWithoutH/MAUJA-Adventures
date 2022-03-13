@@ -1,7 +1,7 @@
 package com.mauja.maujaadventures.entites;
 
 import com.mauja.maujaadventures.annotations.Param;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;

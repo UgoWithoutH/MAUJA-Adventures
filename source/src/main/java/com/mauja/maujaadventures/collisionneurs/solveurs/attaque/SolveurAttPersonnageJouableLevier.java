@@ -1,9 +1,8 @@
 package com.mauja.maujaadventures.collisionneurs.solveurs.attaque;
 
-import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
-import com.mauja.maujaadventures.interactions.Levier;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.Levier;
 import com.mauja.maujaadventures.monde.Carte;
 
 public class SolveurAttPersonnageJouableLevier extends SolveurAttaque{

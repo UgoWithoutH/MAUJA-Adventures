@@ -1,23 +1,19 @@
 package com.mauja.maujaadventures.fenetres;
 
 import com.mauja.maujaadventures.affichages.Carte2DGraphique;
-import com.mauja.maujaadventures.affichages.JeuDeTuilesGraphique;
 import com.mauja.maujaadventures.affichages.TuileGraphique;
 import com.mauja.maujaadventures.chargeurs.ChargeurCartesGraphiques;
-import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
-import com.mauja.maujaadventures.interactions.Levier;
+import com.mauja.maujaadventures.interactions.elements.Levier;
 import com.mauja.maujaadventures.jeu.Jeu;
 import com.mauja.maujaadventures.jeu.Observateur;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.monde.Camera;
 import com.mauja.maujaadventures.monde.Carte;
-import com.mauja.maujaadventures.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.monde.Tuile;
-import com.mauja.maujaadventures.utilitaires.DecoupeurImage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -31,9 +27,7 @@ import vues.navigation.Navigateur;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FenetreDeJeu implements Observateur {
     private Navigateur navigateur;
@@ -82,7 +76,6 @@ public class FenetreDeJeu implements Observateur {
         lesTuilesGraphiquesCourantes = new ArrayList<>();
 
         initialiser();
-        ajoutElementParsage(GestionnaireInteractions.getInstance().getElementAAjouter());
     }
 
     public Scene getScene() {
@@ -92,10 +85,6 @@ public class FenetreDeJeu implements Observateur {
     public void miseAJourCarte() {
         carteCourante = tableauDeJeu.getCarteCourante();
         //Appel MAJ caméra.
-    }
-
-    public void ajoutElementParsage(List<ElementInteractif> list){
-        carteCourante.ajouterElementsInteractifs(list);
     }
 
     public void affichage() {
@@ -170,8 +159,6 @@ public class FenetreDeJeu implements Observateur {
             imageEnnemi = new Image(String.valueOf(new File("ressources/images/entites/ennemi.png").toURI().toURL()));
             imageLevierPasActif = new Image(String.valueOf(new File("ressources/images/entites/levierPasActif.png").toURI().toURL()));
             imageLevierActif = new Image(String.valueOf(new File("ressources/images/entites/levierActif.png").toURI().toURL()));
-            Levier.setHauteurDefaut(imageLevierActif.getHeight());
-            Levier.setLargeurDefaut(imageLevierActif.getWidth());
         }
         catch (MalformedURLException e) {
             e.printStackTrace();

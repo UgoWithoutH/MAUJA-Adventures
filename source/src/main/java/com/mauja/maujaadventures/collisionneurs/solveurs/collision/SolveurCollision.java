@@ -1,9 +1,8 @@
 package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class SolveurCollision {
