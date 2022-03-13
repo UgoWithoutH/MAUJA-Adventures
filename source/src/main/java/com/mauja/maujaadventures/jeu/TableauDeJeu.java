@@ -1,8 +1,6 @@
 package com.mauja.maujaadventures.jeu;
 
 import com.mauja.maujaadventures.chargeurs.*;
-import com.mauja.maujaadventures.comportements.ComportementChevalier;
-import com.mauja.maujaadventures.comportements.ComportementPoursuite;
 import com.mauja.maujaadventures.comportements.ComportementTireur;
 import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.entites.Entite;
@@ -61,7 +59,9 @@ public class TableauDeJeu {
     public boolean changeCarte(String nomCarte) {
         Carte carte = getCarte(nomCarte);
         if (carte != null) {
+            carteCourante.supprimerEntite(joueur);
             carteCourante = carte;
+            carteCourante.ajouterElementInteractif(joueur);
             return true;
         }
         return false;
@@ -95,20 +95,21 @@ public class TableauDeJeu {
         transitionsEntreCartes = chargeurDeTransitions.charge(Ressources.getInstance().getFichierTransitions(), lesCartes);
         carteCourante = getCarte(transitionsEntreCartes.get(null).getNomCarte()) == null
                 ? getCarte(transitionsEntreCartes.get(null).getNomCarte()) : lesCartes.get(0);
+        carteCourante.ajouterElementInteractif(joueur);
 
         Rectangle rectangle = new Rectangle(new Position(3, 24), new Dimension(27, 23));
         joueur = new PersonnageJouable(transitionsEntreCartes.get(null).getPosition(), new Dimension(33, 47),
                 rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
 
-        Entite entite = new Ennemi(new Position(300, 600), new Dimension(30, 30),
-                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementTireur(carteCourante), 100);
+        Entite entite = new Ennemi(new Position(100, 100), new Dimension(29, 27),
+                new Rectangle(new Position(0, 0), 30, 30), new Velocite(1, 8), null,
+                new ComportementTireur(carteCourante, new Velocite(2, 8)), 100);
 
-        Entite entite2 = new Ennemi(new Position(400, 600), new Dimension(30, 30),
-                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 5), null,
-                new ComportementTireur(carteCourante), 100);
+        Entite entite2 = new Ennemi(new Position(200, 200), new Dimension(29, 27),
+                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 2), null,
+                new ComportementTireur(carteCourante, new Velocite(1, 1)), 100);
 
-        carteCourante.ajouterElementInteractif(entite);
+        //carteCourante.ajouterElementInteractif(entite);
         carteCourante.ajouterElementInteractif(entite2);
     }
 }

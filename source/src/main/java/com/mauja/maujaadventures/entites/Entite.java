@@ -8,8 +8,8 @@ import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.logique.Velocite;
 
 public abstract class Entite extends ElementInteractif {
-    private Dimension dimension;
-    private Velocite velocite;
+    protected Dimension dimension;
+    protected Velocite velocite;
     protected Direction direction;
 
     /**

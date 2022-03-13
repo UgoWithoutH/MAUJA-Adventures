@@ -24,6 +24,7 @@ public class SolveurPersonnageJouableDestructible extends SolveurCollision{
      */
     @Override
     public void resoud(ElementInteractif e1, ElementInteractif e2) {
+        System.out.println("Joueur touché par boulet !!!");
         PersonnageJouable personnageJouable = (PersonnageJouable) e1;
         Destructible destructible = (Destructible) e2;
         int v;

@@ -24,9 +24,8 @@ public class SolveurDestructibleDestructible extends SolveurCollision {
      */
     @Override
     public void resoud(ElementInteractif e1, ElementInteractif e2) {
-        Destructible destructible1 = (Destructible) e1;
-        Destructible destructible2 = (Destructible) e2;
-        carteCourante.supprimerEntite(destructible1);
-        carteCourante.supprimerEntite(destructible2);
+        System.out.println("je supprime proj - proj");
+        carteCourante.supprimerEntite(e1);
+        carteCourante.supprimerEntite(e2);
     }
 }

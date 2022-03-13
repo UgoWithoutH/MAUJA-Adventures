@@ -27,10 +27,12 @@ public class SolveurEnnemiDestructible extends SolveurCollision{
     public void resoud(ElementInteractif e1, ElementInteractif e2) {
         Ennemi ennemi = (Ennemi) e1;
         Destructible destructible = (Destructible) e2;
-        ennemi.setPointsDeVie(ennemi.getPointsDeVie() - destructible.getDegats());
-        carteCourante.supprimerEntite(destructible);
-        if (ennemi.getPointsDeVie() <= 0 ) {
-            carteCourante.supprimerEntite(ennemi);
+        if (!destructible.getEmetteur().getClass().equals(ennemi.getClass())) {
+            ennemi.setPointsDeVie(ennemi.getPointsDeVie() - destructible.getDegats());
+            if (ennemi.getPointsDeVie() <= 0 ) {
+                carteCourante.supprimerEntite(ennemi);
+            }
+            carteCourante.supprimerEntite(destructible);
         }
     }
 }

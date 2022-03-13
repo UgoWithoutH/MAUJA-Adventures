@@ -95,7 +95,7 @@ public class Attaque {
      */
     @Override
     public String toString() {
-        return collision.toString() + " : "
+        return collision + " : "
                 + duree + "ns "
                 + degats + "\u2665 degats";
     }

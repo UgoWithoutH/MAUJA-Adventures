@@ -5,6 +5,8 @@ import com.mauja.maujaadventures.deplaceurs.DeplaceurBasique;
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.entites.Vivant;
+import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
+import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.monde.Carte;
 
 import java.util.Arrays;
@@ -16,6 +18,7 @@ public class ComportementPoursuite implements Comportement{
     private PersonnageJouable joueur;
 
     private Deplaceur deplaceur;
+    private GestionnaireInteractions gestionnaireInteractions;
 
     public ComportementPoursuite(Carte carte, PersonnageJouable joueur) throws IllegalArgumentException {
         if (carte == null) {
@@ -24,22 +27,22 @@ public class ComportementPoursuite implements Comportement{
         }
         deplaceur = new DeplaceurBasique(carte);
         this.joueur = joueur;
-
+        gestionnaireInteractions = GestionnaireInteractions.getInstance();
     }
 
     @Override
     public void agit(Vivant vivant, float temps) {
-        if (joueur.getPosition().getX() > vivant.getPosition().getX()){
-            deplaceur.deplace(vivant, Direction.DROITE, true);
+        if (joueur.getPosition().getX() > vivant.getPosition().getX()) {
+            gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.DROITE, deplaceur));
         }
         if (joueur.getPosition().getX() < vivant.getPosition().getX()){
-            deplaceur.deplace(vivant, Direction.GAUCHE, true);
+            gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.GAUCHE, deplaceur));
         }
         if (joueur.getPosition().getY() > vivant.getPosition().getY()){
-            deplaceur.deplace(vivant, Direction.BAS, true);
+            gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.BAS, deplaceur));
         }
         if (joueur.getPosition().getY() < vivant.getPosition().getY()){
-            deplaceur.deplace(vivant, Direction.HAUT, true);
+            gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.HAUT, deplaceur));
         }
     }
 }

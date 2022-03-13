@@ -1,7 +1,7 @@
 package com.mauja.maujaadventures.interactions.evenements;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
-import com.mauja.maujaadventures.collisionneurs.SolveurCollision.SolveurCollision;
+import com.mauja.maujaadventures.collisionneurs.solveurs.collision.SolveurCollision;
 import com.mauja.maujaadventures.deplaceurs.Deplaceur;
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
@@ -42,20 +42,23 @@ public class EvenementDeplacement extends Evenement {
                 elementInteractif.getCollision().getPosition().getY() + elementInteractif.getPosition().getY(),
                 elementInteractif.getCollision().getDimension());
 
-        deplaceur.deplace((Entite) elementInteractif, direction, true);
+        boolean resultat = deplaceur.deplace((Entite) elementInteractif, direction, true);
 
         // Pour TOUS les éléments interactifs.
         for (ElementInteractif elementInter : elementsInteractifs) {
-            Rectangle collisionElement2 = new Rectangle(
-                    elementInter.getCollision().getPosition().getX() + elementInter.getPosition().getX(),
-                    elementInter.getCollision().getPosition().getY() + elementInter.getPosition().getY(),
-                    tableauDeJeu.getJoueur().getCollision().getDimension());
-
-            if (collisionneur.collisionne(collisionElement1, collisionElement2)) {
-                solveurCollision.resoud(elementInteractif, elementInter);
-                //elementInteractif.restorerMemento();
+            // Si ce ne sont pas les mêmes.
+            if (!elementInteractif.equals(elementInter)) {
+                Rectangle collisionElement2 = new Rectangle(
+                        elementInter.getCollision().getPosition().getX() + elementInter.getPosition().getX(),
+                        elementInter.getCollision().getPosition().getY() + elementInter.getPosition().getY(),
+                        tableauDeJeu.getJoueur().getCollision().getDimension());
+                if (collisionneur.collisionne(collisionElement1, collisionElement2)) {
+                    solveurCollision.resoud(elementInteractif, elementInter);
+                }
             }
         }
+
+        notifier(elementInteractif, resultat, (Object[]) null);
 
         // Si l'élément se trouve sur la bonne carte et sur un point de transition, on change la carte et on le déplace.
         Map<TransitionCarte, TransitionCarte> transitionsCarte = tableauDeJeu.getTransitionsEntreCartes();

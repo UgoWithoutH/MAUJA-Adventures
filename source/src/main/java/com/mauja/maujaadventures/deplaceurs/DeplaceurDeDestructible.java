@@ -2,9 +2,15 @@ package com.mauja.maujaadventures.deplaceurs;
 
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
+import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
+import com.mauja.maujaadventures.interactions.evenements.Evenement;
+import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
+import com.mauja.maujaadventures.jeu.BoucleDeJeu;
+import com.mauja.maujaadventures.jeu.ObservateurEvenementiel;
 import com.mauja.maujaadventures.monde.Carte;
 
-public class DeplaceurDeDestructible extends Deplaceur {
+public class DeplaceurDeDestructible extends Deplaceur implements ObservateurEvenementiel {
     private Deplaceur deplaceur;
 
     public DeplaceurDeDestructible(Carte carte, Deplaceur deplaceur) {
@@ -17,11 +23,16 @@ public class DeplaceurDeDestructible extends Deplaceur {
 
     @Override
     public boolean deplace(Entite entite, Direction direction, boolean gestionCollisions) {
-        boolean estDeplace = deplaceur.deplace(entite, direction, true);
-        if (!estDeplace) {
-            carteCourante.supprimerEntite(entite);
-            return false;
-        }
+        Evenement evenement = new EvenementDeplacement(entite, direction, deplaceur);
+        evenement.attacher(this);
+        GestionnaireInteractions.getInstance().ajouter(evenement);
         return true;
+    }
+
+    @Override
+    public void miseAJour(ElementInteractif elementInteractif, Boolean resultat, Object... parametres) {
+        if (!resultat) {
+            carteCourante.supprimerEntite(elementInteractif);
+        }
     }
 }

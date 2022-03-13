@@ -68,8 +68,7 @@ public class Ennemi extends Vivant {
 
     @Override
     public String toString() {
-        return /*super.toString()
-                + "\nComportement : " + comportement;*/
-        "toto";
+        return super.toString()
+                + "\nComportement : " + comportement;
     }
 }

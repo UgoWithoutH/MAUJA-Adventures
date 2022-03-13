@@ -49,7 +49,6 @@ public class DeplaceurBasique extends Deplaceur {
         Position positionEntite;
 
         do {
-            incrementX--; incrementY--;
             positionEntite = calculPositionFuture(entite, direction, incrementX, incrementY);
             if (positionEntite == null) {
                 return false;
@@ -63,6 +62,7 @@ public class DeplaceurBasique extends Deplaceur {
                 entite.setDirection(direction);
                 return true;
             }
+            incrementX--; incrementY--;
         }
         while (incrementX > 0 && incrementY > 0);
         return false;

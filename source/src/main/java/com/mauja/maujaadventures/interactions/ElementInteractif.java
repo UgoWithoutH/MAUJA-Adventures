@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class ElementInteractif extends Balise implements Cloneable{
-    private Position position;
-    private Rectangle collision;
+public abstract class ElementInteractif extends Balise implements Cloneable {
+    protected Position position;
+    protected Rectangle collision;
     private MementoPosition dernierePosition;
     private Map<Condition, List<Action>> mapConditionAction;
 
@@ -126,8 +126,7 @@ public abstract class ElementInteractif extends Balise implements Cloneable{
     @Override
     public ElementInteractif clone() {
         try {
-            ElementInteractif clone = (ElementInteractif) super.clone();
-            return clone;
+            return (ElementInteractif) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }

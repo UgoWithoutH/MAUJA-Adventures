@@ -5,8 +5,8 @@ import com.mauja.maujaadventures.logique.*;
 
 public abstract class Vivant extends Entite {
     private static final int POINTS_DE_VIE_PAR_DEFAUT = 10;
-    private Attaque attaque;
-    private int pointsDeVie;
+    protected Attaque attaque;
+    protected int pointsDeVie;
 
     public Vivant(@Param(nom = "position", classe = Position.class) Position position,
                   @Param(nom = "dimension", classe = Dimension.class) Dimension dimension,

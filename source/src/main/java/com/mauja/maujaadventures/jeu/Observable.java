@@ -2,8 +2,12 @@ package com.mauja.maujaadventures.jeu;
 
 import java.util.LinkedList;
 
-public class Observable {
-    private LinkedList<Observateur> lesObservateurs = new LinkedList<>();
+public abstract class Observable {
+    private LinkedList<Observateur> lesObservateurs;
+
+    public Observable() {
+        lesObservateurs = new LinkedList<>();
+    }
 
     public void attacher(Observateur listener){
         lesObservateurs.add(listener);

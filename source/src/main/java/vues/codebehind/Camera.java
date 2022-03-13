@@ -2,8 +2,6 @@ package vues.codebehind;
 
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
-import com.mauja.maujaadventures.jeu.Observable;
-import com.mauja.maujaadventures.jeu.Observateur;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import jdk.jshell.spi.ExecutionControl;
