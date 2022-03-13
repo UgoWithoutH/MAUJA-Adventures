@@ -2,6 +2,8 @@ package com.mauja.maujaadventures.fenetres;
 
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.jeu.Jeu;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,6 +26,7 @@ public class MenuPrincipal {
     private Button quitter;
     @FXML
     private GridPane paramPane;
+    private FenetreDeJeu fenetreDeJeu;
 
     public MenuPrincipal(Navigateur navigateur) throws IllegalArgumentException {
         if (navigateur == null) {
@@ -31,6 +34,15 @@ public class MenuPrincipal {
         }
         this.navigateur = navigateur;
         jeu = new Jeu(new GestionnaireDeTouchesFX(navigateur.getSceneCourante()));
+        jeu.getGestionnaireDeTouches().echapProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!jeu.isPause()){
+                    navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, jeu, fenetreDeJeu));
+                }
+                jeu.setPause(!jeu.isPause());
+            }
+        });
     }
 
     @FXML
@@ -52,7 +64,8 @@ public class MenuPrincipal {
 
     @FXML
     public void startSolo() {
-        navigateur.naviguerVers(new FenetreDeJeu(navigateur, jeu).getScene());
+        fenetreDeJeu = new FenetreDeJeu(navigateur, jeu);
+        navigateur.naviguerVers(fenetreDeJeu.getScene());
     }
 
     @FXML

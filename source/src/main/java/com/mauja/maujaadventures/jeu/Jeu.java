@@ -81,11 +81,12 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
 
     public void arreterJeu() {
         boucle.setActif(false);
-        try {
-            threadBoucleDeJeu.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        setPause(true);
+    }
+
+    public void reprendreJeu(){
+        boucle.reprendre();
+        setPause(false);
     }
 
     @Override

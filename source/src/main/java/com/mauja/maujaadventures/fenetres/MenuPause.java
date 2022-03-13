@@ -26,6 +26,7 @@ public class MenuPause {
     private GridPane paramPane;
     @FXML
     private StackPane stackpane;
+    private FenetreDeJeu fenetreDeJeu;
 
     public MenuPause(Navigateur navigateur, Jeu jeu, FenetreDeJeu fenetreDeJeu) throws IllegalArgumentException {
         if (navigateur == null) {
@@ -36,6 +37,7 @@ public class MenuPause {
         }
         this.navigateur = navigateur;
         this.jeu = jeu;
+        this.fenetreDeJeu = fenetreDeJeu;
     }
 
     public void setPane(StackPane stackPane) {
@@ -66,13 +68,13 @@ public class MenuPause {
 
     @FXML
     public void reprendre(ActionEvent bouton) {
-        content.setVisible(false);
+        //content.setVisible(false);
         jeu.setPause(false);
+        navigateur.naviguerVers(fenetreDeJeu.getScene());
     }
 
     @FXML
     public void sauvegarderQuitter(ActionEvent bouton) {
-        stackpane.setVisible(false);
-        navigateur.faireDemiTour();
+        //stackpane.setVisible(false);
     }
 }
