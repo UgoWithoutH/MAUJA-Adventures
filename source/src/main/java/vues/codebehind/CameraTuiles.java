@@ -40,8 +40,8 @@ public class CameraTuiles extends Camera {
         int positionEntiteX = (int) ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) / largeurTuile);
         int positionEntiteY = (int) ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) / hauteurTuile);
 
-        double decalageX = (int) ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) % largeurTuile);
-        double decalageY = (int) ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) % hauteurTuile);
+        double decalageX = ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) % largeurTuile);
+        double decalageY = ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) % hauteurTuile);
 
         double milieuEcranX = milieu.getLargeur();
         double milieuEcranY = milieu.getHauteur();
