@@ -38,14 +38,14 @@ public class SolveurPersonnageJouableLevier extends SolveurAttaque{
         if (collisionneur.collisionne(rectangleAttaque, rectangleLevier)) {
             levier.setActive(true);
             for(Scenario scenario :  scenarios){
-                for(ElementInteractif e  : scenario.getListeElemInteractif()){
-                    if(e == levier) {
-                        Iterator<Map.Entry<Condition, List<Action>>> it = e.getMapConditionAction().entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry<Condition, List<Action>> a = it.next();
-                            for (Action action : a.getValue()) {
-                                action.agit(tableauDeJeu);
-                            }
+                int index = scenario.getListeElemInteractif().indexOf(levier);
+                if(index != -1) {
+                    ElementInteractif e = scenario.getListeElemInteractif().get(index);
+                    Iterator<Map.Entry<Condition, List<Action>>> it = e.getMapConditionAction().entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry<Condition, List<Action>> a = it.next();
+                        for (Action action : a.getValue()) {
+                            action.agit(tableauDeJeu);
                         }
                     }
                 }
