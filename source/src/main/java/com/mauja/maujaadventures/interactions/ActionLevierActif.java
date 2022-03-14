@@ -7,9 +7,17 @@ import com.mauja.maujaadventures.logique.Velocite;
 
 public class ActionLevierActif extends Action {
     @Override
-    public void agit(TableauDeJeu tableauDeJeu) {
-        for(ElementInteractif elementInteractif : listeElementInteractif) {
-            if (elementInteractif instanceof Ennemi ennemi) {
+    public void agit(ElementInteractif elementInteractif, TableauDeJeu tableauDeJeu) {
+    Levier levier = (Levier)elementInteractif;
+
+        if(levier.isActive()){
+            return;
+        }else {
+            levier.setActive(true);
+        }
+
+        for(ElementInteractif elementInter : listeElementInteractif) {
+            if (elementInter instanceof Ennemi ennemi) {
                 ennemi.setComportement(new ComportementTireur(tableauDeJeu.getCarteCourante(), new Velocite(4, 4)));
             }
         }

@@ -10,6 +10,7 @@ import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.logique.TransitionCarte;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 

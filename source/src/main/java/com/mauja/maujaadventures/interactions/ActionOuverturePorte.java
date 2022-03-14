@@ -4,7 +4,7 @@ import com.mauja.maujaadventures.jeu.TableauDeJeu;
 
 public class ActionOuverturePorte extends Action{
     @Override
-    public void agit(TableauDeJeu tableauDeJeu) {
+    public void agit(ElementInteractif elementInteractif, TableauDeJeu tableauDeJeu) {
 
     }
 

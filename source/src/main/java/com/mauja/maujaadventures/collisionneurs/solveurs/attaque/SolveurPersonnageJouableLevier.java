@@ -25,31 +25,6 @@ public class SolveurPersonnageJouableLevier extends SolveurAttaque{
 
     @Override
     public void resoud(ElementInteractif e1, ElementInteractif e2, List<Scenario> scenarios, TableauDeJeu tableauDeJeu) {
-        PersonnageJouable pj = (PersonnageJouable) e1;
-        Levier levier = (Levier) e2;
-
-        Rectangle rectangleLevier = new Rectangle(levier.getPosition().getX(),levier.getPosition().getY(),
-                Levier.getLargeurDefaut(), Levier.getHauteurDefaut());
-
-        Dimension dim = pj.getAttaque().getCollision().getDimension();
-        Position pos = pj.getAttaque().getCollision().getPosition();
-
-        Rectangle rectangleAttaque = new Rectangle(pos.getX(), pos.getY(), dim.getLargeur(), dim.getHauteur());
-        if (collisionneur.collisionne(rectangleAttaque, rectangleLevier)) {
-            levier.setActive(true);
-            for(Scenario scenario :  scenarios){
-                int index = scenario.getListeElemInteractif().indexOf(levier);
-                if(index != -1) {
-                    ElementInteractif e = scenario.getListeElemInteractif().get(index);
-                    Iterator<Map.Entry<Condition, List<Action>>> it = e.getMapConditionAction().entrySet().iterator();
-                    while (it.hasNext()) {
-                        Map.Entry<Condition, List<Action>> a = it.next();
-                        for (Action action : a.getValue()) {
-                            action.agit(tableauDeJeu);
-                        }
-                    }
-                }
-            }
-        }
+        
     }
 }

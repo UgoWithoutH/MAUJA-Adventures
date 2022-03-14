@@ -5,9 +5,7 @@ import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.monde.Camera;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GestionnaireInteractions implements Runnable {
@@ -66,6 +64,7 @@ public class GestionnaireInteractions implements Runnable {
             if (!fileCourante.isEmpty()) {
                 Evenement evenement = fileCourante.poll();
                 evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu);
+                verificationScenarios(parseurInteraction.getScenarios(), tableauDeJeu);
             }
             else {
                 synchronized (this) {
@@ -82,4 +81,34 @@ public class GestionnaireInteractions implements Runnable {
     private void initialisation() {
         parseurInteraction.creerActionInteraction(Ressources.getInstance().getLesScripts().get(0));
     }
+
+    private void verificationScenarios(List<Scenario> scenarios, TableauDeJeu tableauDeJeu) {
+        List<Condition> listConditionsASupprimer = new ArrayList<>();
+
+        for (Scenario scenario : scenarios) {
+            for (ElementInteractif element : scenario.getListeElemInteractif()) {
+                Iterator<Map.Entry<Condition, List<Action>>> it = element.getMapConditionAction().entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry<Condition, List<Action>> map = it.next();
+                    for (Action action : map.getValue()) {
+                        if(map.getKey().verificationCondition(element, tableauDeJeu)) {
+                            action.agit(element, tableauDeJeu);
+                            //listConditionsASupprimer.add(map.getKey());
+                        }
+                    }
+                }
+            }
+        }
+        //suppressionConditions(scenarios, listConditionsASupprimer);
+    }
+
+    /*private void suppressionConditions(List<Scenario> scenarios, List<Condition> listConditions){
+        for(Scenario scenario : scenarios){
+            for(ElementInteractif elementInteractif : scenario.getListeElemInteractif()){
+                for(Condition condition : listConditions){
+                    elementInteractif.getMapConditionAction().remove(condition);
+                }
+            }
+        }
+    }*/
 }
