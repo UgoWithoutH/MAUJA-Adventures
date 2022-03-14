@@ -43,4 +43,9 @@ public class TuileGraphique {
     public int hashCode() {
         return Objects.hash(tuile);
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(image);
+    }
 }

@@ -30,7 +30,6 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
 
     private boolean pause;
 
-    private Camera camera;
     private int tempsAttaque = 0;
 
     public Jeu(GestionnaireDeTouches gestionnaireDeTouches) throws IllegalArgumentException {
@@ -47,15 +46,10 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
         deplaceur = new DeplaceurBasique(tableauDeJeu.getCarteCourante());
         pause = true;
 
-        camera = new Camera( 0, 0);
     }
 
     public TableauDeJeu getTableauDeJeu() {
         return tableauDeJeu;
-    }
-
-    public Camera getCamera() {
-        return camera;
     }
 
     public GestionnaireDeTouches getGestionnaireDeTouches() {
