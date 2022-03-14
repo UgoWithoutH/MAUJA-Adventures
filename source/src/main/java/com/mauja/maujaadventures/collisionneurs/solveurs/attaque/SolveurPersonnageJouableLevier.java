@@ -43,10 +43,8 @@ public class SolveurPersonnageJouableLevier extends SolveurAttaque{
                         Iterator<Map.Entry<Condition, List<Action>>> it = e.getMapConditionAction().entrySet().iterator();
                         while (it.hasNext()) {
                             Map.Entry<Condition, List<Action>> a = it.next();
-                            if (a.getKey() instanceof ConditionCollision) {
-                                for (Action action : a.getValue()) {
-                                    action.agit(tableauDeJeu);
-                                }
+                            for (Action action : a.getValue()) {
+                                action.agit(tableauDeJeu);
                             }
                         }
                     }
