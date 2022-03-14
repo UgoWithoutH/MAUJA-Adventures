@@ -25,6 +25,6 @@ public class SolveurPersonnageJouableLevier extends SolveurAttaque{
 
     @Override
     public void resoud(ElementInteractif e1, ElementInteractif e2, List<Scenario> scenarios, TableauDeJeu tableauDeJeu) {
-        
+
     }
 }
