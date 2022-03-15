@@ -44,12 +44,12 @@ public class MenuPrincipal {
         param.setMaxWidth(400);
         quitter.setMaxWidth(400);
 
-        /*Stage myStage = navigateur.getStage();
+        Stage myStage = navigateur.getStage();
         myStage.widthProperty().addListener((listener) -> {
             solo.setPrefWidth(myStage.getWidth()*0.70);
             param.setPrefWidth(myStage.getWidth()*0.70);
             quitter.setPrefWidth(myStage.getWidth()*0.70);
-        });*/
+        });
     }
 
     @FXML

@@ -103,7 +103,7 @@ public class TableauDeJeu extends ObservableCarte {
             lesCartes.add(carte);
         }
 
-        transitionsEntreCartes = chargeurDeTransitions.charge(Ressources.getInstance().getFichierTransitions(), lesCartes);
+        transitionsEntreCartes = chargeurDeTransitions.charge(Ressources.getInstance().getCheminTransitions(), lesCartes);
         carteCourante = (getCarte(transitionsEntreCartes.get(null).getNomCarte()) == null)
                 ? lesCartes.get(0) : getCarte(transitionsEntreCartes.get(null).getNomCarte());
 

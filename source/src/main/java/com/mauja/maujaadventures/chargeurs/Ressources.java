@@ -9,33 +9,38 @@ import java.util.*;
 
 public class Ressources {
     private static Ressources ressources;
+    private ConfigurateurEnvironnement configurateurEnvironnement;
+
+    private List<File> lesFichiers;
+    private Map<File, String> lesDossiersEtExtensions;
 
     private List<String> lesCartes;
-    private List<String> lesImagesEntites;
     private List<String> lesScripts;
+    private List<String> lesImagesEntites;
     private Map<Fenetre, URL> lesVues;
 
-    private String fichierTransitions;
-    private String fichierTouches;
-
     public Ressources() {
-        lesCartes = new ArrayList<>();
         lesImagesEntites = new ArrayList<>();
-        lesScripts = new ArrayList<>();
         lesVues = new HashMap<>();
+        lesFichiers = new ArrayList<>();
+        lesDossiersEtExtensions = new HashMap<>();
         initialiser();
+        configurateurEnvironnement = new ConfigurateurEnvironnement(lesFichiers, lesDossiersEtExtensions);
+        configurateurEnvironnement.configure();
+        lesCartes = configurateurEnvironnement.getLesFichiersDesDossiers().get("cartes");
+        lesScripts = configurateurEnvironnement.getLesFichiersDesDossiers().get("scripts");
     }
 
     public Map<Fenetre, URL> getLesVues() {
         return Collections.unmodifiableMap(lesVues);
     }
 
-    public String getFichierTouches() {
-        return fichierTouches;
+    public String getCheminTouches() {
+        return configurateurEnvironnement.getLesFichiersDeConfiguration().get("configurationTouches.txt");
     }
 
-    public String getFichierTransitions() {
-        return fichierTransitions;
+    public String getCheminTransitions() {
+        return configurateurEnvironnement.getLesFichiersDeConfiguration().get("transitions.txt");
     }
 
     public static Ressources getInstance() {
@@ -54,24 +59,26 @@ public class Ressources {
     }
 
     private void initialiser() {
-        lesCartes.add(Objects.requireNonNull(new File("ressources/cartes/carteTest3.tmx").getAbsolutePath()));
-        lesCartes.add(Objects.requireNonNull(new File("ressources/cartes/carteTest4.tmx").getAbsolutePath()));
+        File fichierTransitions = new File("ressources" + File.separator + "transitions.txt");
+        File fichierTouches = new File("ressources" + File.separator + "configurationTouches.txt");
+        lesFichiers.add(fichierTransitions);
+        lesFichiers.add(fichierTouches);
+
+        File dossierCartes = new File("ressources" + File.separator + "cartes" + File.separator);
+        File dossierScripts = new File("ressources" + File.separator + "scripts" + File.separator);
+        lesDossiersEtExtensions.put(dossierCartes, ".tmx");
+        lesDossiersEtExtensions.put(dossierScripts, ".xml");
 
         try {
             lesImagesEntites.add(Objects.requireNonNull(new File("images/entites/link_epee.png").toURI().toURL().toExternalForm()));
             lesImagesEntites.add(Objects.requireNonNull(new File("images/entites/projectile.png").toURI().toURL().toString()));
-
-            lesScripts.add(Objects.requireNonNull(new File("ressources/scripts/testInteractions.xml").toString()));
-
-            lesVues.put(Fenetre.MENU_PRINCIPAL, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPrincipal.fxml")));
-            lesVues.put(Fenetre.PARAMETRES, Objects.requireNonNull(Ressources.class.getResource("/fxml/Parametres.fxml")));
-            lesVues.put(Fenetre.MENU_PAUSE, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPause.fxml")));
-
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
-        fichierTransitions = Objects.requireNonNull(new File("ressources/transitions.txt").getAbsolutePath());
-        fichierTouches = Objects.requireNonNull(new File("ressources/configurationTouches.txt").getAbsolutePath());
+        lesVues.put(Fenetre.MENU_PRINCIPAL, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPrincipal.fxml")));
+        lesVues.put(Fenetre.PARAMETRES, Objects.requireNonNull(Ressources.class.getResource("/fxml/Parametres.fxml")));
+        lesVues.put(Fenetre.MENU_PAUSE, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPause.fxml")));
     }
 }

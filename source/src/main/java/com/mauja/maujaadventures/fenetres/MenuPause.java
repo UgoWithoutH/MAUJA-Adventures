@@ -47,11 +47,11 @@ public class MenuPause {
 
     @FXML
     public void initialize() {
-        /*Stage stage = navigateur.getStage();
+        Stage stage = navigateur.getStage();
         stage.widthProperty().addListener((listener) -> {
             content.setPrefSize(stage.getWidth() * 0.70, stage.getHeight() * 0.70);
         });
-        content.setMaxSize(stage.getWidth() * 0.70, stage.getHeight() * 0.70);*/
+        content.setMaxSize(stage.getWidth() * 0.70, stage.getHeight() * 0.70);
     }
 
     @FXML
