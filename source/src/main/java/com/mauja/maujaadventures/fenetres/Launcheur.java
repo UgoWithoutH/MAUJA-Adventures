@@ -23,8 +23,8 @@ public class Launcheur extends Application {
     public void start(Stage stage) {
         Navigateur navigateur = new Navigateur(stage);
         navigateur.naviguerVers(Fenetre.MENU_PRINCIPAL, new MenuPrincipal(navigateur, gestionnaireDeJeu));
-        stage.setWidth(964);
-        stage.setHeight(650);
+        /*stage.setMaxWidth(964);
+        stage.setHeight(650);*/
         stage.show();
     }
 

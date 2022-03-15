@@ -33,11 +33,11 @@ public class Parametres {
 
     @FXML
     public void initialize() {
-        Stage stage = navigateur.getStage();
+        /*Stage stage = navigateur.getStage();
         stage.widthProperty().addListener((listener) -> {
             paramPane.setPrefSize(stage.getWidth() * 0.70, stage.getHeight() * 0.70);
         });
-        paramPane.setMaxSize(stage.getWidth() * 0.70, stage.getHeight() * 0.70);
+        paramPane.setMaxSize(stage.getWidth() * 0.70, stage.getHeight() * 0.70);*/
         zoneText.textProperty().bindBidirectional(gestionnaireDeJeu.getTableauDeJeu().getOptions().paramProperty(),
                 new NumberStringConverter());
     }

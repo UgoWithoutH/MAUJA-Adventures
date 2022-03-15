@@ -65,7 +65,6 @@ public class Ressources {
 
             lesVues.put(Fenetre.MENU_PRINCIPAL, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPrincipal.fxml")));
             lesVues.put(Fenetre.PARAMETRES, Objects.requireNonNull(Ressources.class.getResource("/fxml/Parametres.fxml")));
-            lesVues.put(Fenetre.JEU, Objects.requireNonNull(Ressources.class.getResource("/fxml/Partie.fxml")));
             lesVues.put(Fenetre.MENU_PAUSE, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPause.fxml")));
 
         } catch (MalformedURLException e) {

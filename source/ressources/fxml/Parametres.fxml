@@ -8,7 +8,8 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<GridPane fx:id="paramPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" alignment="CENTER">
+<GridPane fx:id="paramPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" alignment="CENTER"
+          minWidth="964" minHeight="650">
     <rowConstraints>
         <RowConstraints percentHeight="10"/>
         <RowConstraints percentHeight="90"/>
