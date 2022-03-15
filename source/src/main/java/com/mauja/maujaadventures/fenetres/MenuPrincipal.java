@@ -1,16 +1,12 @@
 package com.mauja.maujaadventures.fenetres;
 
-import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.jeu.Jeu;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import vues.navigation.Fenetre;
-import vues.navigation.Navigateur;
+import com.mauja.maujaadventures.utilitaires.Navigateur;
 
 public class MenuPrincipal {
     private Navigateur navigateur;

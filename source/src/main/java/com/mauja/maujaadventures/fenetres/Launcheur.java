@@ -6,10 +6,7 @@ import javafx.application.Application;
 
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
-import vues.navigation.Fenetre;
-import vues.navigation.Navigateur;
+import com.mauja.maujaadventures.utilitaires.Navigateur;
 
 
 public class Launcheur extends Application {

@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
-import vues.navigation.Navigateur;
+import com.mauja.maujaadventures.utilitaires.Navigateur;
 
 public class Parametres {
     private Navigateur navigateur;

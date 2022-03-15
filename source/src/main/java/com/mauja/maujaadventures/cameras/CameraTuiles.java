@@ -1,4 +1,4 @@
-package vues.codebehind;
+package com.mauja.maujaadventures.cameras;
 
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;

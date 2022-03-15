@@ -3,16 +3,12 @@ package com.mauja.maujaadventures.fenetres;
 import com.mauja.maujaadventures.jeu.Jeu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import vues.navigation.Fenetre;
-import vues.navigation.Navigateur;
-
-import java.io.IOException;
+import com.mauja.maujaadventures.utilitaires.Navigateur;
 
 public class MenuPause {
     private Navigateur navigateur;

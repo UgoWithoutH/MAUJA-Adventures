@@ -6,7 +6,6 @@ import com.mauja.maujaadventures.chargeurs.ChargeurCartesGraphiques;
 import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
-import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.elements.Levier;
 import com.mauja.maujaadventures.jeu.Jeu;
 import com.mauja.maujaadventures.jeu.Observateur;
@@ -21,8 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import vues.navigation.Fenetre;
-import vues.navigation.Navigateur;
+import com.mauja.maujaadventures.utilitaires.Navigateur;
 
 import java.io.File;
 import java.net.MalformedURLException;

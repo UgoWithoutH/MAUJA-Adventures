@@ -1,4 +1,4 @@
-package vues.navigation;
+package com.mauja.maujaadventures.fenetres;
 
 public enum Fenetre {
     MENU_PRINCIPAL,
