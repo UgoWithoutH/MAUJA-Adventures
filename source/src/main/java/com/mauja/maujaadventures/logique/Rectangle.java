@@ -7,6 +7,15 @@ public class Rectangle {
     private Dimension dimension;
     private Position position;
 
+    /**
+     * Constructeur annotation de Rectangle
+     * @param positionX Position x du début du rectangle
+     * @param positionY Position Y du début du rectangle
+     * @param largeur largeur du rectangle
+     * @param hauteur hauteur du rectangle
+     * @throws IllegalArgumentException argument levé si dimension et position null
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     @ConstructeurXml
     public Rectangle(@Param(nom = "x") double positionX, @Param(nom = "y") double positionY,
                      @Param(nom = "largeur") double largeur, @Param(nom = "hauteur") double hauteur)
@@ -19,6 +28,7 @@ public class Rectangle {
     /**
      * Constructeur de collision
      * @param position Position de la collision
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public Rectangle(@Param(nom = "position", classe = Position.class) Position position,
                      @Param(nom = "dimension", classe = Dimension.class) Dimension dimension) throws IllegalArgumentException {
@@ -31,18 +41,35 @@ public class Rectangle {
         this.dimension = dimension;
     }
 
+    /**
+     * Constructeur du rectangle
+     * @param position Position X et Y du début du rectangle
+     * @param largeur largeur du rectangle
+     * @param hauteur hauteur du rectangle
+     * @throws IllegalArgumentException potion où dimension nulle
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public Rectangle(@Param(nom = "position", classe = Position.class) Position position,
                      @Param(nom = "largeur") double largeur, @Param(nom = "hauteur") double hauteur) throws IllegalArgumentException {
         this(position, new Dimension(largeur, hauteur));
     }
 
+    /**
+     * Constructeur du rectangle
+     * @param positionX Position x du début du rectangle
+     * @param positionY Position Y du début du rectangle
+     * @param dimension largeur et hauteur du rectangle
+     * @throws IllegalArgumentException position ou dimension nulle
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     *
+     */
     public Rectangle(@Param(nom = "x") double positionX, @Param(nom = "y") double positionY,
                      @Param(nom = "dimension", classe = Dimension.class) Dimension dimension) throws IllegalArgumentException {
         this(new Position(positionX, positionY), dimension);
     }
 
     /**
-     * Getter de la posion
+     * Récupération de la posion
      * @return Position de la collision
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
@@ -50,12 +77,17 @@ public class Rectangle {
         return position;
     }
 
+    /**
+     * Récupération de la dimension du rectangle
+     * @return Dimension du rectangle
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public Dimension getDimension() {
         return dimension;
     }
 
     /**
-     * Redéfinition du hashCOde
+     * Redéfinition du hashCode
      * @return Entier de l'hachage des attributs de Collision
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
@@ -100,6 +132,13 @@ public class Rectangle {
         return position.toString() + " " + dimension.toString();
     }
 
+    /**
+     * Vérification d'une dimension
+     * @param largeur largeur du rectangle
+     * @param hauteur hauteur du rectangle
+     * @throws IllegalArgumentException dimension contenant des valeurs négatives.
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     private void verificationDimensions(double largeur, double hauteur) throws IllegalArgumentException {
         if (largeur < 0 || hauteur < 0) {
             throw new IllegalArgumentException("La largeur ou la hauteur d'un rectangle ne peut pas être négative. "

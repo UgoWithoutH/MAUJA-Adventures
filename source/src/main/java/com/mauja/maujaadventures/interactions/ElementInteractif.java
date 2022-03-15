@@ -69,6 +69,9 @@ public abstract class ElementInteractif extends Balise implements Cloneable {
         return mapConditionAction;
     }
 
+    /**
+     * Mise à jour des classes héritant de ElementInteractif
+     */
     public abstract void miseAJour();
 
     @Override

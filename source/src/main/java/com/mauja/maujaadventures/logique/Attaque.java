@@ -9,6 +9,11 @@ public class Attaque {
     private int degats;
     private float duree;
 
+    /**
+     * Constructeur de l'attaque
+     * @param degats nombre de dégât que va infliger l'attaque
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public Attaque(Rectangle collision, float duree, int degats) {
         this.collision = collision;
         if (degats < 0) {
@@ -19,41 +24,64 @@ public class Attaque {
         dureeOriginelle = duree;
     }
 
+    /**
+     * Constructeur de l'attaque
+     * @param collision collision de l'attaque
+     * @param duree entier correspondant à la durée d'une attaque
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public Attaque(Rectangle collision, float duree) {
         this(collision, duree, DEGATS_PAR_DEFAUT);
     }
 
+    /**
+     * Récupération du rectangle de collision
+     * @return collision de l'attaque
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public Rectangle getCollision() {
         return collision;
     }
 
+    /**
+     * Modification de la collision
+     * @param collision nouvelle collision de l'attaque
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public void setCollision(Rectangle collision) {
         this.collision = collision;
     }
 
+    /**
+     * Récupération du nombre de dégât d'une attaque
+     * @return nombre de dégâts de l'attaque
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public int getDegats() {
         return degats;
     }
 
-    private void setDegats(int degats) {
-        this.degats = degats;
-    }
-
+    /**
+     * Récupération de la durée de l'attaque
+     * @return durée de l'attaque
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public float getDuree() {
         return duree;
     }
 
-    private void setDuree(float duree) {
-        this.duree = duree;
-    }
-
+    /**
+     * Récupération de la durée originelle de l'attaque
+     * @return Durée originelle de l'attaque
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public float getDureeOriginelle() {
         return dureeOriginelle;
     }
 
     /**
      * Redéfinition du hashCode
-     * @return Hachage des attributs de dimension
+     * @return Hachage des attributs de Attaque
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     @Override

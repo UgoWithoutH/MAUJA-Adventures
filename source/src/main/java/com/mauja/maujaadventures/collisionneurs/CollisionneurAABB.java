@@ -9,7 +9,6 @@ public class CollisionneurAABB {
      * @param rectangle1 Rectangle de la première collision
      * @param rectangle2 Rectangle de la seconde collision
      * @return true si il y a une collision sinon false
-     * @throws IllegalArgumentException
      */
     public boolean collisionne(Rectangle rectangle1, Rectangle rectangle2) {
         double gauche, droite, haut, bas;
