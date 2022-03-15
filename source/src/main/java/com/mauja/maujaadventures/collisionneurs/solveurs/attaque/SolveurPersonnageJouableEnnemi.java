@@ -6,14 +6,16 @@ import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Carte;
 
-public class SolveurAttPersonnageJouableEnnemi extends SolveurAttaque{
+import java.util.List;
+
+public class SolveurPersonnageJouableEnnemi extends SolveurAttaque{
     /**
      * Constructeur de la classe SolveurCollision
      *
      * @param carte Carte actuelle sur laquelle se déroule le projet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public SolveurAttPersonnageJouableEnnemi(Carte carte) {
+    public SolveurPersonnageJouableEnnemi(Carte carte) {
         super(carte);
     }
 

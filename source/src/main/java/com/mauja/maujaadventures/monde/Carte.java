@@ -100,6 +100,10 @@ public class Carte {
         lesElementsInteractifs.remove(elementInteractif);
     }
 
+    public boolean contientElementInteractif(ElementInteractif elementInteractif) {
+        return lesElementsInteractifs.contains(elementInteractif);
+    }
+
     /**
      * Redéfinition du Hash Code permet d'avoir une valeurs unique par Carte
      * @return entier de l'Hachage des attributs de Carte

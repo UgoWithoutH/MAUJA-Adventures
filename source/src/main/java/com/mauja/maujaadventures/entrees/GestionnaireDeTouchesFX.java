@@ -59,7 +59,7 @@ public class GestionnaireDeTouchesFX extends GestionnaireDeTouches {
 
         scene.addEventHandler(KeyEvent.KEY_RELEASED, (touche) -> {
             KeyCode codeTouche = touche.getCode();
-            lesTouchesAppuyees.remove(dicoTouchesFX.get(codeTouche));
+                lesTouchesAppuyees.remove(dicoTouchesFX.get(codeTouche));
         });
     }
 }

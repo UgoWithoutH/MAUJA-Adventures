@@ -8,10 +8,6 @@ import java.util.List;
 
 public abstract class GestionnaireDeTouches {
     protected List<Touche> lesTouchesAppuyees = new ArrayList<>();
-    private BooleanProperty Echap = new SimpleBooleanProperty();
-        public boolean getEchap() {return Echap.get();}
-        public BooleanProperty echapProperty() {return Echap;}
-        public void setEchap(boolean echap) {this.Echap.set(echap);}
 
     public abstract List<Touche> detecte();
 

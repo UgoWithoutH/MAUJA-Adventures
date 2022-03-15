@@ -1,6 +1,7 @@
 <Carte id="1" end="oui">
     <Scenario end="oui">
-        <ElementInteractif type="com.mauja.maujaadventures.interactions.elements.Levier" active="false" id="1" end="non">
+        <ElementInteractif type="com.mauja.maujaadventures.interactions.elements.Levier" active="false"
+                           nombreEtats="3" id="1" end="non">
             <collision type="com.mauja.maujaadventures.logique.Rectangle" x="0" y="0" largeur="32" hauteur="32" end="non"/>
             <position type="com.mauja.maujaadventures.logique.Position" x="32" y="32" end="oui"/>
             <Condition type="com.mauja.maujaadventures.interactions.conditions.ConditionCollision" end="oui"/>

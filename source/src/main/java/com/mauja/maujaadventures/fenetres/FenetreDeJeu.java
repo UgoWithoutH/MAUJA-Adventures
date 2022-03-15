@@ -88,10 +88,6 @@ public class FenetreDeJeu implements Observateur {
     }
 
     public void affichage() {
-        if (jeu.isPause()) {
-            navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, jeu, this));
-        }
-
         contexteGraphique.clearRect(0, 0, 1000, 1000);
         for (int k = 0; k < carteCourante.getLaCarte().length; k++) {
             for (int y = 0; y < carteCourante.getDimensionCarte().getHauteur(); y++) {
@@ -147,7 +143,10 @@ public class FenetreDeJeu implements Observateur {
     private void initialiser() {
         ((GestionnaireDeTouchesFX) jeu.getGestionnaireDeTouches()).setScene(scene);
         jeu.attacher(this);
-        jeu.lancerJeu();
+
+        if (!jeu.isLance()) {
+            jeu.lancerJeu();
+        }
 
         ChargeurCartesGraphiques chargeurCartesGraphiques = new ChargeurCartesGraphiques();
         lesCartesGraphiques = chargeurCartesGraphiques.charge(tableauDeJeu.getLesCartes());
@@ -171,6 +170,9 @@ public class FenetreDeJeu implements Observateur {
         affichage();
         if (!jeu.getTableauDeJeu().getCarteCourante().equals(carteCourante)) {
             miseAJourCarte();
+        }
+        if (!jeu.isLance()) {
+            navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, jeu, this));
         }
     }
 }

@@ -16,7 +16,7 @@ import java.util.Map;
 public class InteractionHandler extends DefaultHandler {
 
     private List<Scenario> listeScenarios;
-    CreateurDObject createurDObject;
+    private CreateurDObject createurDObject;
     private Balise baliseCourante;
     private Map<Integer, ElementInteractif> mapIdElemInteractif;
     private Attributes attributesPrimBaliseAcreer;

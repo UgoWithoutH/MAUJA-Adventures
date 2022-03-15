@@ -103,24 +103,26 @@ public class TableauDeJeu extends ObservableCarte {
         }
 
         transitionsEntreCartes = chargeurDeTransitions.charge(Ressources.getInstance().getFichierTransitions(), lesCartes);
-        carteCourante = getCarte(transitionsEntreCartes.get(null).getNomCarte()) == null
-                ? getCarte(transitionsEntreCartes.get(null).getNomCarte()) : lesCartes.get(0);
+        carteCourante = (getCarte(transitionsEntreCartes.get(null).getNomCarte()) == null)
+                ? lesCartes.get(0) : getCarte(transitionsEntreCartes.get(null).getNomCarte());
+
+        Entite entite = new Ennemi(new Position(400, 400), new Dimension(29, 27),
+                new Rectangle(new Position(0, 0), 30, 30), new Velocite(1, 8), null,
+                new ComportementTireur(lesCartes.get(0), new Velocite(2, 8)), 100);
+
+        Entite entite2 = new Ennemi(new Position(250, 250), new Dimension(29, 27),
+                new Rectangle(new Position(0, 0), 30, 30), new Velocite(2, 2), null,
+                new ComportementTireur(lesCartes.get(0), new Velocite(2, 1)), 100);
+
+        //carteCourante.ajouterElementInteractif(entite);
+        lesCartes.get(0).ajouterElementInteractif(entite2);
+
 
         Rectangle rectangle = new Rectangle(new Position(3, 24), new Dimension(27, 23));
         joueur = new PersonnageJouable(transitionsEntreCartes.get(null).getPosition(), new Dimension(33, 47),
                 rectangle, null, new Attaque(new Rectangle(0, 0, 30, 30), 1000));
 
-        carteCourante.ajouterElementInteractif(joueur);
+        lesCartes.get(0).ajouterElementInteractif(joueur);
 
-        Entite entite = new Ennemi(new Position(400, 400), new Dimension(29, 27),
-                new Rectangle(new Position(0, 0), 30, 30), new Velocite(1, 8), null,
-                new ComportementTireur(carteCourante, new Velocite(2, 8)), 100);
-
-        Entite entite2 = new Ennemi(new Position(250, 250), new Dimension(29, 27),
-                new Rectangle(new Position(0, 0), 30, 30), new Velocite(5, 2), null,
-                new ComportementTireur(carteCourante, new Velocite(5, 1)), 100);
-
-        //carteCourante.ajouterElementInteractif(entite);
-        carteCourante.ajouterElementInteractif(entite2);
     }
 }

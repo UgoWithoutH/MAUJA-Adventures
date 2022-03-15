@@ -11,17 +11,17 @@ public class Levier extends ElementInteractif {
     private int nombreEtats;
     private int etatCourant;
 
+    @ConstructeurXml
     public Levier(@Param(nom = "position", classe = Position.class, estPrimitif = false) Position position,
                   @Param(nom = "collision", classe = Rectangle.class, estPrimitif = false) Rectangle collision,
                   @Param(nom = "active", classe = Boolean.class) boolean active,
-                  @Param(nom = "active", classe = Boolean.class) int nombreEtats) {
+                  @Param(nom = "nombreEtats", classe = Integer.class) int nombreEtats) {
         super(position, collision);
         this.active = active;
         this.nombreEtats = nombreEtats;
         etatCourant = 0;
     }
 
-    @ConstructeurXml
     public Levier(@Param(nom = "position", classe = Position.class, estPrimitif = false) Position position,
                   @Param(nom = "collision", classe = Rectangle.class, estPrimitif = false) Rectangle collision,
                   @Param(nom = "active", classe = Boolean.class) boolean active) {

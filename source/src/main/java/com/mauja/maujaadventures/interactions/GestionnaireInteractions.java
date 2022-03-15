@@ -34,9 +34,6 @@ public class GestionnaireInteractions implements Runnable {
         parseurInteraction = new ParseurInteraction();
 
         initialisation();
-
-        thread = new Thread(this, "Mauja Adventures Interaction Handler");
-        thread.start();
     }
 
     public static GestionnaireInteractions getInstance() {
@@ -44,6 +41,31 @@ public class GestionnaireInteractions implements Runnable {
             throw new IllegalArgumentException("Le gestionnaire d'interactions n'a pas encore été initialisé.");
         }
         return gestionnaireInteractions;
+    }
+
+    public void lancerGestionnaire() throws IllegalStateException {
+        if (thread != null && thread.isAlive()) {
+            throw new IllegalStateException("Impossible de lancer le Thread du gestionnaire d'interaction car "
+                    + "il est déjà en cours.");
+        }
+        thread = new Thread(this, "Mauja Adventures Interaction Handler");
+        thread.start();
+    }
+
+    public void arreterGestionnaire() {
+        enCours = false;
+        try {
+            synchronized (this) {
+                notify();
+            }
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isLance() {
+        return thread != null && thread.isAlive();
     }
 
     public void ajouter(Evenement evenement) {

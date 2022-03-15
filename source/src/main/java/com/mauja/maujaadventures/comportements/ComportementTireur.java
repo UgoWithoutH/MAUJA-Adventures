@@ -27,7 +27,7 @@ public class ComportementTireur implements Comportement, ObservateurEvenementiel
     private static final List<Direction> DIRECTIONS_POSSIBLES = Arrays.asList(Direction.values());
     private static final int NOMBRE_DIRECTIONS = DIRECTIONS_POSSIBLES.size();
     private static final int NOMBRE_MAXIMUM_TENTATIVES_DEPLACEMENT = 6;
-    private static final int INTERVALLE_DEPLACEMENT = BoucleDeJeu.FPS_CIBLE / 20;
+    private static final int INTERVALLE_DEPLACEMENT = BoucleDeJeu.FPS_CIBLE / 40;
     private static final double TEMPS_ATTENTE_INACTIF = BoucleDeJeu.FPS_CIBLE * 1.2;
 
     private Deplaceur deplaceur;

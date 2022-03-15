@@ -45,7 +45,7 @@ public class SolveurCollision {
             }
             catch (InstantiationException | IllegalAccessException | InvocationTargetException
                     | NoSuchMethodException | ClassNotFoundException ex) {
-                ex.printStackTrace();
+                //commentaire catch vide
             }
         }
         catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException

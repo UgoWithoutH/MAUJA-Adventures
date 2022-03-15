@@ -6,15 +6,15 @@ import com.mauja.maujaadventures.jeu.TableauDeJeu;
 public class ActionActivationLevier extends Action {
     private Levier levier;
 
-    public ActionActivationLevier() throws IllegalArgumentException {
+    public ActionActivationLevier(/*Levier levier*/) throws IllegalArgumentException {
         /*if (levier == null) {
             throw new IllegalArgumentException("Le levier passé en paramètre ne peut pas être null.");
-        }*/
+        }
+        this.levier = levier;*/
     }
 
     @Override
     public void agit(TableauDeJeu tableauDeJeu) {
         levier.setActive(true);
-        tableauDeJeu.getCarteCourante().ajouterElementsInteractifs(lesElementsInteractifs);
     }
 }
