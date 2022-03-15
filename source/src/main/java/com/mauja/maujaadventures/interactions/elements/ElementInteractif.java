@@ -19,11 +19,6 @@ public abstract class ElementInteractif extends Balise implements Cloneable {
     private Map<Condition, List<Action>> mapConditionAction;
 
     private Condition derCondition;
-    //public abstract void init();
-
-    //public abstract void initialisation();
-
-    //public abstract void interagit();
 
     public ElementInteractif(@Param(nom = "position", classe = Position.class) Position position,
                              @Param(nom = "collision", classe = Rectangle.class) Rectangle collision) {

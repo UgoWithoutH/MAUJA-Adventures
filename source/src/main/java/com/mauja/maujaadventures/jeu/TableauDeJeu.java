@@ -8,6 +8,7 @@ import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.monde.Carte;
+import com.mauja.maujaadventures.observateurs.ObservableCarte;
 import com.mauja.maujaadventures.utilitaires.FormatInvalideException;
 
 import java.io.FileNotFoundException;

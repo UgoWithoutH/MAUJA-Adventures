@@ -13,6 +13,9 @@ import com.mauja.maujaadventures.interactions.evenements.EvenementAttaque;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.monde.*;
+import com.mauja.maujaadventures.observateurs.Observable;
+import com.mauja.maujaadventures.observateurs.Observateur;
+import com.mauja.maujaadventures.observateurs.ObservateurCarte;
 
 import java.util.*;
 
@@ -25,10 +28,8 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
     private Thread threadBoucleDeJeu;
     private List<Touche> lesTouchesAppuyees;
     private Deplaceur deplaceur;
-
     private boolean pause;
 
-    private Camera camera;
     private int tempsAttaque = 0;
 
     public Jeu(GestionnaireDeTouches gestionnaireDeTouches) throws IllegalArgumentException {
@@ -44,15 +45,10 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
         lesTouchesAppuyees = new ArrayList<>();
         deplaceur = new DeplaceurBasique(tableauDeJeu.getCarteCourante());
         pause = true;
-        camera = new Camera(0, 0);
     }
 
     public TableauDeJeu getTableauDeJeu() {
         return tableauDeJeu;
-    }
-
-    public Camera getCamera() {
-        return camera;
     }
 
     public GestionnaireDeTouches getGestionnaireDeTouches() {

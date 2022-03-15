@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.*?>
 
 <?import java.net.URL?>
-<GridPane fx:id="mainGrid" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<GridPane fx:id="mainGrid" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          minWidth="964" minHeight="650">
     <columnConstraints>
         <ColumnConstraints percentWidth="100" halignment="CENTER"/>
     </columnConstraints>

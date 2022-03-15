@@ -11,7 +11,7 @@ import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.jeu.BoucleDeJeu;
-import com.mauja.maujaadventures.jeu.ObservateurEvenementiel;
+import com.mauja.maujaadventures.observateurs.ObservateurEvenementiel;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;

@@ -1,4 +1,4 @@
-package com.mauja.maujaadventures.jeu;
+package com.mauja.maujaadventures.observateurs;
 
 import java.util.LinkedList;
 
@@ -17,9 +17,13 @@ public abstract class Observable {
         lesObservateurs.remove(observateur);
     }
 
-    public void notifier(long timer){
-        for (Observateur observateur : lesObservateurs){
+    public void notifier(long timer) {
+        for (Observateur observateur : lesObservateurs) {
             observateur.miseAJour(timer);
         }
+    }
+
+    public boolean isAttache(Observateur observateur) {
+        return lesObservateurs.contains(observateur);
     }
 }
