@@ -1,5 +1,8 @@
 package com.mauja.maujaadventures.entites;
 
+/**
+ * Ennumération des directions possibles pour le personnage
+ */
 public enum Direction {
     DROITE ((byte)1),
     GAUCHE ((byte)2),
