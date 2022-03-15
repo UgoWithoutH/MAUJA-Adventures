@@ -10,6 +10,6 @@
 #Attention : les positions sont exprimées en tuiles, et une erreur de formatage lèvera une exception dans le jeu.
 #De même, si le nom une carte n'existe pas, une erreur sera levée.
 
-carteTest3.tmx 5 5
+carteTest4.tmx 15 5
 carteTest3.tmx 3 8 => carteTest4.tmx 16 17
 carteTest4.tmx 4 4 => carteTest3.tmx 16 15

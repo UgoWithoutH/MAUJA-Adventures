@@ -1,7 +1,7 @@
 package com.mauja.maujaadventures.collisionneurs.solveurs.attaque;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.Scenario;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.monde.Carte;
@@ -19,7 +19,7 @@ public class SolveurAttaque {
         collisionneur = new CollisionneurAABB();
     }
 
-    public void resoud(ElementInteractif e1, ElementInteractif e2, List<Scenario> scenarios, TableauDeJeu tableauDeJeu){
+    public void resoud(ElementInteractif e1, ElementInteractif e2) {
         Class<?> classDefinition = null;
         Constructor<?> constructor = null;
         String nomClasse = "com.mauja.maujaadventures.collisionneurs.solveurs.attaque.Solveur"
@@ -27,7 +27,7 @@ public class SolveurAttaque {
         try {
             classDefinition = Class.forName(nomClasse);
             Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(cartecourante);
-            ((SolveurAttaque) ob).resoud(e1, e2, scenarios, tableauDeJeu);
+            ((SolveurAttaque) ob).resoud(e1, e2);
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException
                 | NoSuchMethodException | InstantiationException e) {
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package vues.codebehind;
+package com.mauja.maujaadventures.cameras;
 
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
@@ -11,7 +11,6 @@ import jdk.jshell.spi.ExecutionControl;
 public class CameraTuiles extends Camera {
     protected Carte carteCourante;
     protected Tuile[][] zoneVisible;
-
 
     protected double largeurCarte = 32;
     protected double hauteurCarte = 32;
@@ -29,8 +28,8 @@ public class CameraTuiles extends Camera {
                     + "être plus grande que les dimensions de la carte : " + carte.getDimensionCarte());
         }
         zoneVisible = new Tuile[(int) zoneObservable.getHauteur()][(int) zoneObservable.getLargeur()];
-        changeCarte(carte);    }
-
+        changeCarte(carte);
+    }
 
     @Override
     public void centrerSurEntite(Entite entite) {
@@ -73,12 +72,10 @@ public class CameraTuiles extends Camera {
         actualisation();
     }
 
-
     @Override
     public void decalage(Direction direction) throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Le système de décalage de la caméra 2D n'est pas implémenté.");
     }
-
 
     public void actualisation() throws IndexOutOfBoundsException {
         double largeurCamera = zoneObservable.getLargeur();
@@ -97,11 +94,6 @@ public class CameraTuiles extends Camera {
         }
     }
 
-    /**
-     * Methode permettant de changer la carte actuelle
-     * @param carte
-     * @throws IllegalArgumentException
-     */
     public void changeCarte(Carte carte) throws IllegalArgumentException {
         if (carte == null || carte.getDimensionCarte().getLargeur() == 0) {
             throw new IllegalArgumentException("La carte passée en paramètre de la caméra ne peut pas être nulle ou vide.");

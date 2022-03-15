@@ -1,6 +1,4 @@
-package com.mauja.maujaadventures.interactions;
-
-import com.mauja.maujaadventures.jeu.Observable;
+package com.mauja.maujaadventures.interactions.elements;
 
 public abstract class Balise {
 

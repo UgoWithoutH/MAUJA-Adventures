@@ -1,16 +1,12 @@
 package com.mauja.maujaadventures.fenetres;
 
-import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.jeu.Jeu;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import vues.navigation.Fenetre;
-import vues.navigation.Navigateur;
+import com.mauja.maujaadventures.utilitaires.Navigateur;
 
 public class MenuPrincipal {
     private Navigateur navigateur;
@@ -26,23 +22,16 @@ public class MenuPrincipal {
     private Button quitter;
     @FXML
     private GridPane paramPane;
-    private FenetreDeJeu fenetreDeJeu;
 
-    public MenuPrincipal(Navigateur navigateur) throws IllegalArgumentException {
+    public MenuPrincipal(Navigateur navigateur, Jeu jeu) throws IllegalArgumentException {
         if (navigateur == null) {
             throw new IllegalArgumentException("Le navigateur passé en paramètre ne peut pas être null.");
         }
+        if (jeu == null) {
+            throw new IllegalArgumentException("Le jeu passé en paramètre ne peut pas être null.");
+        }
         this.navigateur = navigateur;
-        jeu = new Jeu(new GestionnaireDeTouchesFX(navigateur.getSceneCourante()));
-        jeu.getGestionnaireDeTouches().echapProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(!jeu.isPause()){
-                    navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, jeu, fenetreDeJeu));
-                }
-                jeu.setPause(!jeu.isPause());
-            }
-        });
+        this.jeu = jeu;
     }
 
     @FXML
@@ -64,7 +53,7 @@ public class MenuPrincipal {
 
     @FXML
     public void startSolo() {
-        fenetreDeJeu = new FenetreDeJeu(navigateur, jeu);
+        FenetreDeJeu fenetreDeJeu = new FenetreDeJeu(navigateur, jeu);
         navigateur.naviguerVers(fenetreDeJeu.getScene());
     }
 
@@ -75,7 +64,9 @@ public class MenuPrincipal {
 
     @FXML
     public void quitter(ActionEvent bouttonQuitter) {
-        jeu.setPause(true);
+        if (jeu.isLance()) {
+            jeu.arreterJeu();
+        }
         navigateur.getStage().close();
     }
 }

@@ -3,16 +3,12 @@ package com.mauja.maujaadventures.fenetres;
 import com.mauja.maujaadventures.jeu.Jeu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import vues.navigation.Fenetre;
-import vues.navigation.Navigateur;
-
-import java.io.IOException;
+import com.mauja.maujaadventures.utilitaires.Navigateur;
 
 public class MenuPause {
     private Navigateur navigateur;
@@ -38,6 +34,10 @@ public class MenuPause {
         this.navigateur = navigateur;
         this.jeu = jeu;
         this.fenetreDeJeu = fenetreDeJeu;
+
+        if (jeu.isLance()) {
+            jeu.arreterJeu();
+        }
     }
 
     public void setPane(StackPane stackPane) {
@@ -55,10 +55,10 @@ public class MenuPause {
 
     @FXML
     public void parametres(ActionEvent bouton) {
-        if (paramPane == null){
+        if (paramPane == null) {
             navigateur.naviguerVers(Fenetre.PARAMETRES, new Parametres(navigateur, jeu));
         }
-        else if(paramPane.isVisible()){
+        else if(paramPane.isVisible()) {
             paramPane.setVisible(false);
         }
         else {
@@ -68,13 +68,15 @@ public class MenuPause {
 
     @FXML
     public void reprendre(ActionEvent bouton) {
-        //content.setVisible(false);
-        jeu.setPause(false);
-        navigateur.naviguerVers(fenetreDeJeu.getScene());
+        if (!jeu.isLance()) {
+            jeu.lancerJeu();
+        }
+        navigateur.faireDemiTour();
     }
 
     @FXML
     public void sauvegarderQuitter(ActionEvent bouton) {
-        //stackpane.setVisible(false);
+        navigateur.faireDemiTour();
+        navigateur.faireDemiTour();
     }
 }

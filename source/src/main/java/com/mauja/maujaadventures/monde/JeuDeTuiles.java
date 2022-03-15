@@ -3,6 +3,7 @@ package com.mauja.maujaadventures.monde;
 
 import com.mauja.maujaadventures.logique.Dimension;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +12,7 @@ import java.util.List;
 public class JeuDeTuiles {
     private final String identifiant;
     private int nombreTuiles;
-    private String cheminJeuDeTuiles;
+    private File cheminJeuDeTuiles;
     private Dimension dimensionJeuDeTuiles;
     private Dimension dimensionTuiles;
     private List<Tuile> listeDeTuiles;
@@ -20,7 +21,7 @@ public class JeuDeTuiles {
      * Constructeur du jeu de tuiles
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    public JeuDeTuiles(Dimension dimensionJeuDeTuiles, String identifiant, List<Tuile> lesTuiles, String cheminJeuDeTuiles)
+    public JeuDeTuiles(Dimension dimensionJeuDeTuiles, String identifiant, List<Tuile> lesTuiles, File cheminJeuDeTuiles)
             throws IllegalArgumentException {
         if (lesTuiles == null || lesTuiles.isEmpty()) {
             throw new IllegalArgumentException("Le jeu de tuile ne peut pas être vide.");
@@ -48,7 +49,7 @@ public class JeuDeTuiles {
         return nombreTuiles;
     }
 
-    public String getCheminJeuDeTuiles() {
+    public File getCheminJeuDeTuiles() {
         return cheminJeuDeTuiles;
     }
 

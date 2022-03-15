@@ -1,6 +1,6 @@
 package com.mauja.maujaadventures.chargeurs;
 
-import vues.navigation.Fenetre;
+import com.mauja.maujaadventures.fenetres.Fenetre;
 
 import java.io.File;
 import java.net.MalformedURLException;

@@ -35,7 +35,8 @@ public class CreateurDObject {
         return baliseCourante;
     }
 
-    protected Object[] trierAttributs(Attributes attributes, Map<String, Object> autreAttributs, Annotation[][] annotations, int nbParam) {
+    protected Object[] trierAttributs(Attributes attributes, Map<String, Object> autreAttributs,
+                                      Annotation[][] annotations, int nbParam) {
         Object[] listeAttributs =  new Object[nbParam];
         Param param;
         for (int i=0; i<nbParam ;i++) {

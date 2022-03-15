@@ -1,23 +1,18 @@
 package com.mauja.maujaadventures.fenetres;
 
 import com.mauja.maujaadventures.affichages.Carte2DGraphique;
-import com.mauja.maujaadventures.affichages.JeuDeTuilesGraphique;
 import com.mauja.maujaadventures.affichages.TuileGraphique;
 import com.mauja.maujaadventures.chargeurs.ChargeurCartesGraphiques;
-import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
-import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
-import com.mauja.maujaadventures.interactions.Levier;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.Levier;
 import com.mauja.maujaadventures.jeu.Jeu;
 import com.mauja.maujaadventures.jeu.Observateur;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.monde.Camera;
 import com.mauja.maujaadventures.monde.Carte;
-import com.mauja.maujaadventures.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.monde.Tuile;
-import com.mauja.maujaadventures.utilitaires.DecoupeurImage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -25,15 +20,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import vues.navigation.Fenetre;
-import vues.navigation.Navigateur;
+import com.mauja.maujaadventures.utilitaires.Navigateur;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FenetreDeJeu implements Observateur {
     private Navigateur navigateur;
@@ -82,7 +74,6 @@ public class FenetreDeJeu implements Observateur {
         lesTuilesGraphiquesCourantes = new ArrayList<>();
 
         initialiser();
-        ajoutElementParsage(GestionnaireInteractions.getInstance().getElementAAjouter());
     }
 
     public Scene getScene() {
@@ -94,15 +85,7 @@ public class FenetreDeJeu implements Observateur {
         //Appel MAJ caméra.
     }
 
-    public void ajoutElementParsage(List<ElementInteractif> list){
-        carteCourante.ajouterElementsInteractifs(list);
-    }
-
     public void affichage() {
-        if (jeu.isPause()) {
-            navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, jeu, this));
-        }
-
         contexteGraphique.clearRect(0, 0, 1000, 1000);
         for (int k = 0; k < carteCourante.getLaCarte().length; k++) {
             for (int y = 0; y < carteCourante.getDimensionCarte().getHauteur(); y++) {
@@ -158,7 +141,10 @@ public class FenetreDeJeu implements Observateur {
     private void initialiser() {
         ((GestionnaireDeTouchesFX) jeu.getGestionnaireDeTouches()).setScene(scene);
         jeu.attacher(this);
-        jeu.lancerJeu();
+
+        if (!jeu.isLance()) {
+            jeu.lancerJeu();
+        }
 
         ChargeurCartesGraphiques chargeurCartesGraphiques = new ChargeurCartesGraphiques();
         lesCartesGraphiques = chargeurCartesGraphiques.charge(tableauDeJeu.getLesCartes());
@@ -170,8 +156,6 @@ public class FenetreDeJeu implements Observateur {
             imageEnnemi = new Image(String.valueOf(new File("ressources/images/entites/ennemi.png").toURI().toURL()));
             imageLevierPasActif = new Image(String.valueOf(new File("ressources/images/entites/levierPasActif.png").toURI().toURL()));
             imageLevierActif = new Image(String.valueOf(new File("ressources/images/entites/levierActif.png").toURI().toURL()));
-            Levier.setHauteurDefaut(imageLevierActif.getHeight());
-            Levier.setLargeurDefaut(imageLevierActif.getWidth());
         }
         catch (MalformedURLException e) {
             e.printStackTrace();
@@ -184,6 +168,9 @@ public class FenetreDeJeu implements Observateur {
         affichage();
         if (!jeu.getTableauDeJeu().getCarteCourante().equals(carteCourante)) {
             miseAJourCarte();
+        }
+        if (!jeu.isLance()) {
+            navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, jeu, this));
         }
     }
 }

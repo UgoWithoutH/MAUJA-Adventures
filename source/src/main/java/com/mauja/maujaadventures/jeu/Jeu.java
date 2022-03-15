@@ -1,19 +1,17 @@
 package com.mauja.maujaadventures.jeu;
 
 
-import com.mauja.maujaadventures.comportements.Comportement;
 import com.mauja.maujaadventures.deplaceurs.Deplaceur;
 import com.mauja.maujaadventures.deplaceurs.DeplaceurBasique;
 import com.mauja.maujaadventures.entites.*;
 
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouches;
 import com.mauja.maujaadventures.entrees.Touche;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.evenements.EvenementAttaque;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.logique.*;
-import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.monde.*;
 
 import java.util.*;
@@ -46,8 +44,7 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
         lesTouchesAppuyees = new ArrayList<>();
         deplaceur = new DeplaceurBasique(tableauDeJeu.getCarteCourante());
         pause = true;
-
-        camera = new Camera( 0, 0);
+        camera = new Camera(0, 0);
     }
 
     public TableauDeJeu getTableauDeJeu() {
@@ -62,40 +59,50 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
         return gestionnaireDeTouches;
     }
 
-    public boolean isPause() {
-        return pause;
-    }
-
-    public void setPause(boolean pause) {
-        this.pause = pause;
-    }
-
     public void lancerJeu() throws IllegalStateException {
         if (threadBoucleDeJeu != null && threadBoucleDeJeu.isAlive()) {
             throw new IllegalStateException("Le thread du jeu est déjà lancé et doit d'abord être interrompu.");
         }
+        boucle.setActif(true);
         pause = false;
         threadBoucleDeJeu = new Thread(boucle, "Mauja Adventures Thread");
         threadBoucleDeJeu.start();
+        if (!gestionnaireInteractions.isLance()) {
+            gestionnaireInteractions.lancerGestionnaire();
+        }
     }
 
     public void arreterJeu() {
         boucle.setActif(false);
-        setPause(true);
+        try {
+            if (isLance()) {
+                threadBoucleDeJeu.join();
+            }
+            if (gestionnaireInteractions.isLance()) {
+                gestionnaireInteractions.arreterGestionnaire();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        pause = true;
     }
 
-    public void reprendreJeu(){
-        boucle.reprendre();
-        setPause(false);
+    public boolean isLance() {
+        return threadBoucleDeJeu != null && threadBoucleDeJeu.isAlive();
     }
 
     @Override
     public void miseAJour(long timer) {
-        tableauDeJeu.getJoueur().setEtatAction(EtatAction.SANS_ACTION);
         if (pause) {
             return;
         }
         lesTouchesAppuyees = gestionnaireDeTouches.detecte();
+        if (lesTouchesAppuyees.contains(Touche.ECHAP)) {
+            arreterJeu();
+            lesTouchesAppuyees.clear();
+        }
+
+        tableauDeJeu.getJoueur().setEtatAction(EtatAction.SANS_ACTION);
         if (lesTouchesAppuyees.contains(Touche.B)) {
             System.out.println("Je me protège");
         }
@@ -187,12 +194,6 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
 
                 if (collisionneur.collisionne(collisionJoueur, collisionEntite)) {
                     solveurCollision.resoud(ennemi,tableauDeJeu.getJoueur());
-                }
-            }
-            if (elementInteractif instanceof Projectile projectile) {
-
-                if (collisionneur.collisionne(collisionJoueur, collisionEntite)){
-                    solveurCollision.resoud(tableauDeJeu.getJoueur() , projectile);
                 }
             }
         }*/

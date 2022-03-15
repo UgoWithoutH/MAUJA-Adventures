@@ -1,9 +1,8 @@
 package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class SolveurCollision {
@@ -44,8 +43,15 @@ public class SolveurCollision {
                 Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(carteCourante);
                 ((SolveurCollision) ob).resoud(e2, e1);
             }
-            catch (InstantiationException | IllegalAccessException | InvocationTargetException
-                    | NoSuchMethodException | ClassNotFoundException ex) {
+            catch (ClassNotFoundException ex) {
+                /* Nous ne faisons rien ici car s'il est impossible d'instancier un solveur dans un sens
+                * ou dans un autre, alors c'est que l'utilisateur ne veut peut-être pas de collision
+                * entre ces deux entités. Si jamais il veut réaliser une quelconque action, il devra alors
+                * intégrer le solveur correspondant.
+                 */
+            }
+            catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException
+                    | InstantiationException ex) {
                 ex.printStackTrace();
             }
         }

@@ -1,11 +1,10 @@
-package vues.navigation;
+package com.mauja.maujaadventures.utilitaires;
 
 import com.mauja.maujaadventures.chargeurs.Ressources;
-import com.mauja.maujaadventures.utilitaires.RecuperateurRessources;
+import com.mauja.maujaadventures.fenetres.Fenetre;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -52,7 +51,6 @@ public class Navigateur {
 
         naviguerVers(scene);
     }
-
 
     public void naviguerVers(Fenetre fenetre) throws IllegalArgumentException {
         Scene scene = null;

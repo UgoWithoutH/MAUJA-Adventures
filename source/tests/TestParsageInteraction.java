@@ -1,4 +1,9 @@
 import com.mauja.maujaadventures.interactions.*;
+import com.mauja.maujaadventures.interactions.actions.Action;
+import com.mauja.maujaadventures.interactions.conditions.Condition;
+import com.mauja.maujaadventures.interactions.conditions.ConditionCollision;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
+import com.mauja.maujaadventures.interactions.parseurs.InteractionHandler;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
