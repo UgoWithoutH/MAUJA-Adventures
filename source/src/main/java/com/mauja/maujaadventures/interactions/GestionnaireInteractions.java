@@ -1,12 +1,17 @@
 package com.mauja.maujaadventures.interactions;
 
 import com.mauja.maujaadventures.chargeurs.Ressources;
+import com.mauja.maujaadventures.interactions.actions.Action;
+import com.mauja.maujaadventures.interactions.conditions.Condition;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.interactions.parseurs.ParseurInteraction;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GestionnaireInteractions implements Runnable {
@@ -84,6 +89,7 @@ public class GestionnaireInteractions implements Runnable {
             if (!fileCourante.isEmpty()) {
                 Evenement evenement = fileCourante.poll();
                 evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu);
+                verificationScenarios(parseurInteraction.getScenarios(), tableauDeJeu);
             }
             else {
                 synchronized (this) {
@@ -102,6 +108,20 @@ public class GestionnaireInteractions implements Runnable {
         lesScenarios = parseurInteraction.getScenarios();
         for (Scenario scenario : lesScenarios) {
             tableauDeJeu.getCarteCourante().ajouterElementsInteractifs(scenario.getListeElemInteractif());
+        }
+    }
+
+    private void verificationScenarios(List<Scenario> scenarios, TableauDeJeu tableauDeJeu) {
+        for (Scenario scenario : scenarios) {
+            for (ElementInteractif element : scenario.getListeElemInteractif()) {
+                for (Map.Entry<Condition, List<Action>> map : element.getMapConditionAction().entrySet()) {
+                    if (map.getKey().verificationCondition(element, tableauDeJeu)) {
+                        for (Action action : map.getValue()) {
+                            action.agit(element, tableauDeJeu);
+                        }
+                    }
+                }
+            }
         }
     }
 }

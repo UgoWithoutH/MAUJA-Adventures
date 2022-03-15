@@ -58,17 +58,11 @@ public class ChargeurDeCarteTiledReader implements ChargeurDeCarteTiled {
                 Tuile tuile = new Tuile(tuileTiled.getID() + idTuiles, rectangle, dimensionTuiles);
                 lesTuiles.add(tuile);
             }
-            /*URL cheminJeuDeTuiles = null;
-            try {
-                cheminJeuDeTuiles = new URL("file://" + URLEncoder.encode(jeuDeTuileTiled.getImage().getSource(), StandardCharsets.UTF_8));
-            }
-            catch (MalformedURLException e) {
-                e.printStackTrace();
-            }*/
 
             Dimension dimensionJeuDeTuiles = new Dimension(jeuDeTuileTiled.getWidth(), jeuDeTuileTiled.getHeight());
             String nomJeuDeTuiles = jeuDeTuileTiled.getName();
-            JeuDeTuiles jeuDeTuiles = new JeuDeTuiles(dimensionJeuDeTuiles, nomJeuDeTuiles, lesTuiles, jeuDeTuileTiled.getImage().getSource());
+            File fichierJeuDeTuiles = new File(jeuDeTuileTiled.getImage().getSource());
+            JeuDeTuiles jeuDeTuiles = new JeuDeTuiles(dimensionJeuDeTuiles, nomJeuDeTuiles, lesTuiles, fichierJeuDeTuiles);
 
             lesJeuxDeTuiles.add(jeuDeTuiles);
             idTuiles += jeuDeTuileTiled.getTiles().size();
