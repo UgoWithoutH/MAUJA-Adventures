@@ -1,4 +1,4 @@
-package com.mauja.maujaadventures.jeu;
+package com.mauja.maujaadventures.observateurs;
 
 import com.mauja.maujaadventures.monde.Carte;
 

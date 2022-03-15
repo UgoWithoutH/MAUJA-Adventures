@@ -82,6 +82,19 @@ public class Navigateur {
         }
     }
 
+    public void faireDemiTour(int nombreDepilement) {
+        int compteur = 0;
+        while (laPileDeScenes.size() != 0 && compteur < nombreDepilement) {
+            laPileDeScenes.pop();
+            compteur++;
+        }
+        miseAJourScene();
+    }
+
+    public int getNombreDeScenes() {
+        return laPileDeScenes.size();
+    }
+
     public Scene getSceneCourante() {
         return sceneCourante;
     }

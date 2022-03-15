@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.jeu;
 
+import com.mauja.maujaadventures.observateurs.Observable;
 import javafx.application.Platform;
 
 import static java.lang.Thread.sleep;
