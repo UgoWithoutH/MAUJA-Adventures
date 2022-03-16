@@ -27,9 +27,10 @@ public class CameraTuilesFX extends CameraTuiles {
         if (carte2DGraphique == null) {
             throw new IllegalArgumentException("La carte graphique doit être non nulle pour la création de la caméra.");
         }
+
         this.lesTuilesGraphiques = carte2DGraphique.getLesTuilesGraphiques();
         visionGraphique = new TuileGraphique[nombreCalques]
-                [(int) zoneVisuelle.getHauteur()][(int) zoneVisuelle.getLargeur()];
+    [(int) (zoneVisuelle.getHauteur())][(int) (zoneVisuelle.getLargeur())];
     }
 
     /**

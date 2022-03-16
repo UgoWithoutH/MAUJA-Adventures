@@ -71,7 +71,7 @@ public class FenetreDeJeu implements Observateur {
         }
         this.jeu = jeu;
         this.navigateur = navigateur;
-        this.canvas = new Canvas(964, 608);
+        this.canvas = new Canvas(993, 767);
         this.contexteGraphique = canvas.getGraphicsContext2D();
 
         lesCouches = new StackPane();
@@ -115,9 +115,9 @@ public class FenetreDeJeu implements Observateur {
                 for (int x = 0; x < vision[k][y].length; x++) {
                     Tuile tuile = carteCourante.getTuile(x, y, k);
                         contexteGraphique.drawImage(vision[k][y][x].getImage(),
-                                x * 32 - cameraTuilesFX.getDecalageRelatif().getLargeur() +
+                                x * 32 - cameraTuilesFX.getDecalageRelatif().getLargeur() -
                                         cameraTuilesFX.getDecalageAbsolu().getLargeur(),
-                                y * 32 - cameraTuilesFX.getDecalageRelatif().getHauteur() +
+                                y * 32 - cameraTuilesFX.getDecalageRelatif().getHauteur() -
                                 cameraTuilesFX.getDecalageAbsolu().getHauteur(),
                                 32, 32);
                 }
@@ -127,25 +127,37 @@ public class FenetreDeJeu implements Observateur {
 
         for (ElementInteractif elementInteractif : carteCourante.getLesElementsInteractifs()) {
             if (elementInteractif instanceof Ennemi ennemi) {
-                contexteGraphique.drawImage(imageEnnemi, ennemi.getPosition().getX() - cameraTuilesFX.getPosition().getX(),
-                        ennemi.getPosition().getY() - cameraTuilesFX.getPosition().getY());
+                contexteGraphique.drawImage(imageEnnemi, ennemi.getPosition().getX()
+                                - cameraTuilesFX.getPosition().getX() * 32 -
+                        cameraTuilesFX.getDecalageRelatif().getLargeur(),
+                        ennemi.getPosition().getY() - cameraTuilesFX.getPosition().getY() * 32 -
+                                cameraTuilesFX.getDecalageRelatif().getHauteur());
             }
 
             if (elementInteractif instanceof Destructible destructible) {
-                contexteGraphique.drawImage(imageProjectile, destructible.getPosition().getX(),
-                        destructible.getPosition().getY());
+                contexteGraphique.drawImage(imageProjectile, destructible.getPosition().getX() -
+                                cameraTuilesFX.getPosition().getX() * 32 -
+                        cameraTuilesFX.getDecalageRelatif().getLargeur(),
+                        destructible.getPosition().getY() - cameraTuilesFX.getPosition().getY() * 32 -
+                        cameraTuilesFX.getDecalageRelatif().getHauteur());
             }
 
             if (elementInteractif instanceof Levier levier) {
                 if (levier.isActive()) {
                     contexteGraphique.drawImage(imageLevierActif, levier.getPosition().getX() -
+                                    cameraTuilesFX.getPosition().getX() * 32 -
                                     cameraTuilesFX.getDecalageRelatif().getLargeur(),
-                            levier.getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur());
+                            levier.getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur() -
+                                    cameraTuilesFX.getPosition().getY() * 32 -
+                                    cameraTuilesFX.getDecalageRelatif().getHauteur());
                 }
                 else{
                     contexteGraphique.drawImage(imageLevierPasActif, levier.getPosition().getX() -
+                                    - cameraTuilesFX.getPosition().getX() * 32 -
                                     cameraTuilesFX.getDecalageRelatif().getLargeur(),
-                            levier.getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur());
+                            levier.getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur() -
+                                    cameraTuilesFX.getPosition().getY() * 32 -
+                                    cameraTuilesFX.getDecalageRelatif().getHauteur());
                 }
             }
         }
