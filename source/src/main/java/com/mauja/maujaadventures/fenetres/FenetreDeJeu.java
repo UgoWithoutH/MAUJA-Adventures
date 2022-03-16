@@ -46,6 +46,7 @@ public class FenetreDeJeu implements Observateur {
 
     private Image imagePersonnage;
     private Image imageProjectile;
+    private Image imageAttaque;
     private Image imageEnnemi;
     private Image imageLevierPasActif;
     private Image imageLevierActif;
@@ -125,7 +126,7 @@ public class FenetreDeJeu implements Observateur {
                 joueur.getPosition().getY());
 
         if (joueur.getEtatAction() == EtatAction.ATTAQUE) {
-            contexteGraphique.drawImage(imageProjectile,
+            contexteGraphique.drawImage(imageAttaque,
                     joueur.getAttaque().getCollision().getPosition().getX(),
                     joueur.getAttaque().getCollision().getPosition().getY());
         }
@@ -152,6 +153,7 @@ public class FenetreDeJeu implements Observateur {
         try {
             imagePersonnage = new Image(String.valueOf(new File("ressources/images/entites/link_epee.png").toURI().toURL()));
             imageProjectile = new Image(String.valueOf(new File("ressources/images/entites/projectile.png").toURI().toURL()));
+            imageAttaque = new Image(String.valueOf(new File("ressources/images/entites/attaque.png").toURI().toURL()));
             imageEnnemi = new Image(String.valueOf(new File("ressources/images/entites/ennemi.png").toURI().toURL()));
             imageLevierPasActif = new Image(String.valueOf(new File("ressources/images/entites/levierPasActif.png").toURI().toURL()));
             imageLevierActif = new Image(String.valueOf(new File("ressources/images/entites/levierActif.png").toURI().toURL()));

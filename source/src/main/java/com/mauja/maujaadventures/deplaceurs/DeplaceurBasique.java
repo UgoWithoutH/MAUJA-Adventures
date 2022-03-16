@@ -21,7 +21,7 @@ public class DeplaceurBasique extends Deplaceur {
         if (entite == null || direction == null) {
             return false;
         }
-
+        entite.setDirection(direction);
         Rectangle collisionEntite;
         Position positionEntite = calculPositionFuture(entite, direction,
                 entite.getVelocite().getX(), entite.getVelocite().getY());
@@ -40,7 +40,6 @@ public class DeplaceurBasique extends Deplaceur {
             }
         }
         entite.installerMemento(new MementoPosition(positionEntite));
-        entite.setDirection(direction);
         return true;
     }
 
@@ -59,7 +58,6 @@ public class DeplaceurBasique extends Deplaceur {
                     entite.getCollision().getDimension());
             if (!collisionneurCarte.collisionne(collisionEntite, carteCourante)) {
                 entite.installerMemento(new MementoPosition(positionEntite));
-                entite.setDirection(direction);
                 return true;
             }
             incrementX--; incrementY--;

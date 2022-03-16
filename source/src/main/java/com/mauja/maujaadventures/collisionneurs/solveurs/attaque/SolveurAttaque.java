@@ -4,6 +4,7 @@ import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.Scenario;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
+import com.mauja.maujaadventures.logique.Attaque;
 import com.mauja.maujaadventures.monde.Carte;
 
 import java.lang.reflect.Constructor;
@@ -19,17 +20,26 @@ public class SolveurAttaque {
         collisionneur = new CollisionneurAABB();
     }
 
-    public void resoud(ElementInteractif e1, ElementInteractif e2) {
-        Class<?> classDefinition = null;
-        Constructor<?> constructor = null;
-        String nomClasse = "com.mauja.maujaadventures.collisionneurs.solveurs.attaque.Solveur"
-                + e1.getClass().getSimpleName() + e2.getClass().getSimpleName();
+    public void resoud(ElementInteractif e1, Attaque attaque) {
+        if (e1 == null || attaque == null) {
+            return;
+        }
+        String nomClasse = "com.mauja.maujaadventures.collisionneurs.solveurs.attaque.SolveurAttaque"
+                + e1.getClass().getSimpleName();
         try {
-            classDefinition = Class.forName(nomClasse);
+            Class<?> classDefinition = Class.forName(nomClasse);
             Object ob = classDefinition.getDeclaredConstructor(Carte.class).newInstance(cartecourante);
-            ((SolveurAttaque) ob).resoud(e1, e2);
-        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException
-                | NoSuchMethodException | InstantiationException e) {
+            ((SolveurAttaque) ob).resoud(e1, attaque);
+        }
+        catch (ClassNotFoundException e) {
+            /* Nous ne faisons rien ici car s'il est impossible d'instancier un solveur dans un sens
+             * ou dans un autre, alors c'est que l'utilisateur ne veut peut-être pas de collision
+             * entre ces deux entités. Si jamais il veut réaliser une quelconque action, il devra alors
+             * intégrer le solveur correspondant.
+             */
+        }
+        catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException
+                | InstantiationException e) {
             e.printStackTrace();
         }
     }

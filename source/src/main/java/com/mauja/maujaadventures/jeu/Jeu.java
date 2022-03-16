@@ -1,6 +1,8 @@
 package com.mauja.maujaadventures.jeu;
 
 
+import com.mauja.maujaadventures.collisionneurs.Attaqueur;
+import com.mauja.maujaadventures.collisionneurs.AttaqueurAbsolu;
 import com.mauja.maujaadventures.deplaceurs.Deplaceur;
 import com.mauja.maujaadventures.deplaceurs.DeplaceurBasique;
 import com.mauja.maujaadventures.entites.*;
@@ -28,6 +30,7 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
     private Thread threadBoucleDeJeu;
     private List<Touche> lesTouchesAppuyees;
     private Deplaceur deplaceur;
+    private Attaqueur attaqueur;
     private boolean pause;
 
     private int tempsAttaque = 0;
@@ -44,6 +47,7 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
         gestionnaireInteractions = new GestionnaireInteractions(tableauDeJeu);
         lesTouchesAppuyees = new ArrayList<>();
         deplaceur = new DeplaceurBasique(tableauDeJeu.getCarteCourante());
+        attaqueur = new AttaqueurAbsolu();
         pause = true;
     }
 
@@ -98,101 +102,50 @@ public class Jeu extends Observable implements Observateur, ObservateurCarte {
             lesTouchesAppuyees.clear();
         }
 
-        tableauDeJeu.getJoueur().setEtatAction(EtatAction.SANS_ACTION);
+        PersonnageJouable joueur = tableauDeJeu.getJoueur();
+
+        joueur.setEtatAction(EtatAction.SANS_ACTION);
         if (lesTouchesAppuyees.contains(Touche.B)) {
             System.out.println("Je me protège");
         }
 
         if (lesTouchesAppuyees.contains(Touche.ESPACE)) {
-            //System.out.println("J'attaque");
-            tableauDeJeu.getJoueur().setEtatAction(EtatAction.ATTAQUE);
-            GestionnaireInteractions.getInstance().ajouter(
-                    new EvenementAttaque(tableauDeJeu.getCarteCourante(), tableauDeJeu.getJoueur()));
-            Rectangle collisionAttaque;
-            if (tableauDeJeu.getJoueur().getDirection() == Direction.DROITE) {
-                collisionAttaque = new Rectangle(tableauDeJeu.getJoueur().getPosition().getX() + tableauDeJeu.getJoueur().getCollision().getPosition().getX()
-                        + tableauDeJeu.getJoueur().getCollision().getDimension().getLargeur(),
-                        tableauDeJeu.getJoueur().getPosition().getY() +
-                                (tableauDeJeu.getJoueur().getDimension().getHauteur() - tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getHauteur()) / 2,
-                        tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur(),
-                        tableauDeJeu.getJoueur().getCollision().getDimension().getHauteur());
-                tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
-            }
-            if (tableauDeJeu.getJoueur().getDirection() == Direction.GAUCHE) {
-                collisionAttaque = new Rectangle(tableauDeJeu.getJoueur().getPosition().getX()
-                        - tableauDeJeu.getJoueur().getCollision().getDimension().getLargeur(),
-                        tableauDeJeu.getJoueur().getPosition().getY() +
-                                (tableauDeJeu.getJoueur().getDimension().getHauteur() - tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getHauteur()) / 2,
-                        tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur(),
-                        tableauDeJeu.getJoueur().getCollision().getDimension().getHauteur());
-                tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
-            }
+            joueur.setEtatAction(EtatAction.ATTAQUE);
+            Attaque attaqueJoueur = joueur.getAttaque();
 
-            if (tableauDeJeu.getJoueur().getDirection() == Direction.HAUT) {
-                collisionAttaque = new Rectangle(tableauDeJeu.getJoueur().getPosition().getX() +
-                        (tableauDeJeu.getJoueur().getDimension().getLargeur() - tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur()) / 2,
-                        tableauDeJeu.getJoueur().getPosition().getY() - tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getHauteur(),
-                        tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur(),
-                        tableauDeJeu.getJoueur().getCollision().getDimension().getHauteur());
-                tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
+            Attaque attaque = attaqueur.genererAttaque(joueur, joueur.getDirection(),
+                    attaqueJoueur.getCollision().getDimension(), attaqueJoueur.getDegats(),
+                    attaqueJoueur.getDuree());
+            if (attaque != null) {
+                joueur.setAttaque(attaque);
+                gestionnaireInteractions.ajouter(new EvenementAttaque(joueur, joueur.getAttaque()));
+                tempsAttaque = 0;
             }
-
-            if (tableauDeJeu.getJoueur().getDirection() == Direction.BAS) {
-                collisionAttaque = new Rectangle(tableauDeJeu.getJoueur().getPosition().getX() +
-                        (tableauDeJeu.getJoueur().getDimension().getLargeur() - tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur()) / 2,
-                        tableauDeJeu.getJoueur().getPosition().getY() + tableauDeJeu.getJoueur().getDimension().getHauteur(),
-                        tableauDeJeu.getJoueur().getAttaque().getCollision().getDimension().getLargeur(),
-                        tableauDeJeu.getJoueur().getCollision().getDimension().getHauteur());
-                tableauDeJeu.getJoueur().getAttaque().setCollision(collisionAttaque);
-            }
-            tempsAttaque = 0;
-            new EvenementAttaque(tableauDeJeu.getCarteCourante(), tableauDeJeu.getJoueur());
         }
         else {
             tempsAttaque++;
-            if (tempsAttaque > tableauDeJeu.getJoueur().getAttaque().getDuree() && tableauDeJeu.getJoueur().getEtatAction() != EtatAction.SE_PROTEGE) {
-                tableauDeJeu.getJoueur().setEtatAction(EtatAction.SANS_ACTION);
+            if (tempsAttaque > joueur.getAttaque().getDuree() && joueur.getEtatAction() != EtatAction.SE_PROTEGE) {
+                joueur.setEtatAction(EtatAction.SANS_ACTION);
             }
         }
 
-        if (tableauDeJeu.getJoueur().getEtatAction() == EtatAction.SANS_ACTION) {
+        if (joueur.getEtatAction() == EtatAction.SANS_ACTION) {
             if (lesTouchesAppuyees.contains(Touche.FLECHE_DROITE)) {
-                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.DROITE, deplaceur));
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(joueur, Direction.DROITE, deplaceur));
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_GAUCHE)) {
-                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.GAUCHE, deplaceur));
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(joueur, Direction.GAUCHE, deplaceur));
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_HAUT)) {
-                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.HAUT, deplaceur));
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(joueur, Direction.HAUT, deplaceur));
             }
 
             if (lesTouchesAppuyees.contains(Touche.FLECHE_BAS)) {
-                gestionnaireInteractions.ajouter(new EvenementDeplacement(tableauDeJeu.getJoueur(), Direction.BAS, deplaceur));
+                gestionnaireInteractions.ajouter(new EvenementDeplacement(joueur, Direction.BAS, deplaceur));
             }
         }
-
-        // Detection attaque joueur et ennemis
-        /*for (ElementInteractif elementInteractif : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()) {
-            Rectangle collisionEntite = new Rectangle(elementInteractif.getCollision().getPosition().getX() + elementInteractif.getPosition().getX(),
-                    elementInteractif.getCollision().getPosition().getY() + elementInteractif.getPosition().getY(),
-                    elementInteractif.getCollision().getDimension());
-            Rectangle collisionJoueur = new Rectangle(tableauDeJeu.getJoueur().getCollision().getPosition().getX() + tableauDeJeu.getJoueur().getPosition().getX(),
-                    tableauDeJeu.getJoueur().getCollision().getPosition().getY() + tableauDeJeu.getJoueur().getPosition().getY(),
-                    tableauDeJeu.getJoueur().getCollision().getDimension());
-
-            if (elementInteractif instanceof Ennemi ennemi) {
-                if (collisionneur.collisionne(tableauDeJeu.getJoueur().getAttaque().getCollision(), collisionEntite)
-                        && tableauDeJeu.getJoueur().getEtatAction() == EtatAction.ATTAQUE) {
-                    solveurCollision.resoud(ennemi,tableauDeJeu.getJoueur());
-                }
-
-                if (collisionneur.collisionne(collisionJoueur, collisionEntite)) {
-                    solveurCollision.resoud(ennemi,tableauDeJeu.getJoueur());
-                }
-            }
-        }*/
 
         for (ElementInteractif elementInteractif : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()) {
             elementInteractif.miseAJour();

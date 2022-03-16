@@ -41,9 +41,9 @@ public class GestionnaireInteractions implements Runnable {
         initialisation();
     }
 
-    public static GestionnaireInteractions getInstance() {
+    public static GestionnaireInteractions getInstance() throws IllegalStateException {
         if (gestionnaireInteractions == null) {
-            throw new IllegalArgumentException("Le gestionnaire d'interactions n'a pas encore été initialisé.");
+            throw new IllegalStateException("Le gestionnaire d'interactions n'a pas encore été initialisé.");
         }
         return gestionnaireInteractions;
     }
@@ -89,7 +89,7 @@ public class GestionnaireInteractions implements Runnable {
             if (!fileCourante.isEmpty()) {
                 Evenement evenement = fileCourante.poll();
                 evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu);
-                verificationScenarios(parseurInteraction.getScenarios(), tableauDeJeu);
+                verificationScenarios(tableauDeJeu);
             }
             else {
                 synchronized (this) {
@@ -111,8 +111,8 @@ public class GestionnaireInteractions implements Runnable {
         }
     }
 
-    private void verificationScenarios(List<Scenario> scenarios, TableauDeJeu tableauDeJeu) {
-        for (Scenario scenario : scenarios) {
+    private void verificationScenarios(TableauDeJeu tableauDeJeu) {
+        for (Scenario scenario : lesScenarios) {
             for (ElementInteractif element : scenario.getListeElemInteractif()) {
                 for (Map.Entry<Condition, List<Action>> map : element.getMapConditionAction().entrySet()) {
                     if (map.getKey().verificationCondition(element, tableauDeJeu)) {

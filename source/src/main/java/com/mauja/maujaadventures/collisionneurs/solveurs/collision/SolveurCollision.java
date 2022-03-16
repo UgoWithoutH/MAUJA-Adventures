@@ -28,6 +28,9 @@ public class SolveurCollision {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public void resoud(ElementInteractif e1, ElementInteractif e2) {
+        if (e1 == null || e2 == null) {
+            return;
+        }
         String nomClasseBase = "com.mauja.maujaadventures.collisionneurs.solveurs.collision.Solveur";
         String combinaison1 = nomClasseBase + e1.getClass().getSimpleName() + e2.getClass().getSimpleName();
         String combinaison2 = nomClasseBase + e2.getClass().getSimpleName() + e1.getClass().getSimpleName();

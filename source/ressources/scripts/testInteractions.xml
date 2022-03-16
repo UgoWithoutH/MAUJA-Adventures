@@ -1,4 +1,4 @@
-<Carte id="1" end="oui">
+<Carte nomCarte="carteTest3.tmx" end="oui">
     <Scenario end="oui">
         <ElementInteractif type="com.mauja.maujaadventures.interactions.elements.Levier" active="false"
                            nombreEtats="3" id="1" end="non">
@@ -9,7 +9,29 @@
                 <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="300" yEn="500" largEn="10" hautEn="10"
                                    xCol="10" yCol="10" largCol="10" hautCol="10" id="2"
                                    pointsDeVie="3" end="oui"/>
-                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" yEn="400" xEn="500" largEn="10" hautEn="10"
+                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="300" yEn="500" largEn="10" hautEn="10"
+                                   xCol="10" yCol="10" largCol="10" hautCol="10" id="2"
+                                   pointsDeVie="3" end="oui"/>
+                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="300" yEn="500" largEn="10" hautEn="10"
+                                   xCol="10" yCol="10" largCol="10" hautCol="10" id="2"
+                                   pointsDeVie="3" end="oui"/>
+                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="330" yEn="500" largEn="10" hautEn="10"
+                                   xCol="10" yCol="10" largCol="10" hautCol="10" id="2"
+                                   pointsDeVie="3" end="oui"/>
+                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="360" yEn="500" largEn="10" hautEn="10"
+                                   xCol="10" yCol="10" largCol="10" hautCol="10" id="2"
+                                   pointsDeVie="3" end="oui"/>
+                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="390" yEn="500" largEn="10" hautEn="10"
+                                   xCol="10" yCol="10" largCol="10" hautCol="10" id="2"
+                                   pointsDeVie="3" end="oui"/>
+                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="420" yEn="500" largEn="10" hautEn="10"
+                                   xCol="10" yCol="10" largCol="10" hautCol="10" id="2"
+                                   pointsDeVie="3" end="oui"/>
+                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="450" yEn="500" largEn="10" hautEn="10"
+                                 xCol="10" yCol="10" largCol="10" hautCol="10" id="2"
+                                 pointsDeVie="3" end="oui"/>
+
+                <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" yEn="480" xEn="500" largEn="10" hautEn="10"
                                    xCol="10" yCol="10" largCol="10" hautCol="10" id="2"
                                    pointsDeVie="3" end="oui">
                 </ElementInteractif>

@@ -27,21 +27,21 @@ public class ComportementPoursuite implements Comportement{
         }
         deplaceur = new DeplaceurBasique(carte);
         this.joueur = joueur;
-        gestionnaireInteractions = GestionnaireInteractions.getInstance();
     }
 
     @Override
     public void agit(Vivant vivant, float temps) {
+        gestionnaireInteractions = GestionnaireInteractions.getInstance();
         if (joueur.getPosition().getX() > vivant.getPosition().getX()) {
             gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.DROITE, deplaceur));
         }
-        if (joueur.getPosition().getX() < vivant.getPosition().getX()){
+        if (joueur.getPosition().getX() < vivant.getPosition().getX()) {
             gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.GAUCHE, deplaceur));
         }
-        if (joueur.getPosition().getY() > vivant.getPosition().getY()){
+        if (joueur.getPosition().getY() > vivant.getPosition().getY()) {
             gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.BAS, deplaceur));
         }
-        if (joueur.getPosition().getY() < vivant.getPosition().getY()){
+        if (joueur.getPosition().getY() < vivant.getPosition().getY()) {
             gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.HAUT, deplaceur));
         }
     }
