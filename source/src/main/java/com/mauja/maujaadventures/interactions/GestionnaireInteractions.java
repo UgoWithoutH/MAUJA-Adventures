@@ -5,6 +5,8 @@ import com.mauja.maujaadventures.interactions.actions.Action;
 import com.mauja.maujaadventures.interactions.conditions.Condition;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
+import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
+import com.mauja.maujaadventures.interactions.evenements.EvenementNull;
 import com.mauja.maujaadventures.interactions.parseurs.ParseurInteraction;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 
@@ -123,5 +125,6 @@ public class GestionnaireInteractions implements Runnable {
                 }
             }
         }
+        ajouter(new EvenementNull(tableauDeJeu.getJoueur()));
     }
 }

@@ -1,40 +1,45 @@
 package com.mauja.maujaadventures.interactions.conditions;
 
+import com.mauja.maujaadventures.collisionneurs.Attaqueur;
+import com.mauja.maujaadventures.collisionneurs.AttaqueurAbsolu;
+import com.mauja.maujaadventures.entites.EtatAction;
 import com.mauja.maujaadventures.interactions.elements.Balise;
-import com.mauja.maujaadventures.interactions.TypeCollision;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.Levier;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
+import com.mauja.maujaadventures.logique.Attaque;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 
 public class ConditionCollision extends Condition {
-    private TypeCollision typeCollision;
+    private CollisionneurAABB collisionneur;
+
+    public ConditionCollision() {
+        collisionneur = new CollisionneurAABB();
+    }
 
     @Override
     public boolean verificationCondition(ElementInteractif elementInteractif, TableauDeJeu tableauDeJeu) {
+        Levier levier = (Levier) getBaliseParente();
+        if (levier.isActive()) {
+            return false;
+        }
 
-        CollisionneurAABB collisionneur = new CollisionneurAABB();
-        Position posElem = elementInteractif.getPosition();
-        Dimension dimElem = elementInteractif.getCollision().getDimension();
+        PersonnageJouable joueur = tableauDeJeu.getJoueur();
+        if (joueur.getEtatAction() == EtatAction.ATTAQUE) {
+            ElementInteractif elementAColisionner = (ElementInteractif) getBaliseParente();
 
-        Rectangle rectangleElement = new Rectangle(posElem.getX(), posElem.getY(),
-                dimElem.getLargeur(), dimElem.getHauteur());
+            Rectangle collisionElement = new Rectangle(
+                    elementAColisionner.getCollision().getPosition().getX() + elementAColisionner.getPosition().getX(),
+                    elementAColisionner.getCollision().getPosition().getY() + elementAColisionner.getPosition().getY(),
+                    elementAColisionner.getCollision().getDimension());
 
-        for(ElementInteractif elementInter : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()){
-            if(elementInter instanceof PersonnageJouable personnageJouable){
-                Dimension dimPerso = personnageJouable.getAttaque().getCollision().getDimension();
-                Position posPerso = personnageJouable.getAttaque().getCollision().getPosition();
-
-                Rectangle rectangleAttaque = new Rectangle(posPerso.getX(), posPerso.getY(), dimPerso.getLargeur(), dimPerso.getHauteur());
-
-                if(collisionneur.collisionne(rectangleElement, rectangleAttaque)){
-                    return true;
-                }
-            }
+            Attaque attaque = joueur.getAttaque();
+            return collisionneur.collisionne(collisionElement, attaque.getCollision());
         }
         return false;
     }

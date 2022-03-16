@@ -10,16 +10,10 @@ import com.mauja.maujaadventures.logique.Velocite;
 public class ActionActivationLevier extends Action {
     @Override
     public void agit(TableauDeJeu tableauDeJeu) {
-    Levier levier = (Levier) getBaliseParente();
+        Levier levier = (Levier) getBaliseParente();
+        levier.setActive(true);
 
-        if (levier.isActive()) {
-            return;
-        }
-        else {
-            levier.setActive(true);
-        }
-
-        for(ElementInteractif elementInter : lesElementsInteractifs) {
+        for (ElementInteractif elementInter : lesElementsInteractifs) {
             if (elementInter instanceof Ennemi ennemi) {
                 ennemi.setComportement(new ComportementTireur(tableauDeJeu.getCarteCourante(),
                         new Velocite(20, 20)));
