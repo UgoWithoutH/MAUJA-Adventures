@@ -1,6 +1,6 @@
 package com.mauja.maujaadventures.chargeurs;
 
-import vues.navigation.Fenetre;
+import com.mauja.maujaadventures.fenetres.Fenetre;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -9,33 +9,39 @@ import java.util.*;
 
 public class Ressources {
     private static Ressources ressources;
+    private ConfigurateurEnvironnement configurateurEnvironnement;
+    private final File nomDossierRessourcesProjet = new File("ressources");
+
+    private List<File> lesFichiers;
+    private Map<File, String> lesDossiersEtExtensions;
 
     private List<String> lesCartes;
-    private List<String> lesImagesEntites;
     private List<String> lesScripts;
+    private List<String> lesImagesEntites;
     private Map<Fenetre, URL> lesVues;
 
-    private String fichierTransitions;
-    private String fichierTouches;
-
     public Ressources() {
-        lesCartes = new ArrayList<>();
         lesImagesEntites = new ArrayList<>();
-        lesScripts = new ArrayList<>();
         lesVues = new HashMap<>();
+        lesFichiers = new ArrayList<>();
+        lesDossiersEtExtensions = new HashMap<>();
         initialiser();
+        configurateurEnvironnement = new ConfigurateurEnvironnement(lesFichiers, lesDossiersEtExtensions, nomDossierRessourcesProjet);
+        configurateurEnvironnement.configure();
+        lesCartes = configurateurEnvironnement.getLesFichiersDesDossiers().get("cartes");
+        lesScripts = configurateurEnvironnement.getLesFichiersDesDossiers().get("scripts");
     }
 
     public Map<Fenetre, URL> getLesVues() {
         return Collections.unmodifiableMap(lesVues);
     }
 
-    public String getFichierTouches() {
-        return fichierTouches;
+    public String getCheminTouches() {
+        return configurateurEnvironnement.getLesFichiersDeConfiguration().get("configurationTouches.txt");
     }
 
-    public String getFichierTransitions() {
-        return fichierTransitions;
+    public String getCheminTransitions() {
+        return configurateurEnvironnement.getLesFichiersDeConfiguration().get("transitions.txt");
     }
 
     public static Ressources getInstance() {
@@ -54,25 +60,23 @@ public class Ressources {
     }
 
     private void initialiser() {
-        lesCartes.add(Objects.requireNonNull(new File("ressources/cartes/carteTest3.tmx").getAbsolutePath()));
-        lesCartes.add(Objects.requireNonNull(new File("ressources/cartes/carteTest4.tmx").getAbsolutePath()));
+        lesFichiers.add(new File(File.separator + "transitions.txt"));
+        lesFichiers.add(new File(File.separator + "configurationTouches.txt"));
+        lesDossiersEtExtensions.put(new File("cartes" + File.separator), ".tmx");
+        lesDossiersEtExtensions.put(new File("scripts" + File.separator), ".xml");
+        lesDossiersEtExtensions.put(new File("tilesets" + File.separator), ".tsx");
+        lesDossiersEtExtensions.put(new File("images" + File.separator + "tilesets" + File.separator), ".png");
 
         try {
             lesImagesEntites.add(Objects.requireNonNull(new File("images/entites/link_epee.png").toURI().toURL().toExternalForm()));
             lesImagesEntites.add(Objects.requireNonNull(new File("images/entites/projectile.png").toURI().toURL().toString()));
-
-            lesScripts.add(Objects.requireNonNull(new File("ressources/scripts/testInteractions.xml").toString()));
-
-            lesVues.put(Fenetre.MENU_PRINCIPAL, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPrincipal.fxml")));
-            lesVues.put(Fenetre.PARAMETRES, Objects.requireNonNull(Ressources.class.getResource("/fxml/Parametres.fxml")));
-            lesVues.put(Fenetre.JEU, Objects.requireNonNull(Ressources.class.getResource("/fxml/Partie.fxml")));
-            lesVues.put(Fenetre.MENU_PAUSE, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPause.fxml")));
-
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
-        fichierTransitions = Objects.requireNonNull(new File("ressources/transitions.txt").getAbsolutePath());
-        fichierTouches = Objects.requireNonNull(new File("ressources/configurationTouches.txt").getAbsolutePath());
+        lesVues.put(Fenetre.MENU_PRINCIPAL, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPrincipal.fxml")));
+        lesVues.put(Fenetre.PARAMETRES, Objects.requireNonNull(Ressources.class.getResource("/fxml/Parametres.fxml")));
+        lesVues.put(Fenetre.MENU_PAUSE, Objects.requireNonNull(Ressources.class.getResource("/fxml/MenuPause.fxml")));
     }
 }

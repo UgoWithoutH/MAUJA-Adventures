@@ -1,5 +1,6 @@
 package com.mauja.maujaadventures.jeu;
 
+import com.mauja.maujaadventures.observateurs.Observable;
 import javafx.application.Platform;
 
 import static java.lang.Thread.sleep;
@@ -43,12 +44,6 @@ public class BoucleDeJeu extends Observable implements Runnable {
         this.actif = actif;
     }
 
-    public void reprendre(){
-        synchronized (this) {
-            notify();
-        }
-    }
-
     @Override
     public void run() {
         actif = true;
@@ -69,15 +64,6 @@ public class BoucleDeJeu extends Observable implements Runnable {
                     sleep(tempsAttente / TEMPS_MILLISECONDE, (int) (tempsAttente % TEMPS_MILLISECONDE));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
-            }
-            if(!actif){
-                synchronized (this) {
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         }

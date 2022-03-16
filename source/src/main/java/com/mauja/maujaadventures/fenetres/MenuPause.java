@@ -1,22 +1,19 @@
 package com.mauja.maujaadventures.fenetres;
 
+import com.mauja.maujaadventures.jeu.GestionnaireDeJeu;
 import com.mauja.maujaadventures.jeu.Jeu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import vues.navigation.Fenetre;
-import vues.navigation.Navigateur;
-
-import java.io.IOException;
+import com.mauja.maujaadventures.utilitaires.Navigateur;
 
 public class MenuPause {
     private Navigateur navigateur;
-    private Jeu jeu;
+    private GestionnaireDeJeu gestionnaireDeJeu;
 
     @FXML
     private VBox content;
@@ -28,16 +25,20 @@ public class MenuPause {
     private StackPane stackpane;
     private FenetreDeJeu fenetreDeJeu;
 
-    public MenuPause(Navigateur navigateur, Jeu jeu, FenetreDeJeu fenetreDeJeu) throws IllegalArgumentException {
+    public MenuPause(Navigateur navigateur, GestionnaireDeJeu gestionnaireDeJeu, FenetreDeJeu fenetreDeJeu) throws IllegalArgumentException {
         if (navigateur == null) {
             throw new IllegalArgumentException("Le navigateur passé en paramètre ne peut pas être null.");
         }
-        if (jeu == null) {
+        if (gestionnaireDeJeu == null) {
             throw new IllegalArgumentException("Le jeu passé en paramètre ne peut pas être null.");
         }
         this.navigateur = navigateur;
-        this.jeu = jeu;
+        this.gestionnaireDeJeu = gestionnaireDeJeu;
         this.fenetreDeJeu = fenetreDeJeu;
+
+        if (gestionnaireDeJeu.isLance()) {
+            gestionnaireDeJeu.arreterJeu();
+        }
     }
 
     public void setPane(StackPane stackPane) {
@@ -55,10 +56,10 @@ public class MenuPause {
 
     @FXML
     public void parametres(ActionEvent bouton) {
-        if (paramPane == null){
-            navigateur.naviguerVers(Fenetre.PARAMETRES, new Parametres(navigateur, jeu));
+        if (paramPane == null) {
+            navigateur.naviguerVers(Fenetre.PARAMETRES, new Parametres(navigateur, gestionnaireDeJeu));
         }
-        else if(paramPane.isVisible()){
+        else if(paramPane.isVisible()) {
             paramPane.setVisible(false);
         }
         else {
@@ -68,13 +69,16 @@ public class MenuPause {
 
     @FXML
     public void reprendre(ActionEvent bouton) {
-        //content.setVisible(false);
-        jeu.setPause(false);
-        navigateur.naviguerVers(fenetreDeJeu.getScene());
+        if (!gestionnaireDeJeu.isLance()) {
+            gestionnaireDeJeu.lancerJeu();
+        }
+        navigateur.faireDemiTour();
     }
 
     @FXML
     public void sauvegarderQuitter(ActionEvent bouton) {
-        //stackpane.setVisible(false);
+        gestionnaireDeJeu.detacher(fenetreDeJeu);
+        gestionnaireDeJeu.arreterJeu();
+        navigateur.faireDemiTour(2);
     }
 }

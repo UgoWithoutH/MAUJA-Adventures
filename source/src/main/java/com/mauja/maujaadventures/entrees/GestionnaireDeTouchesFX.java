@@ -2,14 +2,11 @@ package com.mauja.maujaadventures.entrees;
 
 import com.mauja.maujaadventures.chargeurs.ChargeurDeTouchesFX;
 import com.mauja.maujaadventures.chargeurs.Ressources;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +17,7 @@ public class GestionnaireDeTouchesFX extends GestionnaireDeTouches {
     public GestionnaireDeTouchesFX(Scene scene) throws IllegalArgumentException {
         setScene(scene);
         ChargeurDeTouchesFX chargeur = new ChargeurDeTouchesFX();
-        dicoTouchesFX = chargeur.recupereTouches(Ressources.getInstance().getFichierTouches());
+        dicoTouchesFX = chargeur.recupereTouches(Ressources.getInstance().getCheminTouches());
     }
 
     public Map<KeyCode, Touche> getDicoTouchesFX() {
@@ -51,7 +48,7 @@ public class GestionnaireDeTouchesFX extends GestionnaireDeTouches {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (touche) -> {
             KeyCode codeTouche = touche.getCode();
             if (dicoTouchesFX.containsKey(codeTouche)){
-                if(!lesTouchesAppuyees.contains(dicoTouchesFX.get(codeTouche)) && codeTouche != KeyCode.ESCAPE) {
+                if(!lesTouchesAppuyees.contains(dicoTouchesFX.get(codeTouche))) {
                     lesTouchesAppuyees.add(dicoTouchesFX.get(codeTouche));
                 }
             }
@@ -59,18 +56,7 @@ public class GestionnaireDeTouchesFX extends GestionnaireDeTouches {
 
         scene.addEventHandler(KeyEvent.KEY_RELEASED, (touche) -> {
             KeyCode codeTouche = touche.getCode();
-
-            if(codeTouche == KeyCode.ESCAPE){
-                if(lesTouchesAppuyees.contains(KeyCode.ESCAPE)){
-                    lesTouchesAppuyees.remove(dicoTouchesFX.get(codeTouche));
-                }else{
-                    lesTouchesAppuyees.add(dicoTouchesFX.get(codeTouche));
-                }
-                setEchap(!getEchap());
-            }
-            else {
                 lesTouchesAppuyees.remove(dicoTouchesFX.get(codeTouche));
-            }
         });
     }
 }

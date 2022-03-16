@@ -1,4 +1,4 @@
-package vues.codebehind;
+package com.mauja.maujaadventures.cameras;
 
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
@@ -25,52 +25,26 @@ public abstract class Camera {
 
     public abstract void centrerSurEntite(Entite entite);
 
-    /**
-     * retourne la position de la camera
-     * @return
-     */
     public Position getPosition() {
         return position;
     }
 
-    /**
-     * set la position de la camera
-     * @param position
-     */
     protected void setPosition(Position position) {
         this.position = position;
     }
 
-    /**
-     * retourne la zone affichée par la camera
-     * @return
-     */
     public Dimension getZoneVisuelle() {
         return zoneObservable;
     }
 
-
-    /**
-     * methode retournant le decalage relatif
-     * @return
-     */
     public Dimension getDecalageRelatif() {
         return decalageRelatif;
     }
 
-    /**
-     * retourne le decalge absolu
-     * @return
-     */
     public Dimension getDecalageAbsolu() {
         return decalageAbsolu;
     }
 
-    /**
-     * methode permettant de decaler la camera dans une direction
-     * @param direction
-     * @throws ExecutionControl.NotImplementedException
-     */
     public abstract void decalage(Direction direction) throws ExecutionControl.NotImplementedException;
 
     @Override
@@ -96,5 +70,4 @@ public abstract class Camera {
     public String toString() {
         return "Caméra en " + position.toString() + " de dimensions " + zoneObservable.toString();
     }
-
 }

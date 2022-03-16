@@ -6,12 +6,12 @@ import com.mauja.maujaadventures.deplaceurs.DeplaceurDeDestructible;
 import com.mauja.maujaadventures.entites.Destructible;
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Vivant;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.jeu.BoucleDeJeu;
-import com.mauja.maujaadventures.jeu.ObservateurEvenementiel;
+import com.mauja.maujaadventures.observateurs.ObservateurEvenementiel;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
@@ -27,7 +27,7 @@ public class ComportementTireur implements Comportement, ObservateurEvenementiel
     private static final List<Direction> DIRECTIONS_POSSIBLES = Arrays.asList(Direction.values());
     private static final int NOMBRE_DIRECTIONS = DIRECTIONS_POSSIBLES.size();
     private static final int NOMBRE_MAXIMUM_TENTATIVES_DEPLACEMENT = 6;
-    private static final int INTERVALLE_DEPLACEMENT = BoucleDeJeu.FPS_CIBLE / 20;
+    private static final int INTERVALLE_DEPLACEMENT = BoucleDeJeu.FPS_CIBLE / 40;
     private static final double TEMPS_ATTENTE_INACTIF = BoucleDeJeu.FPS_CIBLE * 1.2;
 
     private Deplaceur deplaceur;

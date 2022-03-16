@@ -1,11 +1,11 @@
-package com.mauja.maujaadventures.interactions;
+package com.mauja.maujaadventures.interactions.elements;
 
 import com.mauja.maujaadventures.annotations.Param;
-import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
+import com.mauja.maujaadventures.interactions.actions.Action;
+import com.mauja.maujaadventures.interactions.conditions.Condition;
 import com.mauja.maujaadventures.logique.MementoPosition;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
-import com.mauja.maujaadventures.monde.Carte;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +19,6 @@ public abstract class ElementInteractif extends Balise implements Cloneable {
     private Map<Condition, List<Action>> mapConditionAction;
 
     private Condition derCondition;
-    //public abstract void init();
-
-    //public abstract void initialisation();
-
-    //public abstract void interagit();
 
     public ElementInteractif(@Param(nom = "position", classe = Position.class) Position position,
                              @Param(nom = "collision", classe = Rectangle.class) Rectangle collision) {
@@ -69,6 +64,9 @@ public abstract class ElementInteractif extends Balise implements Cloneable {
         return mapConditionAction;
     }
 
+    /**
+     * Mise à jour des classes héritant de ElementInteractif
+     */
     public abstract void miseAJour();
 
     @Override

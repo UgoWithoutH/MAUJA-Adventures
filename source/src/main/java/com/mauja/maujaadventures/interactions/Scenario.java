@@ -1,23 +1,30 @@
 package com.mauja.maujaadventures.interactions;
 
+import com.mauja.maujaadventures.interactions.elements.Balise;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Scenario extends Balise {
-
     private List<ElementInteractif> listeElemInteractif;
-
 
     public Scenario() {
         this.listeElemInteractif = new ArrayList<>();
     }
 
-    public void ajouterElementInteractif(ElementInteractif elementInteractif){
+    public List<ElementInteractif> getListeElemInteractif() {
+        return Collections.unmodifiableList(listeElemInteractif);
+    }
+
+    public void ajouterElementInteractif(ElementInteractif elementInteractif) {
         listeElemInteractif.add(elementInteractif);
     }
 
-    public List<ElementInteractif> getListeElemInteractif() {
-        return listeElemInteractif;
+    @Override
+    public void ajouter(Balise balise) {
+        ajouterElementInteractif((ElementInteractif)balise);
     }
 
     @Override
@@ -25,10 +32,5 @@ public class Scenario extends Balise {
         return "Scenario{" +
                 "listeElemInteractif=" + listeElemInteractif +
                 '}';
-    }
-
-    @Override
-    public void ajouter(Balise balise) {
-        ajouterElementInteractif((ElementInteractif)balise);
     }
 }

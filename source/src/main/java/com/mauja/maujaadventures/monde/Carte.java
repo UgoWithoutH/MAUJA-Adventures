@@ -1,7 +1,6 @@
 package com.mauja.maujaadventures.monde;
 
-import com.mauja.maujaadventures.entites.Entite;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 
 import java.util.*;
@@ -99,6 +98,10 @@ public class Carte {
 
     public void supprimerElementInteractif(ElementInteractif elementInteractif) {
         lesElementsInteractifs.remove(elementInteractif);
+    }
+
+    public boolean contientElementInteractif(ElementInteractif elementInteractif) {
+        return lesElementsInteractifs.contains(elementInteractif);
     }
 
     /**

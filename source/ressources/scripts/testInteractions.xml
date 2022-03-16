@@ -1,10 +1,11 @@
 <Carte id="1" end="oui">
     <Scenario end="oui">
-        <ElementInteractif type="com.mauja.maujaadventures.interactions.Levier" active="false" id="1" end="non">
+        <ElementInteractif type="com.mauja.maujaadventures.interactions.elements.Levier" active="false"
+                           nombreEtats="3" id="1" end="non">
             <collision type="com.mauja.maujaadventures.logique.Rectangle" x="0" y="0" largeur="32" hauteur="32" end="non"/>
             <position type="com.mauja.maujaadventures.logique.Position" x="32" y="32" end="oui"/>
-            <Condition type="com.mauja.maujaadventures.interactions.ConditionCollision" end="oui"/>
-            <Action type="com.mauja.maujaadventures.interactions.ActionLevierActif" idEffet="1" end="oui">
+            <Condition type="com.mauja.maujaadventures.interactions.conditions.ConditionCollision" end="oui"/>
+            <Action type="com.mauja.maujaadventures.interactions.actions.ActionActivationLevier" idEffet="1" end="oui">
                 <ElementInteractif type="com.mauja.maujaadventures.entites.Ennemi" xEn="300" yEn="500" largEn="10" hautEn="10"
                                    xCol="10" yCol="10" largCol="10" hautCol="10" id="2"
                                    pointsDeVie="3" end="oui"/>
@@ -13,7 +14,7 @@
                                    pointsDeVie="3" end="oui">
                 </ElementInteractif>
             </Action>
-            <Action type="com.mauja.maujaadventures.interactions.ActionOuverturePorte" idEffet="1" end="oui"/>
+            <Action type="com.mauja.maujaadventures.interactions.actions.ActionOuverturePorte" idEffet="1" end="oui"/>
         </ElementInteractif>
     </Scenario>
     <Scenario end="oui">

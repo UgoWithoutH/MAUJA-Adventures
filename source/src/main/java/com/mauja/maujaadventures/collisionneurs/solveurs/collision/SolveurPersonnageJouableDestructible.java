@@ -1,7 +1,7 @@
 package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 
 import com.mauja.maujaadventures.entites.*;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 public class SolveurPersonnageJouableDestructible extends SolveurCollision{
 

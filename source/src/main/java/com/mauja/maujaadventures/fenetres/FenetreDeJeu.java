@@ -1,23 +1,19 @@
 package com.mauja.maujaadventures.fenetres;
 
 import com.mauja.maujaadventures.affichages.Carte2DGraphique;
-import com.mauja.maujaadventures.affichages.JeuDeTuilesGraphique;
 import com.mauja.maujaadventures.affichages.TuileGraphique;
 import com.mauja.maujaadventures.chargeurs.ChargeurCartesGraphiques;
-import com.mauja.maujaadventures.chargeurs.Ressources;
 import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
-import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
-import com.mauja.maujaadventures.interactions.Levier;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.Levier;
+import com.mauja.maujaadventures.jeu.GestionnaireDeJeu;
 import com.mauja.maujaadventures.jeu.Jeu;
-import com.mauja.maujaadventures.jeu.Observateur;
+import com.mauja.maujaadventures.observateurs.Observateur;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.monde.Camera;
 import com.mauja.maujaadventures.monde.Carte;
-import com.mauja.maujaadventures.monde.JeuDeTuiles;
 import com.mauja.maujaadventures.monde.Tuile;
-import com.mauja.maujaadventures.utilitaires.DecoupeurImage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -25,21 +21,17 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import vues.navigation.Fenetre;
-import vues.navigation.Navigateur;
+import com.mauja.maujaadventures.utilitaires.Navigateur;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FenetreDeJeu implements Observateur {
     private Navigateur navigateur;
-    private Jeu jeu;
+    private GestionnaireDeJeu gestionnaireDeJeu;
     private TableauDeJeu tableauDeJeu;
-    private Camera camera;
 
     private PersonnageJouable joueur;
     private Carte carteCourante;
@@ -58,14 +50,14 @@ public class FenetreDeJeu implements Observateur {
     private Image imageLevierPasActif;
     private Image imageLevierActif;
 
-    public FenetreDeJeu(Navigateur navigateur, Jeu jeu) throws IllegalArgumentException {
-        if (jeu == null) {
+    public FenetreDeJeu(Navigateur navigateur, GestionnaireDeJeu gestionnaireDeJeu) throws IllegalArgumentException {
+        if (gestionnaireDeJeu == null) {
             throw new IllegalArgumentException("Le jeu passé en paramètre ne peut pas être null.");
         }
         if (navigateur == null) {
             throw new IllegalArgumentException("Le navigateur passé en paramètre ne peut pas être null.");
         }
-        this.jeu = jeu;
+        this.gestionnaireDeJeu = gestionnaireDeJeu;
         this.navigateur = navigateur;
         this.canvas = new Canvas(964, 608);
         this.contexteGraphique = canvas.getGraphicsContext2D();
@@ -74,15 +66,13 @@ public class FenetreDeJeu implements Observateur {
         lesCouches.getChildren().add(canvas);
         scene = new Scene(lesCouches);
 
-        tableauDeJeu = jeu.getTableauDeJeu();
+        tableauDeJeu = gestionnaireDeJeu.getTableauDeJeu();
         joueur = tableauDeJeu.getJoueur();
         carteCourante = tableauDeJeu.getCarteCourante();
-        camera = jeu.getCamera();
 
         lesTuilesGraphiquesCourantes = new ArrayList<>();
 
         initialiser();
-        ajoutElementParsage(GestionnaireInteractions.getInstance().getElementAAjouter());
     }
 
     public Scene getScene() {
@@ -91,18 +81,14 @@ public class FenetreDeJeu implements Observateur {
 
     public void miseAJourCarte() {
         carteCourante = tableauDeJeu.getCarteCourante();
-        //Appel MAJ caméra.
-    }
-
-    public void ajoutElementParsage(List<ElementInteractif> list){
-        carteCourante.ajouterElementsInteractifs(list);
+        for (Carte2DGraphique carte2DGraphique : lesCartesGraphiques) {
+            if (carte2DGraphique.getCarte().getNom().equals(carteCourante.getNom())){
+                lesTuilesGraphiquesCourantes = carte2DGraphique.getLesTuilesGraphiques();
+            }
+        }
     }
 
     public void affichage() {
-        if (jeu.isPause()) {
-            navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, jeu, this));
-        }
-
         contexteGraphique.clearRect(0, 0, 1000, 1000);
         for (int k = 0; k < carteCourante.getLaCarte().length; k++) {
             for (int y = 0; y < carteCourante.getDimensionCarte().getHauteur(); y++) {
@@ -110,7 +96,7 @@ public class FenetreDeJeu implements Observateur {
                     Tuile tuile = carteCourante.getTuile(x, y, k);
                     if (tuile.getId() >= 1) {
                         contexteGraphique.drawImage(lesTuilesGraphiquesCourantes.get(tuile.getId()).getImage(),
-                                x * 32 - camera.getPositionCameraX(), y * 32 - camera.getPositionCameraY(),
+                                x * 32, y * 32,
                                 32, 32);
                     }
                 }
@@ -119,33 +105,33 @@ public class FenetreDeJeu implements Observateur {
 
         for (ElementInteractif elementInteractif : carteCourante.getLesElementsInteractifs()) {
             if (elementInteractif instanceof Ennemi ennemi) {
-                contexteGraphique.drawImage(imageEnnemi, ennemi.getPosition().getX() - camera.getPositionCameraX(),
-                        ennemi.getPosition().getY() - camera.getPositionCameraY());
+                contexteGraphique.drawImage(imageEnnemi, ennemi.getPosition().getX(),
+                        ennemi.getPosition().getY());
             }
 
             if (elementInteractif instanceof Destructible destructible) {
-                contexteGraphique.drawImage(imageProjectile, destructible.getPosition().getX() - camera.getPositionCameraX(),
-                        destructible.getPosition().getY() - camera.getPositionCameraY());
+                contexteGraphique.drawImage(imageProjectile, destructible.getPosition().getX(),
+                        destructible.getPosition().getY());
             }
 
             if (elementInteractif instanceof Levier levier) {
                 if (levier.isActive()) {
-                    contexteGraphique.drawImage(imageLevierActif, levier.getPosition().getX() - camera.getPositionCameraX(),
-                            levier.getPosition().getY() - camera.getPositionCameraY());
+                    contexteGraphique.drawImage(imageLevierActif, levier.getPosition().getX(),
+                            levier.getPosition().getY());
                 }
                 else{
-                    contexteGraphique.drawImage(imageLevierPasActif, levier.getPosition().getX() - camera.getPositionCameraX(),
-                            levier.getPosition().getY() - camera.getPositionCameraY());
+                    contexteGraphique.drawImage(imageLevierPasActif, levier.getPosition().getX(),
+                            levier.getPosition().getY());
                 }
             }
         }
-        contexteGraphique.drawImage(imagePersonnage, joueur.getPosition().getX() - camera.getPositionCameraX(),
-                joueur.getPosition().getY() - camera.getPositionCameraY());
+        contexteGraphique.drawImage(imagePersonnage, joueur.getPosition().getX(),
+                joueur.getPosition().getY());
 
         if (joueur.getEtatAction() == EtatAction.ATTAQUE) {
             contexteGraphique.drawImage(imageProjectile,
-                    joueur.getAttaque().getCollision().getPosition().getX() - camera.getPositionCameraX(),
-                    joueur.getAttaque().getCollision().getPosition().getY() - camera.getPositionCameraY());
+                    joueur.getAttaque().getCollision().getPosition().getX(),
+                    joueur.getAttaque().getCollision().getPosition().getY());
         }
 
         contexteGraphique.setFill(Color.rgb(255,255, 255, 0.5));
@@ -156,13 +142,16 @@ public class FenetreDeJeu implements Observateur {
     }
 
     private void initialiser() {
-        ((GestionnaireDeTouchesFX) jeu.getGestionnaireDeTouches()).setScene(scene);
-        jeu.attacher(this);
-        jeu.lancerJeu();
+        ((GestionnaireDeTouchesFX) gestionnaireDeJeu.getGestionnaireDeTouches()).setScene(scene);
+        gestionnaireDeJeu.attacher(this);
+
+        if (!gestionnaireDeJeu.isLance()) {
+            gestionnaireDeJeu.lancerJeu();
+        }
 
         ChargeurCartesGraphiques chargeurCartesGraphiques = new ChargeurCartesGraphiques();
         lesCartesGraphiques = chargeurCartesGraphiques.charge(tableauDeJeu.getLesCartes());
-        lesTuilesGraphiquesCourantes = lesCartesGraphiques.get(0).getLesTuilesGraphiques();
+        miseAJourCarte();
 
         try {
             imagePersonnage = new Image(String.valueOf(new File("ressources/images/entites/link_epee.png").toURI().toURL()));
@@ -170,8 +159,6 @@ public class FenetreDeJeu implements Observateur {
             imageEnnemi = new Image(String.valueOf(new File("ressources/images/entites/ennemi.png").toURI().toURL()));
             imageLevierPasActif = new Image(String.valueOf(new File("ressources/images/entites/levierPasActif.png").toURI().toURL()));
             imageLevierActif = new Image(String.valueOf(new File("ressources/images/entites/levierActif.png").toURI().toURL()));
-            Levier.setHauteurDefaut(imageLevierActif.getHeight());
-            Levier.setLargeurDefaut(imageLevierActif.getWidth());
         }
         catch (MalformedURLException e) {
             e.printStackTrace();
@@ -182,8 +169,11 @@ public class FenetreDeJeu implements Observateur {
     @Override
     public void miseAJour(long timer) {
         affichage();
-        if (!jeu.getTableauDeJeu().getCarteCourante().equals(carteCourante)) {
+        if (!gestionnaireDeJeu.getTableauDeJeu().getCarteCourante().equals(carteCourante)) {
             miseAJourCarte();
+        }
+        if (!gestionnaireDeJeu.isLance()) {
+            navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, gestionnaireDeJeu, this));
         }
     }
 }

@@ -1,8 +1,6 @@
 package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 
-import com.mauja.maujaadventures.entites.Ennemi;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
-import com.mauja.maujaadventures.interactions.Levier;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
 public class SolveurEnnemiLevier extends SolveurCollision{

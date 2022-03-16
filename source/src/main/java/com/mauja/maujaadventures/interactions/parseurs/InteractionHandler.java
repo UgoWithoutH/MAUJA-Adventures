@@ -1,6 +1,9 @@
-package com.mauja.maujaadventures.interactions;
+package com.mauja.maujaadventures.interactions.parseurs;
 
+import com.mauja.maujaadventures.interactions.Scenario;
 import com.mauja.maujaadventures.interactions.createurs.*;
+import com.mauja.maujaadventures.interactions.elements.Balise;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import org.xml.sax.Attributes;
 import org.xml.sax.ext.Attributes2Impl;
 import org.xml.sax.helpers.DefaultHandler;
@@ -13,7 +16,7 @@ import java.util.Map;
 public class InteractionHandler extends DefaultHandler {
 
     private List<Scenario> listeScenarios;
-    CreateurDObject createurDObject;
+    private CreateurDObject createurDObject;
     private Balise baliseCourante;
     private Map<Integer, ElementInteractif> mapIdElemInteractif;
     private Attributes attributesPrimBaliseAcreer;
@@ -104,8 +107,7 @@ public class InteractionHandler extends DefaultHandler {
             if (baliseEncours.equalsIgnoreCase("Action")) {
 
                 int idEffet = Integer.parseInt(attributesPrimBaliseAcreer.getValue("idEffet"));
-                attributsNonPrimBaliseACreer.put(mapIdElemInteractif.get(idEffet
-                ).getClass().toString(), mapIdElemInteractif.get(idEffet));
+                attributsNonPrimBaliseACreer.put(mapIdElemInteractif.get(idEffet).getClass().toString(), mapIdElemInteractif.get(idEffet));
                 baliseCourante = (Balise) createurDObject.creation(attributesPrimBaliseAcreer, attributsNonPrimBaliseACreer);
             }
         }

@@ -2,6 +2,7 @@ package com.mauja.maujaadventures.interactions.evenements;
 
 import com.mauja.maujaadventures.collisionneurs.solveurs.attaque.SolveurAttaque;
 import com.mauja.maujaadventures.interactions.*;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.monde.Carte;
 
@@ -24,7 +25,7 @@ public class EvenementAttaque extends Evenement {
 
         for (ElementInteractif elementInter : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()){
             if(elementInteractif != elementInter) {
-                solveurAttaque.resoud(elementInteractif, elementInter, scenarios, tableauDeJeu);
+                solveurAttaque.resoud(elementInteractif, elementInter);
             }
         }
     }

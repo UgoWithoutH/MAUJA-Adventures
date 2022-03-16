@@ -1,7 +1,7 @@
 package com.mauja.maujaadventures.entites;
 
 import com.mauja.maujaadventures.annotations.Param;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
@@ -16,6 +16,8 @@ public abstract class Entite extends ElementInteractif {
      * Constructeur de la classe Abstraite
      * @param position Position de l'entite
      * @param collision Collision que l'entite va posséder
+     * @param dimension taille de l'entité
+     * @param velocite vitesse de déplacement de l'entié
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public Entite(@Param(nom = "position", classe = Position.class) Position position,
@@ -36,7 +38,7 @@ public abstract class Entite extends ElementInteractif {
     }
 
     /**
-     * Getter de la dimension
+     * Récupération de la dimension
      * @return La dimension (Hauteur et Largeur) de l'entite
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
@@ -45,24 +47,28 @@ public abstract class Entite extends ElementInteractif {
     }
 
     /**
-     * Setter de la dimension
-     * @param dimension Nouvelle dimension (Hauteur et Largeur) de l'entite
+     * Récupération de la vitesse de l'entité
+     * @return vitesse de l'entité
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
-    private void setDimension(Dimension dimension) { this.dimension = dimension; }
-
     public Velocite getVelocite() {
         return velocite;
     }
 
-    private void setVelocite(Velocite velocite) {
-        this.velocite = velocite;
-    }
-
+    /**
+     * Récupération de sa direction
+     * @return actuelle direction de l'entité
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public Direction getDirection() {
         return direction;
     }
 
+    /**
+     * Modification de la direction de l'entité
+     * @param direction nouvelle direction
+     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
+     */
     public void setDirection(Direction direction) {
         this.direction = direction;
     }

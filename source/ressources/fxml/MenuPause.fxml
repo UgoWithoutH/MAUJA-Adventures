@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.*?>
 
 <?import java.net.URL?>
-    <VBox fx:id="content" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="8">
+    <VBox fx:id="content" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="8"
+        minWidth="964" minHeight="650">
         <Button fx:id="reprendre" text="Reprendre" onAction="#reprendre"/>
         <Button fx:id="param" text="Paramètres" onAction="#parametres"/>
         <Button fx:id="sauvegarder" text="Sauvegarder"/>

@@ -2,11 +2,11 @@ package com.mauja.maujaadventures.deplaceurs;
 
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
-import com.mauja.maujaadventures.interactions.ElementInteractif;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
-import com.mauja.maujaadventures.jeu.ObservateurEvenementiel;
+import com.mauja.maujaadventures.observateurs.ObservateurEvenementiel;
 import com.mauja.maujaadventures.monde.Carte;
 
 public class DeplaceurDeDestructible extends Deplaceur implements ObservateurEvenementiel {

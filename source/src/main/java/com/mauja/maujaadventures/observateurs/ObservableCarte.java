@@ -1,6 +1,5 @@
-package com.mauja.maujaadventures.jeu;
+package com.mauja.maujaadventures.observateurs;
 
-import com.mauja.maujaadventures.interactions.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
 import java.util.LinkedList;

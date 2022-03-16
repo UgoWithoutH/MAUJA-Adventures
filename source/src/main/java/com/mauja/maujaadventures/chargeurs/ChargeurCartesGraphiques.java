@@ -9,6 +9,7 @@ import com.mauja.maujaadventures.monde.Tuile;
 import com.mauja.maujaadventures.utilitaires.DecoupeurImage;
 import javafx.scene.image.Image;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,6 @@ public class ChargeurCartesGraphiques {
             }
             lesJeuxDeTuilesGraphiques.add(new JeuDeTuilesGraphique(jeuDeTuiles, lesTuilesGraphiques));
         }
-
         return new Carte2DGraphique(carte, lesJeuxDeTuilesGraphiques);
     }
 }
