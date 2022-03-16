@@ -10,6 +10,7 @@ import java.util.*;
 public class Ressources {
     private static Ressources ressources;
     private ConfigurateurEnvironnement configurateurEnvironnement;
+    private final File nomDossierRessourcesProjet = new File("ressources");
 
     private List<File> lesFichiers;
     private Map<File, String> lesDossiersEtExtensions;
@@ -25,7 +26,7 @@ public class Ressources {
         lesFichiers = new ArrayList<>();
         lesDossiersEtExtensions = new HashMap<>();
         initialiser();
-        configurateurEnvironnement = new ConfigurateurEnvironnement(lesFichiers, lesDossiersEtExtensions);
+        configurateurEnvironnement = new ConfigurateurEnvironnement(lesFichiers, lesDossiersEtExtensions, nomDossierRessourcesProjet);
         configurateurEnvironnement.configure();
         lesCartes = configurateurEnvironnement.getLesFichiersDesDossiers().get("cartes");
         lesScripts = configurateurEnvironnement.getLesFichiersDesDossiers().get("scripts");
@@ -59,15 +60,12 @@ public class Ressources {
     }
 
     private void initialiser() {
-        File fichierTransitions = new File("ressources" + File.separator + "transitions.txt");
-        File fichierTouches = new File("ressources" + File.separator + "configurationTouches.txt");
-        lesFichiers.add(fichierTransitions);
-        lesFichiers.add(fichierTouches);
-
-        File dossierCartes = new File("ressources" + File.separator + "cartes" + File.separator);
-        File dossierScripts = new File("ressources" + File.separator + "scripts" + File.separator);
-        lesDossiersEtExtensions.put(dossierCartes, ".tmx");
-        lesDossiersEtExtensions.put(dossierScripts, ".xml");
+        lesFichiers.add(new File(File.separator + "transitions.txt"));
+        lesFichiers.add(new File(File.separator + "configurationTouches.txt"));
+        lesDossiersEtExtensions.put(new File("cartes" + File.separator), ".tmx");
+        lesDossiersEtExtensions.put(new File("scripts" + File.separator), ".xml");
+        lesDossiersEtExtensions.put(new File("tilesets" + File.separator), ".tsx");
+        lesDossiersEtExtensions.put(new File("images" + File.separator + "tilesets" + File.separator), ".png");
 
         try {
             lesImagesEntites.add(Objects.requireNonNull(new File("images/entites/link_epee.png").toURI().toURL().toExternalForm()));

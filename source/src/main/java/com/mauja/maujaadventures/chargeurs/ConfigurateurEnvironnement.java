@@ -13,6 +13,7 @@ public class ConfigurateurEnvironnement {
     private Map<File, String> lesDossiersEtExtensions;
     private List<File> lesFichiers;
 
+    private File nomDossierRessourcesProjet;
     private String homeUtilisateur;
     private File dossierConfiguration;
 
@@ -20,15 +21,19 @@ public class ConfigurateurEnvironnement {
     private Map<String, String> lesFichiersDeConfiguration;
 
 
-    public ConfigurateurEnvironnement(List<File> lesFichiers, Map<File, String> lesDossiersEtExtensions) {
+    public ConfigurateurEnvironnement(List<File> lesFichiers, Map<File, String> lesDossiersEtExtensions, File nomDossierRessourcesProjet) {
         if (lesFichiers == null) {
             throw new IllegalArgumentException("Les fichiers donnés en paramètre ne peuvent pas être null.");
         }
         if (lesDossiersEtExtensions == null) {
             throw new IllegalArgumentException("Les dossiers spécifiés en paramètre ne peuvent pas être null.");
         }
+        if (nomDossierRessourcesProjet == null) {
+            throw new IllegalArgumentException("Le nom du dossier des ressources du projet ne peut pas être null.");
+        }
         this.lesFichiers = lesFichiers;
         this.lesDossiersEtExtensions = lesDossiersEtExtensions;
+        this.nomDossierRessourcesProjet = nomDossierRessourcesProjet;
         lesFichiersDesDossiers = new HashMap<>();
         lesFichiersDeConfiguration = new HashMap<>();
     }
@@ -57,12 +62,13 @@ public class ConfigurateurEnvironnement {
 
         // Création de tous les fichiers de manière récursive.
         for (File fichier : lesFichiers) {
-            if (fichier != null && fichier.exists() && fichier.isFile()) {
+            File fichierAbsoluProjet = new File(nomDossierRessourcesProjet + File.separator + fichier);
+            if (fichierAbsoluProjet.exists() && fichierAbsoluProjet.isFile()) {
                 File cheminFichier = new File(dossierRacineProjet.getAbsolutePath() + File.separator
                         + fichier.getName());
                 // S'il n'existe pas dans le home de l'utilisateur, on copie celui du projet.
                 if (!cheminFichier.exists()) {
-                    Files.copy(fichier.toPath(), cheminFichier.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(fichierAbsoluProjet.toPath(), cheminFichier.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 }
 
                 // Dans tous les cas, on l'ajoute à notre liste de données.
@@ -73,7 +79,7 @@ public class ConfigurateurEnvironnement {
         // Parcours de tous les dossiers.
         for (Map.Entry<File, String> paire : lesDossiersEtExtensions.entrySet()) {
             // Création du dossier dans le home de l'utilisateur s'il n'existe pas.
-            File cheminDossier = new File(dossierRacineProjet + File.separator + paire.getKey().getName());
+            File cheminDossier = new File(dossierRacineProjet + File.separator + paire.getKey());
             creerDossier(cheminDossier, paire.getKey().getName());
 
             // Appel d'une méthode pour charger tous les fichiers de chaque dossier qui respectent la bonne extension.
@@ -82,7 +88,9 @@ public class ConfigurateurEnvironnement {
             // Si aucun fichier n'a été trouvé dans le dossier, on importe ceux du projet.
             if (lesFichiers != null && lesFichiers.isEmpty()) {
                 // On charge les fichiers du projet cette fois-ci.
-                List<File> fichiersACopier = chargeFichiers(paire.getKey(), paire.getValue());
+                List<File> fichiersACopier = chargeFichiers(
+                        new File(nomDossierRessourcesProjet + File.separator + paire.getKey()),
+                        paire.getValue());
                 for (File chemin : fichiersACopier) {
                     // On copie chaque fichier dans le home de l'utilisateur.
                     Files.copy(chemin.getAbsoluteFile().toPath(),
