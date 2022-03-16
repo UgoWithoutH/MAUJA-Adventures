@@ -36,10 +36,13 @@ public class TestParsageInteraction {
                 }
             }
             System.out.println(scenarios);
+            System.out.println(System.getProperty("user.home"));
             ElementInteractif elementInteractif = scenarios.get(0).getListeElemInteractif().get(0);
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
     }
+
+
 }

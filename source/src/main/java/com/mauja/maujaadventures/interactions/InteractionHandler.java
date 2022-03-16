@@ -102,6 +102,10 @@ public class InteractionHandler extends DefaultHandler {
                 baliseCourante = (Balise) createurDObject.creation(attributesPrimBaliseAcreer, attributsNonPrimBaliseACreer);
             }
             if (baliseEncours.equalsIgnoreCase("Action")) {
+
+                int idEffet = Integer.parseInt(attributesPrimBaliseAcreer.getValue("idEffet"));
+                attributsNonPrimBaliseACreer.put(mapIdElemInteractif.get(idEffet
+                ).getClass().toString(), mapIdElemInteractif.get(idEffet));
                 baliseCourante = (Balise) createurDObject.creation(attributesPrimBaliseAcreer, attributsNonPrimBaliseACreer);
             }
         }
