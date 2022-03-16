@@ -1,6 +1,8 @@
-package com.mauja.maujaadventures.fenetres;
+package com.mauja.maujaadventures;
 
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
+import com.mauja.maujaadventures.fenetres.Fenetre;
+import com.mauja.maujaadventures.fenetres.MenuPrincipal;
 import com.mauja.maujaadventures.jeu.GestionnaireDeJeu;
 import com.mauja.maujaadventures.jeu.Jeu;
 import javafx.application.Application;

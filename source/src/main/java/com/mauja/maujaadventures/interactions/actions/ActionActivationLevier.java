@@ -10,8 +10,8 @@ import com.mauja.maujaadventures.logique.Velocite;
 
 public class ActionActivationLevier extends Action {
     @Override
-    public void agit(ElementInteractif elementInteractif, TableauDeJeu tableauDeJeu) {
-    Levier levier = (Levier) elementInteractif;
+    public void agit(TableauDeJeu tableauDeJeu) {
+    Levier levier = (Levier) lesElementsInteractifs.get(0);
 
         if (levier.isActive()) {
             return;

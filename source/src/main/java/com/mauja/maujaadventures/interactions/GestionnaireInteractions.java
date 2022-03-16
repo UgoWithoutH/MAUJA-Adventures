@@ -117,7 +117,7 @@ public class GestionnaireInteractions implements Runnable {
                 for (Map.Entry<Condition, List<Action>> map : element.getMapConditionAction().entrySet()) {
                     if (map.getKey().verificationCondition(element, tableauDeJeu)) {
                         for (Action action : map.getValue()) {
-                            action.agit(element, tableauDeJeu);
+                            action.agit(tableauDeJeu);
                         }
                     }
                 }

@@ -14,7 +14,7 @@ public abstract class Action extends Balise {
         lesElementsInteractifs = new ArrayList<>();
     }
 
-    public abstract void agit(ElementInteractif elementInteractif, TableauDeJeu tableauDeJeu);
+    public abstract void agit(TableauDeJeu tableauDeJeu);
 
     @Override
     public void ajouter(Balise balise) {
