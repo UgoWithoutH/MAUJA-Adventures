@@ -64,6 +64,7 @@ public class ChargeurDeCarteTiledReader implements ChargeurDeCarteTiled {
             File fichierJeuDeTuiles = new File(jeuDeTuileTiled.getImage().getSource());
             JeuDeTuiles jeuDeTuiles = new JeuDeTuiles(dimensionJeuDeTuiles, nomJeuDeTuiles, lesTuiles, fichierJeuDeTuiles);
 
+
             lesJeuxDeTuiles.add(jeuDeTuiles);
             idTuiles += jeuDeTuileTiled.getTiles().size();
         }

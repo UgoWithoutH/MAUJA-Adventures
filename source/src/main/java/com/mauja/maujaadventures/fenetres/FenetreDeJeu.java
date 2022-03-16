@@ -82,7 +82,11 @@ public class FenetreDeJeu implements Observateur {
 
     public void miseAJourCarte() {
         carteCourante = tableauDeJeu.getCarteCourante();
-        //Appel MAJ caméra.
+        for (Carte2DGraphique carte2DGraphique : lesCartesGraphiques) {
+            if (carte2DGraphique.getCarte().getNom().equals(carteCourante.getNom())){
+                lesTuilesGraphiquesCourantes = carte2DGraphique.getLesTuilesGraphiques();
+            }
+        }
     }
 
     public void affichage() {
@@ -148,7 +152,7 @@ public class FenetreDeJeu implements Observateur {
 
         ChargeurCartesGraphiques chargeurCartesGraphiques = new ChargeurCartesGraphiques();
         lesCartesGraphiques = chargeurCartesGraphiques.charge(tableauDeJeu.getLesCartes());
-        lesTuilesGraphiquesCourantes = lesCartesGraphiques.get(0).getLesTuilesGraphiques();
+        miseAJourCarte();
 
         try {
             imagePersonnage = new Image(String.valueOf(new File("ressources/images/entites/link_epee.png").toURI().toURL()));

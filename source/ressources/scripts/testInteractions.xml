@@ -36,7 +36,7 @@
                                    pointsDeVie="3" end="oui">
                 </ElementInteractif>
             </Action>
-            <Action type="com.mauja.maujaadventures.interactions.actions.ActionOuverturePorte" end="oui"/>
+            <Action type="com.mauja.maujaadventures.interactions.actions.ActionOuverturePorte" idEffet="1" end="oui"/>
         </ElementInteractif>
     </Scenario>
     <Scenario end="oui">
