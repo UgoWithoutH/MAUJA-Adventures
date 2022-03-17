@@ -51,6 +51,8 @@ public class FenetreDeJeu implements Observateur {
     private Image imageLevierPasActif;
     private Image imageLevierActif;
     private CameraTuilesFX cameraTuilesFX;
+    private double largeurTuile = 32;
+    private double hauteurTuile = 32;
 
     public FenetreDeJeu(Navigateur navigateur, GestionnaireDeJeu gestionnaireDeJeu) throws IllegalArgumentException {
         if (gestionnaireDeJeu == null) {
@@ -104,11 +106,12 @@ public class FenetreDeJeu implements Observateur {
             for (int y = 0; y < vision[k].length; y++) {
                 for (int x = 0; x < vision[k][y].length; x++) {
                         contexteGraphique.drawImage(vision[k][y][x].getImage(),
-                                x * 32 - cameraTuilesFX.getDecalageRelatif().getLargeur() -
+                                x * largeurTuile
+                                        - cameraTuilesFX.getDecalageRelatif().getLargeur() -
                                         cameraTuilesFX.getDecalageAbsolu().getLargeur(),
-                                y * 32 - cameraTuilesFX.getDecalageRelatif().getHauteur() -
+                                y * hauteurTuile - cameraTuilesFX.getDecalageRelatif().getHauteur() -
                                 cameraTuilesFX.getDecalageAbsolu().getHauteur(),
-                                32, 32);
+                                largeurTuile, hauteurTuile);
                 }
             }
         }
@@ -118,16 +121,16 @@ public class FenetreDeJeu implements Observateur {
             if (elementInteractif instanceof Ennemi ennemi) {
 
                 contexteGraphique.drawImage(imageEnnemi, ennemi.getPosition().getX()
-                                - cameraTuilesFX.getPosition().getX() * 32 -
+                                - cameraTuilesFX.getPosition().getX() * largeurTuile -
                         cameraTuilesFX.getDecalageRelatif().getLargeur(),
-                        ennemi.getPosition().getY() - cameraTuilesFX.getPosition().getY() * 32 -
+                        ennemi.getPosition().getY() - cameraTuilesFX.getPosition().getY() * hauteurTuile -
                                 cameraTuilesFX.getDecalageRelatif().getHauteur());
             }
             if (elementInteractif instanceof Destructible destructible) {
                 contexteGraphique.drawImage(imageProjectile, destructible.getPosition().getX() -
-                                cameraTuilesFX.getPosition().getX() * 32 -
+                                cameraTuilesFX.getPosition().getX() * largeurTuile -
                         cameraTuilesFX.getDecalageRelatif().getLargeur(),
-                        destructible.getPosition().getY() - cameraTuilesFX.getPosition().getY() * 32 -
+                        destructible.getPosition().getY() - cameraTuilesFX.getPosition().getY() * hauteurTuile -
                         cameraTuilesFX.getDecalageRelatif().getHauteur());
             }
 
@@ -135,18 +138,18 @@ public class FenetreDeJeu implements Observateur {
                 if (levier.isActive()) {
 
                     contexteGraphique.drawImage(imageLevierActif, levier.getPosition().getX() -
-                                    cameraTuilesFX.getPosition().getX() * 32 -
+                                    cameraTuilesFX.getPosition().getX() * largeurTuile -
                                     cameraTuilesFX.getDecalageRelatif().getLargeur(),
                             levier.getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur() -
-                                    cameraTuilesFX.getPosition().getY() * 32 -
+                                    cameraTuilesFX.getPosition().getY() * hauteurTuile -
                                     cameraTuilesFX.getDecalageRelatif().getHauteur());
                 }
                 else{
                     contexteGraphique.drawImage(imageLevierPasActif, levier.getPosition().getX() -
-                                    cameraTuilesFX.getPosition().getX() * 32 -
+                                    cameraTuilesFX.getPosition().getX() * largeurTuile -
                                     cameraTuilesFX.getDecalageRelatif().getLargeur(),
                             levier.getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur() -
-                                    cameraTuilesFX.getPosition().getY() * 32 -
+                                    cameraTuilesFX.getPosition().getY() * hauteurTuile -
                                     cameraTuilesFX.getDecalageRelatif().getHauteur());
                 }
             }
@@ -155,14 +158,16 @@ public class FenetreDeJeu implements Observateur {
 
         contexteGraphique.drawImage(imagePersonnage,
                 joueur.getPosition().getX() - cameraTuilesFX.getDecalageRelatif().getLargeur() -
-                cameraTuilesFX.getPosition().getX() * 32,
+                cameraTuilesFX.getPosition().getX() * largeurTuile,
                 joueur.getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur() -
-                cameraTuilesFX.getPosition().getY() * 32);
+                cameraTuilesFX.getPosition().getY() * hauteurTuile);
 
         if (joueur.getEtatAction() == EtatAction.ATTAQUE) {
-            contexteGraphique.drawImage(imageProjectile,
-                    joueur.getAttaque().getCollision().getPosition().getX() - cameraTuilesFX.getPosition().getX() * 32,
-                    joueur.getAttaque().getCollision().getPosition().getY() - cameraTuilesFX.getPosition().getY() * 32);
+            contexteGraphique.drawImage(imageAttaque,
+                    joueur.getAttaque().getCollision().getPosition().getX() - cameraTuilesFX.getPosition().getX() *
+                            largeurTuile - cameraTuilesFX.getDecalageRelatif().getLargeur(),
+                    joueur.getAttaque().getCollision().getPosition().getY() - cameraTuilesFX.getPosition().getY() *
+                            hauteurTuile - cameraTuilesFX.getPosition().getY() * hauteurTuile);
         }
 
         contexteGraphique.setFill(Color.rgb(255,255, 255, 0.5));
