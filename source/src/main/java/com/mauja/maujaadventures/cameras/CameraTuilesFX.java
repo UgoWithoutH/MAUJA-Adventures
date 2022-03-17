@@ -1,4 +1,7 @@
 package com.mauja.maujaadventures.cameras;
+import com.mauja.maujaadventures.affichages.Carte2DGraphique;
+import com.mauja.maujaadventures.affichages.TuileGraphique;
+import com.mauja.maujaadventures.cameras.CameraTuiles;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.monde.Carte;
@@ -7,22 +10,41 @@ import com.mauja.maujaadventures.monde.Tuile;
 import java.util.List;
 
 public class CameraTuilesFX extends CameraTuiles {
-    private List<Tuile> lesTuilesGraphiques;
-    private Tuile[][] visionGraphique;
+    private List<TuileGraphique> lesTuilesGraphiques;
+    private TuileGraphique[][][] visionGraphique;
 
-    public CameraTuilesFX(Carte carte, Dimension zoneVisuelle, List<Tuile> lesTuilesGraphiques)
+
+    /**
+     * Constructeur de la camera
+     * @param carte carte ou se trouve la camera
+     * @param zoneVisuelle dimension de la vue
+     * @throws IllegalArgumentException
+     */
+    public CameraTuilesFX(Carte carte, Dimension zoneVisuelle, Carte2DGraphique carte2DGraphique)
             throws IllegalArgumentException {
         super(carte, zoneVisuelle);
-        if (lesTuilesGraphiques == null) {
-            throw new IllegalArgumentException("La liste de tuiles graphique doit être non nulle pour la création de la caméra.");
+        if (carte2DGraphique == null) {
+            throw new IllegalArgumentException("La carte graphique doit être non nulle pour la création de la caméra.");
         }
-        this.lesTuilesGraphiques = lesTuilesGraphiques;
-        visionGraphique = new Tuile[(int) zoneVisuelle.getHauteur()][(int) zoneVisuelle.getLargeur()];
-        //visionGraphique = new TuileFX[(int) zoneVisuelle.getLargeur()][(int) zoneVisuelle.getHauteur()];
+
+        this.lesTuilesGraphiques = carte2DGraphique.getLesTuilesGraphiques();
+        visionGraphique = new TuileGraphique[nombreCalques]
+    [(int) (zoneVisuelle.getHauteur())][(int) (zoneVisuelle.getLargeur())];
     }
 
-    public Tuile getTuileGraphique(int x, int y) {
-        return visionGraphique[x][y];
+
+    /**
+     * retourne la tuile pour un certain endroit
+     * @param x coordonnées X de la tuile
+     * @param y coordonnées Y de la tuile
+     * @return
+     */
+    public TuileGraphique getTuileGraphique(int k, int x, int y) {
+        return visionGraphique[k][x][y];
+    }
+
+    public TuileGraphique[][][] getVisionGraphique() {
+        return visionGraphique;
     }
 
     @Override
@@ -31,13 +53,19 @@ public class CameraTuilesFX extends CameraTuiles {
         miseAJour();
     }
 
+
+    /**
+     * Methode mettant a jour la camera ( postion etc.. )
+     */
+
     private void miseAJour() {
         double largeurCamera = zoneObservable.getLargeur();
         double hauteurCamera = zoneObservable.getHauteur();
-
-        for (int x = 0; x < largeurCamera; x++) {
+        for (int k = 0; k < nombreCalques; k++) {
             for (int y = 0; y < hauteurCamera; y++) {
-                visionGraphique[x][y] = lesTuilesGraphiques.get(zoneVisible[x][y].getId());
+                for (int x = 0; x < largeurCamera; x++) {
+                    visionGraphique[k][y][x] = lesTuilesGraphiques.get(zoneVisible[k][y][x].getId());
+                }
             }
         }
     }

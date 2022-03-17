@@ -10,12 +10,13 @@ import jdk.jshell.spi.ExecutionControl;
 
 public class CameraTuiles extends Camera {
     protected Carte carteCourante;
-    protected Tuile[][] zoneVisible;
+    protected Tuile[][][] zoneVisible;
 
-    protected double largeurCarte = 32;
-    protected double hauteurCarte = 32;
+    protected double largeurCarte;
+    protected double hauteurCarte;
     protected double largeurTuile;
     protected double hauteurTuile;
+    protected int nombreCalques;
 
     public CameraTuiles(Carte carte, Dimension zoneObservable) {
         super(zoneObservable);
@@ -27,17 +28,25 @@ public class CameraTuiles extends Camera {
             throw new IllegalArgumentException("La zone visuelle de la caméra (" + zoneObservable + ") ne peut pas "
                     + "être plus grande que les dimensions de la carte : " + carte.getDimensionCarte());
         }
-        zoneVisible = new Tuile[(int) zoneObservable.getHauteur()][(int) zoneObservable.getLargeur()];
+
+        nombreCalques = carte.getLaCarte().length;
+        zoneVisible = new Tuile[nombreCalques]
+                [(int) zoneObservable.getHauteur()][(int) zoneObservable.getLargeur()];
         changeCarte(carte);
     }
 
+
     @Override
     public void centrerSurEntite(Entite entite) {
+        ///double positionEntiteX = ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) / largeurTuile);
+        //double positionEntiteY = ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) / hauteurTuile);
+
         int positionEntiteX = (int) ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) / largeurTuile);
         int positionEntiteY = (int) ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) / hauteurTuile);
 
-        double decalageX = (int) ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) % largeurTuile);
-        double decalageY = (int) ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) % hauteurTuile);
+
+        double decalageX = ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) % largeurTuile);
+        double decalageY = ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) % hauteurTuile);
 
         double milieuEcranX = milieu.getLargeur();
         double milieuEcranY = milieu.getHauteur();
@@ -67,6 +76,7 @@ public class CameraTuiles extends Camera {
         else {
             nouvellePositionY = positionEntiteY - milieuEcranY;
         }
+
         position = new Position(nouvellePositionX, nouvellePositionY);
         decalageRelatif = new Dimension(decalageX, decalageY);
         actualisation();
@@ -85,10 +95,10 @@ public class CameraTuiles extends Camera {
         int positionY = (int) position.getY();
 
 
-        for (int k = 0; k < carteCourante.getLaCarte().length; k++) {
+        for (int k = 0; k < nombreCalques; k++) {
             for (int y = 0; y < hauteurCamera; y++) {
                 for (int x = 0; x < largeurCamera; x++) {
-                    //zoneVisible[k][x][y] = carteCourante.getTuile(x + positionX, y + positionY, k);
+                    zoneVisible[k][y][x] = carteCourante.getTuile(x + positionX, y + positionY, k);
                 }
             }
         }
@@ -102,6 +112,8 @@ public class CameraTuiles extends Camera {
 
         largeurCarte = carteCourante.getDimensionCarte().getLargeur();
         hauteurCarte = carteCourante.getDimensionCarte().getHauteur();
+        largeurTuile = carte.getDimensionTuiles().getLargeur();
+        hauteurTuile = carte.getDimensionTuiles().getHauteur();
         actualisation();
     }
 
@@ -109,16 +121,31 @@ public class CameraTuiles extends Camera {
         return carteCourante;
     }
 
-    public void setCarte(Carte carte) {
-        this.carteCourante = carte;
-    }
-
-    public Tuile[][] getZoneVisible() {
+    public Tuile[][][] getZoneVisible() {
         return zoneVisible;
     }
 
-    public void setZoneVisible(Tuile[][] zoneVisible) {
-        this.zoneVisible = zoneVisible;
+    @Override
+    public String toString() {
+        StringBuilder chaine = new StringBuilder(super.toString());
+        chaine.append("\nCarte courante : ");
+        //chaine.append(carteCourante.toString());
+        chaine.append("\nVision : \n");
+
+        double largeurCamera = zoneObservable.getLargeur();
+        double hauteurCamera = zoneObservable.getHauteur();
+        for(int k = 0; k < nombreCalques; k++) {
+        for (int x = 0; x < hauteurCamera; x++) {
+            for (int y = 0; y < largeurCamera; y++) {
+                chaine.append(zoneVisible[k][x][y].getId());
+                chaine.append(" ");
+            }
+            chaine.append("\n");
+            }
+            chaine.append("\n");
+        }
+
+        return chaine.toString();
     }
 
 }

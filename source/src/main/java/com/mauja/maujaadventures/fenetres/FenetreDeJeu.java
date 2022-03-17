@@ -2,14 +2,18 @@ package com.mauja.maujaadventures.fenetres;
 
 import com.mauja.maujaadventures.affichages.Carte2DGraphique;
 import com.mauja.maujaadventures.affichages.TuileGraphique;
+import com.mauja.maujaadventures.cameras.CameraTuilesFX;
 import com.mauja.maujaadventures.chargeurs.ChargeurCartesGraphiques;
 import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.elements.Levier;
 import com.mauja.maujaadventures.jeu.GestionnaireDeJeu;
+import com.mauja.maujaadventures.jeu.Jeu;
+import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.observateurs.Observateur;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
+import com.mauja.maujaadventures.monde.Camera;
 import com.mauja.maujaadventures.monde.Carte;
 import com.mauja.maujaadventures.monde.Tuile;
 import javafx.scene.Scene;
@@ -26,15 +30,16 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class FenetreDeJeu implements Observateur {
     private Navigateur navigateur;
     private GestionnaireDeJeu gestionnaireDeJeu;
     private TableauDeJeu tableauDeJeu;
-
     private PersonnageJouable joueur;
     private Carte carteCourante;
 
     private List<Carte2DGraphique> lesCartesGraphiques;
+    private Carte2DGraphique carteGraphiqueCourante;
     private List<TuileGraphique> lesTuilesGraphiquesCourantes;
 
     private Scene scene;
@@ -48,6 +53,7 @@ public class FenetreDeJeu implements Observateur {
     private Image imageEnnemi;
     private Image imageLevierPasActif;
     private Image imageLevierActif;
+    private CameraTuilesFX cameraTuilesFX;
 
     public FenetreDeJeu(Navigateur navigateur, GestionnaireDeJeu gestionnaireDeJeu) throws IllegalArgumentException {
         if (gestionnaireDeJeu == null) {
@@ -58,7 +64,7 @@ public class FenetreDeJeu implements Observateur {
         }
         this.gestionnaireDeJeu = gestionnaireDeJeu;
         this.navigateur = navigateur;
-        this.canvas = new Canvas(964, 608);
+        this.canvas = new Canvas(993, 767);
         this.contexteGraphique = canvas.getGraphicsContext2D();
 
         lesCouches = new StackPane();
@@ -87,50 +93,79 @@ public class FenetreDeJeu implements Observateur {
         }
     }
 
+
+    public void ajoutElementParsage(List<ElementInteractif> list){
+        carteCourante.ajouterElementsInteractifs(list);
+    }
+
     public void affichage() {
+        var vision = cameraTuilesFX.getVisionGraphique();
+
         contexteGraphique.clearRect(0, 0, 1000, 1000);
-        for (int k = 0; k < carteCourante.getLaCarte().length; k++) {
-            for (int y = 0; y < carteCourante.getDimensionCarte().getHauteur(); y++) {
-                for (int x = 0; x < carteCourante.getDimensionCarte().getLargeur(); x++) {
+        for (int k = 0; k < vision.length; k++) {
+            for (int y = 0; y < vision[k].length; y++) {
+                for (int x = 0; x < vision[k][y].length; x++) {
                     Tuile tuile = carteCourante.getTuile(x, y, k);
-                    if (tuile.getId() >= 1) {
-                        contexteGraphique.drawImage(lesTuilesGraphiquesCourantes.get(tuile.getId()).getImage(),
-                                x * 32, y * 32,
+                        contexteGraphique.drawImage(vision[k][y][x].getImage(),
+                                x * 32 - cameraTuilesFX.getDecalageRelatif().getLargeur() -
+                                        cameraTuilesFX.getDecalageAbsolu().getLargeur(),
+                                y * 32 - cameraTuilesFX.getDecalageRelatif().getHauteur() -
+                                cameraTuilesFX.getDecalageAbsolu().getHauteur(),
                                 32, 32);
-                    }
                 }
             }
         }
 
+
         for (ElementInteractif elementInteractif : carteCourante.getLesElementsInteractifs()) {
             if (elementInteractif instanceof Ennemi ennemi) {
-                contexteGraphique.drawImage(imageEnnemi, ennemi.getPosition().getX(),
-                        ennemi.getPosition().getY());
-            }
 
+                contexteGraphique.drawImage(imageEnnemi, ennemi.getPosition().getX()
+                                - cameraTuilesFX.getPosition().getX() * 32 -
+                        cameraTuilesFX.getDecalageRelatif().getLargeur(),
+                        ennemi.getPosition().getY() - cameraTuilesFX.getPosition().getY() * 32 -
+                                cameraTuilesFX.getDecalageRelatif().getHauteur());
+            }
             if (elementInteractif instanceof Destructible destructible) {
-                contexteGraphique.drawImage(imageProjectile, destructible.getPosition().getX(),
-                        destructible.getPosition().getY());
+                contexteGraphique.drawImage(imageProjectile, destructible.getPosition().getX() -
+                                cameraTuilesFX.getPosition().getX() * 32 -
+                        cameraTuilesFX.getDecalageRelatif().getLargeur(),
+                        destructible.getPosition().getY() - cameraTuilesFX.getPosition().getY() * 32 -
+                        cameraTuilesFX.getDecalageRelatif().getHauteur());
             }
 
             if (elementInteractif instanceof Levier levier) {
                 if (levier.isActive()) {
-                    contexteGraphique.drawImage(imageLevierActif, levier.getPosition().getX(),
-                            levier.getPosition().getY());
+
+                    contexteGraphique.drawImage(imageLevierActif, levier.getPosition().getX() -
+                                    cameraTuilesFX.getPosition().getX() * 32 -
+                                    cameraTuilesFX.getDecalageRelatif().getLargeur(),
+                            levier.getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur() -
+                                    cameraTuilesFX.getPosition().getY() * 32 -
+                                    cameraTuilesFX.getDecalageRelatif().getHauteur());
                 }
                 else{
-                    contexteGraphique.drawImage(imageLevierPasActif, levier.getPosition().getX(),
-                            levier.getPosition().getY());
+                    contexteGraphique.drawImage(imageLevierPasActif, levier.getPosition().getX() -
+                                    cameraTuilesFX.getPosition().getX() * 32 -
+                                    cameraTuilesFX.getDecalageRelatif().getLargeur(),
+                            levier.getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur() -
+                                    cameraTuilesFX.getPosition().getY() * 32 -
+                                    cameraTuilesFX.getDecalageRelatif().getHauteur());
                 }
             }
         }
-        contexteGraphique.drawImage(imagePersonnage, joueur.getPosition().getX(),
-                joueur.getPosition().getY());
+
+
+        contexteGraphique.drawImage(imagePersonnage,
+                joueur.getPosition().getX() - cameraTuilesFX.getDecalageRelatif().getLargeur() -
+                cameraTuilesFX.getPosition().getX() * 32,
+                joueur.getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur() -
+                cameraTuilesFX.getPosition().getY() * 32);
 
         if (joueur.getEtatAction() == EtatAction.ATTAQUE) {
-            contexteGraphique.drawImage(imageAttaque,
-                    joueur.getAttaque().getCollision().getPosition().getX(),
-                    joueur.getAttaque().getCollision().getPosition().getY());
+            contexteGraphique.drawImage(imageProjectile,
+                    joueur.getAttaque().getCollision().getPosition().getX() - cameraTuilesFX.getPosition().getX() * 32,
+                    joueur.getAttaque().getCollision().getPosition().getY() - cameraTuilesFX.getPosition().getY() * 32);
         }
 
         contexteGraphique.setFill(Color.rgb(255,255, 255, 0.5));
@@ -151,6 +186,8 @@ public class FenetreDeJeu implements Observateur {
         ChargeurCartesGraphiques chargeurCartesGraphiques = new ChargeurCartesGraphiques();
         lesCartesGraphiques = chargeurCartesGraphiques.charge(tableauDeJeu.getLesCartes());
         miseAJourCarte();
+        cameraTuilesFX = new CameraTuilesFX(carteCourante,new Dimension(30,25),carteGraphiqueCourante);
+
 
         try {
             imagePersonnage = new Image(String.valueOf(new File("ressources/images/entites/link_epee.png").toURI().toURL()));
@@ -163,11 +200,11 @@ public class FenetreDeJeu implements Observateur {
         catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        affichage();
     }
 
     @Override
     public void miseAJour(long timer) {
+        cameraTuilesFX.centrerSurEntite(tableauDeJeu.getJoueur());
         affichage();
         if (!gestionnaireDeJeu.getTableauDeJeu().getCarteCourante().equals(carteCourante)) {
             miseAJourCarte();
