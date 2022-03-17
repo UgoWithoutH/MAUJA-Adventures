@@ -167,7 +167,7 @@ public class FenetreDeJeu implements Observateur {
                     joueur.getAttaque().getCollision().getPosition().getX() - cameraTuilesFX.getPosition().getX() *
                             largeurTuile - cameraTuilesFX.getDecalageRelatif().getLargeur(),
                     joueur.getAttaque().getCollision().getPosition().getY() - cameraTuilesFX.getPosition().getY() *
-                            hauteurTuile - cameraTuilesFX.getPosition().getY() * hauteurTuile);
+                            hauteurTuile - cameraTuilesFX.getDecalageRelatif().getHauteur());
         }
 
         contexteGraphique.setFill(Color.rgb(255,255, 255, 0.5));
