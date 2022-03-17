@@ -40,10 +40,6 @@ public class Velocite {
         return x;
     }
 
-    private void setX(double x) {
-        this.x = x;
-    }
-
     /**
      * Récupération de la valeur de Y
      * @return valeur de Y
@@ -51,10 +47,6 @@ public class Velocite {
      */
     public double getY() {
         return y;
-    }
-
-    private void setY(double y) {
-        this.y = y;
     }
     /**
      * Redéfinition du hashCode

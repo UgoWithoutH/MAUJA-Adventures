@@ -1,7 +1,6 @@
 package com.mauja.maujaadventures.fenetres;
 
 import com.mauja.maujaadventures.jeu.GestionnaireDeJeu;
-import com.mauja.maujaadventures.jeu.Jeu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

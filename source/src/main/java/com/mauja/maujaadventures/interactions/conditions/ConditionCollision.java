@@ -1,7 +1,5 @@
 package com.mauja.maujaadventures.interactions.conditions;
 
-import com.mauja.maujaadventures.collisionneurs.Attaqueur;
-import com.mauja.maujaadventures.collisionneurs.AttaqueurAbsolu;
 import com.mauja.maujaadventures.entites.EtatAction;
 import com.mauja.maujaadventures.interactions.elements.Balise;
 
@@ -11,8 +9,6 @@ import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.elements.Levier;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.logique.Attaque;
-import com.mauja.maujaadventures.logique.Dimension;
-import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 
 public class ConditionCollision extends Condition {

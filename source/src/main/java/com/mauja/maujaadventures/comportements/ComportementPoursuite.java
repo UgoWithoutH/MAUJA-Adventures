@@ -11,7 +11,6 @@ import com.mauja.maujaadventures.monde.Carte;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class ComportementPoursuite implements Comportement{
     private static final List<Direction> DIRECTIONS_POSSIBLES = Arrays.asList(Direction.values());

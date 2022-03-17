@@ -1,13 +1,9 @@
 package com.mauja.maujaadventures.collisionneurs.solveurs.attaque;
 
-import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.Attaque;
-import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Carte;
-
-import java.util.List;
 
 public class SolveurAttaquePersonnageJouable extends SolveurAttaque{
     /**

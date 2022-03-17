@@ -1,6 +1,5 @@
 package com.mauja.maujaadventures.chargeurs;
 
-import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.logique.TransitionCarte;

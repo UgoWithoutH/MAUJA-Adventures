@@ -4,8 +4,6 @@ package com.mauja.maujaadventures.monde;
 import com.mauja.maujaadventures.logique.Dimension;
 
 import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

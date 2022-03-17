@@ -2,14 +2,10 @@ package com.mauja.maujaadventures.collisionneurs.solveurs.attaque;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
-import com.mauja.maujaadventures.interactions.Scenario;
-import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.logique.Attaque;
 import com.mauja.maujaadventures.monde.Carte;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 public class SolveurAttaque {
     protected Carte cartecourante;

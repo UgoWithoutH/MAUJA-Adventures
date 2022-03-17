@@ -30,30 +30,12 @@ public class Position {
     }
 
     /**
-     * Setter de la position X
-     * @param x Nouvelle position X de l'objet
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void setX(double x) {
-        this.x = x;
-    }
-
-    /**
      * Getter de position Y
      * @return Position Y de l'objet
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public double getY() {
         return y;
-    }
-
-    /**
-     * Setter de la position Y
-     * @param y Nouvelle position Y de l'objet
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    private void setY(double y) {
-        this.y = y;
     }
 
     /**
