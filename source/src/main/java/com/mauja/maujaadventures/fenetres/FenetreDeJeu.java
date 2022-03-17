@@ -9,13 +9,10 @@ import com.mauja.maujaadventures.entrees.GestionnaireDeTouchesFX;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.elements.Levier;
 import com.mauja.maujaadventures.jeu.GestionnaireDeJeu;
-import com.mauja.maujaadventures.jeu.Jeu;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.observateurs.Observateur;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
-import com.mauja.maujaadventures.monde.Camera;
 import com.mauja.maujaadventures.monde.Carte;
-import com.mauja.maujaadventures.monde.Tuile;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -91,6 +88,7 @@ public class FenetreDeJeu implements Observateur {
                 lesTuilesGraphiquesCourantes = carte2DGraphique.getLesTuilesGraphiques();
             }
         }
+        cameraTuilesFX = new CameraTuilesFX(carteCourante,new Dimension(30,26),carteGraphiqueCourante);
     }
 
 
@@ -105,7 +103,6 @@ public class FenetreDeJeu implements Observateur {
         for (int k = 0; k < vision.length; k++) {
             for (int y = 0; y < vision[k].length; y++) {
                 for (int x = 0; x < vision[k][y].length; x++) {
-                    Tuile tuile = carteCourante.getTuile(x, y, k);
                         contexteGraphique.drawImage(vision[k][y][x].getImage(),
                                 x * 32 - cameraTuilesFX.getDecalageRelatif().getLargeur() -
                                         cameraTuilesFX.getDecalageAbsolu().getLargeur(),
@@ -185,9 +182,9 @@ public class FenetreDeJeu implements Observateur {
 
         ChargeurCartesGraphiques chargeurCartesGraphiques = new ChargeurCartesGraphiques();
         lesCartesGraphiques = chargeurCartesGraphiques.charge(tableauDeJeu.getLesCartes());
-        miseAJourCarte();
+        carteGraphiqueCourante = lesCartesGraphiques.get(0);
         cameraTuilesFX = new CameraTuilesFX(carteCourante,new Dimension(30,25),carteGraphiqueCourante);
-
+        miseAJourCarte();
 
         try {
             imagePersonnage = new Image(String.valueOf(new File("ressources/images/entites/link_epee.png").toURI().toURL()));
