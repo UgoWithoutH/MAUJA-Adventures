@@ -37,8 +37,12 @@ public class CameraTuiles extends Camera {
 
     @Override
     public void centrerSurEntite(Entite entite) {
+        ///double positionEntiteX = ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) / largeurTuile);
+        //double positionEntiteY = ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) / hauteurTuile);
+
         int positionEntiteX = (int) ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) / largeurTuile);
         int positionEntiteY = (int) ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) / hauteurTuile);
+
 
         double decalageX = ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) % largeurTuile);
         double decalageY = ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) % hauteurTuile);
@@ -71,6 +75,7 @@ public class CameraTuiles extends Camera {
         else {
             nouvellePositionY = positionEntiteY - milieuEcranY;
         }
+
         position = new Position(nouvellePositionX, nouvellePositionY);
         decalageRelatif = new Dimension(decalageX, decalageY);
         actualisation();

@@ -94,9 +94,8 @@ public class FenetreDeJeu implements Observateur {
 
     public void miseAJourCarte() {
         carteCourante = tableauDeJeu.getCarteCourante();
-        cameraTuilesFX = new CameraTuilesFX(carteCourante,new Dimension(30,25),carteGraphiqueCourante);
+        cameraTuilesFX = new CameraTuilesFX(carteCourante,new Dimension(30,26),carteGraphiqueCourante);
 
-        //lesCartesGraphiques.remove(0);
         //Appel MAJ caméra.
     }
 
@@ -153,7 +152,7 @@ public class FenetreDeJeu implements Observateur {
                 }
                 else{
                     contexteGraphique.drawImage(imageLevierPasActif, levier.getPosition().getX() -
-                                    - cameraTuilesFX.getPosition().getX() * 32 -
+                                    cameraTuilesFX.getPosition().getX() * 32 -
                                     cameraTuilesFX.getDecalageRelatif().getLargeur(),
                             levier.getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur() -
                                     cameraTuilesFX.getPosition().getY() * 32 -
