@@ -36,7 +36,6 @@ public class ActionTeleportationJoueur extends Action {
 
             if (!collisionneurCarte.collisionne(zonecollision, tableauDeJeu.getCarteCourante())) {
                 joueur.installerMemento(new MementoPosition(positionFuture));
-                System.out.println(positionFuture);
                 return;
             }
             compteur++;

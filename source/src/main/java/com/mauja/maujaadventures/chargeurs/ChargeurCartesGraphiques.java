@@ -34,8 +34,8 @@ public class ChargeurCartesGraphiques {
             List<TuileGraphique> lesTuilesGraphiques = new ArrayList<>();
             Image imageJeuDeTuile = new Image(String.valueOf(jeuDeTuiles.getCheminJeuDeTuiles().toURI()));
             List<Image> imagesTuiles = decoupeur.decoupe(imageJeuDeTuile,
-                    (int) jeuDeTuiles.getDimensionJeuDeTuiles().getLargeur(),
-                    (int) jeuDeTuiles.getDimensionJeuDeTuiles().getHauteur());
+                    (int) jeuDeTuiles.getDimensionTuiles().getLargeur(),
+                    (int) jeuDeTuiles.getDimensionTuiles().getHauteur());
 
             List<Tuile> lesTuiles = jeuDeTuiles.getListeDeTuiles();
             for (int i = 0; i < lesTuiles.size(); i++) {
