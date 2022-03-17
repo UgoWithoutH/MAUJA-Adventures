@@ -3,6 +3,9 @@ package com.mauja.maujaadventures.collisionneurs;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.monde.Carte;
 
+/**
+ * Collision entre un élément de la carte et une collision
+ */
 public class CollisionneurCarte {
     private CollisionneurAABB collisionneur = new CollisionneurAABB();
 

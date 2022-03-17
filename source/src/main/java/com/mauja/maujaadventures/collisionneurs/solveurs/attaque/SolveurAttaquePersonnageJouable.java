@@ -5,6 +5,10 @@ import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.Attaque;
 import com.mauja.maujaadventures.monde.Carte;
 
+/**
+ * Solveur attaque avec un personnageJouable
+ * Le personnage Jouable prend les dégâts de l'attaque et si le personnagejouable n'a plus de point de vie alors on le supprime
+ */
 public class SolveurAttaquePersonnageJouable extends SolveurAttaque{
     /**
      * Constructeur de la classe SolveurCollision

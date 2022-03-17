@@ -1,5 +1,8 @@
 package com.mauja.maujaadventures.logique;
 
+/**
+ * Stocke la dernière position d'une entité
+ */
 public class MementoPosition {
     private Position position;
 

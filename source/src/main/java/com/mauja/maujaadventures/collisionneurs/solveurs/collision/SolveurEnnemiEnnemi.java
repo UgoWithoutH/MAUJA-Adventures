@@ -3,6 +3,9 @@ package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
+/**
+ * Solveur de collision entre 2 ennemi, la position de l'ennemi n°1 est restoré à la position avant collision
+ */
 public class SolveurEnnemiEnnemi extends SolveurCollision{
     /**
      * Constructeur de la classe SolveurEnnemiEnnemi

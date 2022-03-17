@@ -4,6 +4,9 @@ package com.mauja.maujaadventures.entites;
 import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.logique.*;
 
+/**
+ * Personnage jouable jouer par l'utilisateur possédant un état et les attributs d'un vivant
+ */
 public class PersonnageJouable extends Vivant {
     private EtatAction etatAction;
 

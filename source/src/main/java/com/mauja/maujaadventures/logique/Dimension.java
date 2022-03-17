@@ -4,6 +4,9 @@ import com.mauja.maujaadventures.annotations.Param;
 
 import java.util.Objects;
 
+/**
+ * Classe de taille des éléments contient la largeur et la hauteur de l'élément
+ */
 public class Dimension {
     private double largeur;
     private double hauteur;

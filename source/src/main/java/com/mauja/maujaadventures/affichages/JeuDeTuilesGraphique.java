@@ -5,6 +5,9 @@ import com.mauja.maujaadventures.monde.JeuDeTuiles;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Jeu de tuiles servant à l'affichage
+ */
 public class JeuDeTuilesGraphique {
     private JeuDeTuiles jeuDeTuiles;
     private List<TuileGraphique> lesTuilesGraphiques;

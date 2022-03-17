@@ -12,6 +12,9 @@ import com.mauja.maujaadventures.logique.Velocite;
 
 import java.util.Objects;
 
+/**
+ * Element destructible similaire à un projectile
+ */
 public class Destructible extends Entite {
     private DeplaceurDeDestructible deplaceurDeDestructible;
     private ElementInteractif emetteur;

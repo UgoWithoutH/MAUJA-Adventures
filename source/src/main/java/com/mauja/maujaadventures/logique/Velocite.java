@@ -5,6 +5,9 @@ import com.mauja.maujaadventures.annotations.Param;
 
 import java.util.Objects;
 
+/**
+ * Vitesse de déplacement de l'entité lorsqu'il souhaite se déplacer X où en Y
+ */
 public class Velocite {
     private double x;
     private double y;

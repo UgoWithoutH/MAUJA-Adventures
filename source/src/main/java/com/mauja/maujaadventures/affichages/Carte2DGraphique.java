@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Carte 2D faisant la vérification des jeux de tuiles à afficher et qui les initialisent
+ */
 public class Carte2DGraphique {
     private Carte carte;
     private List<TuileGraphique> lesTuilesGraphiques;

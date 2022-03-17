@@ -7,6 +7,9 @@ import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.logique.Velocite;
 
+/**
+ * Classe abstraite qui contient une taille une vitesse et une direction
+ */
 public abstract class Entite extends ElementInteractif {
     protected Dimension dimension;
     protected Velocite velocite;

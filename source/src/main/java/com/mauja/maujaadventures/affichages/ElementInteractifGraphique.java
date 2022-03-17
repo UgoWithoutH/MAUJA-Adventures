@@ -5,6 +5,9 @@ import javafx.scene.image.Image;
 
 import java.util.Objects;
 
+/**
+ * Image de l'élément interactif
+ */
 public class ElementInteractifGraphique {
     private ElementInteractif elementInteractif;
     private Image image;
