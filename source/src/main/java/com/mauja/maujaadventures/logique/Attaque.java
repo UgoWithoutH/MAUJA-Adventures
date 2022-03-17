@@ -2,6 +2,9 @@ package com.mauja.maujaadventures.logique;
 
 import java.util.Objects;
 
+/**
+ * Classe d'attaque d'un vivant contient une collision un nombre de dégâts et une durée
+ */
 public class Attaque {
     private static final int DEGATS_PAR_DEFAUT = 3;
     private final float dureeOriginelle;

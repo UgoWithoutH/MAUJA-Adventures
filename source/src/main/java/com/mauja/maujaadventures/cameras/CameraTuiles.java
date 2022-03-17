@@ -8,6 +8,10 @@ import com.mauja.maujaadventures.monde.Carte;
 import com.mauja.maujaadventures.monde.Tuile;
 import jdk.jshell.spi.ExecutionControl;
 
+/**
+ * Caméra permettant de faire l'affichage des tuiles, de centrer la caméra lorsque le personnage bouge
+ * De modifier les tuiles en suivant la caméra et le changement des cartes
+ */
 public class CameraTuiles extends Camera {
     protected Carte carteCourante;
     protected Tuile[][][] zoneVisible;

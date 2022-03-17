@@ -2,6 +2,10 @@ package com.mauja.maujaadventures.logique;
 
 import java.util.Objects;
 
+/**
+ * Classe de transition entre 2 carte.
+ * On vérifie que la position le nom et la collision sont valide et on déplace le joueur sur la 2ème carte
+ */
 public class TransitionCarte {
     private String nomCarte;
     private Position position;

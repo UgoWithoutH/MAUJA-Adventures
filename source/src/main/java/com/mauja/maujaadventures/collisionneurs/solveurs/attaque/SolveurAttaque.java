@@ -6,7 +6,9 @@ import com.mauja.maujaadventures.logique.Attaque;
 import com.mauja.maujaadventures.monde.Carte;
 
 import java.lang.reflect.InvocationTargetException;
-
+/**
+ * Solveur des attaques, cette classe redirige dans la classe associés en fonction des nom de l'élément interactif et une attaque
+ */
 public class SolveurAttaque {
     protected Carte cartecourante;
     protected CollisionneurAABB collisionneur;

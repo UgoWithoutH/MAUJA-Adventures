@@ -3,6 +3,9 @@ package com.mauja.maujaadventures.logique;
 import com.mauja.maujaadventures.annotations.ConstructeurXml;
 import com.mauja.maujaadventures.annotations.Param;
 
+/**
+ * Rectangle servant à la collision. Contient une dimension symbolisant la taille du rectangle et la position de l'objet
+ */
 public class Rectangle {
     private Dimension dimension;
     private Position position;

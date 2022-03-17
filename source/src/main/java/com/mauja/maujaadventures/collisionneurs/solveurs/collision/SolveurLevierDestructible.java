@@ -3,6 +3,10 @@ package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
+/**
+ * Solveur de collision entre levier et destructible.
+ * Le destructible est détruit lors de la collision
+ */
 public class SolveurLevierDestructible extends SolveurCollision{
     /**
      * Constructeur de la classe SolveurLevierProjectile

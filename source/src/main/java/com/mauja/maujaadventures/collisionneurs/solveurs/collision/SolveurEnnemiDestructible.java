@@ -5,6 +5,9 @@ import com.mauja.maujaadventures.entites.Ennemi;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
+/**
+ * Solveur associé à un ennemi et un destructible. Lorsqu'il y a collision l'ennemi prend des dégâts et le projectile est détruit
+ */
 public class SolveurEnnemiDestructible extends SolveurCollision{
     /**
      * Constructeur de la classe SolveurEnnemiProjectile

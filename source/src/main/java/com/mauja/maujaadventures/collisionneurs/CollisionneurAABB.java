@@ -3,6 +3,9 @@ package com.mauja.maujaadventures.collisionneurs;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
 
+/**
+ * Collisionneur entre 2 rectangle. renvoie true si collision
+ */
 public class CollisionneurAABB {
     /**
      * Méthode colission permet de voir si une collision est visible

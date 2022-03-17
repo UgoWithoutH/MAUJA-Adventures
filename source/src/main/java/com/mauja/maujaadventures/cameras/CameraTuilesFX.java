@@ -1,14 +1,15 @@
 package com.mauja.maujaadventures.cameras;
 import com.mauja.maujaadventures.affichages.Carte2DGraphique;
 import com.mauja.maujaadventures.affichages.TuileGraphique;
-import com.mauja.maujaadventures.cameras.CameraTuiles;
 import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.monde.Carte;
-import com.mauja.maujaadventures.monde.Tuile;
 
 import java.util.List;
 
+/**
+ * Mise à jour de la caméra Tuiles et affichages des tuiles
+ */
 public class CameraTuilesFX extends CameraTuiles {
     private List<TuileGraphique> lesTuilesGraphiques;
     private TuileGraphique[][][] visionGraphique;

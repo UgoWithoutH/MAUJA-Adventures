@@ -3,6 +3,9 @@ package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
+/**
+ * Solveur associés à une collision entre 2 destructible, lors de la collision les 2 sont détruits
+ */
 public class SolveurDestructibleDestructible extends SolveurCollision {
 
     /**

@@ -3,6 +3,10 @@ package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
+/**
+ * Solveur de collision entre Personnagejouable et personnageJouable.
+ * Restore la position du personnagejouable n°1 à la position avant collision
+ */
 public class SolveurPersonnageJouablePersonnageJouable extends SolveurCollision{
     /**
      * Constructeur de la classe SolveurPersonnageJouablePersonnageJouable

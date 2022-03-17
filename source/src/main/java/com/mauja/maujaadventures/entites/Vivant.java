@@ -3,6 +3,10 @@ package com.mauja.maujaadventures.entites;
 import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.logique.*;
 
+/**
+ * Classe d'un vivant possédant une attaque des points de vie ainsi qu'une collision, une vitesse et un nombre de dégâts d'attaque
+ * ainsi qu'une position
+ */
 public abstract class Vivant extends Entite {
     private static final int POINTS_DE_VIE_PAR_DEFAUT = 10;
     protected Attaque attaque;

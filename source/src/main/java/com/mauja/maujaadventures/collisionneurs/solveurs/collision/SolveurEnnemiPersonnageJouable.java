@@ -5,6 +5,10 @@ import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
+/**
+ * Solveur entre un Ennemi et un personnageJouable.
+ * Le personnageJouable prend des dégâts en fonction du nombre de point de vie de l'ennemi
+ */
 public class SolveurEnnemiPersonnageJouable extends SolveurCollision{
     /**
      * Constructeur de la classe SolveurEnnemiPersonnageJouable

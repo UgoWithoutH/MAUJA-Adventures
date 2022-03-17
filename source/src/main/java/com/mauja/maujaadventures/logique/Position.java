@@ -5,6 +5,9 @@ import com.mauja.maujaadventures.annotations.Param;
 
 import java.util.Objects;
 
+/**
+ * Position X et Y d'un vivant pouvant être récupérer et/ ou modifier
+ */
 public class Position {
     private double x;
     private double y;

@@ -5,6 +5,9 @@ import javafx.scene.image.Image;
 
 import java.util.Objects;
 
+/**
+ * Tuile servant à l'affichage, correspond une tuile avec une image
+ */
 public class TuileGraphique {
     private Tuile tuile;
     private Image image;

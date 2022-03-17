@@ -3,6 +3,10 @@ package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
 
+/**
+ * Solveur entre un levier et personnage Jouable.
+ * La position du personnage jouable sera restoré à la position avant collision
+ */
 public class SolveurLevierPersonnageJouable extends SolveurCollision{
     /**
      * Constructeur de la classe SolveurLevierPersonnageJouable

@@ -3,6 +3,12 @@ package com.mauja.maujaadventures.collisionneurs.solveurs.collision;
 import com.mauja.maujaadventures.entites.*;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.monde.Carte;
+
+/**
+ * Solveur collision entre PersonnageJouable et destructible
+ * Si le personnage se protège il ne prend pas de point de vie et le destructible est envoyé dans l'autre sens
+ * Si le personnage ne se protège pas alors il perdera le nombre de point de vie des dégâts du destructible
+ */
 public class SolveurPersonnageJouableDestructible extends SolveurCollision{
 
     /**

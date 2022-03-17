@@ -5,7 +5,9 @@ import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.logique.Attaque;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Rectangle;
-
+/**
+ * Attaqueur génére l'attaque en fonction de la dernière position effectué par l'utilisateur
+ */
 public class AttaqueurAbsolu implements Attaqueur {
 
     @Override

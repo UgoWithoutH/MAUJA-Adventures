@@ -6,6 +6,9 @@ import com.mauja.maujaadventures.comportements.Comportement;
 import com.mauja.maujaadventures.comportements.ComportementNull;
 import com.mauja.maujaadventures.logique.*;
 
+/**
+ * ennemi avec un comportement que le personnage peut affronter
+ */
 public class Ennemi extends Vivant {
     private Comportement comportement;
 

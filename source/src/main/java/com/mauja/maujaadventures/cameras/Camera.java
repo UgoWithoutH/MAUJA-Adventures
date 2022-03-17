@@ -6,6 +6,9 @@ import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import jdk.jshell.spi.ExecutionControl;
 
+/**
+ * Caméra du jeu abstraite contenant une position et un décalage et une zone observable
+ */
 public abstract class Camera {
     protected Dimension zoneObservable;
     protected Dimension milieu;

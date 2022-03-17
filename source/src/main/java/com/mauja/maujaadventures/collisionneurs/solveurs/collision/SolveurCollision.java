@@ -5,6 +5,9 @@ import com.mauja.maujaadventures.monde.Carte;
 
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * Solveur des collisions, cette classe redirige dans la classe associés en fonction des nom de classes des 2 éléments interractifs
+ */
 public class SolveurCollision {
     protected Carte carteCourante;
 
