@@ -13,3 +13,8 @@
 carteTest4.tmx 15 5
 carteTest3.tmx 3 8 => carteTest4.tmx 16 17
 carteTest4.tmx 4 4 => carteTest3.tmx 16 15
+test.tmx 14 14 => marais.tmx 4 8
+marais.tmx 26 20 => carte-exeterieur.tmx 77 106
+carte-exeterieur.tmx 98 74 => carteVillage.tmx 21 11
+carteVillage.tmx 21 22 => carteTest.tmx 11 14
+carteTest4.tmx 28 19 => test.tmx 12 14

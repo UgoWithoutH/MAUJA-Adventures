@@ -43,4 +43,11 @@ public class JeuDeTuilesGraphique {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "JeuDeTuilesGraphique{" +
+                "jeuDeTuiles=" + jeuDeTuiles +
+                '}';
+    }
 }

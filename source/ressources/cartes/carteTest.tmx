@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
  <tileset firstgid="1" source="../tilesets/hyptosis_tile-art-batch-5.tsx"/>
+ <tileset firstgid="901" source="../tilesets/terrain_atlas.tsx"/>
  <layer id="1" name="Calque 1" width="30" height="30">
   <data encoding="csv">
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,

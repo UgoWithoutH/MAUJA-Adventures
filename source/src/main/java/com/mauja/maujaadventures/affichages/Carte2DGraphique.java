@@ -55,11 +55,6 @@ public class Carte2DGraphique {
             if (jeuDeTuilesGraphique == null) {
                 throw new IllegalArgumentException("Un des jeu de tuiles graphiques passé en paramètre est null.");
             }
-
-            if (!jeuDeTuilesGraphique.getJeuDeTuiles().getDimensionJeuDeTuiles().equals(dimensionJeuDeTuile)) {
-                throw new IllegalArgumentException("Un des jeu de tuiles ne possède pas les mêmes dimension "
-                        + "que les autres.");
-            }
         }
     }
 

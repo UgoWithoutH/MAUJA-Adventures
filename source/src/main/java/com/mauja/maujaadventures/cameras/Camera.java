@@ -29,10 +29,6 @@ public abstract class Camera {
         return position;
     }
 
-    protected void setPosition(Position position) {
-        this.position = position;
-    }
-
     public Dimension getZoneVisuelle() {
         return zoneObservable;
     }
@@ -43,6 +39,10 @@ public abstract class Camera {
 
     public Dimension getDecalageAbsolu() {
         return decalageAbsolu;
+    }
+
+    public Dimension getZoneObservable() {
+        return zoneObservable;
     }
 
     public abstract void decalage(Direction direction) throws ExecutionControl.NotImplementedException;

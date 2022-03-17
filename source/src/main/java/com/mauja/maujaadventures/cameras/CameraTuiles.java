@@ -84,7 +84,7 @@ public class CameraTuiles extends Camera {
 
     @Override
     public void decalage(Direction direction) throws ExecutionControl.NotImplementedException {
-        throw new ExecutionControl.NotImplementedException("Le système de décalage de la caméra 2D n'est pas implémenté.");
+        throw new ExecutionControl.NotImplementedException("Le système de décalage de la caméra n'est pas implémenté.");
     }
 
     public void actualisation() throws IndexOutOfBoundsException {
@@ -129,7 +129,7 @@ public class CameraTuiles extends Camera {
     public String toString() {
         StringBuilder chaine = new StringBuilder(super.toString());
         chaine.append("\nCarte courante : ");
-        //chaine.append(carteCourante.toString());
+        chaine.append(carteCourante.toString());
         chaine.append("\nVision : \n");
 
         double largeurCamera = zoneObservable.getLargeur();

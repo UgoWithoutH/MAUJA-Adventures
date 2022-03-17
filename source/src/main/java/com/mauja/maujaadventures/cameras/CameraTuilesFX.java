@@ -12,7 +12,7 @@ import java.util.List;
 public class CameraTuilesFX extends CameraTuiles {
     private List<TuileGraphique> lesTuilesGraphiques;
     private TuileGraphique[][][] visionGraphique;
-
+    private Carte2DGraphique carte2DGraphique;
 
     /**
      * Constructeur de la camera
@@ -26,10 +26,7 @@ public class CameraTuilesFX extends CameraTuiles {
         if (carte2DGraphique == null) {
             throw new IllegalArgumentException("La carte graphique doit être non nulle pour la création de la caméra.");
         }
-
-        this.lesTuilesGraphiques = carte2DGraphique.getLesTuilesGraphiques();
-        visionGraphique = new TuileGraphique[nombreCalques]
-    [(int) (zoneVisuelle.getHauteur())][(int) (zoneVisuelle.getLargeur())];
+        changeCarte(carte2DGraphique);
     }
 
 
@@ -51,6 +48,13 @@ public class CameraTuilesFX extends CameraTuiles {
     public void centrerSurEntite(Entite entite) {
         super.centrerSurEntite(entite);
         miseAJour();
+    }
+
+    public void changeCarte(Carte2DGraphique carte2DGraphique) {
+        this.carte2DGraphique = carte2DGraphique;
+        this.lesTuilesGraphiques = carte2DGraphique.getLesTuilesGraphiques();
+        visionGraphique = new TuileGraphique[nombreCalques]
+                [(int) (zoneObservable.getHauteur())][(int) (zoneObservable.getLargeur())];
     }
 
 
