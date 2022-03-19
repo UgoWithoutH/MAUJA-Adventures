@@ -16,7 +16,7 @@ public class ActionActivationLevier extends Action {
         for (ElementInteractif elementInter : lesElementsInteractifs) {
             if (elementInter instanceof Ennemi ennemi) {
                 ennemi.setComportement(new ComportementTireur(tableauDeJeu.getCarteCourante(),
-                        new Velocite(20, 20)));
+                        new Velocite(20, 20), 12));
             }
         }
         tableauDeJeu.getCarteCourante().ajouterElementsInteractifs(lesElementsInteractifs);

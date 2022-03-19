@@ -3,9 +3,11 @@ package com.mauja.maujaadventures.interactions.elements;
 import com.mauja.maujaadventures.annotations.Param;
 import com.mauja.maujaadventures.interactions.actions.Action;
 import com.mauja.maujaadventures.interactions.conditions.Condition;
+import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.MementoPosition;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.logique.Rectangle;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,21 +17,25 @@ import java.util.Objects;
 public abstract class ElementInteractif extends Balise implements Cloneable {
     protected Position position;
     protected Rectangle collision;
+    protected Dimension dimension;
     private MementoPosition dernierePosition;
     private Map<Condition, List<Action>> mapConditionAction;
 
     private Condition derCondition;
 
     public ElementInteractif(@Param(nom = "position", classe = Position.class) Position position,
-                             @Param(nom = "collision", classe = Rectangle.class) Rectangle collision) {
+                             @Param(nom = "collision", classe = Rectangle.class) Rectangle collision,
+                             @Param(nom = "dimension", classe = Dimension.class) Dimension dimension) {
         verificationParametre(position, "position");
+        verificationParametre(dimension, "dimension");
         this.position = position;
         this.collision = collision;
+        this.dimension = dimension;
     }
 
     public void installerMemento(MementoPosition mementoPosition) {
         dernierePosition = new MementoPosition(position);
-        this.position = mementoPosition.getPosition();
+        setPosition(mementoPosition.getPosition());
     }
 
     public MementoPosition creerMemento() {
@@ -37,15 +43,16 @@ public abstract class ElementInteractif extends Balise implements Cloneable {
     }
 
     public void restorerMemento() {
-        position = dernierePosition.getPosition();
+        setPosition(dernierePosition.getPosition());
     }
 
     public Position getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    private void setPosition(Position position) {
         this.position = position;
+        Platform.runLater(() ->notifier(this));
     }
 
     public Rectangle getCollision() {
@@ -54,6 +61,10 @@ public abstract class ElementInteractif extends Balise implements Cloneable {
 
     public void setCollision(Rectangle collision) {
         this.collision = collision;
+    }
+
+    public Dimension getDimension() {
+        return dimension;
     }
 
     public void setMapConditionAction(Map<Condition, List<Action>> mapConditionAction) {
@@ -97,7 +108,8 @@ public abstract class ElementInteractif extends Balise implements Cloneable {
 
     public boolean equals(ElementInteractif elementInteractif) {
         return elementInteractif.getPosition().equals(position)
-                && elementInteractif.getCollision().equals(collision);
+                && elementInteractif.getCollision().equals(collision)
+                && elementInteractif.getDimension().equals(dimension);
     }
 
     @Override
@@ -110,15 +122,16 @@ public abstract class ElementInteractif extends Balise implements Cloneable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(position, collision);
+        return Objects.hash(position, collision, dimension);
     }
 
     @Override
     public String toString() {
         return "[" + this.getClass() + "] : " + position
                 + "\nCollision : " + collision.toString()
-                + "Conditions : " + mapConditionAction
-                + "Dernière condition : " + derCondition;
+                + "\nDimension : " + dimension
+                + "\nConditions : " + mapConditionAction
+                + "\nDernière condition : " + derCondition;
     }
 
     @Override

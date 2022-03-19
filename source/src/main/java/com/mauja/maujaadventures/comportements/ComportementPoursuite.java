@@ -7,6 +7,7 @@ import com.mauja.maujaadventures.entites.PersonnageJouable;
 import com.mauja.maujaadventures.entites.Vivant;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
+import com.mauja.maujaadventures.interactions.evenements.EvenementImmobile;
 import com.mauja.maujaadventures.monde.Carte;
 
 import java.util.Arrays;
@@ -31,17 +32,31 @@ public class ComportementPoursuite implements Comportement{
     @Override
     public void agit(Vivant vivant, float temps) {
         gestionnaireInteractions = GestionnaireInteractions.getInstance();
-        if (joueur.getPosition().getX() > vivant.getPosition().getX()) {
+        double positionJoueurX = joueur.getPosition().getX() + joueur.getCollision().getPosition().getX();
+        double positionJoueurY = joueur.getPosition().getY() + joueur.getCollision().getPosition().getY();
+        double positionVivantX = vivant.getPosition().getX() + vivant.getCollision().getPosition().getX();
+        double positionVivantY = vivant.getPosition().getY() + vivant.getCollision().getPosition().getY();
+        boolean estDeplace = false;
+
+        if (positionJoueurX > positionVivantX) {
             gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.DROITE, deplaceur));
+            estDeplace = true;
         }
-        if (joueur.getPosition().getX() < vivant.getPosition().getX()) {
+        if (positionJoueurX < positionVivantX) {
             gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.GAUCHE, deplaceur));
+            estDeplace = true;
         }
-        if (joueur.getPosition().getY() > vivant.getPosition().getY()) {
+        if (positionJoueurY > positionVivantY) {
             gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.BAS, deplaceur));
+            estDeplace = true;
         }
-        if (joueur.getPosition().getY() < vivant.getPosition().getY()) {
+        if (positionJoueurY < positionVivantY) {
             gestionnaireInteractions.ajouter(new EvenementDeplacement(vivant, Direction.HAUT, deplaceur));
+            estDeplace = true;
+        }
+
+        if (!estDeplace) {
+            gestionnaireInteractions.ajouter(new EvenementImmobile(vivant));
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.mauja.maujaadventures.interactions.elements;
 
-public abstract class Balise {
+import com.mauja.maujaadventures.observateurs.ObservableElementInteractif;
+
+public abstract class Balise extends ObservableElementInteractif {
 
     private Balise baliseParente;
 

@@ -86,7 +86,7 @@ public abstract class Vivant extends Entite {
      * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
      */
     public void setPointsDeVie(int pointsDeVie) {
-        this.pointsDeVie = pointsDeVie;
+        this.pointsDeVie = Math.max(pointsDeVie, 0);
     }
     /**
      * Valeur de hachage unique du vivant

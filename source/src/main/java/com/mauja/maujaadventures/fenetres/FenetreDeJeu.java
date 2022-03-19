@@ -14,10 +14,14 @@ import com.mauja.maujaadventures.monde.Tuile;
 import com.mauja.maujaadventures.observateurs.Observateur;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.monde.Carte;
+import com.mauja.maujaadventures.observateurs.ObservateurElementInteractif;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -25,11 +29,10 @@ import com.mauja.maujaadventures.utilitaires.Navigateur;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class FenetreDeJeu implements Observateur {
+public class FenetreDeJeu implements Observateur, ObservateurElementInteractif {
     private Navigateur navigateur;
     private GestionnaireDeJeu gestionnaireDeJeu;
     private TableauDeJeu tableauDeJeu;
@@ -87,11 +90,15 @@ public class FenetreDeJeu implements Observateur {
         if (!gestionnaireDeJeu.getTableauDeJeu().getCarteCourante().equals(carteCourante)) {
             miseAJourCarte();
         }
-        cameraTuilesFX.centrerSurEntite(tableauDeJeu.getJoueur());
         affichage();
         if (!gestionnaireDeJeu.isLance()) {
             navigateur.naviguerVers(Fenetre.MENU_PAUSE, new MenuPause(navigateur, gestionnaireDeJeu, this));
         }
+    }
+
+    @Override
+    public void miseAJour(ElementInteractif elementInteractif) {
+        cameraTuilesFX.centrerSurEntite(elementInteractif);
     }
 
     public void affichage() {
@@ -102,7 +109,7 @@ public class FenetreDeJeu implements Observateur {
             for (int y = 0; y < vision[k].length; y++) {
                 for (int x = 0; x < vision[k][y].length; x++) {
                     TuileGraphique tuile = vision[k][y][x];
-                    if (!tuile.getTuile().equals(Tuile.TUILE_IGNOREE)) {
+                    if (tuile != null && !tuile.getTuile().equals(Tuile.TUILE_IGNOREE)) {
                         contexteGraphique.drawImage(tuile.getImage(),
                                 (int) (x * largeurTuile - cameraTuilesFX.getDecalageRelatif().getLargeur() -
                                         cameraTuilesFX.getDecalageAbsolu().getLargeur()),
@@ -141,7 +148,6 @@ public class FenetreDeJeu implements Observateur {
                     joueur.getAttaque().getCollision().getPosition().getY() - cameraTuilesFX.getDecalageRelatif().getHauteur() -
                             cameraTuilesFX.getPosition().getY() * hauteurTuile);
         }
-
         afficherVie();
     }
 
@@ -158,9 +164,11 @@ public class FenetreDeJeu implements Observateur {
         carteGraphiqueCourante = lesCartesGraphiques.get(0);
         cameraTuilesFX = new CameraTuilesFX(carteCourante, new Dimension(30,24), carteGraphiqueCourante);
         miseAJourCarte();
+        joueur.attacher(this);
+        cameraTuilesFX.centrerSurEntite(joueur);
 
         try {
-            imagePersonnage = new Image(String.valueOf(new File("ressources/images/entites/link_epee.png").toURI().toURL()));
+            imagePersonnage = new Image(String.valueOf(new File("ressources/images/entites/personnage.png").toURI().toURL()));
             imageProjectile = new Image(String.valueOf(new File("ressources/images/entites/projectile.png").toURI().toURL()));
             imageAttaque = new Image(String.valueOf(new File("ressources/images/entites/attaque.png").toURI().toURL()));
             imageEnnemi = new Image(String.valueOf(new File("ressources/images/entites/ennemi.png").toURI().toURL()));
@@ -199,4 +207,6 @@ public class FenetreDeJeu implements Observateur {
                 (int) (elementInteractif.getPosition().getY() - cameraTuilesFX.getPosition().getY() * hauteurTuile
                         - cameraTuilesFX.getDecalageRelatif().getHauteur()));
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.mauja.maujaadventures.cameras;
 
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import jdk.jshell.spi.ExecutionControl;
@@ -23,10 +24,9 @@ public abstract class Camera {
         position = new Position(0,0);
         decalageRelatif = new Dimension(0, 0);
         decalageAbsolu = new Dimension(0, 0);
-
     }
 
-    public abstract void centrerSurEntite(Entite entite);
+    public abstract void centrerSurEntite(ElementInteractif elementInteractif);
 
     public Position getPosition() {
         return position;

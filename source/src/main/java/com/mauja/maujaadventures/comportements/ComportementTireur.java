@@ -10,12 +10,10 @@ import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.GestionnaireInteractions;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
 import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
+import com.mauja.maujaadventures.interactions.evenements.EvenementImmobile;
 import com.mauja.maujaadventures.jeu.BoucleDeJeu;
+import com.mauja.maujaadventures.logique.*;
 import com.mauja.maujaadventures.observateurs.ObservateurEvenementiel;
-import com.mauja.maujaadventures.logique.Dimension;
-import com.mauja.maujaadventures.logique.Position;
-import com.mauja.maujaadventures.logique.Rectangle;
-import com.mauja.maujaadventures.logique.Velocite;
 import com.mauja.maujaadventures.monde.Carte;
 
 import java.util.Arrays;
@@ -25,9 +23,9 @@ import java.util.Random;
 public class ComportementTireur implements Comportement, ObservateurEvenementiel {
     private static final Random ALEATOIRE = new Random();
     private static final List<Direction> DIRECTIONS_POSSIBLES = Arrays.asList(Direction.values());
+    private static final int NOMBRE_MAXIMUM_DEPLACEMENTS_PAR_DEFAUT = 12;
     private static final int NOMBRE_DIRECTIONS = DIRECTIONS_POSSIBLES.size();
-    private static final int NOMBRE_MAXIMUM_TENTATIVES_DEPLACEMENT = 6;
-    private static final int INTERVALLE_DEPLACEMENT = BoucleDeJeu.FPS_CIBLE / 40;
+    private static final int INTERVALLE_DEPLACEMENT = BoucleDeJeu.FPS_CIBLE / 30;
     private static final double TEMPS_ATTENTE_INACTIF = BoucleDeJeu.FPS_CIBLE * 1.2;
 
     private Deplaceur deplaceur;
@@ -37,12 +35,16 @@ public class ComportementTireur implements Comportement, ObservateurEvenementiel
     private Direction derniereDirection;
     private boolean avance;
     private Velocite vitesseProjectile;
+    private int nombreMaximumDeplacements = 12;
 
-    public ComportementTireur(Carte carte, Velocite vitesseProjectile) throws IllegalArgumentException {
+    public ComportementTireur(Carte carte, Velocite vitesseProjectile, int nombreMaximumDeplacements)
+            throws IllegalArgumentException {
         if (carte == null) {
             throw new IllegalArgumentException("La carte passée en paramètre du comportement de tireur ne peut pas "
                     + "être nulle.");
         }
+        this.nombreMaximumDeplacements = nombreMaximumDeplacements > 0 ? nombreMaximumDeplacements
+                : NOMBRE_MAXIMUM_DEPLACEMENTS_PAR_DEFAUT;
         this.vitesseProjectile = vitesseProjectile;
         carteCourante = carte;
         deplaceur = new DeplaceurBasique(carte);
@@ -63,11 +65,14 @@ public class ComportementTireur implements Comportement, ObservateurEvenementiel
                 iterations = 0;
                 derniereDirection = DIRECTIONS_POSSIBLES.get(ALEATOIRE.nextInt(NOMBRE_DIRECTIONS));
             }
+            else {
+                GestionnaireInteractions.getInstance().ajouter(new EvenementImmobile(vivant));
+            }
         }
 
         // Il se déplace un certain nombre de fois.
         if (avance && iterations >= INTERVALLE_DEPLACEMENT) {
-            if (nombreDeplacements < NOMBRE_MAXIMUM_TENTATIVES_DEPLACEMENT) {
+            if (nombreDeplacements < nombreMaximumDeplacements) {
                 Evenement evenement = new EvenementDeplacement(vivant, derniereDirection, deplaceur);
                 evenement.attacher(this);
                 GestionnaireInteractions.getInstance().ajouter(evenement);
@@ -120,6 +125,6 @@ public class ComportementTireur implements Comportement, ObservateurEvenementiel
                 return;
             }
         }
-        destructible.setPosition(positionProjectile);
+        destructible.installerMemento(new MementoPosition(positionProjectile));
     }
 }

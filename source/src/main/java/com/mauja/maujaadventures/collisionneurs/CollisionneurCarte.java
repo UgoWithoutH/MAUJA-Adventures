@@ -29,9 +29,9 @@ public class CollisionneurCarte {
         Rectangle collisionTuileRelative, collisionTuileAbsolue;
 
         if (coinInferieur >= hauteurCarte || coinInferieur < 0
-                || coinSuperieur >= hauteurCarte || coinSuperieur < 0
+                || coinSuperieur >= hauteurCarte || collision.getPosition().getX() <= 0
                 || coinDroite >= largeurCarte || coinDroite < 0
-                || coinGauche >= largeurCarte || coinGauche < 0) {
+                || coinGauche >= largeurCarte || collision.getPosition().getY() <= 0) {
             return true;
         }
 

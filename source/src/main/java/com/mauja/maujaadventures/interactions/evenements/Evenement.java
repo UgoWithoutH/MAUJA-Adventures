@@ -17,7 +17,7 @@ public abstract class Evenement extends ObservableEvenementiel {
         this.elementInteractif = elementInteractif;
     }
 
-    public abstract void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu);
+    public abstract void traitement(TableauDeJeu tableauDeJeu);
 
     public ElementInteractif getElementInteractif() {
         return elementInteractif;

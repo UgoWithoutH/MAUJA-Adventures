@@ -12,7 +12,7 @@ public class EvenementNull extends Evenement {
     }
 
     @Override
-    public void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu) {
+    public void traitement(TableauDeJeu tableauDeJeu) {
         // Ne fait rien.
     }
 }

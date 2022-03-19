@@ -11,7 +11,6 @@ import com.mauja.maujaadventures.logique.Velocite;
  * Classe abstraite qui contient une taille une vitesse et une direction
  */
 public abstract class Entite extends ElementInteractif {
-    protected Dimension dimension;
     protected Velocite velocite;
     protected Direction direction;
 
@@ -28,25 +27,13 @@ public abstract class Entite extends ElementInteractif {
                   @Param(nom = "collision", classe = Rectangle.class) Rectangle collision,
                   @Param(nom = "velocite", classe = Velocite.class) Velocite velocite)
             throws IllegalArgumentException {
-        super(position, collision);
-        verificationParametre(dimension, "dimension");
-
+        super(position, collision, dimension);
         if (velocite == null) {
             velocite = new Velocite();
         }
 
-        this.dimension = dimension;
         this.velocite = velocite;
         direction = Direction.BAS;
-    }
-
-    /**
-     * Récupération de la dimension
-     * @return La dimension (Hauteur et Largeur) de l'entite
-     * @author Tremblay Jeremy, Vignon Ugo, Viton Antoine, Wissocq Maxime, Coudour Adrien
-     */
-    public Dimension getDimension() {
-        return dimension;
     }
 
     /**
@@ -84,11 +71,8 @@ public abstract class Entite extends ElementInteractif {
     @Override
     public int hashCode() {
         return 7 * (velocite.hashCode()
-                + dimension.hashCode()
                 + direction.hashCode());
     }
-
-
 
     /**
      * Redéfinition du equals
@@ -113,7 +97,6 @@ public abstract class Entite extends ElementInteractif {
      */
     public boolean equals(Entite entite) {
         return super.equals(entite)
-                && dimension.equals(entite.getDimension())
                 && velocite.equals(entite.getVelocite())
                 && direction.equals(entite.getDirection());
     }
@@ -126,7 +109,6 @@ public abstract class Entite extends ElementInteractif {
     @Override
     public String toString() {
         return super.toString()
-                + "\nDimensions : " + dimension.toString()
                 + "\nVelocite : " + velocite
                 + "\nDirection : " + direction;
     }

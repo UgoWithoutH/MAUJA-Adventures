@@ -9,6 +9,7 @@ import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.interactions.evenements.EvenementNull;
 import com.mauja.maujaadventures.interactions.parseurs.ParseurInteraction;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -90,7 +91,7 @@ public class GestionnaireInteractions implements Runnable {
         while (enCours) {
             if (!fileCourante.isEmpty()) {
                 Evenement evenement = fileCourante.poll();
-                evenement.traitement(parseurInteraction.getScenarios(), tableauDeJeu);
+                evenement.traitement(tableauDeJeu);
                 verificationScenarios(tableauDeJeu);
             }
             else {

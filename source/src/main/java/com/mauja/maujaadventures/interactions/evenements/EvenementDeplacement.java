@@ -8,6 +8,7 @@ import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.interactions.*;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
+import com.mauja.maujaadventures.logique.MementoPosition;
 import com.mauja.maujaadventures.logique.Rectangle;
 import com.mauja.maujaadventures.logique.TransitionCarte;
 
@@ -31,7 +32,7 @@ public class EvenementDeplacement extends Evenement {
     }
 
     @Override
-    public void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu) {
+    public void traitement(TableauDeJeu tableauDeJeu) {
         if (!(elementInteractif instanceof Entite)) {
             return;
         }
@@ -69,7 +70,8 @@ public class EvenementDeplacement extends Evenement {
                 if (tableauDeJeu.getCarteCourante().getNom().equals(transitions.getKey().getNomCarte())
                         && collisionneur.collisionne(collisionElement1, transitions.getKey().getCollision())) {
                     if (tableauDeJeu.getJoueur().equals(elementInteractif)) {
-                        elementInteractif.setPosition(transitions.getValue().getCollision().getPosition());
+                        elementInteractif.installerMemento(
+                                new MementoPosition(transitions.getValue().getCollision().getPosition()));
                         tableauDeJeu.changerCarte(transitions.getValue().getNomCarte());
                     }
                 }

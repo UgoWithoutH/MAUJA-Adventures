@@ -2,6 +2,7 @@ package com.mauja.maujaadventures.cameras;
 import com.mauja.maujaadventures.affichages.Carte2DGraphique;
 import com.mauja.maujaadventures.affichages.TuileGraphique;
 import com.mauja.maujaadventures.entites.Entite;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.monde.Carte;
 
@@ -46,8 +47,8 @@ public class CameraTuilesFX extends CameraTuiles {
     }
 
     @Override
-    public void centrerSurEntite(Entite entite) {
-        super.centrerSurEntite(entite);
+    public void centrerSurEntite(ElementInteractif elementInteractif) {
+        super.centrerSurEntite(elementInteractif);
         miseAJour();
     }
 
@@ -57,7 +58,6 @@ public class CameraTuilesFX extends CameraTuiles {
         visionGraphique = new TuileGraphique[nombreCalques]
                 [(int) (zoneObservable.getHauteur())][(int) (zoneObservable.getLargeur())];
     }
-
 
     /**
      * Methode mettant a jour la camera ( postion etc.. )

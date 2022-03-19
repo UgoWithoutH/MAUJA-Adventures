@@ -26,7 +26,7 @@ public class EvenementAttaque extends Evenement {
     }
 
     @Override
-    public void traitement(List<Scenario> scenarios, TableauDeJeu tableauDeJeu) {
+    public void traitement(TableauDeJeu tableauDeJeu) {
         SolveurAttaque solveurAttaque = new SolveurAttaque(tableauDeJeu.getCarteCourante());
 
         for (ElementInteractif elementInter : tableauDeJeu.getCarteCourante().getLesElementsInteractifs()) {

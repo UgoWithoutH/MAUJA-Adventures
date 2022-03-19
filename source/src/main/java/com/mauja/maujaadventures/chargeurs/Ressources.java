@@ -11,6 +11,7 @@ public class Ressources {
     private static Ressources ressources;
     private ConfigurateurEnvironnement configurateurEnvironnement;
     private final File nomDossierRessourcesProjet = new File("ressources");
+    private String cheminIcone;
 
     private List<File> lesFichiers;
     private Map<File, String> lesDossiersEtExtensions;
@@ -44,6 +45,10 @@ public class Ressources {
         return configurateurEnvironnement.getLesFichiersDeConfiguration().get("transitions.txt");
     }
 
+    public String getCheminIcone() {
+        return cheminIcone;
+    }
+
     public static Ressources getInstance() {
         if (ressources == null) {
             ressources = new Ressources();
@@ -68,7 +73,8 @@ public class Ressources {
         lesDossiersEtExtensions.put(new File("images" + File.separator + "tilesets" + File.separator), ".png");
 
         try {
-            lesImagesEntites.add(Objects.requireNonNull(new File("images/entites/link_epee.png").toURI().toURL().toExternalForm()));
+            cheminIcone = Objects.requireNonNull(Ressources.class.getResource("/images/icone.png")).toExternalForm();
+            lesImagesEntites.add(Objects.requireNonNull(new File("images/entites/personnage.png").toURI().toURL().toExternalForm()));
             lesImagesEntites.add(Objects.requireNonNull(new File("images/entites/projectile.png").toURI().toURL().toString()));
         }
         catch (MalformedURLException e) {

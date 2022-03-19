@@ -2,6 +2,7 @@ package com.mauja.maujaadventures.cameras;
 
 import com.mauja.maujaadventures.entites.Direction;
 import com.mauja.maujaadventures.entites.Entite;
+import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.Position;
 import com.mauja.maujaadventures.monde.Carte;
@@ -39,18 +40,18 @@ public class CameraTuiles extends Camera {
         changeCarte(carte);
     }
 
-
     @Override
-    public void centrerSurEntite(Entite entite) {
-        ///double positionEntiteX = ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) / largeurTuile);
-        //double positionEntiteY = ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) / hauteurTuile);
+    public void centrerSurEntite(ElementInteractif elementInteractif) {
+        int positionEntiteX = (int) ((elementInteractif.getPosition().getX()
+                + elementInteractif.getDimension().getLargeur() / 2) / largeurTuile);
+        int positionEntiteY = (int) ((elementInteractif.getPosition().getY()
+                + elementInteractif.getDimension().getHauteur() / 2) / hauteurTuile);
 
-        int positionEntiteX = (int) ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) / largeurTuile);
-        int positionEntiteY = (int) ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) / hauteurTuile);
 
-
-        double decalageX = ((entite.getPosition().getX() + entite.getDimension().getLargeur() / 2) % largeurTuile);
-        double decalageY = ((entite.getPosition().getY() + entite.getDimension().getHauteur() / 2) % hauteurTuile);
+        double decalageX = ((elementInteractif.getPosition().getX()
+                + elementInteractif.getDimension().getLargeur() / 2) % largeurTuile);
+        double decalageY = ((elementInteractif.getPosition().getY()
+                + elementInteractif.getDimension().getHauteur() / 2) % hauteurTuile);
 
         double milieuEcranX = milieu.getLargeur();
         double milieuEcranY = milieu.getHauteur();
@@ -123,10 +124,6 @@ public class CameraTuiles extends Camera {
 
     public Carte getCarte() {
         return carteCourante;
-    }
-
-    public Tuile[][][] getZoneVisible() {
-        return zoneVisible;
     }
 
     @Override
