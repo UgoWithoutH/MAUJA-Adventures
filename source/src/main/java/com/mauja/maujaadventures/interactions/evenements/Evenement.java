@@ -1,11 +1,8 @@
 package com.mauja.maujaadventures.interactions.evenements;
 
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
-import com.mauja.maujaadventures.interactions.Scenario;
 import com.mauja.maujaadventures.observateurs.ObservableEvenementiel;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
-
-import java.util.List;
 
 public abstract class Evenement extends ObservableEvenementiel {
     protected ElementInteractif elementInteractif;

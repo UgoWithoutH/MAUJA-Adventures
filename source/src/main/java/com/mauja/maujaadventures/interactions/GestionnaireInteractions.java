@@ -5,14 +5,9 @@ import com.mauja.maujaadventures.interactions.actions.Action;
 import com.mauja.maujaadventures.interactions.conditions.Condition;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.interactions.evenements.Evenement;
-import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.interactions.evenements.EvenementNull;
 import com.mauja.maujaadventures.interactions.parseurs.ParseurInteraction;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
-import javafx.application.Platform;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;

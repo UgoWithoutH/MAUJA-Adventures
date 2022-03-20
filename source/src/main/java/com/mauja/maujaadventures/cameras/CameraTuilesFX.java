@@ -1,7 +1,6 @@
 package com.mauja.maujaadventures.cameras;
 import com.mauja.maujaadventures.affichages.Carte2DGraphique;
 import com.mauja.maujaadventures.affichages.TuileGraphique;
-import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.monde.Carte;
@@ -20,7 +19,7 @@ public class CameraTuilesFX extends CameraTuiles {
      * Constructeur de la camera
      * @param carte carte ou se trouve la camera
      * @param zoneVisuelle dimension de la vue
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException Carte graphique est nulle pour la caméra
      */
     public CameraTuilesFX(Carte carte, Dimension zoneVisuelle, Carte2DGraphique carte2DGraphique)
             throws IllegalArgumentException {
@@ -36,7 +35,7 @@ public class CameraTuilesFX extends CameraTuiles {
      * retourne la tuile pour un certain endroit
      * @param x coordonnées X de la tuile
      * @param y coordonnées Y de la tuile
-     * @return
+     * @return Element graphique en 2 dimension
      */
     public TuileGraphique getTuileGraphique(int k, int x, int y) {
         return visionGraphique[k][x][y];

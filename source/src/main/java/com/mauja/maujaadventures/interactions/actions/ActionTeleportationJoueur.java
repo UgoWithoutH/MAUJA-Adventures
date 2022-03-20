@@ -2,7 +2,6 @@ package com.mauja.maujaadventures.interactions.actions;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurCarte;
 import com.mauja.maujaadventures.entites.PersonnageJouable;
-import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.logique.Dimension;
 import com.mauja.maujaadventures.logique.MementoPosition;

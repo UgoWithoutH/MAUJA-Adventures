@@ -2,14 +2,10 @@ package com.mauja.maujaadventures.interactions.evenements;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.collisionneurs.solveurs.attaque.SolveurAttaque;
-import com.mauja.maujaadventures.interactions.*;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.logique.Attaque;
 import com.mauja.maujaadventures.logique.Rectangle;
-import com.mauja.maujaadventures.monde.Carte;
-
-import java.util.List;
 
 public class EvenementAttaque extends Evenement {
     private Attaque attaque;

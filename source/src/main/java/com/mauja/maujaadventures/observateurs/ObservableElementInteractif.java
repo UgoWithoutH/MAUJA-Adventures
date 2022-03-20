@@ -1,6 +1,5 @@
 package com.mauja.maujaadventures.observateurs;
 
-import com.mauja.maujaadventures.entites.Entite;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 
 import java.util.LinkedList;

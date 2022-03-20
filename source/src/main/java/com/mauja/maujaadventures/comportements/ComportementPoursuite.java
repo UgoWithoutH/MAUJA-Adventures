@@ -10,11 +10,8 @@ import com.mauja.maujaadventures.interactions.evenements.EvenementDeplacement;
 import com.mauja.maujaadventures.interactions.evenements.EvenementImmobile;
 import com.mauja.maujaadventures.monde.Carte;
 
-import java.util.Arrays;
-import java.util.List;
 
 public class ComportementPoursuite implements Comportement{
-    private static final List<Direction> DIRECTIONS_POSSIBLES = Arrays.asList(Direction.values());
     private PersonnageJouable joueur;
 
     private Deplaceur deplaceur;

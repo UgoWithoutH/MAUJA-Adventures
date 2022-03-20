@@ -2,7 +2,6 @@ package com.mauja.maujaadventures.interactions.evenements;
 
 import com.mauja.maujaadventures.collisionneurs.CollisionneurAABB;
 import com.mauja.maujaadventures.collisionneurs.solveurs.collision.SolveurCollision;
-import com.mauja.maujaadventures.interactions.Scenario;
 import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import com.mauja.maujaadventures.jeu.TableauDeJeu;
 import com.mauja.maujaadventures.logique.Rectangle;

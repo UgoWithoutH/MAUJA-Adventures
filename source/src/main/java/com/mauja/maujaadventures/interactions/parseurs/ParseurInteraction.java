@@ -1,7 +1,6 @@
 package com.mauja.maujaadventures.interactions.parseurs;
 
 import com.mauja.maujaadventures.interactions.Scenario;
-import com.mauja.maujaadventures.interactions.elements.ElementInteractif;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

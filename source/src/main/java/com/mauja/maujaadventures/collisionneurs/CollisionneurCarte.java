@@ -19,7 +19,7 @@ public class CollisionneurCarte {
         double largeurCarte = carte.getDimensionCarte().getLargeur();
         double hauteurCarte = carte.getDimensionCarte().getHauteur();
 
-        int coinGauche = (int) (collision.getPosition().getX() / largeurTuile);;
+        int coinGauche = (int) (collision.getPosition().getX() / largeurTuile);
         int coinSuperieur = (int) (collision.getPosition().getY() / hauteurTuile);
         int coinDroite = (int) ((collision.getPosition().getX() + collision.getDimension().getLargeur())
                 / largeurTuile);
