@@ -140,8 +140,8 @@ N'hésitez pas à mettre une étoile si ce projet vous plaît.
 
 👤 **Maxime WISSOCQ**
 
-* [@xxx](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard)
-* [@xxx](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard)
+* [@xxx](https://www.linkedin.com/in/maxime-wissocq-207066220/)
+* [@xxx](https://github.com/MaximeWq)
 
 Remerciements spéciaux à notre enseignant **M. PROVOT Laurent** qui nous a aidé et guidé durant ce projet.
 
