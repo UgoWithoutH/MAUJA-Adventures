@@ -4,7 +4,7 @@
 
 MAUJA Adventures est un jeu en deux dimensions basé sur les énigmes, l'aventure et le combat. Nous avons réalisé l'entièreté du moteur de jeu.  
 
-![image](https://gitlab.iut-clermont.uca.fr/jetremblay/mauja-adventures/-/blob/main/images/trou.png)
+<img src="images/carteverte.png" width=60% height=60%>
 
 A la manière des RPG traditionnels, il se sert de cartes réalisées avec le système de *tile-mapping* et propose une expérience de jeu divertissante.
 Il est possible de vous déplacer dans des cartes reliées entre elles et qui sont composées d'un système de calques permettant d'amener de la profondeur au jeu. Les ennemis possèdent différents comportements et peuvent attaquer au corps à corps ou à distance. Le joueur peut affronter différents types d'ennemis via des attaques à l'épée, se défendre de manière à renvoyer des projectiles et perdre de la vie.  
@@ -99,6 +99,11 @@ Enfin, dans le dossier `images/tilesets/` vous pourrez placer les fichier des im
 
 ### Transitions entre les cartes
 Le fichier de transitions entre les cartes `transitions.txt` situé à la racine du dossier `.mauja` contient toutes les transitions. Vous pouvez l'éditer pour préciser quelle est la première carte où le joueur va apparaître, et comment il va pouvoir se déplacer entre les différentes cartes du monde. La syntaxe a utiliser pour préciser ces informations est spécifiée dans le fichier et s'il est supprimé il sera recréé automatiquement. 
+Voici les tuiles qui permettent de se déplacer entre les cartes actuellement:  
+<img src="images/trou.png" width=100 height=100>
+<img src="images/porte_arbre.png" width=100 height=100>
+<img src="images/porte_pierre.png" width=100 height=100>  
+_Le trou sur 3 cartes, la porte dans l'arbre sur 1 carte et la plateforme en pierre sur une carte_  
 
 ### Configurer ses touches
 Le fichier `configurationTouches.txt` précise quelles touches vont être associées aux actions qu'il sera possible de réaliser en jeu. La syntaxe a utiliser pour préciser ces informations est spécifiée dans le fichier et s'il est supprimé il sera recréé automatiquement. 
@@ -107,6 +112,7 @@ Le fichier `configurationTouches.txt` précise quelles touches vont être associ
 Enfin, le dossier `scripts` contient des fichiers XML qui seront lus au lancement du projet. Ces scénarios se dérouleront conformément aux conditions et actions définies par les utilisateurs dans les fichiers de script.
 
 Pour écrire un tel scénario, se référer à l'exemple fourni dans le dossier. Il s'agit d'un enchainement de balises d'`Action`, de `Condition`s et d'`ElementInteractif`s.
+
 
 ### Pour aller plus loin
 
@@ -125,7 +131,8 @@ N'hésitez pas à mettre une étoile si ce projet vous plaît.
 
 👤 **Antoine VITON**
 
-* [@anviton](https://github.com/anviton)
+* [@xxx](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard)
+* [@xxx](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard)
 
 👤 **Ugo VIGNON**
 
@@ -139,8 +146,8 @@ N'hésitez pas à mettre une étoile si ce projet vous plaît.
 
 👤 **Maxime WISSOCQ**
 
-* [@xxx](https://www.linkedin.com/in/maxime-wissocq-207066220/)
-* [@xxx](https://github.com/MaximeWq)
+* [@maxime-wissocq](https://www.linkedin.com/in/maxime-wissocq-207066220/)
+* [@MaximeWq](https://github.com/MaximeWq)
 
 Remerciements spéciaux à notre enseignant **M. PROVOT Laurent** qui nous a aidé et guidé durant ce projet.
 
