@@ -13,7 +13,6 @@ gen/
 out/
 
 # IntelliJ
-*.iml
 source/.idea/workspace.xml
 source/.idea/libraries
 source/.idea/shelf
