@@ -4,7 +4,7 @@
 
 MAUJA Adventures est un jeu en deux dimensions basé sur les énigmes, l'aventure et le combat. Nous avons réalisé l'entièreté du moteur de jeu.  
 
-![image](https://github.com/thecodebuzz/FileSizePOC/blob/master/TheCodebuzz.png?raw=true)
+![image](https://gitlab.iut-clermont.uca.fr/jetremblay/mauja-adventures/-/blob/main/images/trou.png?raw=true)
 
 A la manière des RPG traditionnels, il se sert de cartes réalisées avec le système de *tile-mapping* et propose une expérience de jeu divertissante.
 Il est possible de vous déplacer dans des cartes reliées entre elles et qui sont composées d'un système de calques permettant d'amener de la profondeur au jeu. Les ennemis possèdent différents comportements et peuvent attaquer au corps à corps ou à distance. Le joueur peut affronter différents types d'ennemis via des attaques à l'épée, se défendre de manière à renvoyer des projectiles et perdre de la vie.  
@@ -125,8 +125,8 @@ N'hésitez pas à mettre une étoile si ce projet vous plaît.
 
 👤 **Antoine VITON**
 
-* [@Ugo Vignon](https://www.linkedin.com/in/ugo-vignon-72a481220)
-* [@UgoWithoutH](https://github.com/UgoWithoutH)
+* [@xxx](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard)
+* [@xxx](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard)
 
 👤 **Ugo VIGNON**
 
