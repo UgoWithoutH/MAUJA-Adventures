@@ -18,3 +18,5 @@ marais.tmx 26 20 => carte-exeterieur.tmx 77 106
 carte-exeterieur.tmx 98 74 => carteVillage.tmx 21 11
 carteVillage.tmx 21 22 => carteTest.tmx 11 14
 carteTest4.tmx 28 19 => test.tmx 12 14
+carteVillage.tmx 4 14 => carteVillage.tmx 21 5
+carteVillage.tmx 7 8 => carteVillage.tmx 5 26
