@@ -125,8 +125,8 @@ N'hésitez pas à mettre une étoile si ce projet vous plaît.
 
 👤 **Antoine VITON**
 
-* [@xxx](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard)
-* [@xxx](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard)
+* [@Ugo Vignon](https://www.linkedin.com/in/ugo-vignon-72a481220)
+* [@UgoWithoutH](https://github.com/UgoWithoutH)
 
 👤 **Ugo VIGNON**
 
