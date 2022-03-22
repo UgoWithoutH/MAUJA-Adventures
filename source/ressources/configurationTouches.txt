@@ -1,0 +1,25 @@
+# MAUJA ADVENTURES - Fichier de configuration des touches en jeu.
+
+# Vous pouvez ici préciser les touches que vous souhaitez assigner aux commandes du jeu.
+# Le seul format imposé est de la forme KEYCODE_JAVA_FX : TOUCHE_MAUJA
+# ATTENTION : toutes les touches non-renseignées empêcheront d'utiliser les contrôles correspondants.
+
+# Déplacements.
+KP_LEFT : FLECHE_GAUCHE
+KP_RIGHT : FLECHE_DROITE
+KP_UP : FLECHE_HAUT
+KP_DOWN : FLECHE_BAS
+
+LEFT : FLECHE_GAUCHE
+RIGHT : FLECHE_DROITE
+UP : FLECHE_HAUT
+DOWN : FLECHE_BAS
+
+# Pour faire demi tour dans les menus.
+ESCAPE : ECHAP
+
+# Attaque.
+SPACE : ESPACE
+
+# Défense.
+B : B

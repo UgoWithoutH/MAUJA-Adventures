@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<GridPane fx:id="mainGrid" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          minWidth="964" minHeight="650">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100" halignment="CENTER"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="100" valignment="CENTER"/>
+    </rowConstraints>
+    <VBox alignment="CENTER" spacing="20">
+        <Button fx:id="solo" text="Solo" onAction="#startSolo"/>
+        <Button fx:id="param" text="Paramètres" onAction="#parametres"/>
+        <Button fx:id="quitter" text="Quitter" onAction="#quitter"/>
+    </VBox>
+
+    <stylesheets>
+        <URL value="@../css/menustyle.css" />
+    </stylesheets>
+</GridPane>

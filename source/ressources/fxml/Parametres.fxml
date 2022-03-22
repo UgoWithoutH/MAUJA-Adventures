@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<GridPane fx:id="paramPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" alignment="CENTER"
+          minWidth="964" minHeight="650">
+    <rowConstraints>
+        <RowConstraints percentHeight="10"/>
+        <RowConstraints percentHeight="90"/>
+    </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100" halignment="CENTER"/>
+    </columnConstraints>
+        <HBox GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <padding><Insets top="5" left="5" bottom="5" right="5"/></padding>
+            <Button text="Retour" onAction="#retour"/>
+        </HBox>
+        <VBox fx:id="content" GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER">
+            <TextField fx:id="zoneText" maxWidth="200"/>
+        </VBox>
+
+    <stylesheets>
+        <URL value="@../css/param.css" />
+    </stylesheets>
+</GridPane>
+
+
