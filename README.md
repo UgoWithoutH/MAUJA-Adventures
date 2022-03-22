@@ -125,8 +125,7 @@ N'hésitez pas à mettre une étoile si ce projet vous plaît.
 
 👤 **Antoine VITON**
 
-* [@xxx](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard)
-* [@xxx](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard)
+* [@anviton](https://github.com/anviton)
 
 👤 **Ugo VIGNON**
 
@@ -140,8 +139,8 @@ N'hésitez pas à mettre une étoile si ce projet vous plaît.
 
 👤 **Maxime WISSOCQ**
 
-* [@maxime-wissocq](https://www.linkedin.com/in/maxime-wissocq-207066220/)
-* [@MaximeWq](https://github.com/MaximeWq)
+* [@xxx](https://www.linkedin.com/in/maxime-wissocq-207066220/)
+* [@xxx](https://github.com/MaximeWq)
 
 Remerciements spéciaux à notre enseignant **M. PROVOT Laurent** qui nous a aidé et guidé durant ce projet.
 
